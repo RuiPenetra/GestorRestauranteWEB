@@ -16,23 +16,6 @@ class m201016_160137_rbac extends Migration
 
         //TODO: CRIAR PREMISSOES
 
-        /** UTILIZADORES */
-
-        //# CRIAR #
-        $criarUtilizador = $auth->createPermission('criarUtilizador');
-        $criarUtilizador->description = 'Criar utilizadores';
-        $auth->add($criarUtilizador);
-
-        //# CONSULTAR #
-        $consultarUtilizadores = $auth->createPermission('consultarUtilizadores');
-        $consultarUtilizadores = $auth->createPermission('Consultar utilizadores');
-        $auth->add($consultarUtilizadores);
-
-        //# ATUALIZAR #
-
-        //# APAGAR #
-
-
         //TODO: CRIAR ROLE E ATRIBUIR PREMISSÕES
 
         //TODO: ATRUBUIR PREMISSÕES AO ADMIN ( GERENTE )

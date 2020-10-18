@@ -94,6 +94,7 @@ class SiteController extends Controller
         } else {
             $model->password = '';
 
+            $this->layout = "main_principal";
             return $this->render('login', [
                 'model' => $model,
             ]);
@@ -158,6 +159,7 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
+        $this->layout = "main_principal";
         return $this->render('signup', [
             'model' => $model,
         ]);

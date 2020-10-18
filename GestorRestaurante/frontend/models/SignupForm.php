@@ -13,6 +13,15 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $password_conf;
+    public $nome;
+    public $apelido;
+    public $morada;
+    public $codigopostal;
+    public $telemovel;
+    public $nacionalidade;
+    public $datanascimento;
+    public $genero;
 
 
     /**
@@ -21,19 +30,14 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            ['username', 'trim'],
-            ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
-
-            ['email', 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
-
-            ['password', 'required'],
-            ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+            [['username', 'morada', 'nome', 'apelido', 'datanascimento', 'nacionalidade', 'telemovel', 'codigopostal', 'genero', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['datanascimento'], 'safe'],
+            [['nacionalidade', 'telemovel', 'genero', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'morada', 'nome', 'apelido', 'codigopostal', 'password_hash', 'password_reset_token', 'email', 'password_conf', 'verification_token'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
+            [['password_reset_token'], 'unique'],
         ];
     }
 
@@ -51,6 +55,15 @@ class SignupForm extends Model
         $user = new User();
         $user->username = $this->username;
         $user->email = $this->email;
+        $user->nome = $this->nome;
+        $user->apelido = $this->apelido;
+        $user->morada = $this->morada;
+        $user->nacionalidade = $this->nacionalidade;
+        $user->datanascimento = $this->datanascimento;
+        $user->codigopostal = $this->codigopostal;
+        $user->codigopostal = $this->codigopostal;
+        $user->telemovel= $this->telemovel;
+        $user->genero= $this->genero;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->generateEmailVerificationToken();

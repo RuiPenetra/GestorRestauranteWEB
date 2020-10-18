@@ -1,17 +1,14 @@
-html,
-body {
-    height: 100%;
-}
-
 .wrap {
     min-height: 100%;
-    height: auto;
     margin: 0 auto -60px;
     padding: 0 0 60px;
+    background-color: #ff9b71;
 }
 
 .wrap > .container {
+    height: auto;
     padding: 70px 15px 20px;
+    background-color: #ff9b71;
 }
 
 .footer {
@@ -118,3 +115,46 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+
+.navbar .container {
+    text-align: center;
+}
+.navbar-collapse .navbar-brand {
+    display: inline-block;
+    float: none;
+    padding: 0;
+    margin: 0 !important;
+    overflow: visible;
+}
+.navbar-collapse .navbar-brand .white-circle {
+    display: block;
+    width: 161px;
+    height: 161px;
+    background-color: white;
+    border-radius: 50%;
+    border: 1px dotted red;
+}
+.navbar-collapse .navbar-brand .white-circle .logo {
+    width: 144px;
+}
+
+.navbar-brand{
+    width: 50px;
+    height: 50px;
+}
+
+/**
+ * --------------------------------------------
+ * Page Login
+ * --------------------------------------------
+ */
+
+
+
+/**
+ * --------------------------------------------
+ * Page SignUp
+ * --------------------------------------------
+ */
+

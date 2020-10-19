@@ -236,10 +236,150 @@ class m201016_160137_rbac extends Migration
             $apagarMesas->createPermission('Apagar Mesas');
             $auth->add($apagarMesas);
 
+
+
+
+
+
         //TODO: CRIAR ROLE E ATRIBUIR PREMISSÕES
 
+        /**ROLE -> ADMIN__________________________________________________________________________**/
+        $gerente = $auth->createRole('gerente');
+        $auth->add($gerente);
+
+        //# UTILIZADORES #
+        $auth->addChild($gerente, $criarUtilizadores);
+        $auth->addChild($gerente, $consultarUtilizadores);
+        $auth->addChild($gerente, $atualizarUtilizadores);
+        $auth->addChild($gerente, $apagarUtilizadores);
+
+        //# PERFIS #
+        $auth->addChild($gerente, $criarPerfis);
+        $auth->addChild($gerente, $consultarPerfis);
+        $auth->addChild($gerente, $atualizarPerfis);
+        $auth->addChild($gerente, $apagarPerfis);
+
+        //# CARGOS #
+        $auth->addChild($gerente, $criarCargos); //[ AINDA A VER SE IRA CRIAR]
+        $auth->addChild($gerente, $consultarCargos);
+        $auth->addChild($gerente, $atualizarCargos);
+        $auth->addChild($gerente, $apagarCargos); //[ AINDA A VER SE IRA CRIAR]
+
+        //# PEDIDOS #
+        $auth->addChild($gerente, $criarPedidos);
+        $auth->addChild($gerente, $consultarPedidos);
+        $auth->addChild($gerente, $atualizarPedidos);
+        $auth->addChild($gerente, $apagarPedidos);
+
+        //# EMENTAS #
+        $auth->addChild($gerente, $criarEmentas);
+        $auth->addChild($gerente, $consultarEmentas);
+        $auth->addChild($gerente, $atualizarEmentas);
+        $auth->addChild($gerente, $apagarEmentas);
+
+        //# FALTAS #
+        $auth->addChild($gerente, $criarFaltas);
+        $auth->addChild($gerente, $consultarFaltas);
+        $auth->addChild($gerente, $atualizarFaltas);
+        $auth->addChild($gerente, $apagarFaltas);
+
+        //# HORARIOS #
+        $auth->addChild($gerente, $criarHorarios);
+        $auth->addChild($gerente, $consultarHorarios);
+        $auth->addChild($gerente, $atualizarHorarios);
+        $auth->addChild($gerente, $apagarHorarios);
+
+        //# FATURAS #
+        $auth->addChild($gerente, $criarFaturas);
+        $auth->addChild($gerente, $consultarFaturas);
+        $auth->addChild($gerente, $atualizarFaturas);
+        $auth->addChild($gerente, $apagarFaturas);
+
+        //# CATEGORIA DE PRATOS #
+        $auth->addChild($gerente, $criarCategoriaPratos);
+        $auth->addChild($gerente, $consultarCategoriaPratos);
+        $auth->addChild($gerente, $atualizarCategoriaPratos);
+        $auth->addChild($gerente, $apagarCategoriaPratos);
+
+        //# MESAS #
+        $auth->addChild($gerente, $criarMesas);
+        $auth->addChild($gerente, $consultarMesas);
+        $auth->addChild($gerente, $atualizarMesas);
+        $auth->addChild($gerente, $apagarMesas);
+
+        /** ROLE -> ATENDEDOR DE PEDIDOS ________________________________________________________________________**/
+
+            $atendedorPedidos = $auth->createRole('atendedorPedidos');
+            $auth->add($atendedorPedidos);
+
+            //# Perfil #
+            $auth->addChild($atendedorPedidos, $consultarPerfis);
+            $auth->addChild($atendedorPedidos, $atualizarPerfis);
+
+            //# EMENTAS #
+            $auth->addChild($atendedorPedidos, $consultarEmentas);
+
+            //# HORARIOS #
+            $auth->addChild($atendedorPedidos, $consultarHorarios);
+
+            //# PEDIDOS #
+
+            $auth->addChild($atendedorPedidos, $criarPedidos);
+            $auth->addChild($atendedorPedidos, $consultarPedidos);
+            $auth->addChild($atendedorPedidos, $atualizarPedidos);
+            $auth->addChild($atendedorPedidos, $apagarPedidos);
+
+            //# FALTAS #
+            $auth->addChild($atendedorPedidos, $consultarFaltas);
 
 
+        /**ROLE -> EMPREGADO DE MESA_____________________________________________________________________________**/
+
+            $empregadoMesa = $auth->createRole('empregadoMesa');
+            $auth->add($empregadoMesa);
+
+            //# Perfil #
+            $auth->addChild($empregadoMesa, $consultarPerfis);
+            $auth->addChild($empregadoMesa, $atualizarPerfis);
+
+            //# EMENTAS #
+            $auth->addChild($empregadoMesa, $consultarEmentas);
+
+            //# HORARIOS #
+            $auth->addChild($empregadoMesa, $consultarHorarios);
+
+            //# PEDIDOS #
+
+            $auth->addChild($empregadoMesa, $criarPedidos);
+            $auth->addChild($empregadoMesa, $consultarPedidos);
+            $auth->addChild($empregadoMesa, $atualizarPedidos);
+            $auth->addChild($empregadoMesa, $apagarPedidos);
+
+            //# FALTAS #
+            $auth->addChild($empregadoMesa, $consultarFaltas);
+
+        /**ROLE -> COZINHEIRO____________________________________________________________________________________**/
+
+            $cozinheiro = $auth->createRole('cozinheiro');
+            $auth->add($cozinheiro);
+
+            //# Perfil #
+            $auth->addChild($cozinheiro, $consultarPerfis);
+            $auth->addChild($cozinheiro, $atualizarPerfis);
+
+            //# EMENTAS #
+            $auth->addChild($cozinheiro, $criarEmentas);
+            $auth->addChild($cozinheiro, $consultarEmentas);
+            $auth->addChild($cozinheiro, $atualizarEmentas);
+            $auth->addChild($cozinheiro, $apagarEmentas);
+
+            //# HORARIOS #
+            $auth->addChild($cozinheiro, $consultarHorarios);
+
+            //# FALTAS #
+            $auth->addChild($empregadoMesa, $consultarFaltas);
+
+        /**ROLE -> CLIENTE_______________________________________________________________________________________**/
 
         //TODO: ATRUBUIR PREMISSÕES AO ADMIN ( GERENTE )
 

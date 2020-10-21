@@ -24,18 +24,19 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body class="hold-transition layout-fixed layout-navbar-fixed layout-footer-fixed">
 <?php $this->beginBody() ?>
 
-<div class="wrap">
-    <nav class=" sticky-top main-header navbar navbar-expand navbar-white navbar-light">
+<div class="wrapper_login">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-yellow navbar-light">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="<?= Url::toRoute(['site/index']) ?>" class="nav-link">Home</a>
+                <a href="index3.html" class="nav-link">Home</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="#" class="nav-link">Contact</a>
@@ -43,7 +44,7 @@ AppAsset::register($this);
         </ul>
 
         <!-- SEARCH FORM -->
-<!--        <form class="form-inline ml-3">
+        <form class="form-inline ml-3">
             <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
@@ -52,11 +53,10 @@ AppAsset::register($this);
                     </button>
                 </div>
             </div>
-        </form>-->
+        </form>
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
-
             <!-- Messages Dropdown Menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
@@ -115,7 +115,6 @@ AppAsset::register($this);
                     <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
                 </div>
             </li>
-
             <!-- Notifications Dropdown Menu -->
             <li class="nav-item dropdown">
                 <a class="nav-link" data-toggle="dropdown" href="#">
@@ -144,6 +143,11 @@ AppAsset::register($this);
                 </div>
             </li>
             <li class="nav-item">
+                <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
                     <i class="fas fa-th-large"></i>
                 </a>
@@ -163,96 +167,40 @@ AppAsset::register($this);
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <?= Html::img('img/perfil.png' , ['alt' => 'User Image', 'class' => 'img-circle elevation-2']);?>
-                </div>
-                <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+            <div class="box-body box-profile user-painel">
+                <h3 class="profile-username text-center">
+                    <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive img-circle']); ?>
+                </h3>
+                <div class="info center">
+                    <a href="#" class="d-block text-center">Alexander Pierce</a>
+                    <div style="text-align: center;">
+                        <span class="center badge badge-warning"><h8>Cargooooo</h8></span>
+                    </div>
                 </div>
             </div>
+            <div class="user-panel mt-3 d-flex"></div>
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                    <!--<li class="nav-item has-treeview menu-open">
-                        <a href="#" class="nav-link active">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>
-                                Dashboard
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="./index.html" class="nav-link active">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Dashboard v1</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="./index2.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Dashboard v2</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="./index3.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Dashboard v3</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>-->
-<!--                    <li class="nav-item">
-                        <a href="pages/widgets.html" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
-                            <p>
-                                Widgets
-                                <span class="right badge badge-danger">New</span>
-                            </p>
-                        </a>
-                    </li>-->
-<!--                    <li class="nav-item">
-                        <a href="pages/calendar.html" class="nav-link">
-                            <i class="nav-icon far fa-calendar-alt"></i>
-                            <p>
-                                Calendar
-                                <span class="badge badge-info right">2</span>
-                            </p>
-                        </a>
-                    </li>-->
+
+                    <!-- HOME -->
                     <li class="nav-item">
-                        <a href="<?= Url::toRoute(['site/index']) ?>" class="nav-link">
-                            <i class="nav-icon far fa-image"></i>
+                        <a href="<?= Url::toRoute(['site/index']) ?>" class="nav-link active">
+                            <i class="fas fa-home"></i>
                             <p>
-                                Index
+                                Home
                             </p>
                         </a>
                     </li>
+                    <!-- UTILIZADORES -->
                     <li class="nav-item">
-                        <a href="<?= Url::toRoute(['site/contact']) ?>" class="nav-link">
-                            <i class="nav-icon far fa-image"></i>
-                            <p>
-                                Contactos
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="<?= Url::toRoute(['site/about']) ?>" class="nav-link">
-                            <i class="nav-icon far fa-image"></i>
-                            <p>
-                                Sobre
-                            </p>
-                        </a>
-                    </li>
-<!--                    <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon far fa-envelope"></i>
+                            <i class="fas fa-users"></i>
                             <p>
-                                Mailbox
+                                Utilizadores
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
@@ -260,165 +208,187 @@ AppAsset::register($this);
                             <li class="nav-item">
                                 <a href="pages/mailbox/mailbox.html" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Inbox</p>
+                                    <p>Criar</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/mailbox/compose.html" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Compose</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/mailbox/read-mail.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Read</p>
+                                    <p>Consultar</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview">
+                    <!-- PERFIS -->
+                    <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-book"></i>
+                            <i class="fas fa-address-card"></i>
                             <p>
-                                Pages
+                                Perfis
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/examples/invoice.html" class="nav-link">
+                                <a href="pages/mailbox/mailbox.html" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Invoice</p>
+                                    <p>Criar</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/profile.html" class="nav-link">
+                                <a href="pages/mailbox/compose.html" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Profile</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/e-commerce.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>E-commerce</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/projects.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Projects</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/project-add.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Project Add</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/project-edit.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Project Edit</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/project-detail.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Project Detail</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/contacts.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Contacts</p>
+                                    <p>Consultar</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item has-treeview">
+                    <!-- CARGOS -->
+                    <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon far fa-plus-square"></i>
+                            <i class="fas fa-user-tag"></i>
                             <p>
-                                Extras
+                                Cargos
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/examples/login.html" class="nav-link">
+                                <a href="pages/mailbox/mailbox.html" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Login</p>
+                                    <p>Criar</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/examples/register.html" class="nav-link">
+                                <a href="pages/mailbox/compose.html" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Register</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/forgot-password.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Forgot Password</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/recover-password.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Recover Password</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/lockscreen.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Lockscreen</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/legacy-user-menu.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Legacy User Menu</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/language-menu.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Language Menu</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/404.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Error 404</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/500.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Error 500</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/pace.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Pace</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/examples/blank.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Blank Page</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="starter.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Starter Page</p>
+                                    <p>Consultar</p>
                                 </a>
                             </li>
                         </ul>
-                    </li>-->
+                    </li>
+                    <!-- CATEGORIA DE PRODUTOS -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-tags"></i>
+                            <p>
+                                Categorias Produtos
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="pages/mailbox/mailbox.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Criar</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/mailbox/compose.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Consultar</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- PRODUTOS -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-utensils"></i>
+                            <p>
+                                Produtos
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="pages/mailbox/mailbox.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Criar</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/mailbox/compose.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Consultar</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- PEDIDOS -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-truck"></i>
+                            <p>
+                                Pedidos
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="pages/mailbox/mailbox.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Criar</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/mailbox/compose.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Consultar</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- FALTAS -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-user-alt-slash"></i>
+                            <p>
+                                Faltas
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="pages/mailbox/mailbox.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Criar</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/mailbox/compose.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Consultar</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- HORARIO -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            <p>
+                                Horario
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="pages/mailbox/mailbox.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Criar</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/mailbox/compose.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Consultar</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -426,11 +396,52 @@ AppAsset::register($this);
         <!-- /.sidebar -->
     </aside>
 
-    <div class="container">
-        <?= $content ?>
-    </div>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0"><?= $this->title = 'Home';?></h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#"><?=$this->params['breadcrumbs'][] = $this->title;?></a></li>
+                            <li class="breadcrumb-item active"><?=$this->params['breadcrumbs'][] = $this->title;?></li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
 
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <?=$content?>
+            </div><!--/. container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+        All rights reserved.
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 3.1.0-pre
+        </div>
+    </footer>
 </div>
+<!-- ./wrapper -->
 <?php $this->endBody() ?>
 </body>
 </html>

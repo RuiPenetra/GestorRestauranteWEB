@@ -4324,12 +4324,8 @@ input[type="button"].btn-block {
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #ffc107;
+  background-color: #007bff;
 }
-
-
-
-
 
 .nav-fill > .nav-link,
 .nav-fill .nav-item {
@@ -12177,7 +12173,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 
 .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
 .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
-  background-color: #ffc107;
+  background-color: #007bff;
   color: #fff;
 }
 
@@ -20767,14 +20763,10 @@ html.maximized-card {
 }
 
 .profile-user-img {
+  border: 3px solid #adb5bd;
   margin: 0 auto;
   padding: 3px;
   width: 100px;
-}
-
-.profile-user-img-color-gerente {
-  border: 3px solid #ffc107;
-
 }
 
 .profile-username {

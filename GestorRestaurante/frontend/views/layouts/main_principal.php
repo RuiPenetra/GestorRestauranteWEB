@@ -69,8 +69,10 @@ AppAsset::register($this);
         </div>
     </nav>
 
-    <div class="container">
-        <?= $content ?>
+    <div class="content">
+
+        <?=$content?>
+
     </div>
 
 </div>

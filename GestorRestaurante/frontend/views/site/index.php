@@ -6,48 +6,146 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
 
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
+    <div class="row">
+        <!-- CARD - UTILIZADORES -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h4><b>Utilizadore</b></h4>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                    <p>%</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    Mais informação <i class="fas fa-arrow-circle-right"></i>
+                </a>
             </div>
         </div>
+        <!-- CARD - PERFIL -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-gray">
+                <div class="inner">
+                    <h4><b>Perfil</b></h4>
 
+                    <p>%</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-address-card"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    Mais informação <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- CARD - CARGOS -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-teal">
+                <div class="inner">
+                    <h4><b>Cargo</b></h4>
+
+                    <p>%</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-user-tag"></i>
+                </div>
+                <a href="#" class="small-box-footer" >
+                    Mais informação <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- CARD - CATEGORIA PRODUTOS -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h4><b>Categoria Produtos</b></h4>
+
+                    <p>%</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-tags"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    Mais informação <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+    <div class="row">
+        <!-- CARD - PRODUTOS -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h4><b>Produtos</b></h4>
+
+                    <p>%</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    Mais informação <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- CARD - PEDIDOS -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-purple">
+                <div class="inner">
+                    <h4><b>Pedidos</b></h4>
+
+                    <p>%</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-truck"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    Mais informação <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- CARD - FALTAS -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-blue">
+                <div class="inner">
+                    <h4><b>Faltas</b></h4>
+
+                    <p>%</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-user-alt-slash"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    Mais informação <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- CARD - HORÁRIOS -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-orange">
+                <div class="inner">
+                    <h4 style="color: white"><b>Horários</b></h4>
+
+                    <p style="color: white">%</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <a href="#" class="small-box-footer"  >
+                     Mais informação <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- ./col -->
     </div>
 </div>

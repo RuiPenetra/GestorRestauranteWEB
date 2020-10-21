@@ -77,6 +77,11 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionPedidosativos()
+    {
+        return $this->render('pedidosativos');
+    }
+
     /**
      * Logs in a user.
      *

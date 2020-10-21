@@ -16,9 +16,12 @@ class AppAsset extends AssetBundle
         'css/login.css',
         'css/signup.css',
         'css/adminlte.css',
+        'css/cardExpanded.css',
+
     ];
     public $js = [
         'js/adminlte.js',
+        'js/card.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

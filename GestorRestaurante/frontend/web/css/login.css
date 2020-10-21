@@ -1,5 +1,8 @@
 /* Coded with love by Mutiullah Samim */
-
+.wrapper_start{
+    background-color: #FF9B71;
+    height: auto;
+}
 .user_card_login {
     height: 500px;
     width: 500px;
@@ -42,7 +45,7 @@
     outline: 0px !important;
 }
 .login_container {
-    padding: 0 2rem;
+    height: auto;
 }
 .input-group-text {
     background: #293241 !important;

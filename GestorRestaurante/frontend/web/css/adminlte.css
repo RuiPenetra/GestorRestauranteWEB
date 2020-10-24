@@ -11580,14 +11580,14 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
 }
 
 .text-sm .main-header .nav-link > .fa,
-.text-sm .main-header .nav-link > .fas,
+.text-sm .main-header .nav-link > .ion,
 .text-sm .main-header .nav-link > .far,
 .text-sm .main-header .nav-link > .fab,
 .text-sm .main-header .nav-link > .fal,
 .text-sm .main-header .nav-link > .fad,
 .text-sm .main-header .nav-link > .svg-inline--fa,
 .text-sm .main-header .nav-link > .ion, .main-header.text-sm .nav-link > .fa,
-.main-header.text-sm .nav-link > .fas,
+.main-header.text-sm .nav-link > .ion,
 .main-header.text-sm .nav-link > .far,
 .main-header.text-sm .nav-link > .fab,
 .main-header.text-sm .nav-link > .fal,
@@ -11936,7 +11936,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
   width: 1.6rem;
 }
 
-.nav-sidebar > .nav-item .nav-icon.fa, .nav-sidebar > .nav-item .nav-icon.fas, .nav-sidebar > .nav-item .nav-icon.far, .nav-sidebar > .nav-item .nav-icon.fab, .nav-sidebar > .nav-item .nav-icon.fal, .nav-sidebar > .nav-item .nav-icon.fad, .nav-sidebar > .nav-item .nav-icon.svg-inline--fa, .nav-sidebar > .nav-item .nav-icon.ion {
+.nav-sidebar > .nav-item .nav-icon.fa, .nav-sidebar > .nav-item .nav-icon.ion, .nav-sidebar > .nav-item .nav-icon.far, .nav-sidebar > .nav-item .nav-icon.fab, .nav-sidebar > .nav-item .nav-icon.fal, .nav-sidebar > .nav-item .nav-icon.fad, .nav-sidebar > .nav-item .nav-icon.svg-inline--fa, .nav-sidebar > .nav-item .nav-icon.ion {
   font-size: 1.1rem;
 }
 
@@ -14119,13 +14119,13 @@ body.text-sm .control-sidebar {
   border-radius: 0;
 }
 
-.form-control-feedback.fa, .form-control-feedback.fas, .form-control-feedback.far, .form-control-feedback.fab, .form-control-feedback.fal, .form-control-feedback.fad, .form-control-feedback.svg-inline--fa, .form-control-feedback.ion {
+.form-control-feedback.fa, .form-control-feedback.ion, .form-control-feedback.far, .form-control-feedback.fab, .form-control-feedback.fal, .form-control-feedback.fad, .form-control-feedback.svg-inline--fa, .form-control-feedback.ion {
   line-height: calc(2.25rem + 2px);
 }
 
-.input-lg + .form-control-feedback.fa, .input-lg + .form-control-feedback.fas, .input-lg + .form-control-feedback.far, .input-lg + .form-control-feedback.fab, .input-lg + .form-control-feedback.fal, .input-lg + .form-control-feedback.fad, .input-lg + .form-control-feedback.svg-inline--fa, .input-lg + .form-control-feedback.ion,
+.input-lg + .form-control-feedback.fa, .input-lg + .form-control-feedback.ion, .input-lg + .form-control-feedback.far, .input-lg + .form-control-feedback.fab, .input-lg + .form-control-feedback.fal, .input-lg + .form-control-feedback.fad, .input-lg + .form-control-feedback.svg-inline--fa, .input-lg + .form-control-feedback.ion,
 .input-group-lg + .form-control-feedback.fa,
-.input-group-lg + .form-control-feedback.fas,
+.input-group-lg + .form-control-feedback.ion,
 .input-group-lg + .form-control-feedback.far,
 .input-group-lg + .form-control-feedback.fab,
 .input-group-lg + .form-control-feedback.fal,
@@ -14135,13 +14135,13 @@ body.text-sm .control-sidebar {
   line-height: calc(2.875rem + 2px);
 }
 
-.form-group-lg .form-control + .form-control-feedback.fa, .form-group-lg .form-control + .form-control-feedback.fas, .form-group-lg .form-control + .form-control-feedback.far, .form-group-lg .form-control + .form-control-feedback.fab, .form-group-lg .form-control + .form-control-feedback.fal, .form-group-lg .form-control + .form-control-feedback.fad, .form-group-lg .form-control + .form-control-feedback.svg-inline--fa, .form-group-lg .form-control + .form-control-feedback.ion {
+.form-group-lg .form-control + .form-control-feedback.fa, .form-group-lg .form-control + .form-control-feedback.ion, .form-group-lg .form-control + .form-control-feedback.far, .form-group-lg .form-control + .form-control-feedback.fab, .form-group-lg .form-control + .form-control-feedback.fal, .form-group-lg .form-control + .form-control-feedback.fad, .form-group-lg .form-control + .form-control-feedback.svg-inline--fa, .form-group-lg .form-control + .form-control-feedback.ion {
   line-height: calc(2.875rem + 2px);
 }
 
-.input-sm + .form-control-feedback.fa, .input-sm + .form-control-feedback.fas, .input-sm + .form-control-feedback.far, .input-sm + .form-control-feedback.fab, .input-sm + .form-control-feedback.fal, .input-sm + .form-control-feedback.fad, .input-sm + .form-control-feedback.svg-inline--fa, .input-sm + .form-control-feedback.ion,
+.input-sm + .form-control-feedback.fa, .input-sm + .form-control-feedback.ion, .input-sm + .form-control-feedback.far, .input-sm + .form-control-feedback.fab, .input-sm + .form-control-feedback.fal, .input-sm + .form-control-feedback.fad, .input-sm + .form-control-feedback.svg-inline--fa, .input-sm + .form-control-feedback.ion,
 .input-group-sm + .form-control-feedback.fa,
-.input-group-sm + .form-control-feedback.fas,
+.input-group-sm + .form-control-feedback.ion,
 .input-group-sm + .form-control-feedback.far,
 .input-group-sm + .form-control-feedback.fab,
 .input-group-sm + .form-control-feedback.fal,
@@ -14151,7 +14151,7 @@ body.text-sm .control-sidebar {
   line-height: calc(1.8125rem + 2px);
 }
 
-.form-group-sm .form-control + .form-control-feedback.fa, .form-group-sm .form-control + .form-control-feedback.fas, .form-group-sm .form-control + .form-control-feedback.far, .form-group-sm .form-control + .form-control-feedback.fab, .form-group-sm .form-control + .form-control-feedback.fal, .form-group-sm .form-control + .form-control-feedback.fad, .form-group-sm .form-control + .form-control-feedback.svg-inline--fa, .form-group-sm .form-control + .form-control-feedback.ion {
+.form-group-sm .form-control + .form-control-feedback.fa, .form-group-sm .form-control + .form-control-feedback.ion, .form-group-sm .form-control + .form-control-feedback.far, .form-group-sm .form-control + .form-control-feedback.fab, .form-group-sm .form-control + .form-control-feedback.fal, .form-group-sm .form-control + .form-control-feedback.fad, .form-group-sm .form-control + .form-control-feedback.svg-inline--fa, .form-group-sm .form-control + .form-control-feedback.ion {
   line-height: calc(1.8125rem + 2px);
 }
 
@@ -18363,7 +18363,7 @@ html.maximized-card {
 }
 
 .todo-list > li .tools > .fa,
-.todo-list > li .tools > .fas,
+.todo-list > li .tools > .ion,
 .todo-list > li .tools > .far,
 .todo-list > li .tools > .fab,
 .todo-list > li .tools > .fal,
@@ -18987,7 +18987,7 @@ html.maximized-card {
 }
 
 .btn-app > .fa,
-.btn-app > .fas,
+.btn-app > .ion,
 .btn-app > .far,
 .btn-app > .fab,
 .btn-app > .fal,
@@ -19344,7 +19344,7 @@ html.maximized-card {
 }
 
 .carousel-control-custom-icon > .fa,
-.carousel-control-custom-icon > .fas,
+.carousel-control-custom-icon > .ion,
 .carousel-control-custom-icon > .far,
 .carousel-control-custom-icon > .fab,
 .carousel-control-custom-icon > .fal,
@@ -19450,7 +19450,7 @@ html.maximized-card {
   transition: transform 0.3s linear;
 }
 
-.small-box .icon > i.fa, .small-box .icon > i.fas, .small-box .icon > i.far, .small-box .icon > i.fab, .small-box .icon > i.fal, .small-box .icon > i.fad, .small-box .icon > i.ion {
+.small-box .icon > i.fa, .small-box .icon > i.ion, .small-box .icon > i.far, .small-box .icon > i.fab, .small-box .icon > i.fal, .small-box .icon > i.fad, .small-box .icon > i.ion {
   font-size: 70px;
   top: 20px;
 }
@@ -19467,7 +19467,7 @@ html.maximized-card {
   text-decoration: none;
 }
 
-.small-box:hover .icon > i, .small-box:hover .icon > i.fa, .small-box:hover .icon > i.fas, .small-box:hover .icon > i.far, .small-box:hover .icon > i.fab, .small-box:hover .icon > i.fal, .small-box:hover .icon > i.fad, .small-box:hover .icon > i.ion {
+.small-box:hover .icon > i, .small-box:hover .icon > i.fa, .small-box:hover .icon > i.ion, .small-box:hover .icon > i.far, .small-box:hover .icon > i.fab, .small-box:hover .icon > i.fal, .small-box:hover .icon > i.fad, .small-box:hover .icon > i.ion {
   transform: scale(1.1);
 }
 
@@ -19766,7 +19766,7 @@ html.maximized-card {
 }
 
 .timeline > div > .fa,
-.timeline > div > .fas,
+.timeline > div > .ion,
 .timeline > div > .far,
 .timeline > div > .fab,
 .timeline > div > .fal,
@@ -20958,7 +20958,7 @@ html.maximized-card {
 }
 
 .fc-color-picker > li .fa,
-.fc-color-picker > li .fas,
+.fc-color-picker > li .ion,
 .fc-color-picker > li .far,
 .fc-color-picker > li .fab,
 .fc-color-picker > li .fal,
@@ -20969,7 +20969,7 @@ html.maximized-card {
 }
 
 .fc-color-picker > li .fa:hover,
-.fc-color-picker > li .fas:hover,
+.fc-color-picker > li .ion:hover,
 .fc-color-picker > li .far:hover,
 .fc-color-picker > li .fab:hover,
 .fc-color-picker > li .fal:hover,
@@ -27596,7 +27596,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 }
 
 .card .overlay > .fa,
-.card .overlay > .fas,
+.card .overlay > .ion,
 .card .overlay > .far,
 .card .overlay > .fab,
 .card .overlay > .fal,
@@ -27604,7 +27604,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 .card .overlay > .svg-inline--fa,
 .card .overlay > .ion,
 .overlay-wrapper .overlay > .fa,
-.overlay-wrapper .overlay > .fas,
+.overlay-wrapper .overlay > .ion,
 .overlay-wrapper .overlay > .far,
 .overlay-wrapper .overlay > .fab,
 .overlay-wrapper .overlay > .fal,
@@ -27612,7 +27612,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 .overlay-wrapper .overlay > .svg-inline--fa,
 .overlay-wrapper .overlay > .ion,
 .info-box .overlay > .fa,
-.info-box .overlay > .fas,
+.info-box .overlay > .ion,
 .info-box .overlay > .far,
 .info-box .overlay > .fab,
 .info-box .overlay > .fal,
@@ -27620,7 +27620,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 .info-box .overlay > .svg-inline--fa,
 .info-box .overlay > .ion,
 .small-box .overlay > .fa,
-.small-box .overlay > .fas,
+.small-box .overlay > .ion,
 .small-box .overlay > .far,
 .small-box .overlay > .fab,
 .small-box .overlay > .fal,
@@ -27638,7 +27638,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 }
 
 .card .overlay.dark > .fa,
-.card .overlay.dark > .fas,
+.card .overlay.dark > .ion,
 .card .overlay.dark > .far,
 .card .overlay.dark > .fab,
 .card .overlay.dark > .fal,
@@ -27646,7 +27646,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 .card .overlay.dark > .svg-inline--fa,
 .card .overlay.dark > .ion,
 .overlay-wrapper .overlay.dark > .fa,
-.overlay-wrapper .overlay.dark > .fas,
+.overlay-wrapper .overlay.dark > .ion,
 .overlay-wrapper .overlay.dark > .far,
 .overlay-wrapper .overlay.dark > .fab,
 .overlay-wrapper .overlay.dark > .fal,
@@ -27654,7 +27654,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 .overlay-wrapper .overlay.dark > .svg-inline--fa,
 .overlay-wrapper .overlay.dark > .ion,
 .info-box .overlay.dark > .fa,
-.info-box .overlay.dark > .fas,
+.info-box .overlay.dark > .ion,
 .info-box .overlay.dark > .far,
 .info-box .overlay.dark > .fab,
 .info-box .overlay.dark > .fal,
@@ -27662,7 +27662,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 .info-box .overlay.dark > .svg-inline--fa,
 .info-box .overlay.dark > .ion,
 .small-box .overlay.dark > .fa,
-.small-box .overlay.dark > .fas,
+.small-box .overlay.dark > .ion,
 .small-box .overlay.dark > .far,
 .small-box .overlay.dark > .fab,
 .small-box .overlay.dark > .fal,

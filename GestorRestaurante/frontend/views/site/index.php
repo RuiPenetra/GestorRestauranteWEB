@@ -12,29 +12,12 @@ $this->title = 'My Yii Application';
             <!-- small card -->
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h4><b>Utilizadore</b></h4>
+                    <h4><b>Utilizador</b></h4>
 
                     <p>%</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                    Mais informação <i class="fas fa-arrow-circle-right"></i>
-                </a>
-            </div>
-        </div>
-        <!-- CARD - PERFIL -->
-        <div class="col-lg-3 col-6">
-            <!-- small card -->
-            <div class="small-box bg-gray">
-                <div class="inner">
-                    <h4><b>Perfil</b></h4>
-
-                    <p>%</p>
-                </div>
-                <div class="icon">
-                    <i class="fas fa-address-card"></i>
+                    <i class="ion ion-person-add"></i>
                 </div>
                 <a href="#" class="small-box-footer">
                     Mais informação <i class="fas fa-arrow-circle-right"></i>
@@ -51,7 +34,7 @@ $this->title = 'My Yii Application';
                     <p>%</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-user-tag"></i>
+                    <i class="ion ion-arrow-graph-up-right"></i>
                 </div>
                 <a href="#" class="small-box-footer" >
                     Mais informação <i class="fas fa-arrow-circle-right"></i>
@@ -68,7 +51,25 @@ $this->title = 'My Yii Application';
                     <p>%</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-tags"></i>
+                    <i class="ion ion-pricetags"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                    Mais informação <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- CARD - RESERVAS -->
+        <div class="col-lg-3 col-6">
+            <!-- small card -->
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h4><b>Reserva</b></h4>
+
+                    <p>%</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-wineglass"></i>
                 </div>
                 <a href="#" class="small-box-footer">
                     Mais informação <i class="fas fa-arrow-circle-right"></i>
@@ -88,7 +89,7 @@ $this->title = 'My Yii Application';
                     <p>%</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-utensils"></i>
+                    <i class="ion ion-fork"></i>
                 </div>
                 <a href="#" class="small-box-footer">
                     Mais informação <i class="fas fa-arrow-circle-right"></i>
@@ -105,7 +106,7 @@ $this->title = 'My Yii Application';
                     <p>%</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-truck"></i>
+                    <i class="ion ion-spoon"></i>
                 </div>
                 <a href="#" class="small-box-footer">
                     Mais informação <i class="fas fa-arrow-circle-right"></i>
@@ -122,7 +123,7 @@ $this->title = 'My Yii Application';
                     <p>%</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-user-alt-slash"></i>
+                    <i class="ion ion-clipboard"></i>
                 </div>
                 <a href="#" class="small-box-footer">
                     Mais informação <i class="fas fa-arrow-circle-right"></i>
@@ -139,7 +140,7 @@ $this->title = 'My Yii Application';
                     <p style="color: white">%</p>
                 </div>
                 <div class="icon">
-                    <i class="fas fa-calendar-alt"></i>
+                    <i class="ion ion-android-calendar"></i>
                 </div>
                 <a href="#" class="small-box-footer"  >
                      Mais informação <i class="fas fa-arrow-circle-right"></i>

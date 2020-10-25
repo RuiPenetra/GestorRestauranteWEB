@@ -62,7 +62,7 @@ $this->title = 'My Yii Application';
         <!-- CARD - RESERVAS -->
         <div class="col-lg-3 col-6">
             <!-- small card -->
-            <div class="small-box bg-green">
+            <div class="small-box bg-yellow">
                 <div class="inner">
                     <h4><b>Reserva</b></h4>
 

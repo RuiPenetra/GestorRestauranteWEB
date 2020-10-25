@@ -43,18 +43,6 @@ AppAsset::register($this);
             </li>
         </ul>
 
-        <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
-
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
@@ -167,7 +155,7 @@ AppAsset::register($this);
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
-            <div class="box-body box-profile user-painel">
+            <div class="box-body box-profile user-painel mt-3">
                 <h3 class="profile-username text-center">
                     <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive img-circle']); ?>
                 </h3>
@@ -201,47 +189,8 @@ AppAsset::register($this);
                             <i class="fas fa-users"></i>
                             <p>
                                 Utilizadores
-                                <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/mailbox/mailbox.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Criar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/mailbox/compose.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Consultar</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <!-- PERFIS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-address-card"></i>
-                            <p>
-                                Perfis
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/mailbox/mailbox.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Criar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/mailbox/compose.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Consultar</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <!-- CARGOS -->
                     <li class="nav-item">
@@ -249,23 +198,8 @@ AppAsset::register($this);
                             <i class="fas fa-user-tag"></i>
                             <p>
                                 Cargos
-                                <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/mailbox/mailbox.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Criar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/mailbox/compose.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Consultar</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <!-- CATEGORIA DE PRODUTOS -->
                     <li class="nav-item">
@@ -273,23 +207,8 @@ AppAsset::register($this);
                             <i class="fas fa-tags"></i>
                             <p>
                                 Categorias Produtos
-                                <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/mailbox/mailbox.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Criar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/mailbox/compose.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Consultar</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <!-- PRODUTOS -->
                     <li class="nav-item">
@@ -297,23 +216,8 @@ AppAsset::register($this);
                             <i class="fas fa-utensils"></i>
                             <p>
                                 Produtos
-                                <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/mailbox/mailbox.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Criar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/mailbox/compose.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Consultar</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <!-- PEDIDOS -->
                     <li class="nav-item">
@@ -321,23 +225,8 @@ AppAsset::register($this);
                             <i class="fas fa-truck"></i>
                             <p>
                                 Pedidos
-                                <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/mailbox/mailbox.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Criar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/mailbox/compose.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Consultar</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <!-- FALTAS -->
                     <li class="nav-item">
@@ -345,23 +234,8 @@ AppAsset::register($this);
                             <i class="fas fa-user-alt-slash"></i>
                             <p>
                                 Faltas
-                                <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/mailbox/mailbox.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Criar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/mailbox/compose.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Consultar</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
                     <!-- HORARIO -->
                     <li class="nav-item">
@@ -369,29 +243,13 @@ AppAsset::register($this);
                             <i class="fas fa-calendar-alt"></i>
                             <p>
                                 Horario
-                                <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/mailbox/mailbox.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Criar</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/mailbox/compose.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Consultar</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-
-
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
+
         </div>
         <!-- /.sidebar -->
     </aside>

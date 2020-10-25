@@ -16,7 +16,8 @@ class AppAsset extends AssetBundle
         'css/login.css',
         'css/signup.css',
         'css/adminlte.css',
-        'css/cardExpanded.css',
+        'css/skins.css',
+//        'css/cardExpanded.css',
 
     ];
     public $js = [

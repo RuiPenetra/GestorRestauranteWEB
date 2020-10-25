@@ -49,7 +49,7 @@ AppAsset::register($this);
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= Url::toRoute(['site/signup']) ?>">
+                    <a class="nav-link" href="<?= Url::toRoute(['user/create']) ?>">
                         Registar</a>
                 </li>
                 <li class="nav-item">

@@ -381,7 +381,27 @@ class m201016_160137_rbac extends Migration
 
         /**ROLE -> CLIENTE_______________________________________________________________________________________**/
 
+        $cliente = $auth->createRole('cliente');
+        $auth->add($cozinheiro);
+
+        //# Perfil #
+        $auth->addChild($cliente, $consultarPerfis);
+        $auth->addChild($cliente, $atualizarPerfis);
+
+        //# EMENTAS #
+        $auth->addChild($cliente, $consultarEmentas);
+
+        //# PEDIDOS #
+        $auth->addChild($cliente, $criarPedidos);
+        $auth->addChild($cliente, $consultarPedidos);
+        $auth->addChild($cliente, $atualizarPedidos);
+        $auth->addChild($cliente, $apagarPedidos);
+
+
+
         //TODO: ATRUBUIR PREMISSÕES AO ADMIN ( GERENTE )
+
+        $auth->assign($gerente, 1);
 
         //TODO: ASSINAR O PRIMEIRO UTILIZADOR INSERIDO NA BASE DE DADOS, ATRIBUINDO AS PREMISSÕES DE ADMIN (GERENTE)
 

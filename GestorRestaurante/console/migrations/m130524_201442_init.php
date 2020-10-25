@@ -14,23 +14,22 @@ class m130524_201442_init extends Migration
 
         $this->createTable('{{%user}}', [
             'id' => $this->primaryKey(),
-            'username' => $this->string()->notNull()->unique(),
-            'morada' => $this->string()->notNull(),
-            'nome' => $this->string()->notNull(),
-            'apelido' => $this->string()->notNull(),
-            'datanascimento' => $this->dateTime()->notNull(),
-            'nacionalidade' => $this->tinyInteger()->notNull(),
-            'telemovel' => $this->tinyInteger()->notNull(),
+            'username' => $this->string(255)->notNull()->unique(),
+            'morada' => $this->string(255)->notNull(),
+            'nome' => $this->string(255)->notNull(),
+            'apelido' => $this->string(255)->notNull(),
+            'datanascimento' => $this->date()->notNull(),
+            'nacionalidade' => $this->string(255)->notNull(),
+            'telemovel' => $this->integer()->notNull(),
             'codigopostal' => $this->string()->notNull(),
             'genero' => $this->tinyInteger()->notNull(),
             'auth_key' => $this->string(32)->notNull(),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
-            'email' => $this->string()->notNull()->unique(),
-            'password_conf' => $this->string(),
+            'email' => $this->string(255)->notNull()->unique(),
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->date()->notNull(),
+            'updated_at' => $this->date()->notNull(),
         ], $tableOptions);
     }
 

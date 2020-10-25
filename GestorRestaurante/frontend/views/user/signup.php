@@ -49,7 +49,7 @@ $this->title = 'Signup';
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <?= $form->field($model, 'apelido', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Apelido", 'type' => 'email'])->label(false) ?>
+                            <?= $form->field($model, 'apelido', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Apelido"])->label(false) ?>
                         </div>
                     </div>
                 </div>
@@ -102,6 +102,18 @@ $this->title = 'Signup';
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="input-group mb-3">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            </div>
+                            <?= $form->field($model, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'],
+                                ['prompt'=>'Selecione...'],['maxlenght'=> true],
+                                ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
+                        </div>
+                    </div>
+                </div>
                 <div class="mb-4">
                     <h6 class="text-uppercase">Dados Acesso</h6>
                     <!-- Solid divider -->
@@ -140,7 +152,7 @@ $this->title = 'Signup';
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fas fa-key"></i></i></span>
                             </div>
-                            <?= $form->field($model, 'password_conf', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Conf. Password"])->label(false) ?>
+<!--                            --><?//= $form->field($model, 'password_conf', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Conf. Password"])->label(false) ?>
                         </div>
                     </div>
                 </div>

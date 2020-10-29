@@ -6,6 +6,7 @@ use yii\base\Model;
 
 /**
  * Login form
+ * @property mixed email
  */
 class LoginForm extends Model
 {
@@ -65,12 +66,12 @@ class LoginForm extends Model
     /**
      * Finds user by [[username]]
      *
-     * @return User|null
+     * @return User
      */
     protected function getUser()
     {
-        if ($this->_user === null) {
-            $this->_user = User::findByUsername($this->username);
+        if ($this->_user=== null) {
+            $this->_user= User::findByUsername($this->username);
         }
 
         return $this->_user;

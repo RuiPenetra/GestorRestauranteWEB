@@ -24,7 +24,7 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body class="fundo">
 <?php $this->beginBody() ?>
 
 <div class="wrap">
@@ -49,7 +49,7 @@ AppAsset::register($this);
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= Url::toRoute(['user/create']) ?>">
+                    <a class="nav-link" href="<?= Url::toRoute(['site/signup']) ?>">
                         Registar</a>
                 </li>
                 <li class="nav-item">

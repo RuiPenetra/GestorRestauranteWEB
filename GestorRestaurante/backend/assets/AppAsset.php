@@ -16,14 +16,19 @@ class AppAsset extends AssetBundle
         'css/login.css',
         'css/signup.css',
         'css/adminlte.css',
+        'css/skins.css',
+//        'css/cardExpanded.css',
 
     ];
     public $js = [
         'js/adminlte.js',
+        'js/modal.js',
+        'js/bootstrap.bundle.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap4\BootstrapAsset',
         'yidas\yii\fontawesome\FontawesomeAsset',
+        'rmrevin\yii\ionicon\AssetBundle',
     ];
 }

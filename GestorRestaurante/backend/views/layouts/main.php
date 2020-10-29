@@ -3,17 +3,22 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use common\models\Perfil;
+use common\models\User;
 use yii\helpers\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 use yii\bootstrap4\Breadcrumbs;
-use frontend\assets\AppAsset;
+use backend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
+
 <?php $this->beginPage() ?>
+<?php $id_user = Yii::$app->user->identity->id;
+$perfil=Perfil::findOne(['id_user'=>$id_user])?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
@@ -27,129 +32,22 @@ AppAsset::register($this);
 <body class="hold-transition layout-fixed layout-navbar-fixed layout-footer-fixed">
 <?php $this->beginBody() ?>
 
-<div class="wrapper">
+<div class="wrapper_login">
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-orange navbar-light">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
-            </li>
-        </ul>
-
-        <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
+    <nav class="main-header navbar navbar-expand navbar-yellow navbar-light">
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-comments"></i>
-                    <span class="badge badge-danger navbar-badge">3</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Brad Diesel
-                                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">Call me whenever you can...</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    John Pierce
-                                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">I got your message bro</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Nora Silvester
-                                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">The subject goes here</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                </div>
-            </li>
-            <!-- Notifications Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-bell"></i>
-                    <span class="badge badge-warning navbar-badge">15</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-item dropdown-header">15 Notifications</span>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope mr-2"></i> 4 new messages
-                        <span class="float-right text-muted text-sm">3 mins</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-users mr-2"></i> 8 friend requests
-                        <span class="float-right text-muted text-sm">12 hours</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-file mr-2"></i> 3 new reports
-                        <span class="float-right text-muted text-sm">2 days</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                </div>
-            </li>
             <li class="nav-item">
-                <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                    <i class="fas fa-expand-arrows-alt"></i>
+                <a class="nav-link" href="<?= Url::toRoute(['perfil/perfil' , 'id_user' => $perfil->id_user]) ?>" role="button">
+                    <i class="fas fa-user-edit"></i>
+                    Perfil
                 </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                    <i class="fas fa-th-large"></i>
+            </li>   <li class="nav-item">
+                <a class="nav-link" href="<?= Url::toRoute(['site/logout']) ?>" data-method="POST" role="button">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Sair
                 </a>
             </li>
         </ul>
@@ -167,62 +65,101 @@ AppAsset::register($this);
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="image">
-                    <?= Html::img('img/perfil.png' , ['alt' => 'User Image', 'class' => 'img-circle elevation-2']);?>
-                </div>
-                <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+            <div class="box-body box-profile user-painel mt-3">
+                <h3 class="profile-username text-center">
+                    <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive img-circle']); ?>
+                </h3>
+                <div class="info center">
+                    <a href="#" class="d-block text-center"><?= $perfil->nome;?> <?= $perfil->apelido;?></a>
+                    <div style="text-align: center;">
+                        <span class="center badge badge-warning"><h8>Gerente</h8></span>
+                    </div>
                 </div>
             </div>
+            <div class="user-panel mt-3 d-flex"></div>
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
+
+                    <!-- HOME -->
                     <li class="nav-item">
-                        <a href="<?= Url::toRoute(['site/index']) ?>" class="nav-link">
-                            <i class="nav-icon fas fa-calendar-alt"></i>
+                        <a href="<?= Url::toRoute(['site/index']) ?>" class="nav-link active">
+                            <i class="fas fa-home"></i>
                             <p>
                                 Home
-                                <span class="badge badge-info right">2</span>
                             </p>
                         </a>
                     </li>
+                    <!-- UTILIZADORES -->
+                    <li class="nav-item">
+                        <a href="<?= Url::toRoute(['user/index']) ?>" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <p>
+                                Utilizadores
+                            </p>
+                        </a>
+                    </li>
+                    <!-- CARGOS -->
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon far fa-envelope"></i>
+                            <i class="fas fa-user-tag"></i>
                             <p>
-                                Mailbox
-                                <i class="fas fa-angle-left right"></i>
+                                Cargos
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="pages/mailbox/mailbox.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Inbox</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/mailbox/compose.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Compose</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="pages/mailbox/read-mail.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Read</p>
-                                </a>
-                            </li>
-                        </ul>
                     </li>
-
+                    <!-- CATEGORIA DE PRODUTOS -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-tags"></i>
+                            <p>
+                                Categorias Produtos
+                            </p>
+                        </a>
+                    </li>
+                    <!-- PRODUTOS -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-utensils"></i>
+                            <p>
+                                Produtos
+                            </p>
+                        </a>
+                    </li>
+                    <!-- PEDIDOS -->
+                    <li class="nav-item">
+                        <a href="<?= Url::toRoute(['pedido/index']) ?>" class="nav-link">
+                            <i class="fas fa-truck"></i>
+                            <p>
+                                Pedidos
+                            </p>
+                        </a>
+                    </li>
+                    <!-- FALTAS -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-user-alt-slash"></i>
+                            <p>
+                                Faltas
+                            </p>
+                        </a>
+                    </li>
+                    <!-- HORARIO -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            <p>
+                                Horario
+                            </p>
+                        </a>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
+
         </div>
         <!-- /.sidebar -->
     </aside>
@@ -251,7 +188,7 @@ AppAsset::register($this);
         <section class="content">
             <div class="container-fluid">
                 <?=$content?>
-            </div><!--/. container-fluid -->
+            </div>
         </section>
         <!-- /.content -->
     </div>

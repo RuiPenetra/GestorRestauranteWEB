@@ -1,6 +1,8 @@
 <?php
 namespace frontend\controllers;
 
+use Carbon\Carbon;
+use common\models\SignupForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -12,7 +14,6 @@ use yii\filters\AccessControl;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 
 /**
@@ -31,7 +32,7 @@ class SiteController extends Controller
                 'only' => ['logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => ['signup','login'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -74,6 +75,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout="main_principal";
         return $this->render('index');
     }
 
@@ -101,7 +103,7 @@ class SiteController extends Controller
 
             $this->layout = "main_principal";
             return $this->render('login', [
-                'model' => $model,
+                'model' => $model
             ]);
         }
     }
@@ -136,7 +138,7 @@ class SiteController extends Controller
             return $this->refresh();
         } else {
             return $this->render('contact', [
-                'model' => $model,
+                'model' => $model
             ]);
         }
     }
@@ -163,6 +165,8 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();
         }
+        $model->createAt= Carbon::now();
+        $model->updateAt=Carbon::now();
 
         $this->layout = "main_principal";
         return $this->render('signup', [

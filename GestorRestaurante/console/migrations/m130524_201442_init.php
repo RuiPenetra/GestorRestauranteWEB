@@ -12,7 +12,7 @@ class m130524_201442_init extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('{{%user}}', [
+        $this->createTable('{{%utilizador}}', [
             'id' => $this->primaryKey(),
             'username' => $this->string(255)->notNull()->unique(),
             'morada' => $this->string(255)->notNull(),
@@ -20,7 +20,7 @@ class m130524_201442_init extends Migration
             'apelido' => $this->string(255)->notNull(),
             'datanascimento' => $this->date()->notNull(),
             'nacionalidade' => $this->string(255)->notNull(),
-            'telemovel' => $this->integer()->notNull(),
+            'telemovel' => $this->string(22)->notNull(),
             'codigopostal' => $this->string()->notNull(),
             'genero' => $this->tinyInteger()->notNull(),
             'auth_key' => $this->string(32)->notNull(),
@@ -28,13 +28,25 @@ class m130524_201442_init extends Migration
             'password_reset_token' => $this->string()->unique(),
             'email' => $this->string(255)->notNull()->unique(),
             'status' => $this->smallInteger()->notNull()->defaultValue(10),
-            'created_at' => $this->date()->notNull(),
-            'updated_at' => $this->date()->notNull(),
+            'created_at' => $this->string(255)->notNull(),
+            'updated_at' => $this->string(255)->notNull(),
+        ], $tableOptions);
+
+        $this->createTable('{{%perfil}}', [
+            'id_user' => $this->primaryKey(),
+            'nome' => $this->string(255)->notNull(),
+            'apelido' => $this->string(255)->notNull(),
+            'morada' => $this->string(255)->notNull(),
+            'datanascimento' => $this->date()->notNull(),
+            'nacionalidade' => $this->string(255)->notNull(),
+            'telemovel' => $this->string(22)->notNull(),
+            'codigopostal' => $this->string()->notNull(),
+            'genero' => $this->tinyInteger()->notNull(),
         ], $tableOptions);
     }
 
     public function down()
     {
-        $this->dropTable('{{%user}}');
+        $this->dropTable('{{%utilizador}}');
     }
 }

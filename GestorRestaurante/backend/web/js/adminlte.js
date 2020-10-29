@@ -1879,6 +1879,10 @@
     return Toasts;
   }(jQuery);
 
+  $(document).ready(function(){
+    $("#myModal").modal();
+  });
+
   exports.CardRefresh = CardRefresh;
   exports.CardWidget = CardWidget;
   exports.ControlSidebar = ControlSidebar;
@@ -1894,3 +1898,4 @@
 
 })));
 //# sourceMappingURL=adminlte.js.map
+

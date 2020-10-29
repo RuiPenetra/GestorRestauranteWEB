@@ -1,0 +1,13 @@
+Cozinheiro:
+
+Ve todos os pedidos ativos e infomra o atendedor 
+de pedidos quando estes tiverem prontos.
+
+
+Sistema reserva:
+-> A a mesa fica reservada 30 min antes da hora (EXTRA)
+-> Caso não compareça 15 min depois da hora marcada a reserva expira
+-> Quando o cliente chega o atendedor de pedidos marca a reserva como finalizada passando a mesa para
+   livre , contudo manda os clientes para a mesa marcada,
+   logo a seguir o garçon começa a fazer o pedido em que o estado da mesa passa a estar ocupada
+  

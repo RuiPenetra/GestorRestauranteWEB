@@ -2,7 +2,9 @@
 namespace frontend\controllers;
 
 use Carbon\Carbon;
+use Cassandra\Date;
 use common\models\SignupForm;
+use DateTime;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -15,7 +17,6 @@ use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\ContactForm;
-
 /**
  * Site controller
  */
@@ -165,8 +166,14 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();
         }
-        $model->createAt= Carbon::now();
-        $model->updateAt=Carbon::now();
+
+
+        $date = new \DateTime();
+
+        $model->createAt=//PERGUNTAR A STORA CARBON::NOW() NAO FUNCIONA :'(
+        $model->updateAt=
+        //$model->createAt=$date->format('d-m-Y');
+        //$model->updateAt=$date->format('d-m-Y');
 
         $this->layout = "main_principal";
         return $this->render('signup', [

@@ -84,6 +84,7 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
+
         
         $utilizador  = new User();
         $utilizador ->setUsername($this->username);

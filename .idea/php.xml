@@ -91,6 +91,9 @@
       <path value="$PROJECT_DIR$/GestorRestaurante/vendor/swiftmailer/swiftmailer" />
       <path value="$PROJECT_DIR$/GestorRestaurante/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/GestorRestaurante/vendor/rmrevin/yii2-ionicon" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/nesbot/carbon" />
     </include_path>
   </component>
 </project>

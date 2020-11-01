@@ -27,7 +27,7 @@ class UserController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['perfil', 'index','create'],
+                        'actions' => ['index','create'],
                         'allow' => true,
                     ],
                 ],
@@ -89,11 +89,9 @@ class UserController extends Controller
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();
         }
-        $model->createAt= Carbon::now();
-        $model->updateAt=Carbon::now();
 
         return $this->render('create', [
-            'model' => $model
+            'model' => $model,
         ]);
     }
 

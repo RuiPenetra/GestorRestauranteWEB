@@ -22,6 +22,7 @@ class SignupForm extends Model
     public $genero;
     public $createAt;
     public $updateAt;
+    public $cargo;
 
 
     /**
@@ -110,6 +111,46 @@ class SignupForm extends Model
         $perfil ->setCodigopostal($this->codigopostal);
         $perfil ->setTelemovel($this->telemovel);
         $perfil ->setGenero($this->genero);
+
+
+        if (\Yii::$app->user->can('criarUtilizadores')) {
+
+            $auth = Yii::$app->authManager;
+
+            $cargoselecionado=$this->cargo;
+
+            var_dump($cargoselecionado);
+            if($cargoselecionado=="gerente") {
+
+                $gerente = $auth->getRole('gerente');
+                $auth->assign($gerente, $utilizador->id);
+
+            }else if($cargoselecionado=="atendedorpedidos") {
+
+                $atendedorpedidos = $auth->getRole('atendedorPedidos');
+                $auth->assign($atendedorpedidos, $utilizador->id);
+
+            }else if($cargoselecionado=="empregadomesa") {
+
+                $empregadomesa = $auth->getRole('empregadomesa');
+                $auth->assign($empregadomesa, $utilizador->id);
+
+            }else if($cargoselecionado=="cozinheiro") {
+
+                $cozinheiro = $auth->getRole('cozinheiro');
+                $auth->assign($cozinheiro, $utilizador->id);
+
+            }else {
+                $cliente = $auth->getRole('cliente');
+                $auth->assign($cliente, $utilizador->id);
+            }
+
+        }else{
+
+            $auth = Yii::$app->authManager;
+            $cliente = $auth->getRole('cliente');
+            $auth->assign($cliente, $utilizador->id);
+        }
 
         return $perfil ->save();
 

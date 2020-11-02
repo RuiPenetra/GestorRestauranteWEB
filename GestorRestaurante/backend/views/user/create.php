@@ -1,6 +1,7 @@
 <?php
 
 use yii\bootstrap4\ActiveForm;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -9,6 +10,7 @@ use yii\helpers\Html;
 $this->title = 'Create User';
 $this->params['breadcrumbs'][] = ['label' => 'Utilizadors', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="utilizador-create">
     <div class="row d-flex justify-content-center">
@@ -112,7 +114,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
                                 </div>
                             </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    </div>
+                                    <?= $form->field($model, 'cargo')->dropDownList(['gerente' => 'Gerente', 'atendedorpedidos' => 'Atendedor Pedidos', 'empregadomesa' => 'Empregado Mesa', 'cozinheiro' => 'Cozinheiro', 'Cliente' => 'Cliente'],
+                                        ['prompt'=>'Selecione...'],['maxlenght'=> true],
+                                        ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="mb-4">
                             <h6 class="text-uppercase">Dados Acesso</h6>
                             <!-- Solid divider -->

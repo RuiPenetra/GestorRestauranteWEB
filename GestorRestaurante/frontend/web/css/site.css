@@ -172,7 +172,18 @@ a.desc:after {
 .sidenav a:hover {
     color: #f1f1f1;
 }
-
+.site-index-img {
+    margin-top:50px;
+}
+.site-index-bemvindo{
+    text-align:center;
+}
+.site-about-texto{
+    text-align:center;
+}
+.site-menu-butoes{
+    text-align:center;
+}
 /**
  * --------------------------------------------
  * Page SignUp

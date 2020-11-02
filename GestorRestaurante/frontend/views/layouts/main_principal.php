@@ -10,6 +10,7 @@ use yii\bootstrap4\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\helpers\Url;
+use yii\web\Session;
 
 AppAsset::register($this);
 ?>
@@ -44,6 +45,7 @@ AppAsset::register($this);
         <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
+
                     <a class="nav-link" href="<?= Url::toRoute(['site/login']) ?>">
                         Login
                     </a>
@@ -53,8 +55,16 @@ AppAsset::register($this);
                         Registar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= Url::toRoute(['site/index']) ?>">
+                    <a class="nav-link" href="<?= Url::toRoute(['site/menu']) ?>">
                         Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= Url::toRoute(['site/about']) ?>">
+                        About</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="<?= Url::toRoute(['site/logout']) ?>" data-method="POST" role="button">
+                    Logout</a>
                 </li>
                 <!--<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"

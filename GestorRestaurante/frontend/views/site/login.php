@@ -21,9 +21,9 @@ use yii\bootstrap4\ActiveForm;
                 <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
                 <div class="input-group mb-3">
                     <div class="input-group-append">
-                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        <span class="input-group-text"><i class="far fa-user"></i></span>
                     </div>
-                    <?= $form->field($model, 'username', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Email", 'type' => 'email' , 'autofocus' => true])->label(false) ?>
+                    <?= $form->field($model, 'username', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Username", 'type' => 'text' , 'autofocus' => true])->label(false) ?>
                 </div>
                 <div class="input-group mb-2">
                     <div class="input-group-append">

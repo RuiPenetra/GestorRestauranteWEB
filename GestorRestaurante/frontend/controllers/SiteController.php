@@ -151,7 +151,50 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
+        $this->layout='main_principal';
         return $this->render('about');
+    }
+
+    public function actionMenu()
+    {
+        $this->layout='main_principal';
+        return $this->render('menu');
+    }
+
+    public function actionMenuentradas()
+    {
+        $this->layout='main_principal';
+        return $this->render('entradas');
+    }
+
+    public function actionMenucarne()
+    {
+        $this->layout='main_principal';
+        return $this->render('carne');
+    }
+
+    public function actionMenupeixe()
+    {
+        $this->layout='main_principal';
+        return $this->render('peixe');
+    }
+
+    public function actionMenubebida()
+    {
+        $this->layout='main_principal';
+        return $this->render('bebida');
+    }
+
+    public function actionMenusopa()
+    {
+        $this->layout='main_principal';
+        return $this->render('sopa');
+    }
+
+    public function actionMenusobremesa()
+    {
+        $this->layout='main_principal';
+        return $this->render('sobremesa');
     }
 
     /**
@@ -274,5 +317,8 @@ class SiteController extends Controller
         return $this->render('resendVerificationEmail', [
             'model' => $model
         ]);
+
+
     }
+
 }

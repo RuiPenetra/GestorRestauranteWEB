@@ -40,7 +40,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="<?= Url::toRoute(['perfil/perfil' , 'id_user' => $perfil->id_user]) ?>" role="button">
+                <a class="nav-link" href="<?= Url::toRoute(['perfil/myperfil' , 'id_user' => $perfil->id_user]) ?>" role="button">
                     <i class="fas fa-user-edit"></i>
                     Perfil
                 </a>

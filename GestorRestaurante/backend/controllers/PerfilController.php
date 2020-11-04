@@ -25,7 +25,7 @@ class PerfilController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['perfil', 'index','create'],
+                        'actions' => ['index','create','myperfil'],
                         'allow' => true,
                     ],
                 ],
@@ -54,7 +54,7 @@ class PerfilController extends Controller
         ]);
     }
 
-    public function actionPerfil($id)
+    public function actionMyperfil($id)
     {
         $model = $this->findModel($id);
 

@@ -10,6 +10,7 @@ use yii\bootstrap4\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\helpers\Url;
+use yii\rbac\rule;
 
 AppAsset::register($this);
 ?>
@@ -82,7 +83,7 @@ AppAsset::register($this);
 
                     <!-- HOME -->
                     <li class="nav-item">
-                        <a href="<?= Url::toRoute(['site/index']) ?>" class="nav-link active">
+                        <a href="<?= Url::toRoute(['site/main']) ?>" class="nav-link active">
                             <i class="fas fa-home"></i>
                             <p>
                                 Home
@@ -179,7 +180,10 @@ AppAsset::register($this);
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-
+        <div class="site-index-img">
+            <img src="img/logo.png" width="100px" height="100px"  class="rounded mx-auto d-block" alt="...">
+            
+        </div>
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">

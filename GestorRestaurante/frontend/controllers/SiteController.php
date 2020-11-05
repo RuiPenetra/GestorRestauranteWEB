@@ -210,18 +210,15 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-<<<<<<< Updated upstream
-
         $date = new \DateTime();
 
         $model->createAt=//PERGUNTAR A STORA CARBON::NOW() NAO FUNCIONA :'(
         $model->updateAt=
         //$model->createAt=$date->format('d-m-Y');
         //$model->updateAt=$date->format('d-m-Y');
-=======
+
         $model->createAt= "1111111111111111";
         $model->updateAt= date('Y-m-d H:i:s');
->>>>>>> Stashed changes
 
         $this->layout = "main_principal";
         return $this->render('signup', [

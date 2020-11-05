@@ -3,6 +3,7 @@ namespace common\models;
 
 use Yii;
 use yii\base\Model;
+use yii\helpers\VarDumper;
 
 
 class SignupForm extends Model
@@ -72,6 +73,9 @@ class SignupForm extends Model
             ['genero', 'required'],
             ['genero', 'in', 'range' => [0,1]],
 
+            ['cargo', 'required'],
+            ['cargo', 'string'],
+
         ];
     }
 
@@ -113,43 +117,26 @@ class SignupForm extends Model
         $perfil ->setGenero($this->genero);
 
 
-        if (\Yii::$app->user->can('criarUtilizadores')) {
+        $isGuest = Yii::$app->user->isGuest;
 
-            $auth = Yii::$app->authManager;
+        $auth = Yii::$app->authManager;
 
-            $cargoselecionado=$this->cargo;
+        $cargoselecionado=$this->cargo;
 
-            var_dump($cargoselecionado);
-            if($cargoselecionado=="gerente") {
 
-                $gerente = $auth->getRole('gerente');
-                $auth->assign($gerente, $utilizador->id);
+        if($isGuest ==true){
 
-            }else if($cargoselecionado=="atendedorpedidos") {
-
-                $atendedorpedidos = $auth->getRole('atendedorPedidos');
-                $auth->assign($atendedorpedidos, $utilizador->id);
-
-            }else if($cargoselecionado=="empregadomesa") {
-
-                $empregadomesa = $auth->getRole('empregadomesa');
-                $auth->assign($empregadomesa, $utilizador->id);
-
-            }else if($cargoselecionado=="cozinheiro") {
-
-                $cozinheiro = $auth->getRole('cozinheiro');
-                $auth->assign($cozinheiro, $utilizador->id);
-
-            }else {
-                $cliente = $auth->getRole('cliente');
-                $auth->assign($cliente, $utilizador->id);
-            }
+            $cliente = $auth->getRole('cliente');
+            $auth->assign($cliente, $utilizador->id);
 
         }else{
 
-            $auth = Yii::$app->authManager;
-            $cliente = $auth->getRole('cliente');
-            $auth->assign($cliente, $utilizador->id);
+            if (\Yii::$app->user->can('criarUtilizadores')) {
+
+                $cargo = $auth->getRole($cargoselecionado);
+                $auth->assign($cargo, $utilizador->id);
+
+            }
         }
 
         return $perfil ->save();

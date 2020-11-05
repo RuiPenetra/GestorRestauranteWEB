@@ -8,6 +8,7 @@ use Yii;
 use common\models\User;
 use common\models\UserSearch;
 use yii\filters\AccessControl;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -91,10 +92,9 @@ class UserController extends Controller
         }
 
 
-        $date= new \DateTime();
-
         $model->createAt = date('Y-m-d H:i:s');
         $model->updateAt=date('Y-m-d H:i:s');
+
 
         return $this->render('create', [
             'model' => $model,

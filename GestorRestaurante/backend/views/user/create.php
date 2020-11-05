@@ -119,7 +119,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                     </div>
-                                    <?= $form->field($model, 'cargo')->dropDownList(['gerente' => 'Gerente', 'atendedorpedidos' => 'Atendedor Pedidos', 'empregadomesa' => 'Empregado Mesa', 'cozinheiro' => 'Cozinheiro', 'Cliente' => 'Cliente'],
+                                    <?= $form->field($model, 'cargo')->dropDownList(['gerente' => 'Gerente', 'atendedorPedidos' => 'Atendedor Pedidos', 'empregadoMesa' => 'Empregado Mesa', 'cozinheiro' => 'Cozinheiro', 'cliente' => 'Cliente'],
                                         ['prompt'=>'Selecione...'],['maxlenght'=> true],
                                         ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
                                 </div>

@@ -86,7 +86,7 @@ class SiteController extends Controller
         else
         {
             $this->layout = "main";
-            return $this->render('index');
+            return $this->render('homepagelogin');
         }
     }
 

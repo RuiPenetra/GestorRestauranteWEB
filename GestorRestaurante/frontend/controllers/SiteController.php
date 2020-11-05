@@ -9,6 +9,7 @@ use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+//use yii\debug\models\search\User;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -17,6 +18,8 @@ use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\ContactForm;
+use common\models\User;
+
 /**
  * Site controller
  */
@@ -76,8 +79,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout="main_principal";
-        return $this->render('index');
+        if(Yii::$app->user->isGuest) {
+            $this->layout = "main_principal";
+            return $this->render('index');
+        }
+        else
+        {
+            $this->layout = "main";
+            return $this->render('index');
+        }
     }
 
     public function actionPedidosativos()
@@ -98,7 +108,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->actionmain();
         } else {
             $model->password = '';
 
@@ -120,6 +130,7 @@ class SiteController extends Controller
 
         return $this->goHome();
     }
+
 
     /**
      * Displays contact page.
@@ -210,7 +221,6 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-<<<<<<< Updated upstream
 
         $date = new \DateTime();
 
@@ -218,10 +228,7 @@ class SiteController extends Controller
         $model->updateAt=
         //$model->createAt=$date->format('d-m-Y');
         //$model->updateAt=$date->format('d-m-Y');
-=======
-        $model->createAt= "1111111111111111";
-        $model->updateAt= date('Y-m-d H:i:s');
->>>>>>> Stashed changes
+
 
         $this->layout = "main_principal";
         return $this->render('signup', [
@@ -325,5 +332,11 @@ class SiteController extends Controller
 
 
     }
+    public function actionMain()
+    {
+        $users = User::find()->all();
+        $this->layout='main';
+        return $this->render('homepagelogin',['users' => $users]);
 
+    }
 }

@@ -99,7 +99,7 @@ use yii\bootstrap4\ActiveForm;
         <div class="row">
             <div class="col-6">
                 <div class="input-group mb-3">
-                    <div class="input-group-append">
+                    <div class="input-group-append" id="genero">
                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                     </div>
                     <?= $form->field($model, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'],

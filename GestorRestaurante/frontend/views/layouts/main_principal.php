@@ -32,7 +32,7 @@ AppAsset::register($this);
     <nav class="sticky-top navbar navbar-expand-lg navbar-dark info-color">
         <ul class="navbar-nav ml-auto nav-flex-icons">
             <li class="nav-item avatar">
-                <a class="nav-link p-0" href="#">
+                <a class="nav-link p-0" href="<?= Url::toRoute(['site/index'])?>">
                     <?= Html::img('img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'height' =>'35']);?>
                     <span class="navbar-brand">Gestor Restaurante</span>
                 </a>

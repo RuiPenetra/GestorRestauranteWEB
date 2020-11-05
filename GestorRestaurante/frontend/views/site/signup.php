@@ -105,11 +105,10 @@ $this->title = 'Signup';
                 <div class="row">
                     <div class="col-6">
                         <div class="input-group mb-3">
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            <div class="input-group-append" id="genero">
+                                <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
                             </div>
                             <?= $form->field($model, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'],
-                                ['prompt'=>'Selecione...'],['maxlenght'=> true],
                                 ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
                         </div>
                     </div>

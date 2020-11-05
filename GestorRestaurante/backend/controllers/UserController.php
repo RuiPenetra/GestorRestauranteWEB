@@ -89,14 +89,12 @@ class UserController extends Controller
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();
         }
-<<<<<<< Updated upstream
-=======
+
 
         $date= new \DateTime();
 
         $model->createAt = date('Y-m-d H:i:s');
         $model->updateAt=date('Y-m-d H:i:s');
->>>>>>> Stashed changes
 
         return $this->render('create', [
             'model' => $model,

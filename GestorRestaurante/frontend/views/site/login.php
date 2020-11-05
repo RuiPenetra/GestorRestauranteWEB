@@ -8,7 +8,6 @@
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
-
 ?>
 
 <div class="container h-100 align-middle">
@@ -41,9 +40,11 @@ use yii\bootstrap4\ActiveForm;
                 <div class="d-flex justify-content-center mt-3 login_container">
                     <?= Html::submitButton('Login', ['class' => 'btn login_btn', 'name' => 'login-button']) ?>
                 </div>
-                <?php ActiveForm::end(); ?>
-            </div>
 
+                <?php ActiveForm::end(); ?>
+                
+
+        </div>
             <div class="mt-4">
                 <div class="d-flex justify-content-center links">
                     Não tem conta?? <a href="#" class="ml-2">Registar-me</a>

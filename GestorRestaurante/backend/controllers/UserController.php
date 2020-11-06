@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Carbon\Carbon;
+use common\models\Perfil;
 use common\models\SignupForm;
 use Yii;
 use common\models\User;
@@ -18,6 +19,7 @@ use yii\filters\VerbFilter;
  */
 class UserController extends Controller
 {
+    public $cargo;
     /**
      * {@inheritdoc}
      */
@@ -28,8 +30,9 @@ class UserController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','create'],
+                        'actions' => ['index','update','delete','view','create'],
                         'allow' => true,
+                        'roles' => ['gerente'],
                     ],
                 ],
             ],
@@ -61,20 +64,29 @@ class UserController extends Controller
         return $this->render('index', [
             'users' => $users
             /*'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,*/
+$            'dataProvider' => dataProvider,*/
         ]);
     }
 
     /**
      * Displays a single User model.
+     *
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
+
+        $user=$this->findModel($id);
+
+        $id_user=$user->id;
+
+        $perfil=Perfil::findOne($id_user);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'user' => $user,
+            'perfil' => $perfil
         ]);
     }
 
@@ -111,17 +123,79 @@ class UserController extends Controller
 
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $user = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $perfil=Perfil::findOne($id);
+        $auth = Yii::$app->authManager;
+
+        $user->cargo=$this->actionGetcargo($user->id);
+
+
+        $user->password_atual=$user->password_hash;
+
+
+        if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
+
+            VarDumper::dump($user->cargo);
+
+
+            $this->actionRemovecargo($user->cargo,$user->id);
+                $cargo=$user->cargo;
+                $novoCargo = $auth->getRole($cargo);
+                $auth->assign($novoCargo, $user->id);
+
+
+            if($user->new_password != null ){
+                $user->updatePassword($user->new_password);
+            }
+
+
+            return $this->redirect(['view', 'id' => $user->id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'user' => $user, 'perfil' =>$perfil
         ]);
     }
 
+    public function actionMyperfil($id)
+    {
+        $user = $this->findModel($id);
+
+        $perfil=Perfil::findOne($id);
+        $auth = Yii::$app->authManager;
+
+        $user->cargo=$this->actionGetcargo($user->id);
+
+
+        $user->password_atual=$user->password_hash;
+
+
+        if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
+
+            VarDumper::dump($user->cargo);
+
+
+            $this->actionRemovecargo($user->cargo,$user->id);
+            $cargo=$user->cargo;
+            $novoCargo = $auth->getRole($cargo);
+            $auth->assign($novoCargo, $user->id);
+
+
+            if($user->new_password != null ){
+                $user->updatePassword($user->new_password);
+            }
+
+
+            return $this->render('update', [
+                'user' => $user, 'perfil' =>$perfil
+            ]);
+        }
+
+        return $this->render('update', [
+            'user' => $user, 'perfil' =>$perfil
+        ]);
+    }
     /**
      * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -150,5 +224,46 @@ class UserController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionUpdatecargo($cargo_novo,$id_user){
+
+        $auth = Yii::$app->authManager;
+        $novoCargo = $auth->getRole($cargo_novo);
+        $auth->assign($novoCargo, $id_user);
+
+
+    }
+
+
+    public function actionRemovecargo($cargo,$id_user){
+
+        $auth = Yii::$app->authManager;
+        $cargo_remover = $auth->getRole($cargo);
+        $rest= Yii::$app->authManager->revokeAll($id_user);
+
+
+    }
+
+    public function actionGetcargo($id_user){
+
+
+        if(Yii::$app->authManager->getAssignment('gerente',$id_user) != null){
+
+            return $cargo="gerente";
+        }else if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null){
+
+            return $cargo="atendedorPedidos";
+        }else if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null){
+
+            return $cargo="empregadoMesa";
+        }else if(Yii::$app->authManager->getAssignment('cozinheiro',$id_user) != null){
+
+            return $cargo="cozinheiro";
+        }else{
+
+            return $cargo="cliente";
+        }
+
     }
 }

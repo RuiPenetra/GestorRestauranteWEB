@@ -3,14 +3,30 @@
 use common\models\User;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 
 
 ?>
-<?php $id_user = Yii::$app->user->identity->id;
-$user=User::findOne(['id'=>$id_user])?>
+<?php $id_user = Yii::$app->user->identity->id;?>
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0"><?= $this->title = 'Perfil';?></h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="<?= Url::toRoute(['site/index']) ?>">Home</a></li>
+                    <li class="breadcrumb-item active"><?=$this->params['breadcrumbs'][] = $this->title;?></li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
 <div class="utilizador-update">
     <div class="row d-flex justify-content-center">
         <div class="col-md-3">
@@ -21,7 +37,7 @@ $user=User::findOne(['id'=>$id_user])?>
                         <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img img-fluid img-circle']); ?>
                     </div>
 
-                    <h3 class="profile-username text-center"><?=$model->nome?> <?=$model->apelido?></h3>
+                    <h3 class="profile-username text-center"><?=$perfil->nome?> <?=$perfil->apelido?></h3>
 
                     <p class="text-muted text-center">Gerente</p>
 
@@ -34,18 +50,18 @@ $user=User::findOne(['id'=>$id_user])?>
             <div class="card card-primary">
                 <div class="card-body">
                     <strong><i class="fas fa-user-alt mr-1"></i>Nome</strong>
-                    <p class="text-muted"><?=$model->nome?> <?=$model->apelido?></p>
+                    <p class="text-muted"><?=$perfil->nome?> <?=$perfil->apelido?></p>
                     <hr>
                     <strong><i class="fas fa-map-marker-alt mr-1"></i>Morada</strong>
-                    <p class="text-muted"><?=$model->morada?></p>
+                    <p class="text-muted"><?=$perfil->morada?></p>
                     <hr>
                     <strong><i class="fas fa-calendar-alt mr-1"></i>Data Nascimento </strong>
-                    <p class="text-muted"><?=$model->datanascimento?></p>
+                    <p class="text-muted"><?=$perfil->datanascimento?></p>
                     <hr>
                     <strong><i class="fas fa-map-marker-alt mr-1"></i> Genero</strong>
                     <p class="text-muted">
                         <?php
-                        if($model->genero == 0):?>
+                        if($perfil->genero == 0):?>
                             Feminino
                         <?php else:?>
                             Masculino
@@ -86,7 +102,7 @@ $user=User::findOne(['id'=>$id_user])?>
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                                         </div>
-                                        <?= $form->field($model, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
+                                        <?= $form->field($perfil, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -94,7 +110,7 @@ $user=User::findOne(['id'=>$id_user])?>
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                                         </div>
-                                        <?= $form->field($model, 'apelido', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Apelido"])->label(false) ?>
+                                        <?= $form->field($perfil, 'apelido', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Apelido"])->label(false) ?>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +120,7 @@ $user=User::findOne(['id'=>$id_user])?>
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                                         </div>
-                                        <?= $form->field($model, 'morada', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Morada"])->label(false) ?>
+                                        <?= $form->field($perfil, 'morada', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Morada"])->label(false) ?>
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +130,7 @@ $user=User::findOne(['id'=>$id_user])?>
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                         </div>
-                                        <?= $form->field($model, 'codigopostal', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Codigo-Postal"])->label(false) ?>
+                                        <?= $form->field($perfil, 'codigopostal', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Codigo-Postal"])->label(false) ?>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -122,7 +138,7 @@ $user=User::findOne(['id'=>$id_user])?>
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                         </div>
-                                        <?= $form->field($model, 'datanascimento',['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'type' => 'date','autocomplete' => 'off'])->label(false) ?>
+                                        <?= $form->field($perfil, 'datanascimento',['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'type' => 'date','autocomplete' => 'off'])->label(false) ?>
 
                                     </div>
                                 </div>
@@ -133,7 +149,7 @@ $user=User::findOne(['id'=>$id_user])?>
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                         </div>
-                                        <?= $form->field($model, 'nacionalidade', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nacionalidade"])->label(false) ?>
+                                        <?= $form->field($perfil, 'nacionalidade', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nacionalidade"])->label(false) ?>
 
                                     </div>
                                 </div>
@@ -142,7 +158,7 @@ $user=User::findOne(['id'=>$id_user])?>
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
                                         </div>
-                                        <?= $form->field($model, 'telemovel', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Telemovel"])->label(false) ?>
+                                        <?= $form->field($perfil, 'telemovel', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Telemovel"])->label(false) ?>
 
                                     </div>
                                 </div>
@@ -153,7 +169,7 @@ $user=User::findOne(['id'=>$id_user])?>
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                         </div>
-                                        <?= $form->field($model, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'],
+                                        <?= $form->field($perfil, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'],
                                             ['prompt'=>'Selecione...'],['maxlenght'=> true],
                                             ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
                                     </div>

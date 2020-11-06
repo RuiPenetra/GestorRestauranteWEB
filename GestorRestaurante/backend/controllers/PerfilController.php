@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\User;
 use Yii;
 use common\models\Perfil;
 use common\models\PerfilSearch;
@@ -27,6 +28,7 @@ class PerfilController extends Controller
                     [
                         'actions' => ['index','create','myperfil'],
                         'allow' => true,
+                        'roles' => ['gerente'],
                     ],
                 ],
             ],
@@ -56,16 +58,38 @@ class PerfilController extends Controller
 
     public function actionMyperfil($id)
     {
-        $model = $this->findModel($id);
+        $user =User::findOne($id);
+        $perfil= $this->findModel($user->id);
+        $auth = Yii::$app->authManager;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->render('perfil', [
-                'model' => $model
-            ]);
+        $user->cargo=$this->actionGetcargo($user->id);
+
+
+        $user->password_atual=$user->password_hash;
+
+
+        if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
+
+            VarDumper::dump($user->cargo);
+
+
+            $this->actionRemovecargo($user->cargo,$user->id);
+            $cargo=$user->cargo;
+            $novoCargo = $auth->getRole($cargo);
+            $auth->assign($novoCargo, $user->id);
+
+
+            if($user->new_password != null ){
+                $user->updatePassword($user->new_password);
+            }
+
+
+            return $this->redirect(['myperfil', 'id' => $user->id]);
         }
 
         return $this->render('perfil', [
-            'model' => $model,
+            'perfil' =>$perfil,
+            'user' =>$user,
         ]);
     }
     /**
@@ -147,5 +171,28 @@ class PerfilController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    public function actionGetcargo($id_user){
+
+
+        if(Yii::$app->authManager->getAssignment('gerente',$id_user) != null){
+
+            return $cargo="gerente";
+        }else if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null){
+
+            return $cargo="atendedorPedidos";
+        }else if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null){
+
+            return $cargo="empregadoMesa";
+        }else if(Yii::$app->authManager->getAssignment('cozinheiro',$id_user) != null){
+
+            return $cargo="cozinheiro";
+        }else{
+
+            return $cargo="cliente";
+        }
+
     }
 }

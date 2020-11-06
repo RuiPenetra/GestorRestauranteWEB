@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="utilizador-create">
     <div class="row d-flex justify-content-center">
-        <div class="col-md-7">
+        <div class="col-10">
             <div class="card p-5">
                 <div class="card-body">
                     <div class="align-center">

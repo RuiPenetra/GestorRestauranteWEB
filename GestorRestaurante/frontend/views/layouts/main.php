@@ -32,11 +32,17 @@ AppAsset::register($this);
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-yellow navbar-light">
 
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+        </ul>
+
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="#" role="button">
+                <a class="nav-link" href="<?=Url::toRoute(['perfil/myperfil', 'id' => Yii::$app->user->identity])?>" role="button">
                     <i class="fas fa-user-edit"></i>
                     Perfil
                 </a>

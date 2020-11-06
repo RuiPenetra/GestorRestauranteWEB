@@ -72,7 +72,7 @@ class SignupForm extends Model
 
             ['genero', 'required'],
             ['genero', 'in', 'range' => [0,1]],
-            
+
             ['cargo', 'string'],
 
         ];

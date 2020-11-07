@@ -55,7 +55,7 @@ use yii\widgets\DetailView;
                                                     <?php endif;?>
                                                     <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$user->id) != null
                                                     ):?>
-                                                        <span class="center badge badge-indigo"><h8>Empregado Mesa</h8></span>
+                                                        <span class="center badge badge-indigo-light"><h8>Empregado Mesa</h8></span>
                                                     <?php endif;?>
                                                     <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$user->id) != null):?>
                                                         <span class="center badge badge-success"><h8>Cozinheiro</h8></span>

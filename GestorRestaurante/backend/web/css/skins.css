@@ -10,16 +10,16 @@
     border: 3px solid #28a745 !important;
 }
 
-.profile-user-img-color-atendedor-pedidos {
+.profile-user-img-color-cliente {
     border: 3px solid #dc3545 !important;
 }
 
 .profile-user-img-color-empregado-mesa {
-    border: 3px solid #fd7e14 !important;
+    border: 3px solid #6610f2 !important;
 }
 
-.profile-user-img-color-cliente {
-    border: 3px solid #3c8dbc !important;
+.profile-user-img-color-atendedor-pedidos {
+    border: 3px solid #007bff !important;
 }
 
 /*=====================================================
@@ -139,7 +139,7 @@
 =====================================================*/
 
 .badge-primary {
-    color: #fff;
+    color: #000;
     background-color: #007bff;
 }
 
@@ -169,7 +169,7 @@ a.badge-secondary:focus, a.badge-secondary.focus {
 }
 
 .badge-success {
-    color: #fff;
+    color: #000;
     background-color: #28a745;
 }
 
@@ -203,6 +203,15 @@ a.badge-info:focus, a.badge-info.focus {
     background-color: #ffc107;
 }
 
+.badge-indigo {
+    color:#000;
+    background-color:#6610f2;
+}
+.badge-indigo-light {
+    color:#fff;
+    background-color:#6610f2;
+}
+
 a.badge-warning:hover, a.badge-warning:focus {
     color: #1f2d3d;
     background-color: #d39e00;
@@ -214,7 +223,7 @@ a.badge-warning:focus, a.badge-warning.focus {
 }
 
 .badge-danger {
-    color: #fff;
+    color: #000;
     background-color: #dc3545;
 }
 
@@ -693,13 +702,6 @@ a.badge-dark:focus, a.badge-dark.focus {
     background-color: #d39e00 !important;
     border-color: #c69500;
     color: #1f2d3d;
-}
-
-.bg-orange-light {
-    background-color: #ffe1bf !important;
-}
-.bg-green-light {
-    background-color: #cdffb2 !important;
 }
 
 .bg-danger {

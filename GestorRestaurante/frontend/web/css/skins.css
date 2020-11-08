@@ -11,7 +11,7 @@
 }
 
 .profile-user-img-color-cliente {
-    border: 3px solid #dc3545 !important;
+    border: 3px solid rgba(237, 48, 69, 0.8) !important;
 }
 
 .profile-user-img-color-empregado-mesa {
@@ -99,7 +99,7 @@
 }
 
 .navbar-red {
-    background-color: #dc3545;
+    background-color: rgba(237, 48, 69, 0.8);
 }
 
 .navbar-orange {
@@ -220,7 +220,7 @@ a.badge-warning:focus, a.badge-warning.focus {
 
 .badge-danger {
     color: #000;
-    background-color: #dc3545;
+    background-color: rgba(237, 48, 69, 0.8);
 }
 
 a.badge-danger:hover, a.badge-danger:focus {

@@ -2,8 +2,8 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
-
+$this->title = 'Gestor Restaurante';
+$nome='';
 use yii\helpers\Url; ?>
 <div class="content-header">
     <div class="container-fluid">
@@ -12,6 +12,8 @@ use yii\helpers\Url; ?>
                 <h1 class="m-0"><?= $this->title = 'Home';?></h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
+               <button id="teste"></button>
+
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?= Url::toRoute(['site/index']) ?>">Home</a></li>
                     <li class="breadcrumb-item active"><?=$this->title?></li>
@@ -21,7 +23,6 @@ use yii\helpers\Url; ?>
     </div><!-- /.container-fluid -->
 </div>
 <div class="site-index">
-
     <div class="row">
         <!-- CARD - UTILIZADORES -->
         <div class="col-lg-3 col-6">
@@ -166,3 +167,4 @@ use yii\helpers\Url; ?>
         <!-- ./col -->
     </div>
 </div>
+

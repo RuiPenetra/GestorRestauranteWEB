@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <a href="<?=Url::toRoute(['user/update', 'id' => $user->id])?>" type="button" class="btn btn-warning">
                                                     <i class="far fa-edit color-white"></i>
                                                 </a>
-                                                <a href="<?=Url::toRoute(['user/delete', 'id' => $user->id])?>" type="button" class="btn btn-danger">
+                                                <a href="<?=Url::toRoute(['user/delete', 'id' => $user->id])?>" data-method="POST" type="button" class="btn btn-danger">
                                                     <i class="fas fa-trash-alt"></i>
                                                 </a>
                                             </td>

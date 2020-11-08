@@ -26,7 +26,7 @@ class PerfilController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','create','myperfil'],
+                        'actions' => ['index','update','delete','view','create','myperfil'],
                         'allow' => true,
                         'roles' => ['gerente'],
                     ],
@@ -154,7 +154,7 @@ class PerfilController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['user/delete']);
     }
 
     /**

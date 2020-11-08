@@ -100,7 +100,7 @@ use yii\helpers\Url;
                                 <div class="col-6">
                                     <div class="input-group mb-3">
                                         <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-globe-asia"></i></span>
                                         </div>
                                         <?= $form->field($perfil, 'nacionalidade', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nacionalidade"])->label(false) ?>
 
@@ -120,7 +120,7 @@ use yii\helpers\Url;
                                 <div class="col-6">
                                     <div class="input-group mb-3">
                                         <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
                                         </div>
                                         <?= $form->field($perfil, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'],
                                             ['prompt'=>'Selecione...'],['maxlenght'=> true],
@@ -130,7 +130,7 @@ use yii\helpers\Url;
                                 <div class="col-6">
                                     <div class="input-group mb-3">
                                         <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
                                         </div>
                                         <?= $form->field($user, 'cargo')->dropDownList(['gerente' => 'Gerente', 'atendedorPedidos' => 'Atendedor Pedidos', 'empregadoMesa' => 'Empregado Mesa', 'cozinheiro' => 'Cozinheiro', 'cliente' => 'Cliente'],
                                             ['prompt'=>'Selecione...'],['maxlenght'=> true],

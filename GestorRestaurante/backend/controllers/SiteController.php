@@ -24,9 +24,10 @@ class SiteController extends Controller
                     [
                         'actions' => ['login'],
                         'allow' => true,
+                        'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index','error'],
                         'allow' => true,
                         'roles' => ['gerente'],
                     ],
@@ -71,14 +72,28 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-
-        }
         $model = new LoginForm();
+
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
+
+            if (Yii::$app->user->can('apagarUtilizadores')) {
+                Yii::$app->session->setFlash('danger', 'Utilizador não tem premissão para aceder');
+
+
+                return $this->goBack();
+            }else{
+
+                Yii::$app->session->setFlash('danger', 'Utilizador não tem premissão para aceder');
+
+                $model->password = '';
+
+                $this->layout="main_principal";
+                return $this->render('login', [
+                    'model' => $model,
+                ]);
+            }
+
+        }else{
             $model->password = '';
 
             $this->layout="main_principal";
@@ -86,6 +101,15 @@ class SiteController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionError()
+    {
+        $error = Yii::app()->errorHandler->error;
+        if ($error)
+            $this->render('error', array('error'=>$error));
+        else
+            throw new CHttpException(404, 'Page not found.');
     }
 
     /**

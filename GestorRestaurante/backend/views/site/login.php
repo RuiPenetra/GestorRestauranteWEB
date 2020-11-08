@@ -5,13 +5,14 @@
 /* @var $model \common\models\LoginForm */
 
 
+use hail812\adminlte3\widgets\Alert;
+use yii\bootstrap4\Modal;
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 
 
 
 ?>
-
 <div class="container h-100 align-middle">
     <div class="d-flex justify-content-center h-100">
         <div class="user_card_login">

@@ -80,7 +80,7 @@ use yii\widgets\DetailView;
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
                                         </div>
                                         <?= $form->field($perfil, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'], ['disabled' => 'disabled'],
                                             ['prompt'=>'Selecione...'],['maxlenght'=> true],
@@ -110,7 +110,7 @@ use yii\widgets\DetailView;
                                 <div class="col-6">
                                     <div class="input-group mb-3">
                                         <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-globe-asia"></i></span>
                                         </div>
                                         <?= $form->field($perfil, 'datanascimento',['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'type' => 'date','autocomplete' => 'off'])->label(false) ?>
 
@@ -162,9 +162,6 @@ use yii\widgets\DetailView;
                                         <?= $form->field($user, 'email', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Email", 'type' => 'email'])->label(false) ?>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="d-flex justify-content-center mt-3 login_container">
-                                <?= Html::submitButton('Atualizar', ['class' => 'btn login_btn', 'name' => 'login-button']) ?>
                             </div>
                             <?php ActiveForm::end(); ?>
                         </div>

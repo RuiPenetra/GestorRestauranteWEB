@@ -4,11 +4,8 @@
 /* @var $content string */
 
 use common\models\Perfil;
-use common\models\User;
+use yii\bootstrap4\Modal;
 use yii\helpers\Html;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
-use yii\bootstrap4\Breadcrumbs;
 use backend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\helpers\Url;
@@ -31,7 +28,6 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
 </head>
 <body class="hold-transition layout-fixed layout-navbar-fixed layout-footer-fixed">
 <?php $this->beginBody() ?>
-
 <div class="wrapper_login">
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-yellow navbar-light">
@@ -63,7 +59,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
-        <a href="index3.html" class="brand-link">
+        <a href="#" class="brand-link">
             <?= Html::img('img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'style' =>'opacity: .8']);?>
             <span class="brand-text font-weight-light">Gestor Restaurante</span>
         </a>
@@ -179,6 +175,9 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
         <section class="content">
             <div class="container-fluid">
                 <?=$content?>
+                <button type="button" class="btn btn-success toastrDefaultSuccess">
+                    Launch Success Toast
+                </button>
             </div>
         </section>
         <!-- /.content -->
@@ -190,7 +189,6 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
         <!-- Control sidebar content goes here -->
     </aside>
     <!-- /.control-sidebar -->
-
     <!-- Main Footer -->
     <footer class="main-footer">
         <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
@@ -200,6 +198,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
         </div>
     </footer>
 </div>
+
 <!-- ./wrapper -->
 <?php $this->endBody() ?>
 </body>

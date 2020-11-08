@@ -19,12 +19,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
         "yiisoft/yii2-bootstrap4": "^2.0",
         "yidas/yii2-fontawesome": "^5.0",
-<<<<<<< Updated upstream
         "rmrevin/yii2-ionicon": "~1.2",
         "nesbot/carbon": "^2.16"
-=======
-        "rmrevin/yii2-ionicon": "~1.2"
->>>>>>> Stashed changes
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -35,7 +31,8 @@
         "codeception/module-yii2": "^1.0",
         "codeception/module-filesystem": "^1.0",
         "codeception/verify": "~0.5.0 || ~1.1.0",
-        "symfony/browser-kit": ">=2.7 <=4.2.4"
+        "symfony/browser-kit": ">=2.7 <=4.2.4",
+
     },
     "config": {
         "process-timeout": 1800,

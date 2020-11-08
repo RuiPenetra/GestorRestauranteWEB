@@ -29,8 +29,9 @@ AppAsset::register($this);
 
 <div class="wrapper_login">
     <!-- Navbar -->
-
-    <?php if(\Yii::$app->user->can('AcederInterfaceGerente')) {?>
+    <?php $id = Yii::$app->user->identity->id; ?>
+    <?php $name = Yii::$app->user->identity->username ?>
+    <?php if(\Yii::$app->authManager->getAssignment('gerente',$id)!=null) {?>
     <nav class="main-header navbar navbar-expand navbar-yellow navbar-light">
 
         <ul class="navbar-nav">
@@ -57,7 +58,7 @@ AppAsset::register($this);
     </nav>
     <?php }?>
 
-    <?php if(\Yii::$app->user->can('AcederInterfaceCliente')) {?>
+    <?php if(\Yii::$app->authManager->getAssignment('cliente',$id)!=null) {?>
     <nav class="main-header navbar navbar-expand navbar-red navbar-light">
 
 
@@ -81,7 +82,7 @@ AppAsset::register($this);
     <?php }?>
 
 
-    <?php if(\Yii::$app->user->can('AcederInterfaceCozinheiro')) {?>
+    <?php if(\Yii::$app->authManager->getAssignment('cozinheiro',$id)!=null) {?>
     <nav class="main-header navbar navbar-expand navbar-success navbar-light">
 
 
@@ -104,7 +105,7 @@ AppAsset::register($this);
         <!-- /.navbar -->
     <?php }?>
 
-        <?php if(\Yii::$app->user->can('AcederInterfaceEmpregadoMesa')) {?>
+        <?php if(\Yii::$app->authManager->getAssignment('empregadoMesa',$id)!=null) {?>
         <nav class="main-header navbar navbar-expand navbar-indigo navbar-light">
 
 
@@ -126,7 +127,7 @@ AppAsset::register($this);
     </nav>
         <?php }?>
 
-    <?php if(\Yii::$app->user->can('AcederInterfaceAtendedorPedidos')) {?>
+    <?php if(\Yii::$app->authManager->getAssignment('atendedorPedidos',$id)!=null) {?>
         <nav class="main-header navbar navbar-expand navbar-primary navbar-light">
 
 
@@ -157,109 +158,6 @@ AppAsset::register($this);
             <span class="brand-text font-weight-light">Gestor Restaurante</span>
         </a>
 
-        <?php if(\Yii::$app->user->can('AcederInterfaceGerente')) {?>
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-            <div class="box-body box-profile user-painel mt-3">
-                <h3 class="profile-username text-center">
-                    <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive img-circle']); ?>
-                </h3>
-                <div class="info center">
-                    <a href="#" class="d-block text-center">Alexander Pierce</a>
-                    <div style="text-align: center;">
-                        <span class="center badge badge-warning"><h8>Cargooooo</h8></span>
-                    </div>
-                </div>
-            </div>
-            <div class="user-panel mt-3 d-flex"></div>
-
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
-
-                    <!-- HOME -->
-                    <li class="nav-item">
-                        <a href="<?= Url::toRoute(['site/main']) ?>" class="nav-link active">
-                            <i class="fas fa-home"></i>
-                            <p>
-                                Home
-                            </p>
-                        </a>
-                    </li>
-                    <!-- UTILIZADORES -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-users"></i>
-                            <p>
-                                Utilizadores
-                            </p>
-                        </a>
-                    </li>
-                    <!-- CARGOS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-user-tag"></i>
-                            <p>
-                                Cargos
-                            </p>
-                        </a>
-                    </li>
-                    <!-- CATEGORIA DE PRODUTOS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-tags"></i>
-                            <p>
-                                Categorias Produtos
-                            </p>
-                        </a>
-                    </li>
-                    <!-- PRODUTOS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-utensils"></i>
-                            <p>
-                                Produtos
-                            </p>
-                        </a>
-                    </li>
-                    <!-- PEDIDOS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-truck"></i>
-                            <p>
-                                Pedidos
-                            </p>
-                        </a>
-                    </li>
-                    <!-- FALTAS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-user-alt-slash"></i>
-                            <p>
-                                Faltas
-                            </p>
-                        </a>
-                    </li>
-                    <!-- HORARIO -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-calendar-alt"></i>
-                            <p>
-                                Horario
-                            </p>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
-
-        </div>
-        <!-- /.sidebar -->
-    </aside>
-        <?php }?>
 
         <?php if(\Yii::$app->user->can('AcederInterfaceCliente')) {?>
         <div class="sidebar">
@@ -269,9 +167,9 @@ AppAsset::register($this);
                 <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-responsive img-circle']); ?>
             </h3>
             <div class="info center">
-                <a href="#" class="d-block text-center">Alexander Pierce</a>
+                <a href="#" class="d-block text-center"><?= $name?></a>
                 <div style="text-align: center;">
-                    <span class="center badge badge-danger"><h8>Cargooooo</h8></span>
+                    <span class="center badge badge-danger"><h8>Cliente</h8></span>
                 </div>
             </div>
         </div>
@@ -373,9 +271,9 @@ AppAsset::register($this);
                     <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-responsive img-circle']); ?>
                 </h3>
                 <div class="info center">
-                    <a href="#" class="d-block text-center">Alexander Pierce</a>
+                    <a href="#" class="d-block text-center"><?= $name?></a>
                     <div style="text-align: center;">
-                        <span class="center badge badge-success "><h8>Cargooooo</h8></span>
+                        <span class="center badge badge-success "><h8>Cozinheiro</h8></span>
                     </div>
                 </div>
             </div>
@@ -476,9 +374,9 @@ AppAsset::register($this);
                     <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive img-circle']); ?>
                 </h3>
                 <div class="info center">
-                    <a href="#" class="d-block text-center">Alexander Pierce</a>
+                    <a href="#" class="d-block text-center"><?= $name?></a>
                     <div style="text-align: center;">
-                        <span class="center badge badge-indigo"><h8>Cargooooo</h8></span>
+                        <span class="center badge badge-indigo"><h8>Empregado Mesa</h8></span>
                     </div>
                 </div>
             </div>
@@ -579,9 +477,9 @@ AppAsset::register($this);
                     <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos  img-responsive img-circle']); ?>
                 </h3>
                 <div class="info center">
-                    <a href="#" class="d-block text-center">Alexander Pierce</a>
+                    <a href="#" class="d-block text-center"><?= $name?></a>
                     <div style="text-align: center;">
-                        <span class="center badge badge-primary"><h8>Cargooooo</h8></span>
+                        <span class="center badge badge-primary"><h8>Atendedor Pedidos</h8></span>
                     </div>
                 </div>
             </div>

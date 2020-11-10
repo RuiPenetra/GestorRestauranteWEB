@@ -47,123 +47,113 @@ class PerfilController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PerfilSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (Yii::$app->user->can('consultarPerfis')) {
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            $searchModel = new PerfilSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     public function actionMyperfil($id)
     {
-        $user =User::findOne($id);
-        $perfil= $this->findModel($user->id);
-        $auth = Yii::$app->authManager;
+        if (Yii::$app->user->can('consultarUtilizadores')) {
 
-        $user->cargo=$this->actionGetcargo($user->id);
+            $user =User::findOne($id);
+            $perfil= $this->findModel($user->id);
+            $auth = Yii::$app->authManager;
 
-
-        $user->password_atual=$user->password_hash;
-
-
-        if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
-
-            VarDumper::dump($user->cargo);
+            $user->cargo=$this->actionGetcargo($user->id);
 
 
-            $this->actionRemovecargo($user->cargo,$user->id);
-            $cargo=$user->cargo;
-            $novoCargo = $auth->getRole($cargo);
-            $auth->assign($novoCargo, $user->id);
+            $user->password_atual=$user->password_hash;
 
 
-            if($user->new_password != null ){
-                $user->updatePassword($user->new_password);
+            if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
+
+                $this->actionRemovecargo($user->cargo,$user->id);
+
+                $cargo_selecionado=$user->cargo;
+
+                $novoCargo = $auth->getRole($cargo_selecionado);
+                $auth->assign($novoCargo, $user->id);
+
+
+                if($user->new_password != null ){
+                    $user->updatePassword($user->new_password);
+                }
+
+
+                return $this->redirect(['myperfil', 'id' => $user->id]);
             }
 
+            return $this->render('perfil', [
+                'perfil' =>$perfil,
+                'user' =>$user,
+            ]);
 
-            return $this->redirect(['myperfil', 'id' => $user->id]);
         }
 
-        return $this->render('perfil', [
-            'perfil' =>$perfil,
-            'user' =>$user,
-        ]);
     }
-    /**
-     * Displays a single Perfil model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if (Yii::$app->user->can('consultarPerfis')) {
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
     }
 
-    /**
-     * Creates a new Perfil model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
-        $model = new Perfil();
+        if (Yii::$app->user->can('consultarPerfil')) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_user]);
+            $model = new Perfil();
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_user]);
+            }
+
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
-    /**
-     * Updates an existing Perfil model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (Yii::$app->user->can('atualizarPerfis')) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_user]);
+            $model = $this->findModel($id);
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id_user]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
-    /**
-     * Deletes an existing Perfil model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
 
-        return $this->redirect(['user/delete']);
+        if (Yii::$app->user->can('apagarPerfis')) {
+
+            $this->findModel($id)->delete();
+
+            return $this->redirect(['user/delete']);
+
+        }
     }
 
-    /**
-     * Finds the Perfil model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Perfil the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Perfil::findOne($id)) !== null) {
@@ -173,26 +163,29 @@ class PerfilController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-
     public function actionGetcargo($id_user){
 
+        if (Yii::$app->user->can('consultarCargos')) {
 
-        if(Yii::$app->authManager->getAssignment('gerente',$id_user) != null){
+            if(Yii::$app->authManager->getAssignment('gerente',$id_user) != null){
 
-            return $cargo="gerente";
-        }else if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null){
+                return $cargo="gerente";
+            }else if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null){
 
-            return $cargo="atendedorPedidos";
-        }else if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null){
+                return $cargo="atendedorPedidos";
+            }else if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null){
 
-            return $cargo="empregadoMesa";
-        }else if(Yii::$app->authManager->getAssignment('cozinheiro',$id_user) != null){
+                return $cargo="empregadoMesa";
+            }else if(Yii::$app->authManager->getAssignment('cozinheiro',$id_user) != null){
 
-            return $cargo="cozinheiro";
-        }else{
+                return $cargo="cozinheiro";
+            }else{
 
-            return $cargo="cliente";
+                return $cargo="cliente";
+            }
+
         }
 
     }
+
 }

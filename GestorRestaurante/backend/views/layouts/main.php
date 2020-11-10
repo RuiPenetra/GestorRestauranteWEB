@@ -113,33 +113,6 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                             </p>
                         </a>
                     </li>
-                    <!-- CATEGORIA DE PRODUTOS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-tags"></i>
-                            <p>
-                                Categorias Produtos
-                            </p>
-                        </a>
-                    </li>
-                    <!-- PRODUTOS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-utensils"></i>
-                            <p>
-                                Produtos
-                            </p>
-                        </a>
-                    </li>
-                    <!-- PEDIDOS -->
-                    <li class="nav-item">
-                        <a href="<?= Url::toRoute(['pedido/index']) ?>" class="nav-link">
-                            <i class="fas fa-truck"></i>
-                            <p>
-                                Pedidos
-                            </p>
-                        </a>
-                    </li>
                     <!-- FALTAS -->
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -158,7 +131,62 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                             </p>
                         </a>
                     </li>
+                    <!-- CATEGORIA DE PRODUTOS -->
+                    <li class="nav-item">
+                        <a href="<?= Url::toRoute(['categoriaoroduto/index']) ?>" class="nav-link">
+                            <i class="fas fa-tags"></i>
+                            <p>
+                                Categorias Produtos
+                            </p>
+                        </a>
+                    </li>
+                    <!-- PRODUTOS -->
+                    <li class="nav-item">
+                        <a href="<?= Url::toRoute(['produto/index']) ?>" class="nav-link">
+                            <i class="fas fa-truck"></i>
+                            <p>
+                                Produtos
+                            </p>
+                        </a>
+                    </li>
+                    <!-- PEDIDOS -->
+                    <li class="nav-item">
+                        <a href="<?= Url::toRoute(['pedido/index']) ?>" class="nav-link">
+                            <i class="fas fa-truck"></i>
+                            <p>
+                                Pedidos
+                            </p>
+                        </a>
+                    </li>
+                    <!-- FATURAS -->
+                    <li class="nav-item">
+                        <a href="<?= Url::toRoute(['pedido/index']) ?>" class="nav-link">
+                            <i class="fas fa-truck"></i>
+                            <p>
+                                Faturas
+                            </p>
+                        </a>
+                    </li>
+                    <!-- RESERVAS -->
+                    <li class="nav-item">
+                        <a href="<?= Url::toRoute(['pedido/index']) ?>" class="nav-link">
+                            <i class="fas fa-truck"></i>
+                            <p>
+                                Reservas
+                            </p>
+                        </a>
+                    </li>
+                    <!-- CONTACTOS -->
+                    <li class="nav-item">
+                        <a href="<?= Url::toRoute(['pedido/index']) ?>" class="nav-link">
+                            <i class="fas fa-truck"></i>
+                            <p>
+                                Contactos
+                            </p>
+                        </a>
+                    </li>
                 </ul>
+
             </nav>
             <!-- /.sidebar-menu -->
 
@@ -175,9 +203,6 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
         <section class="content">
             <div class="container-fluid">
                 <?=$content?>
-                <button type="button" class="btn btn-success toastrDefaultSuccess">
-                    Launch Success Toast
-                </button>
             </div>
         </section>
         <!-- /.content -->
@@ -199,6 +224,22 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
     </footer>
 </div>
 
+<!--<script>
+    $(function () {
+        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+            event.preventDefault();
+            $(this).ekkoLightbox({
+                alwaysShowClose: true
+            });
+        });
+
+        $('.filter-container').filterizr({gutterPixels: 3});
+        $('.btn[data-filter]').on('click', function() {
+            $('.btn[data-filter]').removeClass('active');
+            $(this).addClass('active');
+        });
+    })
+</script>-->
 <!-- ./wrapper -->
 <?php $this->endBody() ?>
 </body>

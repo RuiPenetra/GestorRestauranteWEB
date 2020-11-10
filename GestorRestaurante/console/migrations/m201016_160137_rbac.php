@@ -16,28 +16,6 @@ class m201016_160137_rbac extends Migration
 
         //TODO: CRIAR PREMISSOES
 
-
-        //# INTERFACE #
-        $AcederInterfaceCliente = $auth->createPermission('AcederInterfaceCliente');
-        $AcederInterfaceCliente->description = 'Acesso Interface Cliente';
-        $auth->add($AcederInterfaceCliente);
-
-        $AcederInterfaceAtendedorPedidos = $auth->createPermission('AcederInterfaceAtendedorPedidos');
-        $AcederInterfaceAtendedorPedidos->description = 'Acesso Interface AtendedorPedidos';
-        $auth->add($AcederInterfaceAtendedorPedidos);
-
-        $AcederInterfaceCozinheiro = $auth->createPermission('AcederInterfaceCozinheiro');
-        $AcederInterfaceCozinheiro->description = 'Acesso Interface Cozinheiro';
-        $auth->add($AcederInterfaceCozinheiro);
-
-        $AcederInterfaceEmpregadoMesa = $auth->createPermission('AcederInterfaceEmpregadoMesa');
-        $AcederInterfaceEmpregadoMesa->description = 'Acesso Interface EmpregadoMesa';
-        $auth->add($AcederInterfaceEmpregadoMesa);
-
-        $AcederInterfaceGerente = $auth->createPermission('AcederInterfaceGerente');
-        $AcederInterfaceGerente->description = 'Acesso Interface Gerente';
-        $auth->add($AcederInterfaceGerente);
-
         /**UTILIZADORES*/
 
             //# CRIAR #

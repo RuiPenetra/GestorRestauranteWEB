@@ -1,0 +1,33 @@
+		   |_M_|_C_|_V_|_ACF_|_RBAC_|
+USER/PERFIL/CARGO  |   |   |   |     |      |
+	    FALTA  |   |   |   |     |      |
+	 HORARIOS  |   |   |   |     |      |
+___________________|   |   |   |     |      |
+CATEGORIA PRODUTO  |   |   |   |     |      |
+PRODUTO-CATEGORIA  |   |   |   |     |      |
+	  PRODUTO  |   |   |   |     |      |
+	   PEDIDO  |   |   |   |     |      |
+   PEDIDO_PRODUTO  |   |   |   |     |      |
+      PEDIDO/MESA  |   |   |   |     |      |
+           FATURA  |   |   |   |     |      |
+          RESERVA  |   |   |   |     |      |
+_____________________________________________
+
+_______________RBAC.(PREMISSOES)_____________
+
+=>USER
+	- consultarUtilizadores
+	- criarUtilizadores
+	- atualizarUtilizadores
+	- apagarUtilizadores
+=>PERFIS
+	- consultarPerfis
+	- criarPerfis
+	- atualizarPerfis
+	- apagarPerfis
+=>CARGOS
+	- consultarCargos
+	- criarCargos
+	- atualizarCargos
+	- apagarCargos
+=>

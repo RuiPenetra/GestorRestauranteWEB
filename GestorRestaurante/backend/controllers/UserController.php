@@ -47,84 +47,94 @@ class UserController extends Controller
 
     public function actionIndex()
     {
-        $users = User::find()->all();
-        /*$searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
+        if (Yii::$app->user->can('consultarUtilizadores')) {
+            $users = User::find()->all();
+            /*$searchModel = new UserSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
 
-        return $this->render('index', [
-            'users' => $users
-            /*'searchModel' => $searchModel,
-$            'dataProvider' => dataProvider,*/
-        ]);
+            return $this->render('index', [
+                'users' => $users
+                /*'searchModel' => $searchModel,
+                'dataProvider' => dataProvider,*/
+            ]);
+        }
+
     }
 
     public function actionView($id)
     {
+        if (Yii::$app->user->can('consultarUtilizadores') && Yii::$app->user->can('consultarUtilizadores') ) {
 
-        $user=$this->findModel($id);
+            $user=$this->findModel($id);
 
-        $id_user=$user->id;
+            $id_user=$user->id;
 
-        $perfil=Perfil::findOne($id_user);
+            $perfil=Perfil::findOne($id_user);
 
-        return $this->render('view', [
-            'user' => $user,
-            'perfil' => $perfil
-        ]);
+            return $this->render('view', [
+                'user' => $user,
+                'perfil' => $perfil
+            ]);
+
+        }
     }
 
     public function actionCreate()
     {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+        if (Yii::$app->user->can('criarUtilizadores') && Yii::$app->user->can('criarPerfis') ) {
 
-            return $this->redirect(['index']);
+            $model = new SignupForm();
+            if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+                Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+
+                return $this->redirect(['index']);
+            }
+
+            $model->createAt = date('Y-m-d H:i:s');
+            $model->updateAt=date('Y-m-d H:i:s');
+
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+
         }
 
-        $model->createAt = date('Y-m-d H:i:s');
-        $model->updateAt=date('Y-m-d H:i:s');
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
     public function actionUpdate($id)
     {
-        $user = $this->findModel($id);
+        if (Yii::$app->user->can('atualizarUtilizadores') && Yii::$app->user->can('atualizarPerfis')) {
 
-        $perfil=Perfil::findOne($id);
-        $auth = Yii::$app->authManager;
+            $user = $this->findModel($id);
 
-        $user->cargo=$this->actionGetcargo($user->id);
+            $perfil=Perfil::findOne($id);
+            $auth = Yii::$app->authManager;
 
+            $user->cargo=$this->actionGetcargo($user->id);
 
-        $user->password_atual=$user->password_hash;
+//            $user->password_atual=$user->password_hash;
 
+            if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
 
-        if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
+                $this->actionRemovecargo($user->cargo,$user->id);
 
-            VarDumper::dump($user->cargo);
-
-
-            $this->actionRemovecargo($user->cargo,$user->id);
-                $cargo=$user->cargo;
-                $novoCargo = $auth->getRole($cargo);
+                $cargo_selecionado=$user->cargo;
+                $novoCargo = $auth->getRole($cargo_selecionado);
                 $auth->assign($novoCargo, $user->id);
 
+                if($user->new_password != null ){
+                    $user->updatePassword($user->new_password);
+                }
 
-            if($user->new_password != null ){
-                $user->updatePassword($user->new_password);
+                return $this->redirect(['view', 'id' => $user->id]);
             }
 
-
-            return $this->redirect(['view', 'id' => $user->id]);
+            return $this->render('update', [
+                'user' => $user, 'perfil' =>$perfil
+            ]);
         }
 
-        return $this->render('update', [
-            'user' => $user, 'perfil' =>$perfil
-        ]);
+
     }
 
     public function actionMyperfil($id)
@@ -168,10 +178,9 @@ $            'dataProvider' => dataProvider,*/
 
     public function actionDelete($id)
     {
-        if (Yii::$app->user->can('apagarUtilizadores')) {
+        if (Yii::$app->user->can('apagarUtilizadores') && Yii::$app->user->can('apagarPerfis')) {
 
-            if(Yii::$app->authManager->checkAccess())
-                Perfil::findOne($id)->delete();
+            Perfil::findOne($id)->delete();
 
             $this->findModel($id)->delete();
 
@@ -196,40 +205,47 @@ $            'dataProvider' => dataProvider,*/
 
     public function actionUpdatecargo($cargo_novo,$id_user){
 
-        $auth = Yii::$app->authManager;
-        $novoCargo = $auth->getRole($cargo_novo);
-        $auth->assign($novoCargo, $id_user);
+        if (Yii::$app->user->can('atualizarCargos')) {
 
+            $auth = Yii::$app->authManager;
+            $novoCargo = $auth->getRole($cargo_novo);
+            $auth->assign($novoCargo, $id_user);
+
+        }
 
     }
 
     public function actionRemovecargo($cargo,$id_user){
 
-        $auth = Yii::$app->authManager;
-        $cargo_remover = $auth->getRole($cargo);
-        $rest= Yii::$app->authManager->revokeAll($id_user);
+        if (Yii::$app->user->can('apagarCargos')) {
 
 
+            Yii::$app->authManager->revokeAll($id_user);
+
+        }
     }
 
     public function actionGetcargo($id_user){
 
+        if (Yii::$app->user->can('consultarCargos')) {
 
-        if(Yii::$app->authManager->getAssignment('gerente',$id_user) != null){
+            if(Yii::$app->authManager->getAssignment('gerente',$id_user) != null){
 
-            return $cargo="gerente";
-        }else if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null){
+                return $cargo="gerente";
+            }else if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null){
 
-            return $cargo="atendedorPedidos";
-        }else if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null){
+                return $cargo="atendedorPedidos";
+            }else if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null){
 
-            return $cargo="empregadoMesa";
-        }else if(Yii::$app->authManager->getAssignment('cozinheiro',$id_user) != null){
+                return $cargo="empregadoMesa";
+            }else if(Yii::$app->authManager->getAssignment('cozinheiro',$id_user) != null){
 
-            return $cargo="cozinheiro";
-        }else{
+                return $cargo="cozinheiro";
+            }else{
 
-            return $cargo="cliente";
+                return $cargo="cliente";
+            }
+
         }
 
     }

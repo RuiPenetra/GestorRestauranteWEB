@@ -29,6 +29,7 @@ class CategoriaProduto extends \yii\db\ActiveRecord
     {
         return [
             [['categoria'], 'required'],
+            [['categoria'], 'unique'],
             [['categoria'], 'string', 'max' => 255],
         ];
     }

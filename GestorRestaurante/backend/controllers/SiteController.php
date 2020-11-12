@@ -83,14 +83,10 @@ class SiteController extends Controller
                 return $this->goBack();
             }else{
 
+                Yii::$app->user->logout();
+                return $this->redirect(Yii::$app->urlManagerFrontend->createUrl('site/login'));
                 Yii::$app->session->setFlash('danger', 'Utilizador não tem premissão para aceder');
 
-                $model->password = '';
-
-                $this->layout="main_principal";
-                return $this->render('login', [
-                    'model' => $model,
-                ]);
             }
 
         }else{

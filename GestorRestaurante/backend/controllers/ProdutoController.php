@@ -37,34 +37,20 @@ class ProdutoController extends Controller
      */
     public function actionIndex()
     {
-        $categoria = new CategoriaProduto();
         $produtos=Produto::find()->all();
         $categorias=CategoriaProduto::find()->all();
         $produto_categoria= new ProdutoCategoriaProduto();
         $model = new Produto();
 
-      /*  if ($categoria->load(Yii::$app->request->post()) && $categoria->save()) {
-
-            $categoria = new CategoriaProduto();
-            $model = new Produto();
-            $produtos=Produto::find()->all();
-            $categorias=CategoriaProduto::find()->all();
-
-        }*/
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             $produto_categoria->id_produto=$model->id;
             $produto_categoria->save();
 
-            $categoria = new CategoriaProduto();
-            $model = new Produto();
-
+            $this->redirect(['index']);
         }
 
-//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
-            'categoria' => $categoria,
             'produtos' => $produtos,
             'categorias' => $categorias,
             'model' => $model,

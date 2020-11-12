@@ -11,6 +11,7 @@ use yii\helpers\Url;
 $this->title = 'Utilizadors';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">

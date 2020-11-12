@@ -4,6 +4,8 @@
 /* @var $content string */
 
 use common\models\Perfil;
+use common\widgets\AlertModal;
+use kartik\growl\Growl;
 use yii\bootstrap4\Modal;
 use yii\helpers\Html;
 use backend\assets\AppAsset;
@@ -25,12 +27,13 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+
 </head>
 <body class="hold-transition layout-fixed layout-navbar-fixed layout-footer-fixed">
 <?php $this->beginBody() ?>
-<div class="wrapper_login">
+<div class="wrapper_login" >
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-yellow navbar-light">
+    <nav class="main-header navbar navbar-expand navbar-yellow navbar-light" style="z-index: 0">
 
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -106,7 +109,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     </li>
                     <!-- CARGOS -->
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="<?= Url::toRoute(['cargo/index']) ?>" class="nav-link">
                             <i class="fas fa-user-tag"></i>
                             <p>
                                 Cargos
@@ -115,7 +118,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     </li>
                     <!-- FALTAS -->
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="<?= Url::toRoute(['falta/index']) ?>" class="nav-link">
                             <i class="fas fa-user-alt-slash"></i>
                             <p>
                                 Faltas
@@ -124,7 +127,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     </li>
                     <!-- HORARIO -->
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="<?= Url::toRoute(['horario/index']) ?>" class="nav-link">
                             <i class="fas fa-calendar-alt"></i>
                             <p>
                                 Horario
@@ -133,7 +136,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     </li>
                     <!-- CATEGORIA DE PRODUTOS -->
                     <li class="nav-item">
-                        <a href="<?= Url::toRoute(['categoriaoroduto/index']) ?>" class="nav-link">
+                        <a href="<?= Url::toRoute(['categoriaproduto/index']) ?>" class="nav-link">
                             <i class="fas fa-tags"></i>
                             <p>
                                 Categorias Produtos
@@ -160,7 +163,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     </li>
                     <!-- FATURAS -->
                     <li class="nav-item">
-                        <a href="<?= Url::toRoute(['pedido/index']) ?>" class="nav-link">
+                        <a href="<?= Url::toRoute(['fatura/index']) ?>" class="nav-link">
                             <i class="fas fa-truck"></i>
                             <p>
                                 Faturas
@@ -169,7 +172,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     </li>
                     <!-- RESERVAS -->
                     <li class="nav-item">
-                        <a href="<?= Url::toRoute(['pedido/index']) ?>" class="nav-link">
+                        <a href="<?= Url::toRoute(['reserva/index']) ?>" class="nav-link">
                             <i class="fas fa-truck"></i>
                             <p>
                                 Reservas
@@ -195,14 +198,49 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <!-- /.content-header -->
-
-        <!-- Main content -->
+    <div class="content-wrapper pt-30">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0"><?= $this->title = 'Utilizadores';?></h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="<?= Url::toRoute(['site/index']) ?>">Home</a></li>
+                            <li class="breadcrumb-item active"><?=$this->title?></li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>        <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <?=$content?>
+                <div class="mt-4">
+                    <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
+                        <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
+                            <?php
+                            echo Growl::widget([
+                                'type' => (!empty($message['type'])) ? $message['type'] : 'danger',
+                                'title' => (!empty($message['title'])) ? Html::encode($message['title']) : 'Title Not Set!',
+                                'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
+                                'body' => (!empty($message['message'])) ? Html::encode($message['message']) : 'Message Not Set!',
+                                'showSeparator' => true,
+                                'delay' => 1, //This delay is how long before the message shows
+                                'pluginOptions' => [
+                                    'delay' => (!empty($message['duration'])) ? $message['duration'] : 3000, //This delay is how long the message shows for
+                                    'placement' => [
+                                        'from' => (!empty($message['positonY'])) ? $message['positonY'] : 'bottom',
+                                        'align' => (!empty($message['positonX'])) ? $message['positonX'] : 'right',
+                                    ]
+                                ],
+                            ]);
+                            ?>
+                        <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
+
             </div>
         </section>
         <!-- /.content -->

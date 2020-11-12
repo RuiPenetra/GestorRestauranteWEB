@@ -38,13 +38,21 @@ return [
             'errorAction' => 'site/error',
         ],
 
-    /*    'urlManager' => [
+       /* 'urlManager' => [
             'class'=>'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['site' => ''],
             ],
         ],*/
+
+        'urlManagerFrontend' => [
+            'class' => 'yii\web\urlManager',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'baseUrl' => 'http://localhost/GestorRestauranteWeb/GestorRestaurante/frontend/web/index.php',
+        ],
 
     ],
     'params' => $params,

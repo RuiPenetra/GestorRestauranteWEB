@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\CategoriaProduto;
 use backend\models\CategoriaProdutoSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,6 +21,16 @@ class CategoriaprodutoController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index','update','delete','view','create'],
+                        'allow' => true,
+                        'roles' => ['gerente'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -35,12 +46,32 @@ class CategoriaprodutoController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CategoriaProdutoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $model = new CategoriaProduto();
+        $categorias=CategoriaProduto::find()->all();
+
+/*        $searchModel = new CategoriaProdutoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            Yii::$app->getSession()->setFlash('success', [
+                'type' => 'success',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Categoria gravada com sucesso',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+            $model->categoria='';
+
+        }else{
+
+        }
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'categorias' => $categorias,
+            'model'=>$model
         ]);
     }
 

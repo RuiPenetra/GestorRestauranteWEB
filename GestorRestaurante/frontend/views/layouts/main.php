@@ -31,32 +31,8 @@ AppAsset::register($this);
     <!-- Navbar -->
     <?php $id = Yii::$app->user->identity->id; ?>
     <?php $name = Yii::$app->user->identity->username ?>
-    <?php if(\Yii::$app->authManager->getAssignment('gerente',$id)!=null) {?>
-    <nav class="main-header navbar navbar-expand navbar-yellow navbar-light">
 
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-        </ul>
 
-        <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
-            <!-- Messages Dropdown Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="<?=Url::toRoute(['perfil/myperfil', 'id' => Yii::$app->user->identity])?>" role="button">
-                    <i class="fas fa-user-edit"></i>
-                    Perfil
-                </a>
-            </li>   <li class="nav-item">
-                <a class="nav-link" href="<?= Url::toRoute('site/logout')?>" data-method="POST" role="button">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Sair
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <?php }?>
 
     <?php if(\Yii::$app->authManager->getAssignment('cliente',$id)!=null) {?>
     <nav class="main-header navbar navbar-expand navbar-red navbar-light">
@@ -190,70 +166,45 @@ AppAsset::register($this);
                         </p>
                     </a>
                 </li>
-                <!-- UTILIZADORES -->
+                <!-- TAKEAWAY -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-users"></i>
+                    <a href="<?=URL::toRoute(['pedido/index'])?>" class="nav-link">
+                        <i class="fas fa-shopping-bag"></i>
                         <p>
-                            Utilizadores
+                            Takeaway
                         </p>
                     </a>
                 </li>
-                <!-- CARGOS -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-user-tag"></i>
-                        <p>
-                            Cargos
-                        </p>
-                    </a>
-                </li>
-                <!-- CATEGORIA DE PRODUTOS -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-tags"></i>
-                        <p>
-                            Categorias Produtos
-                        </p>
-                    </a>
-                </li>
-                <!-- PRODUTOS -->
+                <!-- EMENTA -->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fas fa-utensils"></i>
                         <p>
-                            Produtos
+                            Ementa
                         </p>
                     </a>
                 </li>
-                <!-- PEDIDOS -->
+                <!-- CONTACTOS -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-truck"></i>
+                    <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
+                        <i class="fas fa-phone"></i>
                         <p>
-                            Pedidos
-                        </p>
-                    </a>
-                </li>
-                <!-- FALTAS -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-user-alt-slash"></i>
-                        <p>
-                            Faltas
-                        </p>
-                    </a>
-                </li>
-                <!-- HORARIO -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-calendar-alt"></i>
-                        <p>
-                            Horario
+                            Contactos
                         </p>
                     </a>
                 </li>
             </ul>
+                <!--EXTRA-->
+                <!-- RESERVA -->
+               <!-- <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-poll-h"></i>
+                        <p>
+                            Reserva
+                        </p>
+                    </a>
+                </li>-->
+
         </nav>
         <!-- /.sidebar-menu -->
 
@@ -294,69 +245,24 @@ AppAsset::register($this);
                             </p>
                         </a>
                     </li>
-                    <!-- UTILIZADORES -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-users"></i>
-                            <p>
-                                Utilizadores
-                            </p>
-                        </a>
-                    </li>
-                    <!-- CARGOS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-user-tag"></i>
-                            <p>
-                                Cargos
-                            </p>
-                        </a>
-                    </li>
-                    <!-- CATEGORIA DE PRODUTOS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-tags"></i>
-                            <p>
-                                Categorias Produtos
-                            </p>
-                        </a>
-                    </li>
-                    <!-- PRODUTOS -->
+                    <!-- EMENTA -->
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="fas fa-utensils"></i>
                             <p>
-                                Produtos
+                                Ementa
                             </p>
                         </a>
-                    </li>
-                    <!-- PEDIDOS -->
+                    <!--CONTACTOS-->
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-truck"></i>
+                        <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
+                            <i class="fas fa-phone"></i>
                             <p>
-                                Pedidos
+                                Contactos
                             </p>
                         </a>
                     </li>
-                    <!-- FALTAS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-user-alt-slash"></i>
-                            <p>
-                                Faltas
-                            </p>
-                        </a>
-                    </li>
-                    <!-- HORARIO -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-calendar-alt"></i>
-                            <p>
-                                Horario
-                            </p>
-                        </a>
-                    </li>
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -397,69 +303,34 @@ AppAsset::register($this);
                             </p>
                         </a>
                     </li>
-                    <!-- UTILIZADORES -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-users"></i>
-                            <p>
-                                Utilizadores
-                            </p>
-                        </a>
-                    </li>
-                    <!-- CARGOS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-user-tag"></i>
-                            <p>
-                                Cargos
-                            </p>
-                        </a>
-                    </li>
-                    <!-- CATEGORIA DE PRODUTOS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-tags"></i>
-                            <p>
-                                Categorias Produtos
-                            </p>
-                        </a>
-                    </li>
-                    <!-- PRODUTOS -->
+                    <!-- EMENTA -->
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="fas fa-utensils"></i>
                             <p>
-                                Produtos
+                                Ementa
                             </p>
                         </a>
                     </li>
-                    <!-- PEDIDOS -->
+                    <!-- Pedidos -->
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="fas fa-truck"></i>
+                            <i class="fas fa-clipboard"></i>
                             <p>
                                 Pedidos
                             </p>
                         </a>
                     </li>
-                    <!-- FALTAS -->
+                    <!--CONTACTOS-->
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-user-alt-slash"></i>
+                        <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
+                            <i class="fas fa-phone"></i>
                             <p>
-                                Faltas
+                                Contactos
                             </p>
                         </a>
                     </li>
-                    <!-- HORARIO -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-calendar-alt"></i>
-                            <p>
-                                Horario
-                            </p>
-                        </a>
-                    </li>
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -500,69 +371,43 @@ AppAsset::register($this);
                             </p>
                         </a>
                     </li>
-                    <!-- UTILIZADORES -->
+                    <!-- TAKEAWAY -->
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="fas fa-users"></i>
+                            <i class="fas fa-shopping-bag"></i>
                             <p>
-                                Utilizadores
+                                Takeaway
                             </p>
                         </a>
                     </li>
-                    <!-- CARGOS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-user-tag"></i>
-                            <p>
-                                Cargos
-                            </p>
-                        </a>
-                    </li>
-                    <!-- CATEGORIA DE PRODUTOS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-tags"></i>
-                            <p>
-                                Categorias Produtos
-                            </p>
-                        </a>
-                    </li>
-                    <!-- PRODUTOS -->
+                    <!-- EMENTA -->
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="fas fa-utensils"></i>
                             <p>
-                                Produtos
+                                Ementa
                             </p>
                         </a>
                     </li>
                     <!-- PEDIDOS -->
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="fas fa-truck"></i>
+                            <i class="fas fa-clipboard"></i>
                             <p>
                                 Pedidos
                             </p>
                         </a>
                     </li>
-                    <!-- FALTAS -->
+                    <!-- CONTACTOS -->
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-user-alt-slash"></i>
+                        <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
+                            <i class="fas fa-phone"></i>
                             <p>
-                                Faltas
+                                Contactos
                             </p>
                         </a>
                     </li>
-                    <!-- HORARIO -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-calendar-alt"></i>
-                            <p>
-                                Horario
-                            </p>
-                        </a>
-                    </li>
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -591,10 +436,7 @@ AppAsset::register($this);
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-        <div class="site-index-img">
-            <img src="img/logo.png" width="100px" height="100px"  class="rounded mx-auto d-block" alt="...">
 
-        </div>
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">

@@ -36,7 +36,7 @@ class SiteController extends Controller
                 'only' => ['logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['signup','login'],
+                        'actions' => ['signup', 'login'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -79,12 +79,10 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        if(Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             $this->layout = "main_principal";
             return $this->render('index');
-        }
-        else
-        {
+        } else {
             $this->layout = "main";
             return $this->render('homepagelogin');
         }
@@ -108,8 +106,24 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
+            if (Yii::$app->user->can('apagarUtilizadores')) {
+                Yii::$app->session->setFlash('danger', 'Utilizador não tem premissão para aceder');
+                Yii::$app->user->logout();
+                return $this->redirect(Yii::$app->urlManagerBackend->createUrl('site/login'));
+
+            }else{
+
+                Yii::$app->session->setFlash('danger', 'Utilizador não tem premissão para aceder');
+                return $this->goBack();
+
+
+
+
+            }
             return $this->actionmain();
-        } else {
+        }
+            else {
             $model->password = '';
 
             $this->layout = "main_principal";
@@ -162,8 +176,16 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
-        $this->layout='main_principal';
-        return $this->render('about');
+        if (Yii::$app->user->isGuest) {
+            $this->layout = 'main_principal';
+            return $this->render('about');
+        }
+        else
+        {
+            $this->layout="main";
+            return $this->render('about');
+        }
+
     }
 
     public function actionMenu()

@@ -1,6 +1,8 @@
 <?php
 
-namespace backend\models;
+namespace common\models;
+
+use backend\models\Pedidoproduto;
 
 use Yii;
 

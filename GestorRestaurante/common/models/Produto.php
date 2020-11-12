@@ -3,6 +3,7 @@
 namespace common\models;
 
 use backend\models\Pedidoproduto;
+use backend\models\ProdutoCategoriaProduto;
 use Yii;
 
 /**

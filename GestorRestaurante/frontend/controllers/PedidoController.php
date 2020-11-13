@@ -4,11 +4,10 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\Pedido;
-use app\models\PedidoSearch;
+use common\models\PedidoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
 /**
  * PedidoController implements the CRUD actions for Pedido model.
  */
@@ -64,16 +63,24 @@ class PedidoController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Pedido();
+        if (Yii::$app->user->can('criarTakeaway')) {
+            $model = new Pedido();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+
+            }
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
+
+
+
+
+
+
 
     /**
      * Updates an existing Pedido model.

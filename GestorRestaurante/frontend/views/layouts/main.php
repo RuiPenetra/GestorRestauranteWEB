@@ -55,88 +55,14 @@ AppAsset::register($this);
         </ul>
     </nav>
     <!-- /.navbar -->
-    <?php }?>
-
-
-    <?php if(\Yii::$app->authManager->getAssignment('cozinheiro',$id)!=null) {?>
-    <nav class="main-header navbar navbar-expand navbar-success navbar-light">
-
-
-        <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
-            <!-- Messages Dropdown Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="#" role="button">
-                    <i class="fas fa-user-edit"></i>
-                    Perfil
-                </a>
-            </li>   <li class="nav-item">
-                <a class="nav-link" href="<?= Url::toRoute('site/logout')?>" data-method="POST" role="button">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Sair
-                </a>
-            </li>
-        </ul>
-    </nav>
-        <!-- /.navbar -->
-    <?php }?>
-
-        <?php if(\Yii::$app->authManager->getAssignment('empregadoMesa',$id)!=null) {?>
-        <nav class="main-header navbar navbar-expand navbar-indigo navbar-light">
-
-
-        <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
-            <!-- Messages Dropdown Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="#" role="button">
-                    <i class="fas fa-user-edit"></i>
-                    Perfil
-                </a>
-            </li>   <li class="nav-item">
-                <a class="nav-link" href="<?= Url::toRoute('site/logout')?>" data-method="POST" role="button">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Sair
-                </a>
-            </li>
-        </ul>
-    </nav>
-        <?php }?>
-
-    <?php if(\Yii::$app->authManager->getAssignment('atendedorPedidos',$id)!=null) {?>
-        <nav class="main-header navbar navbar-expand navbar-primary navbar-light">
-
-
-            <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-                <!-- Messages Dropdown Menu -->
-                <li class="nav-item">
-                    <a class="nav-link" href="#" role="button">
-                        <i class="fas fa-user-edit"></i>
-                        Perfil
-                    </a>
-                </li>   <li class="nav-item">
-                    <a class="nav-link" href="<?= Url::toRoute('site/logout')?>" data-method="POST" role="button">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Sair
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /.navbar -->
-    <?php }?>
-
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo -->
-        <a href="<?=Url::toRoute('site/main')?>" class="brand-link">
-            <?= Html::img('img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'style' =>'opacity: .8']);?>
-            <span class="brand-text font-weight-light">Gestor Restaurante</span>
-        </a>
-
-
-        <?php if(\Yii::$app->user->can('AcederInterfaceCliente')) {?>
-        <div class="sidebar">
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="<?=Url::toRoute('site/main')?>" class="brand-link">
+                <?= Html::img('img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'style' =>'opacity: .8']);?>
+                <span class="brand-text font-weight-light">Gestor Restaurante</span>
+            </a>
+    <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="box-body box-profile user-painel mt-3">
             <h3 class="profile-username text-center">
@@ -194,228 +120,340 @@ AppAsset::register($this);
                     </a>
                 </li>
             </ul>
-                <!--EXTRA-->
-                <!-- RESERVA -->
-               <!-- <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-poll-h"></i>
-                        <p>
-                            Reserva
-                        </p>
-                    </a>
-                </li>-->
+            <!--EXTRA-->
+            <!-- RESERVA -->
+            <!-- <li class="nav-item">
+                 <a href="#" class="nav-link">
+                     <i class="fas fa-poll-h"></i>
+                     <p>
+                         Reserva
+                     </p>
+                 </a>
+             </li>-->
 
         </nav>
         <!-- /.sidebar-menu -->
 
     </div>
     <!-- /.sidebar -->
+    </aside>
+    <?php }?>
+
+    <?php if(\Yii::$app->authManager->getAssignment('cozinheiro',$id)!=null) {?>
+    <nav class="main-header navbar navbar-expand navbar-success navbar-light">
+
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <!-- Messages Dropdown Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" role="button">
+                    <i class="fas fa-user-edit"></i>
+                    Perfil
+                </a>
+            </li>   <li class="nav-item">
+                <a class="nav-link" href="<?= Url::toRoute('site/logout')?>" data-method="POST" role="button">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Sair
+                </a>
+            </li>
+        </ul>
+    </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="<?=Url::toRoute('site/main')?>" class="brand-link">
+                <?= Html::img('img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'style' =>'opacity: .8']);?>
+                <span class="brand-text font-weight-light">Gestor Restaurante</span>
+            </a>
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="box-body box-profile user-painel mt-3">
+                    <h3 class="profile-username text-center">
+                        <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-responsive img-circle']); ?>
+                    </h3>
+                    <div class="info center">
+                        <a href="#" class="d-block text-center"><?= $name?></a>
+                        <div style="text-align: center;">
+                            <span class="center badge badge-success"><h8>Cozinheiro</h8></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-panel mt-3 d-flex"></div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                             with font-awesome or any other icon font library -->
+
+                        <!-- HOME -->
+                        <li class="nav-item">
+                            <a href="<?= Url::toRoute(['site/main']) ?>" class="nav-link active">
+                                <i class="fas fa-home"></i>
+                                <p>
+                                    Home
+                                </p>
+                            </a>
+                        </li>
+                        <!--Ementa-->
+                        <li class="nav-item">
+                            <a href="<?=URL::toRoute(['#'])?>" class="nav-link">
+                                <i class="fas fa-utensils"></i>
+                                <p>
+                                    Ementa
+                                </p>
+                            </a>
+                        </li>
+                        <!-- CONTACTOS -->
+                        <li class="nav-item">
+                            <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
+                                <i class="fas fa-phone"></i>
+                                <p>
+                                    Contactos
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--EXTRA-->
+                    <!-- RESERVA -->
+                    <!-- <li class="nav-item">
+                         <a href="#" class="nav-link">
+                             <i class="fas fa-poll-h"></i>
+                             <p>
+                                 Reserva
+                             </p>
+                         </a>
+                     </li>-->
+
+                </nav>
+                <!-- /.sidebar-menu -->
+
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+    <?php }?>
+
+    <?php if(\Yii::$app->authManager->getAssignment('empregadoMesa',$id)!=null) {?>
+
+        <nav class="main-header navbar navbar-expand navbar-indigo navbar-light">
+
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <!-- Messages Dropdown Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="#" role="button">
+                    <i class="fas fa-user-edit"></i>
+                    Perfil
+                </a>
+            </li>   <li class="nav-item">
+                <a class="nav-link" href="<?= Url::toRoute('site/logout')?>" data-method="POST" role="button">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Sair
+                </a>
+            </li>
+        </ul>
+    </nav>
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="<?=Url::toRoute('site/main')?>" class="brand-link">
+                <?= Html::img('img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'style' =>'opacity: .8']);?>
+                <span class="brand-text font-weight-light">Gestor Restaurante</span>
+            </a>
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="box-body box-profile user-painel mt-3">
+                    <h3 class="profile-username text-center">
+                        <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive img-circle']); ?>
+                    </h3>
+                    <div class="info center">
+                        <a href="#" class="d-block text-center"><?= $name?></a>
+                        <div style="text-align: center;">
+                            <span class="center badge badge-indigo"><h8>Empregado de Mesa</h8></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-panel mt-3 d-flex"></div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                             with font-awesome or any other icon font library -->
+
+                        <!-- HOME -->
+                        <li class="nav-item">
+                            <a href="<?= Url::toRoute(['site/main']) ?>" class="nav-link active">
+                                <i class="fas fa-home"></i>
+                                <p>
+                                    Home
+                                </p>
+                            </a>
+                        </li>
+                        <!-- Ementa -->
+                        <li class="nav-item">
+                            <a href="<?=URL::toRoute(['#'])?>" class="nav-link">
+                                <i class="fas fa-utensils"></i>
+                                <p>
+                                    Ementa
+                                </p>
+                            </a>
+                        </li>
+                        <!-- Pedidos -->
+                        <li class="nav-item">
+                            <a href="<?=URL::to(['pedido/index'])?>" class="nav-link">
+                                <i class="fas fa-clipboard"></i>
+                                <p>
+                                    Pedidos
+                                </p>
+                            </a>
+                        </li>
+                        <!-- CONTACTOS -->
+                        <li class="nav-item">
+                            <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
+                                <i class="fas fa-phone"></i>
+                                <p>
+                                    Contactos
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--EXTRA-->
+                    <!-- RESERVA -->
+                    <!-- <li class="nav-item">
+                         <a href="#" class="nav-link">
+                             <i class="fas fa-poll-h"></i>
+                             <p>
+                                 Reserva
+                             </p>
+                         </a>
+                     </li>-->
+
+                </nav>
+                <!-- /.sidebar-menu -->
+
+            </div>
+            <!-- /.sidebar -->
         </aside>
         <?php }?>
 
-    <?php if(\Yii::$app->user->can('AcederInterfaceCozinheiro')) {?>
+    <?php if(\Yii::$app->authManager->getAssignment('atendedorPedidos',$id)!=null) {?>
+        <nav class="main-header navbar navbar-expand navbar-primary navbar-light">
 
-        <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-            <div class="box-body box-profile user-painel mt-3">
-                <h3 class="profile-username text-center">
-                    <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-responsive img-circle']); ?>
-                </h3>
-                <div class="info center">
-                    <a href="#" class="d-block text-center"><?= $name?></a>
-                    <div style="text-align: center;">
-                        <span class="center badge badge-success "><h8>Cozinheiro</h8></span>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Messages Dropdown Menu -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#" role="button">
+                        <i class="fas fa-user-edit"></i>
+                        Perfil
+                    </a>
+                </li>   <li class="nav-item">
+                    <a class="nav-link" href="<?= Url::toRoute('site/logout')?>" data-method="POST" role="button">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sair
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="<?=Url::toRoute('site/main')?>" class="brand-link">
+                <?= Html::img('img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'style' =>'opacity: .8']);?>
+                <span class="brand-text font-weight-light">Gestor Restaurante</span>
+            </a>
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="box-body box-profile user-painel mt-3">
+                    <h3 class="profile-username text-center">
+                        <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-responsive img-circle']); ?>
+                    </h3>
+                    <div class="info center">
+                        <a href="#" class="d-block text-center"><?= $name?></a>
+                        <div style="text-align: center;">
+                            <span class="center badge badge-primary"><h8>Atendedor Pedidos</h8></span>
+                        </div>
                     </div>
                 </div>
+                <div class="user-panel mt-3 d-flex"></div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                             with font-awesome or any other icon font library -->
+
+                        <!-- HOME -->
+                        <li class="nav-item">
+                            <a href="<?= Url::toRoute(['site/main']) ?>" class="nav-link active">
+                                <i class="fas fa-home"></i>
+                                <p>
+                                    Home
+                                </p>
+                            </a>
+                        </li>
+                        <!-- TAKEAWAY -->
+                        <li class="nav-item">
+                            <a href="<?=URL::toRoute(['pedido/index'])?>" class="nav-link">
+                                <i class="fas fa-shopping-bag"></i>
+                                <p>
+                                    Takeaway
+                                </p>
+                            </a>
+                        </li>
+                        <!-- EMENTA -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-clipboard"></i>
+                                <p>
+                                    Ementa
+                                </p>
+                            </a>
+                        </li>
+                        <!-- Pedidos -->
+                        <li class="nav-item">
+                            <a href="<?=URL::toRoute(['pedido/index'])?>" class="nav-link">
+                                <i class="fas fa-utensils"></i>
+                                <p>
+                                    Pedidos
+                                </p>
+                            </a>
+                        </li>
+                        <!-- CONTACTOS -->
+                        <li class="nav-item">
+                            <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
+                                <i class="fas fa-phone"></i>
+                                <p>
+                                    Contactos
+                                </p>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--EXTRA-->
+                    <!-- RESERVA -->
+                    <!-- <li class="nav-item">
+                         <a href="#" class="nav-link">
+                             <i class="fas fa-poll-h"></i>
+                             <p>
+                                 Reserva
+                             </p>
+                         </a>
+                     </li>-->
+
+                </nav>
+                <!-- /.sidebar-menu -->
+
             </div>
-            <div class="user-panel mt-3 d-flex"></div>
-
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
-
-                    <!-- HOME -->
-                    <li class="nav-item">
-                        <a href="<?= Url::toRoute(['site/main']) ?>" class="nav-link active">
-                            <i class="fas fa-home"></i>
-                            <p>
-                                Home
-                            </p>
-                        </a>
-                    </li>
-                    <!-- EMENTA -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-utensils"></i>
-                            <p>
-                                Ementa
-                            </p>
-                        </a>
-                    <!--CONTACTOS-->
-                    <li class="nav-item">
-                        <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
-                            <i class="fas fa-phone"></i>
-                            <p>
-                                Contactos
-                            </p>
-                        </a>
-                    </li>
-
-                </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
-
-        </div>
-        <!-- /.sidebar -->
+            <!-- /.sidebar -->
         </aside>
     <?php }?>
 
-    <?php if(\Yii::$app->user->can('AcederInterfaceEmpregadoMesa')) {?>
-        <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-            <div class="box-body box-profile user-painel mt-3">
-                <h3 class="profile-username text-center">
-                    <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive img-circle']); ?>
-                </h3>
-                <div class="info center">
-                    <a href="#" class="d-block text-center"><?= $name?></a>
-                    <div style="text-align: center;">
-                        <span class="center badge badge-indigo"><h8>Empregado Mesa</h8></span>
-                    </div>
-                </div>
-            </div>
-            <div class="user-panel mt-3 d-flex"></div>
-
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
-
-                    <!-- HOME -->
-                    <li class="nav-item">
-                        <a href="<?= Url::toRoute(['site/main']) ?>" class="nav-link active">
-                            <i class="fas fa-home"></i>
-                            <p>
-                                Home
-                            </p>
-                        </a>
-                    </li>
-                    <!-- EMENTA -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-utensils"></i>
-                            <p>
-                                Ementa
-                            </p>
-                        </a>
-                    </li>
-                    <!-- Pedidos -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-clipboard"></i>
-                            <p>
-                                Pedidos
-                            </p>
-                        </a>
-                    </li>
-                    <!--CONTACTOS-->
-                    <li class="nav-item">
-                        <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
-                            <i class="fas fa-phone"></i>
-                            <p>
-                                Contactos
-                            </p>
-                        </a>
-                    </li>
-
-                </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
-
-        </div>
-        <!-- /.sidebar -->
-        </aside>
-    <?php }?>
-
-    <?php if(\Yii::$app->user->can('AcederInterfaceAtendedorPedidos')) {?>
-        <div class="sidebar">
-            <!-- Sidebar user panel (optional) -->
-            <div class="box-body box-profile user-painel mt-3">
-                <h3 class="profile-username text-center">
-                    <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos  img-responsive img-circle']); ?>
-                </h3>
-                <div class="info center">
-                    <a href="#" class="d-block text-center"><?= $name?></a>
-                    <div style="text-align: center;">
-                        <span class="center badge badge-primary"><h8>Atendedor Pedidos</h8></span>
-                    </div>
-                </div>
-            </div>
-            <div class="user-panel mt-3 d-flex"></div>
-
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
-
-                    <!-- HOME -->
-                    <li class="nav-item">
-                        <a href="<?= Url::toRoute(['site/main']) ?>" class="nav-link active">
-                            <i class="fas fa-home"></i>
-                            <p>
-                                Home
-                            </p>
-                        </a>
-                    </li>
-                    <!-- TAKEAWAY -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-shopping-bag"></i>
-                            <p>
-                                Takeaway
-                            </p>
-                        </a>
-                    </li>
-                    <!-- EMENTA -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-utensils"></i>
-                            <p>
-                                Ementa
-                            </p>
-                        </a>
-                    </li>
-                    <!-- PEDIDOS -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-clipboard"></i>
-                            <p>
-                                Pedidos
-                            </p>
-                        </a>
-                    </li>
-                    <!-- CONTACTOS -->
-                    <li class="nav-item">
-                        <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
-                            <i class="fas fa-phone"></i>
-                            <p>
-                                Contactos
-                            </p>
-                        </a>
-                    </li>
-
-                </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
-
-        </div>
-        <!-- /.sidebar -->
-        </aside>
-    <?php }?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

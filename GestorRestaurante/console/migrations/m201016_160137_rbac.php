@@ -38,6 +38,9 @@ class m201016_160137_rbac extends Migration
             $apagarUtilizadores->description='Apagar utilizadores';
             $auth->add($apagarUtilizadores);
 
+
+
+
         /**PERFIS**/
 
             //# CRIAR #
@@ -302,6 +305,26 @@ class m201016_160137_rbac extends Migration
             $apagarProdutoCategoriaProduto->description = 'Apagar Produto Categoria Produto';
             $auth->add($apagarProdutoCategoriaProduto);
 
+            /**TAKEAWAY **/
+            //# CRIAR #
+            $criarTakeaway = $auth->createPermission('criarTakeaway');
+            $criarTakeaway->description='Criar Takeaway';
+            $auth->add($criarTakeaway);
+
+            //#CONSULTAR #
+            $consultarTakeaway = $auth->createPermission('consultarTakeaway');
+            $consultarTakeaway->description='Consultar Takeaway';
+            $auth->add($consultarTakeaway);
+
+            //#ATUALIZAR #
+            $atualizarTakeaway = $auth->createPermission('atualizarTakeaway');
+            $atualizarTakeaway->description='Atualizar Takeaway';
+            $auth->add($atualizarTakeaway);
+
+            //# APAGAR #
+            $apagarTakeaway= $auth->createPermission('apagarTakeaway');
+            $apagarTakeaway->description="Apagar Takeaway";
+            $auth->add($apagarTakeaway);
 
 
 
@@ -312,7 +335,7 @@ class m201016_160137_rbac extends Migration
         $auth->add($gerente);
 
             //# INTERFACE #
-             $auth->addChild($gerente, $AcederInterfaceGerente);
+             //$auth->addChild($gerente, $AcederInterfaceGerente);
 
             //# UTILIZADORES #
             $auth->addChild($gerente, $criarUtilizadores);
@@ -386,13 +409,19 @@ class m201016_160137_rbac extends Migration
             $auth->addChild($gerente, $atualizarProdutoCategoriaProduto);
             $auth->addChild($gerente, $apagarProdutoCategoriaProduto);
 
+            //# TAKEAWAY #
+            $auth->addChild($gerente, $criarTakeaway);
+            $auth->addchild($gerente, $consultarTakeaway);
+            $auth->addChild($gerente, $atualizarTakeaway);
+            $auth->addchild($gerente, $apagarTakeaway);
+
         /** ROLE -> ATENDEDOR DE PEDIDOS ________________________________________________________________________**/
 
             $atendedorPedidos = $auth->createRole('atendedorPedidos');
             $auth->add($atendedorPedidos);
 
             //# INTERFACE #
-            $auth->addChild($atendedorPedidos, $AcederInterfaceAtendedorPedidos);
+            //$auth->addChild($atendedorPedidos, $AcederInterfaceAtendedorPedidos);
 
             //# PERFIS #
             $auth->addChild($atendedorPedidos, $consultarPerfis);
@@ -434,6 +463,11 @@ class m201016_160137_rbac extends Migration
             $auth->addChild($atendedorPedidos, $atualizarFaturas);
             $auth->addChild($atendedorPedidos, $apagarFaturas);
 
+            //#TAKEAWAY#
+            $auth->addChild($atendedorPedidos, $criarTakeaway);
+            $auth->addchild($atendedorPedidos, $consultarTakeaway);
+            $auth->addChild($atendedorPedidos, $atualizarTakeaway);
+            $auth->addchild($atendedorPedidos, $apagarTakeaway);
 
 
         /**ROLE -> EMPREGADO DE MESA_____________________________________________________________________________**/
@@ -442,9 +476,9 @@ class m201016_160137_rbac extends Migration
             $auth->add($empregadoMesa);
 
             //# INTERFACE #
-            $auth->addChild($empregadoMesa, $AcederInterfaceEmpregadoMesa);
+           // $auth->addChild($empregadoMesa, $AcederInterfaceEmpregadoMesa);
 
-        //# Perfil #
+            //# Perfil #
             $auth->addChild($empregadoMesa, $consultarPerfis);
             $auth->addChild($empregadoMesa, $atualizarPerfis);
 
@@ -491,7 +525,7 @@ class m201016_160137_rbac extends Migration
             $auth->add($cozinheiro);
 
             //# INTERFACE #
-            $auth->addChild($cozinheiro, $AcederInterfaceCozinheiro);
+           // $auth->addChild($cozinheiro, $AcederInterfaceCozinheiro);
 
 
         //# Perfil #
@@ -530,7 +564,7 @@ class m201016_160137_rbac extends Migration
             $auth->add($cliente);
 
             //# INTERFACE #
-            $auth->addChild($cliente, $AcederInterfaceCliente);
+            //$auth->addChild($cliente, $AcederInterfaceCliente);
 
         //# Perfil #
             $auth->addChild($cliente, $consultarPerfis);
@@ -545,6 +579,11 @@ class m201016_160137_rbac extends Migration
             $auth->addChild($cliente, $atualizarPedidos);
             $auth->addChild($cliente, $apagarPedidos);
 
+            //#TAKEAWAY #
+            $auth->addChild($cliente, $criarTakeaway);
+            $auth->addChild($cliente, $consultarTakeaway);
+            $auth->addchild($cliente, $atualizarTakeaway);
+            $auth->addchild($cliente, $apagarTakeaway);
 
         //TODO: ATRUBUIR PREMISSÕES AO ADMIN ( GERENTE )
 

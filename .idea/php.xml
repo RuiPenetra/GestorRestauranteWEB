@@ -94,6 +94,10 @@
       <path value="$PROJECT_DIR$/GestorRestaurante/vendor/symfony/translation-contracts" />
       <path value="$PROJECT_DIR$/GestorRestaurante/vendor/symfony/translation" />
       <path value="$PROJECT_DIR$/GestorRestaurante/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/kartik-v/yii2-widget-growl" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/kartik-v/yii2-widget-datetimepicker" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/kartik-v/yii2-krajee-base" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/fakerphp/faker" />
     </include_path>
   </component>
 </project>

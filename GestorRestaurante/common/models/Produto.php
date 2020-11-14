@@ -34,7 +34,7 @@ class Produto extends \yii\db\ActiveRecord
     {
         return [
             [['nome', 'ingredientes', 'preco'], 'required'],
-            [['preco'], 'number'],
+            [['preco'], 'number', 'numberPattern' => '/^\s*[-+]?[0-9]*[.,]?[0-9]+([eE][-+]?[0-9]+)?\s*$/'],
             [['nome'], 'string', 'max' => 255],
             [['ingredientes'], 'string', 'max' => 500],
         ];

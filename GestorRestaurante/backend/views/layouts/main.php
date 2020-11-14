@@ -29,7 +29,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
     <?php $this->head() ?>
 
 </head>
-<body class="hold-transition layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <?php $this->beginBody() ?>
 <div class="wrapper_login" >
     <!-- Navbar -->
@@ -216,34 +216,30 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
         </div>        <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <?=$content?>
-                <div class="mt-4">
+                <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
                     <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
-                        <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
-                            <?php
-                            echo Growl::widget([
-                                'type' => (!empty($message['type'])) ? $message['type'] : 'danger',
-                                'title' => (!empty($message['title'])) ? Html::encode($message['title']) : 'Title Not Set!',
-                                'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
-                                'body' => (!empty($message['message'])) ? Html::encode($message['message']) : 'Message Not Set!',
-                                'showSeparator' => true,
-                                'delay' => 1, //This delay is how long before the message shows
-                                'pluginOptions' => [
-                                    'delay' => (!empty($message['duration'])) ? $message['duration'] : 3000, //This delay is how long the message shows for
-                                    'placement' => [
-                                        'from' => (!empty($message['positonY'])) ? $message['positonY'] : 'top',
-                                        'align' => (!empty($message['positonX'])) ? $message['positonX'] : 'right',
-                                    ]
-                                ],
-                            ]);
-                            ?>
-                        <?php endforeach; ?>
+                        <?php
+                        echo Growl::widget([
+                            'type' => (!empty($message['type'])) ? $message['type'] : 'danger',
+                            'title' => (!empty($message['title'])) ? Html::encode($message['title']) : 'Title Not Set!',
+                            'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
+                            'body' => (!empty($message['message'])) ? Html::encode($message['message']) : 'Message Not Set!',
+                            'showSeparator' => true,
+                            'delay' => 1, //This delay is how long before the message shows
+                            'pluginOptions' => [
+                                'delay' => (!empty($message['duration'])) ? $message['duration'] : 3000, //This delay is how long the message shows for
+                                'placement' => [
+                                    'from' => (!empty($message['positonY'])) ? $message['positonY'] : 'bottom',
+                                    'align' => (!empty($message['positonX'])) ? $message['positonX'] : 'right',
+                                ]
+                            ],
+                        ]);
+                        ?>
                     <?php endforeach; ?>
-                </div>
-
+                <?php endforeach; ?>
+                <?=$content?>
             </div>
         </section>
-        <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
@@ -253,15 +249,14 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
     </aside>
     <!-- /.control-sidebar -->
     <!-- Main Footer -->
-    <footer class="main-footer">
+<!--    <footer class="main-footer">
         <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
         All rights reserved.
         <div class="float-right d-none d-sm-inline-block">
             <b>Version</b> 3.1.0-pre
         </div>
-    </footer>
+    </footer>-->
 </div>
-<!-- ./wrapper -->
 <?php $this->endBody() ?>
 </body>
 </html>

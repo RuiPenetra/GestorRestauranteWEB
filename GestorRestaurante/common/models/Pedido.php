@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use backend\models\Pedidoproduto;
-
 use Yii;
 
 /**
@@ -14,7 +12,7 @@ use Yii;
  * @property int $estado
  * @property int $tipo
  * @property string|null $nome_pedido
- * @property int $id_mesa
+ * @property int|null $id_mesa
  * @property int $id_perfil
  *
  * @property Fatura[] $faturas
@@ -38,7 +36,7 @@ class Pedido extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['data', 'estado', 'tipo', 'id_mesa', 'id_perfil'], 'required'],
+            [['data', 'estado', 'tipo', 'id_perfil'], 'required'],
             [['data'], 'safe'],
             [['estado', 'tipo', 'id_mesa', 'id_perfil'], 'integer'],
             [['nome_pedido'], 'string', 'max' => 255],

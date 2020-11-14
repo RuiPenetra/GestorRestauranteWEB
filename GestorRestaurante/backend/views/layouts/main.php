@@ -231,7 +231,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                                 'pluginOptions' => [
                                     'delay' => (!empty($message['duration'])) ? $message['duration'] : 3000, //This delay is how long the message shows for
                                     'placement' => [
-                                        'from' => (!empty($message['positonY'])) ? $message['positonY'] : 'bottom',
+                                        'from' => (!empty($message['positonY'])) ? $message['positonY'] : 'top',
                                         'align' => (!empty($message['positonX'])) ? $message['positonX'] : 'right',
                                     ]
                                 ],
@@ -261,23 +261,6 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
         </div>
     </footer>
 </div>
-
-<!--<script>
-    $(function () {
-        $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-            event.preventDefault();
-            $(this).ekkoLightbox({
-                alwaysShowClose: true
-            });
-        });
-
-        $('.filter-container').filterizr({gutterPixels: 3});
-        $('.btn[data-filter]').on('click', function() {
-            $('.btn[data-filter]').removeClass('active');
-            $(this).addClass('active');
-        });
-    })
-</script>-->
 <!-- ./wrapper -->
 <?php $this->endBody() ?>
 </body>

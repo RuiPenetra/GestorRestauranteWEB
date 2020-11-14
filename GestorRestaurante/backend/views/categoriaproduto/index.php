@@ -15,9 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="categoria-produto-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <div class="row col-md-12 col-xl-12">
         <div class="col-md-5">
             <div class="card">

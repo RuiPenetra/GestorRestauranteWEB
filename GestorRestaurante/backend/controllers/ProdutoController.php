@@ -42,10 +42,28 @@ class ProdutoController extends Controller
         $produto_categoria= new ProdutoCategoriaProduto();
         $model = new Produto();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
+        if ($model->load(Yii::$app->request->post())) {
+            //var_dump(Yii::$app->request->post());
+           //$model->preco = floatval($model->preco);
+            $model->preco= (double)$model->preco;
+            /*var_dump(Yii::$app->request->post());
+            die();*/
+            var_dump($model);
+
+            $model->save();
             $produto_categoria->id_produto=$model->id;
             $produto_categoria->save();
+
+            Yii::$app->getSession()->setFlash('success', [
+                'type' => 'success',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Produto criado com sucesso',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
 
             $this->redirect(['index']);
         }
@@ -105,14 +123,24 @@ class ProdutoController extends Controller
      */
     public function actionUpdate($id)
     {
+        $categorias_principais = ['0'=>'Entrada', 'Sopa' => 'Sopa', 'Carne' => 'Carne', 'Peixe' => 'Peixe', 'Sobremesa' => 'Sobremesa', 'Bebida'=>'Bebida'];
+
         $model = $this->findModel($id);
 
+
+        $produto_categoria= ProdutoCategoriaProduto::find($id);
+
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $produto_categoria->id_produto=$model->id;
+            $produto_categoria->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'categorias_principais' => $categorias_principais,
+            'produto_categoria'=>$produto_categoria
         ]);
     }
 

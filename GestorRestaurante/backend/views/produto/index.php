@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card-body">
                 <?php $form = ActiveForm::begin(); ?>
                 <div class="row">
-                        <div class="row col-12">
+                        <div class="row col-md-12">
                             <div class="col-md-3 mt-0 ">
                                 <div class="box-body box-profile user-painel mt-3">
                                     <div class="text-center">
@@ -35,19 +35,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 col-md-8">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                     </div>
                                     <?= $form->field($model, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
                                 </div>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 col-md-8">
+                                    <?= $form->field($model, 'preco', ['options' => ['tag' => 'input',  'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Preço",  'type'=>'number', 'step' => '0.01', 'autofocus' => true])->label(false) ?>
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
                                     </div>
-                                    <?= $form->field($model, 'preco', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
                                 </div>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 col-md-8">
                                     <div class="input-group-append">
                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                     </div>
@@ -103,29 +103,59 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="card-body">
                     <div class="tab-content" id="custom-tabs-one-tabContent">
-                        <div class="tab-pane fade show active" id="custom-tabs-one-entradas" role="tabpanel" aria-labelledby="custom-tabs-one-entradas-tab">
-                           <div class="row ml-3 mr-3">
+                        <div class="tab-pane fade show active d-flex justify-content-center" id="custom-tabs-one-entradas" role="tabpanel" aria-labelledby="custom-tabs-one-entradas-tab">
+                           <div class="row">
                                    <?php foreach ($produtos as $produto):?>
-                                       <div class="col-md-4 mr-2">
-                                           <div class="row justify-content-center">
-                                               <div class="col-md-4">
+                                       <div class="col-md-3">
+                                           <div class="row">
+                                               <div class="card bg-light mr-2" style="width: 18rem;">
+                                                   <div class="row d-flex justify-content-center mt-3">
+                                                       <img class="card-img-top" src="img/soup.png"  style="width: 80px; height: 80px; " alt="Card image cap">
+                                                   </div>
+                                                   <div class="card-body p-2">
+                                                       <div class="row mr-2 ml-2 mt-2">
+                                                           <div class="col-7 ">
+                                                               <h5 class="card-title text-center"><b><?=$produto->nome?></b></h5>
+
+                                                           </div>
+                                                           <div class="col-5 d-flex justify-content-center">
+                                                               <h5 class="card-title"><?=$produto->preco?> €</h5>
+                                                           </div>
+                                                       </div>
+                                                       <div class="row justify-content-center mr-2 ml-2">
+                                                           <div class="text-center mt-4">
+                                                               <a href="<?=Url::toRoute(['produto/view', 'id' => $produto->id])?>" type="button" style="" class="btn btn-info">
+                                                                   <i class="fas fa-eye"></i>
+                                                               </a>
+                                                               <a href="<?=Url::toRoute(['produto/update', 'id' => $produto->id])?>" type="button" class="btn btn-warning">
+                                                                   <i class="far fa-edit color-white"></i>
+                                                               </a>
+                                                               <a href="<?=Url::toRoute(['produto/delete', 'id' => $produto->id])?>" data-method="POST" type="button" class="btn btn-danger">
+                                                                   <i class="fas fa-trash-alt"></i>
+                                                               </a>
+                                                           </div>
+
+                                                       </div>
+                                                   </div>
+                                               </div>
+                       <!--                        <div class="col-md-4">
                                                    <img class="img-responsive" width="80px" height="80px" src="img/soup.png" alt="imgPerfil">
                                                </div>
                                                <div class="col-md-5">
-                                                   <?=$produto->nome?>
-                                                   <?=$produto->preco?>
+                                                   <?/*=$produto->nome*/?>
+                                                   <?/*=$produto->preco*/?>
                                                </div>
                                                <div class="col-md-3">
-                                                   <a href="<?=Url::toRoute(['produto/view', 'id' => $produto->id])?>" type="button" style="" class="btn btn-info">
+                                                   <a href="<?/*=Url::toRoute(['produto/view', 'id' => $produto->id])*/?>" type="button" style="" class="btn btn-info">
                                                        <i class="fas fa-eye"></i>
                                                    </a>
-                                                   <a href="<?=Url::toRoute(['produto/update', 'id' => $produto->id])?>" type="button" class="btn btn-warning">
+                                                   <a href="<?/*=Url::toRoute(['produto/update', 'id' => $produto->id])*/?>" type="button" class="btn btn-warning">
                                                        <i class="far fa-edit color-white"></i>
                                                    </a>
-                                                   <a href="<?=Url::toRoute(['produto/delete', 'id' => $produto->id])?>" data-method="POST" type="button" class="btn btn-danger">
+                                                   <a href="<?/*=Url::toRoute(['produto/delete', 'id' => $produto->id])*/?>" data-method="POST" type="button" class="btn btn-danger">
                                                        <i class="fas fa-trash-alt"></i>
                                                    </a>
-                                               </div>
+                                               </div>-->
                                            </div>
                                        </div>
                                    <?php endforeach;?>

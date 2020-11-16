@@ -1,6 +1,7 @@
 <?php
 
 use kartik\growl\Growl;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
@@ -14,141 +15,48 @@ $this->title = 'Categoria Produtos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="categoria-produto-index">
-    <div class="row col-md-12 col-xl-12">
-        <div class="col-md-5">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">
-                        <i class="fas fa-bullhorn"></i>
-                        Categoria
-                    </h3>
+    <div class="card card-outline card-warning"> <!--collapsed-card-->
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fas fa-bullhorn"></i>
+                Criar categoria
+            </h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body" style="display: block;">
+            <?php $form = ActiveForm::begin(); ?>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-5 col-xl-2 d-flex justify-content-center">
+                    <div class="box-body box-profile user-painel">
+                        <img class="img-responsive" width="100px" height="100px" src="img/soup.png" alt="imgPerfil">
+                    </div>
                 </div>
-                <div class="card-body">
+                <div class="col-md-5 col-xl-3">
                     <?php $form = ActiveForm::begin(); ?>
-                    <div class="row ">
-                        <div class="col-md-5">
-                            <div class="box-body box-profile user-painel mt-3">
-                                <div class="text-center">
-                                    <img class="img-responsive" width="100px" height="100px" src="img/soup.png" alt="imgPerfil">
-                                </div>
-                            </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <div class="col-md-7 ">
-                            <?php $form = ActiveForm::begin(); ?>
-                            <div class="input-group mb-3">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                </div>
-                                <?= $form->field($model, 'categoria', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
+                        <?= $form->field($model, 'categoria', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
 
-                              <!--  <div class="ml-3">
-                                    <a href="<?/*=Url::toRoute(['categoriaproduto/view'])*/?>" type="button" class="btn btn-info">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                </div>-->
-                            </div>
-                            <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
-
-                            <?php ActiveForm::end(); ?>
-                        </div>
+                        <!--  <div class="ml-3">
+                                        <a href="<?/*=Url::toRoute(['categoriaproduto/view'])*/?>" type="button" class="btn btn-info">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </div>-->
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
                     </div>
                     <?php ActiveForm::end(); ?>
                 </div>
-                <!-- /.col -->
             </div>
-            </di>
+            <?php ActiveForm::end(); ?>
         </div>
-        <div class="col-md-7 pl-4">
-            <div class="row justify-content-center">
-                <div class="row mt-3">
-                    <div class="col-12 col-sm-6 col-md-4">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-gradient-success elevation-1"><i class="fas fa-cog"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text">ENTRADAS</span>
-                                <span class="info-box-number">
-                                  10
-                                  <small>%</small>
-                                </span>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-12 col-sm-6 col-md-4">
-                        <div class="info-box mb-3">
-                            <span class="info-box-icon bg-pink elevation-1"><i class="fas fa-thumbs-up"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">PRATOS DE SOPA</span>
-                                <span class="info-box-number">41,410</span>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-12 col-sm-6 col-md-4">
-                        <div class="info-box mb-3">
-                            <span class="info-box-icon bg-orange elevation-1"><i class="fas fa-shopping-cart"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">BEBIDAS</span>
-                                <span class="info-box-number">760</span>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-
-                    <div class="col-12 col-sm-6 col-md-4">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cog"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text"> PRATOS DE CARNE</span>
-                                <span class="info-box-number">
-                                  10
-                                  <small>%</small>
-                                </span>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-12 col-sm-6 col-md-4">
-                        <div class="info-box mb-3">
-                            <span class="info-box-icon bg-blue elevation-1"><i class="fas fa-thumbs-up"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text"> PRATOS DE PEIXE</span>
-                                <span class="info-box-number">41,410</span>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-12 col-sm-6 col-md-4">
-                        <div class="info-box mb-3">
-                            <span class="info-box-icon bg-yellow elevation-1"><i class="fas fa-shopping-cart"></i></span>
-
-                            <div class="info-box-content">
-                                <span class="info-box-text">SOBREMESAS</span>
-                                <span class="info-box-number">760</span>
-                            </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
+        <!-- /.card-body -->
     </div>
 
     <div class="card">
@@ -189,4 +97,3 @@ $this->params['breadcrumbs'][] = $this->title;
         <!-- /.card-body -->
     </div>
 
-</div>

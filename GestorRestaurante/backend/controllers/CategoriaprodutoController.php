@@ -46,33 +46,39 @@ class CategoriaprodutoController extends Controller
      */
     public function actionIndex()
     {
-        $model = new CategoriaProduto();
-        $categorias=CategoriaProduto::find()->all();
+        if (Yii::$app->user->can('consultarCategoriaProdutos')) {
 
-/*        $searchModel = new CategoriaProdutoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
+            $model = new CategoriaProduto();
+            $categorias=CategoriaProduto::find()->all();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            /*        $searchModel = new CategoriaProdutoSearch();
+                    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
 
-            Yii::$app->getSession()->setFlash('success', [
-                'type' => 'success',
-                'duration' => 5000,
-                'icon' => 'fas fa-tags',
-                'message' => 'Categoria gravada com sucesso',
-                'title' => 'ALERTA',
-                'positonX' => 'right',
-                'positonY' => 'top'
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Categoria criada com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+                $model->categoria='';
+                return $this->redirect(['index']);
+            }
+
+            return $this->render('index', [
+                'categorias' => $categorias,
+                'model'=>$model
             ]);
-            $model->categoria='';
 
         }else{
+            return $this->render('site/error');
 
         }
-
-        return $this->render('index', [
-            'categorias' => $categorias,
-            'model'=>$model
-        ]);
     }
 
     /**

@@ -24,14 +24,10 @@ class AppAsset extends AssetBundle
 //        'css/cardExpanded.css',
     ];
     public $js = [
-        'js/adminlte.js',
-//        'js/modal.js',
+        'js/adminlte.min.js',
+/*        'js/modal.js',*/
         'js/bootstrap.bundle.min.js',
-        'js/alert/toastr.min.js',
-//        'js/jquery/jquery.min.js',
-        'js/alert/sweetalert2.min.js'
-
-
+//        'js/jquery.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

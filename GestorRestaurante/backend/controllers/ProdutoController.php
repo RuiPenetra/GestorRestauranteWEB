@@ -4,9 +4,13 @@ namespace backend\controllers;
 
 use backend\models\CategoriaProduto;
 use backend\models\ProdutoCategoriaProduto;
+use common\models\User;
+use function PHPSTORM_META\elementType;
 use Yii;
 use common\models\Produto;
 use common\models\ProdutoSearch;
+use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -22,6 +26,17 @@ class ProdutoController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index','update','delete','view','create'],
+                        'allow' => true,
+                        'roles' => ['gerente'],
+                    ],
+                ],
+            ],
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -37,43 +52,59 @@ class ProdutoController extends Controller
      */
     public function actionIndex()
     {
-        $produtos=Produto::find()->all();
-        $categorias=CategoriaProduto::find()->all();
-        $produto_categoria= new ProdutoCategoriaProduto();
-        $model = new Produto();
+        if (Yii::$app->user->can('consultarProdutos') && Yii::$app->user->can('criarProdutos')) {
+
+            $produtos=Produto::find()->all();
+            $categorias=ArrayHelper::map(CategoriaProduto::find()->all(),'id','categoria');
+            $produto_categoria= new ProdutoCategoriaProduto();
+            $categorias_produto_categoria=ProdutoCategoriaProduto::find()->all();
+            $model = new Produto();
 
 
-        if ($model->load(Yii::$app->request->post())) {
-            //var_dump(Yii::$app->request->post());
-           //$model->preco = floatval($model->preco);
-            $model->preco= (double)$model->preco;
-            /*var_dump(Yii::$app->request->post());
-            die();*/
-            var_dump($model);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                
+                $produto_categoria->id_produto=$model->id;
 
-            $model->save();
-            $produto_categoria->id_produto=$model->id;
-            $produto_categoria->save();
+                if ($produto_categoria->save()){
+                    Yii::$app->getSession()->setFlash('success', [
+                        'type' => 'success',
+                        'duration' => 5000,
+                        'icon' => 'fas fa-tags',
+                        'message' => 'Produto criado com sucesso',
+                        'title' => 'ALERTA',
+                        'positonX' => 'right',
+                        'positonY' => 'top'
+                    ]);
+                    $this->redirect(['index']);
 
-            Yii::$app->getSession()->setFlash('success', [
-                'type' => 'success',
-                'duration' => 5000,
-                'icon' => 'fas fa-tags',
-                'message' => 'Produto criado com sucesso',
-                'title' => 'ALERTA',
-                'positonX' => 'right',
-                'positonY' => 'top'
+                }else{
+
+                    Yii::$app->getSession()->setFlash('danger', [
+                        'type' => 'danger',
+                        'duration' => 5000,
+                        'icon' => 'fas fa-tags',
+                        'message' => 'Erro a criar o produto',
+                        'title' => 'ALERTA',
+                        'positonX' => 'right',
+                        'positonY' => 'top'
+                    ]);
+                }
+
+            }
+
+            return $this->render('index', [
+                'produtos' => $produtos,
+                'categorias' => $categorias,
+                'model' => $model,
+                'produto_categoria'=>$produto_categoria,
+                'categorias_produto_categoria'=>$categorias_produto_categoria
             ]);
 
-            $this->redirect(['index']);
+        }else{
+
+            return $this->render('site/error');
         }
 
-        return $this->render('index', [
-            'produtos' => $produtos,
-            'categorias' => $categorias,
-            'model' => $model,
-            'produto_categoria'=>$produto_categoria
-        ]);
     }
 
     /**
@@ -84,9 +115,17 @@ class ProdutoController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if (Yii::$app->user->can('consultarProdutos')) {
+
+
+            return $this->render('index', [
+                'produtoSelecionado' => $this->findModel($id),
+            ]);
+
+        }else{
+
+            return $this->render('site/error');
+        }
     }
 
     /**
@@ -96,22 +135,30 @@ class ProdutoController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Produto();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (Yii::$app->user->can('consultarProdutos')) {
 
             $model = new Produto();
-            $categoria = new CategoriaProduto();
-            $produtos=Produto::find()->all();
 
-            return $this->render('index', [
-                'categoria' => $categoria,
-                'produtos' => $produtos,
-                'model' => $model,
-            ]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                $model = new Produto();
+                $categoria = new CategoriaProduto();
+                $produtos=Produto::find()->all();
+
+                return $this->render('index', [
+                    'categoria' => $categoria,
+                    'produtos' => $produtos,
+                    'model' => $model,
+                ]);
+            }
+
+            return $this->redirect(['index']);
+
+        }else{
+
+            return $this->render('site/error');
         }
 
-        return $this->redirect(['index']);
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use backend\models\CategoriaProduto;
 use yii\bootstrap4\Modal;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -14,63 +15,68 @@ use yii\widgets\ActiveForm;
 $this->title = 'Produtos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="produto-index">
-    <div class="row col-12">
-        <div class="card col-12">
-            <div class="card-header">
-                <h3 class="card-title">
-                    <i class="fas fa-bullhorn"></i>
-                    Produtos
-                </h3>
+    <div class="card card-outline card-warning"> <!--collapsed-card-->
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fas fa-bullhorn"></i>
+                Criar produto
+            </h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                </button>
             </div>
-            <div class="card-body">
-                <?php $form = ActiveForm::begin(); ?>
-                <div class="row">
-                        <div class="row col-md-12">
-                            <div class="col-md-3 mt-0 ">
-                                <div class="box-body box-profile user-painel mt-3">
-                                    <div class="text-center">
-                                        <img class="img-responsive" width="100px" height="100px" src="img/soup.png" alt="imgPerfil">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="input-group mb-3 col-md-8">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    </div>
-                                    <?= $form->field($model, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
-                                </div>
-                                <div class="input-group mb-3 col-md-8">
-                                    <?= $form->field($model, 'preco', ['options' => ['tag' => 'input',  'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Preço",  'type'=>'number', 'step' => '0.01', 'autofocus' => true])->label(false) ?>
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
-                                    </div>
-                                </div>
-                                <div class="input-group mb-3 col-md-8">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                    </div>
-                                    <?= $form->field($produto_categoria, 'id_categoria_produto')->dropDownList(ArrayHelper::map($categorias, 'id', 'categoria'),
-                                        ['prompt'=>'Selecione...'],['maxlenght'=> true],
-                                        ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="input-group mb-3">
-                                    <?= $form->field($model, 'ingredientes')->textArea([ 'class'=>'col-12','maxlength' => 300, 'rows' => 3 , 'cols' => 40,'placeholder'=>'Ingredientes'])->label(false)?>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <?= Html::submitButton('Criar', ['class' => 'btn login_btn col-md-4', 'name' => 'login-button']) ?>
-                                </div>
+        </div>
+        <div class="card-body" style="display: block;">
+            <?php $form = ActiveForm::begin(); ?>
+            <div class="row">
+                <div class="row col-md-12">
+                    <div class="col-md-3 mt-0 ">
+                        <div class="box-body box-profile user-painel mt-3">
+                            <div class="text-center">
+                                <img class="img-responsive" width="100px" height="100px" src="img/soup.png" alt="imgPerfil">
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="input-group mb-3 col-md-8">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <?= $form->field($model, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
+                        </div>
+                        <div class="input-group mb-3 col-md-8">
+                            <?= $form->field($model, 'preco', ['options' => ['tag' => 'input',  'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Preço",  'type'=>'number', 'step' => '0.01', 'autofocus' => true])->label(false) ?>
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3 col-md-8">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <?= $form->field($produto_categoria, 'id_categoria_produto')
+                                ->dropDownList(
+                                    $categorias,           // Flat array ('id'=>'label')
+                                    ['prompt'=>'']    // options
+                                ); ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group mb-3">
+                            <?= $form->field($model, 'ingredientes')->textArea([ 'class'=>'col-12','maxlength' => 300, 'rows' => 3 , 'cols' => 40,'placeholder'=>'Ingredientes'])->label(false)?>
+                        </div>
+                        <div class="input-group mb-3">
+                            <?= Html::submitButton('Criar', ['class' => 'btn login_btn col-md-4', 'name' => 'login-button']) ?>
+                        </div>
+                    </div>
                 </div>
-                <?php ActiveForm::end(); ?>
-                <!-- /.card -->
             </div>
-            <!-- /.col -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewProduto">
+                Launch demo modal
+            </button>
+            <?php ActiveForm::end(); ?>
         </div>
+        <!-- /.card-body -->
     </div>
 
     <div class="row d-flex justify-content-center mr-5 ml-5 ">
@@ -124,7 +130,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                        </div>
                                                        <div class="row justify-content-center mr-2 ml-2">
                                                            <div class="text-center mt-4">
-                                                               <a href="<?=Url::toRoute(['produto/view', 'id' => $produto->id])?>" type="button" style="" class="btn btn-info">
+                                                               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewProduto<?=$produto->id?>">
+                                                                    <i class="fas fa-eye"></i>
+                                                               </button>
+                                                               <a href="<?=Url::toRoute(['produto/view', 'id' => $produto->id])?>" type="button" style="" class="btn btn-info" data-toggle="modal" data-target="#viewProduto" data-produto-id="<?=$produto->id?>">
                                                                    <i class="fas fa-eye"></i>
                                                                </a>
                                                                <a href="<?=Url::toRoute(['produto/update', 'id' => $produto->id])?>" type="button" class="btn btn-warning">
@@ -158,6 +167,67 @@ $this->params['breadcrumbs'][] = $this->title;
                                                </div>-->
                                            </div>
                                        </div>
+                                       <div class="modal fade"  id="viewProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                           <div class="modal-dialog modal-lg">
+                                               <div class="modal-content mt-2" >
+                                                   <div class="modal-header">
+                                                       <h3><?=$produto->nome?> </h3>
+                                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                           <span aria-hidden="true">&times;</span>
+                                                       </button>
+                                                   </div>
+                                                   <div class="modal-body">
+                                                       <div class="row">
+                                                           <div class="col-12 col-sm-6">
+                                                               <div class="card card-dark">
+                                                                   <div class="card-header">
+                                                                       <h3 class="card-title">
+                                                                           <i class="fas fa-exclamation-triangle"></i>
+                                                                           Ingredientes
+                                                                       </h3>
+                                                                   </div>
+                                                                   <div class="card-body">
+                                                                       <?=$produto->ingredientes?>
+                                                                   </div>
+                                                                   <!-- /.card-body -->
+                                                               </div>
+                                                               <div class="card card-dark">
+                                                                   <div class="card-header">
+                                                                       <h3 class="card-title">
+                                                                           <i class="fas fa-exclamation-triangle"></i>
+                                                                           Categorias
+                                                                       </h3>
+                                                                   </div>
+                                                                   <div class="card-body">
+                                                                       <?php
+                                                                            foreach ($categorias_produto_categoria as $itemCategoriaProdutoCategoria):
+                                                                                foreach ($categorias as $itemCategoriaProduto):
+                                                                                   if ($itemCategoriaProdutoCategoria->id_categoria_produto == $itemCategoriaProduto->id && $itemCategoriaProdutoCategoria->id_produto == $produto->id){?>
+                                                                                        <span class="badge-indigo"><?=$itemCategoriaProduto->categoria?></span>
+                                                                       <?php }endforeach;endforeach;?>
+                                                                   </div>
+                                                                   <!-- /.card-body -->
+                                                               </div>
+                                                           </div>
+                                                           <div class="col-12 col-sm-6">
+                                                               <div class="col-12 d-flex justify-content-center">
+                                                                   <img src="img/soup.png" class=""  style="width:200px; height: 200px;" alt="Product Image">
+                                                               </div>
+                                                               <div class="bg-gradient-dark py-2 px-3 mt-5">
+                                                                   <h2 class="mb-0">
+                                                                       80.00 €
+                                                                   </h2>
+                                                               </div>
+                                                           </div>
+                                                       </div>
+
+                                                   </div>
+                                                   <div class="modal-footer">
+                                                       <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
                                    <?php endforeach;?>
                            </div>
                         </div>
@@ -186,33 +256,61 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
+    <div class="modal fade"  id="viewProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content mt-2" >
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h3><?=$produto->id?> </h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <?php $form = ActiveForm::begin(); ?>
-
-                        <?= $form->field($model, 'nome')->textInput(['maxlength' => true]) ?>
-
-                        <?= $form->field($model, 'ingredientes')->textInput(['maxlength' => true]) ?>
-
-                        <?= $form->field($model, 'preco')->textInput() ?>
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <div class="card card-dark">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                            Ingredientes
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                            Danger alert preview. This alert is dismissable. A wonderful serenity has taken possession of my
+                                            entire
+                                            soul, like these sweet mornings of spring which I enjoy with my whole heart.
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <div class="card card-dark">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                            Categorias
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        Danger alert preview. This alert is dismissable. A wonderful serenity has taken possession of my
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <div class="col-12 d-flex justify-content-center">
+                                    <img src="img/soup.png" class=""  style="width:200px; height: 200px;" alt="Product Image">
+                                </div>
+                                <div class="bg-gradient-dark py-2 px-3 mt-5">
+                                    <h2 class="mb-0">
+                                        80.00 €
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <?= Html::submitButton('Create', ['class' => 'btn btn-success','id'=>'submit']) ?>
-                        <?php ActiveForm::end(); ?>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                     </div>
                 </div>
             </div>
         </div>
-
-
-</div>

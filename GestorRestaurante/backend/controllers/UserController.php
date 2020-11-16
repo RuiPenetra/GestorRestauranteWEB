@@ -57,6 +57,9 @@ class UserController extends Controller
                 /*'searchModel' => $searchModel,
                 'dataProvider' => dataProvider,*/
             ]);
+        }else{
+
+            return $this->render('site/error');
         }
 
     }
@@ -76,6 +79,9 @@ class UserController extends Controller
                 'perfil' => $perfil
             ]);
 
+        }else{
+
+            return $this->render('site/error');
         }
     }
 
@@ -97,6 +103,9 @@ class UserController extends Controller
                 'model' => $model,
             ]);
 
+        }else{
+
+            return $this->render('site/error');
         }
 
     }
@@ -132,48 +141,12 @@ class UserController extends Controller
             return $this->render('update', [
                 'user' => $user, 'perfil' =>$perfil
             ]);
+        }else{
+
+            return $this->render('site/error');
         }
 
 
-    }
-
-    public function actionMyperfil($id)
-    {
-        $user = $this->findModel($id);
-
-        $perfil=Perfil::findOne($id);
-        $auth = Yii::$app->authManager;
-
-        $user->cargo=$this->actionGetcargo($user->id);
-
-
-        $user->password_atual=$user->password_hash;
-
-
-        if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
-
-            VarDumper::dump($user->cargo);
-
-
-            $this->actionRemovecargo($user->cargo,$user->id);
-            $cargo=$user->cargo;
-            $novoCargo = $auth->getRole($cargo);
-            $auth->assign($novoCargo, $user->id);
-
-
-            if($user->new_password != null ){
-                $user->updatePassword($user->new_password);
-            }
-
-
-            return $this->render('update', [
-                'user' => $user, 'perfil' =>$perfil
-            ]);
-        }
-
-        return $this->render('update', [
-            'user' => $user, 'perfil' =>$perfil
-        ]);
     }
 
     public function actionDelete($id)
@@ -211,17 +184,23 @@ class UserController extends Controller
             $novoCargo = $auth->getRole($cargo_novo);
             $auth->assign($novoCargo, $id_user);
 
+        }else{
+
+            return $this->render('site/error');
         }
 
     }
 
-    public function actionRemovecargo($cargo,$id_user){
+    public function actionRemovecargo($id_user){
 
         if (Yii::$app->user->can('apagarCargos')) {
 
 
             Yii::$app->authManager->revokeAll($id_user);
 
+        }else{
+
+            return $this->render('site/error');
         }
     }
 
@@ -246,6 +225,9 @@ class UserController extends Controller
                 return $cargo="cliente";
             }
 
+        }else{
+
+            return $this->render('site/error');
         }
 
     }

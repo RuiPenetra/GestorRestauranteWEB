@@ -5,23 +5,6 @@
 $this->title = 'Gestor Restaurante';
 $nome='';
 use yii\helpers\Url; ?>
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0"><?= $this->title = 'Home';?></h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-               <button id="teste"></button>
-
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?= Url::toRoute(['site/index']) ?>">Home</a></li>
-                    <li class="breadcrumb-item active"><?=$this->title?></li>
-                </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-</div>
 <div class="site-index">
     <div class="row">
         <!-- CARD - UTILIZADORES -->

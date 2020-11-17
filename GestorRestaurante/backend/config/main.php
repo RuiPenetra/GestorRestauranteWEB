@@ -54,13 +54,6 @@ return [
             'baseUrl' => 'http://localhost/GestorRestauranteWeb/GestorRestaurante/frontend/web/index.php',
         ],
 
-        'urlManagerBackend' => [
-            'class' => 'yii\web\urlManager',
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'baseUrl' => 'http://localhost/GestorRestauranteWeb/GestorRestaurante/backend/web/index.php',
-        ],
-
     ],
     'params' => $params,
 ];

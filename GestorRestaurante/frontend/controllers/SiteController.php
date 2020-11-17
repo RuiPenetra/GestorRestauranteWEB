@@ -33,15 +33,15 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['signup', 'login'],
+                        'actions' => ['start','signup', 'login','menu','menuentradas','menucarne','menupeixe',
+                        'menubebida','menusopa','menusobremesa','about'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout','index','login'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -77,11 +77,11 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
+    public function actionstart()
     {
         if (Yii::$app->user->isGuest) {
             $this->layout = "main_principal";
-            return $this->render('index');
+            return $this->render('start');
         } else {
             $this->layout = "main";
             return $this->render('homepagelogin');
@@ -118,10 +118,8 @@ class SiteController extends Controller
                 return $this->goBack();
 
 
-
-
             }
-            return $this->actionmain();
+            return $this->actionIndex();
         }
             else {
             $model->password = '';
@@ -356,7 +354,7 @@ class SiteController extends Controller
 
 
     }
-    public function actionMain()
+    public function actionIndex()
     {
         $users = User::find()->all();
         $this->layout='main';

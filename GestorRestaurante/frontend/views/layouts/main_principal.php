@@ -61,11 +61,6 @@ AppAsset::register($this);
                 <li class="nav-item">
                     <a class="nav-link" href="<?= Url::toRoute(['site/about']) ?>">
                         About</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="<?= Url::toRoute(['site/logout']) ?>" data-method="POST" role="button">
-                    Logout</a>
-                </li>
                 <!--<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">

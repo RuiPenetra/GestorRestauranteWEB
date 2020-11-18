@@ -58,7 +58,7 @@ AppAsset::register($this);
     <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="<?=Url::toRoute('site/main')?>" class="brand-link">
+            <a href="<?=Url::toRoute('site/index')?>" class="brand-link">
                 <?= Html::img('img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'style' =>'opacity: .8']);?>
                 <span class="brand-text font-weight-light">Gestor Restaurante</span>
             </a>
@@ -85,7 +85,7 @@ AppAsset::register($this);
 
                 <!-- HOME -->
                 <li class="nav-item">
-                    <a href="<?= Url::toRoute(['site/main']) ?>" class="nav-link active">
+                    <a href="<?= Url::toRoute(['site/index']) ?>" class="nav-link active">
                         <i class="fas fa-home"></i>
                         <p>
                             Home
@@ -364,7 +364,7 @@ AppAsset::register($this);
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="<?=Url::toRoute('site/main')?>" class="brand-link">
+            <a href="<?=Url::toRoute('site/index')?>" class="brand-link">
                 <?= Html::img('img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'style' =>'opacity: .8']);?>
                 <span class="brand-text font-weight-light">Gestor Restaurante</span>
             </a>
@@ -391,7 +391,7 @@ AppAsset::register($this);
 
                         <!-- HOME -->
                         <li class="nav-item">
-                            <a href="<?= Url::toRoute(['site/main']) ?>" class="nav-link active">
+                            <a href="<?= Url::toRoute(['site/index']) ?>" class="nav-link active">
                                 <i class="fas fa-home"></i>
                                 <p>
                                     Home

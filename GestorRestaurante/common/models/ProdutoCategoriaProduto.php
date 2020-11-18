@@ -2,28 +2,24 @@
 
 namespace common\models;
 
-use common\models\Pedido;
-use Yii;
 
 /**
- * This is the model class for table "pedido_produto".
+ * This is the model class for table "produto_categoria_produto".
  *
- * @property int $id_pedido
  * @property int $id_produto
- * @property int $estado
- * @property string|null $nota
+ * @property int $id_categoria_produto
  *
  * @property Produto $produto
- * @property Pedido $pedido
+ * @property CategoriaProduto $categoriaProduto
  */
-class Pedidoproduto extends \yii\db\ActiveRecord
+class ProdutoCategoriaProduto extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'pedido_produto';
+        return 'produto_categoria_produto';
     }
 
     /**
@@ -32,11 +28,10 @@ class Pedidoproduto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_pedido', 'id_produto', 'estado'], 'required'],
-            [['id_pedido', 'id_produto', 'estado'], 'integer'],
-            [['nota'], 'string', 'max' => 255],
+            [['id_produto', 'id_categoria_produto'], 'required'],
+            [['id_produto', 'id_categoria_produto'], 'integer'],
             [['id_produto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::className(), 'targetAttribute' => ['id_produto' => 'id']],
-            [['id_pedido'], 'exist', 'skipOnError' => true, 'targetClass' => Pedido::className(), 'targetAttribute' => ['id_pedido' => 'id']],
+            [['id_categoria_produto'], 'exist', 'skipOnError' => true, 'targetClass' => CategoriaProduto::className(), 'targetAttribute' => ['id_categoria_produto' => 'id']],
         ];
     }
 
@@ -46,10 +41,8 @@ class Pedidoproduto extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id_pedido' => 'Id Pedido',
             'id_produto' => 'Id Produto',
-            'estado' => 'Estado',
-            'nota' => 'Nota',
+            'id_categoria_produto' => 'Id Categoria Produto',
         ];
     }
 
@@ -63,13 +56,15 @@ class Pedidoproduto extends \yii\db\ActiveRecord
         return $this->hasOne(Produto::className(), ['id' => 'id_produto']);
     }
 
+
+
     /**
-     * Gets query for [[Pedido]].
+     * Gets query for [[CategoriaProduto]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getPedido()
+    public function getCategoriaProduto()
     {
-        return $this->hasOne(Pedido::className(), ['id' => 'id_pedido']);
+        return $this->hasOne(CategoriaProduto::className(), ['id' => 'id_categoria_produto']);
     }
 }

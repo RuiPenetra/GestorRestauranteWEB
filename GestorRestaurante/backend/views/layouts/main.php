@@ -50,7 +50,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     Perfil
                 </a>
             </li>   <li class="nav-item">
-                <a class="nav-link" href="<?= Url::toRoute(['site/logout']) ?>" data-method="POST" role="button">
+                <a class="nav-link" data-toggle="modal" data-target="#logout" role="button">
                     <i class="fas fa-sign-out-alt"></i>
                     Sair
                 </a>
@@ -72,7 +72,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
             <!-- Sidebar user panel (optional) -->
             <div class="box-body box-profile user-painel mt-3">
                 <h3 class="profile-username text-center">
-                    <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive img-circle']); ?>
+                    <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-fluid img-circle']); ?>
                 </h3>
                 <div class="info center">
                     <a href="#" class="d-block text-center"><?= $perfil->nome;?> <?= $perfil->apelido;?></a>
@@ -256,6 +256,23 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
             <b>Version</b> 3.1.0-pre
         </div>
     </footer>-->
+    <div class="modal fade"  id="logout" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content mt-2" >
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-sign-out-alt"></i> Pretende terminar a sessão?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" href="<?= Url::toRoute(['site/logout']) ?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <?php $this->endBody() ?>
 </body>

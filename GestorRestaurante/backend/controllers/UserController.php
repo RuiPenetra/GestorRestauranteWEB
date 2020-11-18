@@ -125,7 +125,7 @@ class UserController extends Controller
 
             if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
 
-                $this->actionRemovecargo($user->cargo,$user->id);
+                $this->actionRemovecargo($user->id);
 
                 $cargo_selecionado=$user->cargo;
                 $novoCargo = $auth->getRole($cargo_selecionado);

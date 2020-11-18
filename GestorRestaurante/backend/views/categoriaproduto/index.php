@@ -15,7 +15,7 @@ $this->title = 'Categoria Produtos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-    <div class="card card-outline card-warning"> <!--collapsed-card-->
+    <div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
         <div class="card-header">
             <h3 class="card-title">
                 <i class="fas fa-bullhorn"></i>
@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <!-- /.card-body -->
     </div>
 
-    <div class="card">
+    <div class="card card-warning mr-5 ml-5">
         <div class="card-header">
             <h3 class="card-title">Todas as categorias</h3>
         </div>
@@ -80,14 +80,38 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td> <i class="fas fa-tags"></i></td>
                             <td><?=$cat->categoria?></td>
                             <td>
-                                <a href="<?=Url::toRoute(['categoriaproduto/update', 'id' => $cat->id])?>" type="button" class="btn btn-warning">
-                                    <i class="far fa-edit color-white"></i>
-                                </a>
-                                <a href="<?=Url::toRoute(['categoriaproduto/delete', 'id' => $cat->id])?>" data-method="POST" type="button" class="btn btn-danger">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
+                                <?php if($cat->categoria != "Entrada" && $cat->categoria != "Sopa" && $cat->categoria != "Carne"
+                                    && $cat->categoria != "Peixe" && $cat->categoria != "Sobremesa" && $cat->categoria != "Bebida" ):?>
+                                    <a href="<?=Url::toRoute(['categoriaproduto/update', 'id' => $cat->id])?>" type="button" class="btn btn-warning">
+                                        <i class="far fa-edit color-white"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#apagarCategoria<?=$cat->id?>">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                <?php endif;?>
                             </td>
                         </tr>
+                        <div class="modal fade"  id="apagarCategoria<?=$cat->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content mt-2" >
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash"></i> Tem a certeza que quer apagar?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            Após apagar a categoria selecionada não é possivel reverter.
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" href="<?=Url::toRoute(['categoriaproduto/delete', 'id' => $cat->id])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
+                                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <?php endforeach;?>
                     </tbody>
                 </table>

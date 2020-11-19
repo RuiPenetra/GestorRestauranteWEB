@@ -2,9 +2,8 @@
 
 namespace backend\controllers;
 
+use common\models\CategoriaProduto;
 use Yii;
-use backend\models\CategoriaProduto;
-use backend\models\CategoriaProdutoSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -49,7 +48,7 @@ class CategoriaprodutoController extends Controller
         if (Yii::$app->user->can('consultarCategoriaProdutos')) {
 
             $model = new CategoriaProduto();
-            $categorias=CategoriaProduto::find()->all();
+            $categorias=CategoriaProduto::find()->orderBy('id')->all();
 
             /*        $searchModel = new CategoriaProdutoSearch();
                     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/

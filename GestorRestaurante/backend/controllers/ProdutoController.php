@@ -2,13 +2,11 @@
 
 namespace backend\controllers;
 
-use backend\models\CategoriaProduto;
-use backend\models\ProdutoCategoriaProduto;
-use common\models\User;
-use function PHPSTORM_META\elementType;
+use common\models\CategoriaProduto;
+use common\models\ProdutoCategoriaProduto;
+use phpDocumentor\Reflection\Types\Integer;
 use Yii;
 use common\models\Produto;
-use common\models\ProdutoSearch;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -55,40 +53,39 @@ class ProdutoController extends Controller
         if (Yii::$app->user->can('consultarProdutos') && Yii::$app->user->can('criarProdutos')) {
 
             $produtos=Produto::find()->all();
-            $categorias=ArrayHelper::map(CategoriaProduto::find()->all(),'id','categoria');
+            $categoria_produto_categoria=ProdutoCategoriaProduto::find()->all();
             $produto_categoria= new ProdutoCategoriaProduto();
-            $categorias_produto_categoria=ProdutoCategoriaProduto::find()->all();
             $model = new Produto();
+
+            $categorias = ArrayHelper::map(CategoriaProduto::find()
+                ->where(['categoria' => 'Entrada'])
+                ->orWhere(['categoria' => 'Sopa'])
+                ->orWhere(['categoria' => 'Carne'])
+                ->orWhere(['categoria' => 'Peixe'])
+                ->orWhere(['categoria' => 'Sobremesa'])
+                ->orWhere(['categoria' => 'Bebida'])
+                ->orderBy('categoria')
+                ->all(),'id','categoria');
 
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                
+
+               /* var_dump($produto_categoria->id_categoria_produto);
+                die();*/
                 $produto_categoria->id_produto=$model->id;
+                $produto_categoria->save();
 
-                if ($produto_categoria->save()){
-                    Yii::$app->getSession()->setFlash('success', [
-                        'type' => 'success',
-                        'duration' => 5000,
-                        'icon' => 'fas fa-tags',
-                        'message' => 'Produto criado com sucesso',
-                        'title' => 'ALERTA',
-                        'positonX' => 'right',
-                        'positonY' => 'top'
-                    ]);
-                    $this->redirect(['index']);
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Produto criado com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
 
-                }else{
-
-                    Yii::$app->getSession()->setFlash('danger', [
-                        'type' => 'danger',
-                        'duration' => 5000,
-                        'icon' => 'fas fa-tags',
-                        'message' => 'Erro a criar o produto',
-                        'title' => 'ALERTA',
-                        'positonX' => 'right',
-                        'positonY' => 'top'
-                    ]);
-                }
+                return $this->redirect(['index']);
 
             }
 
@@ -97,7 +94,7 @@ class ProdutoController extends Controller
                 'categorias' => $categorias,
                 'model' => $model,
                 'produto_categoria'=>$produto_categoria,
-                'categorias_produto_categoria'=>$categorias_produto_categoria
+                'categoria_produto_categoria'=>$categoria_produto_categoria
             ]);
 
         }else{

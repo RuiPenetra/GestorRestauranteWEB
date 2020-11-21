@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 05-Nov-2020 às 19:36
+-- Generation Time: 21-Nov-2020 às 18:07
 -- Versão do servidor: 5.7.24
 -- versão do PHP: 7.0.33
 
@@ -42,7 +42,12 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 --
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
-('gerente', '1', 1604602718);
+('atendedorPedidos', '7', 1605632021),
+('cliente', '4', 1604675037),
+('cliente', '6', 1605139055),
+('cozinheiro', '3', 1605631947),
+('cozinheiro', '5', 1604675217),
+('gerente', '2', 1604642765);
 
 -- --------------------------------------------------------
 
@@ -297,8 +302,24 @@ DROP TABLE IF EXISTS `categoria_produto`;
 CREATE TABLE IF NOT EXISTS `categoria_produto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `categoria` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `editavel` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `categoria` (`categoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `categoria_produto`
+--
+
+INSERT INTO `categoria_produto` (`id`, `categoria`, `editavel`) VALUES
+(1, 'Entrada', 0),
+(2, 'Sopa', 0),
+(3, 'Carne', 0),
+(4, 'Peixe', 0),
+(5, 'Sobremesa', 0),
+(6, 'Bebida', 0),
+(7, 'Bebida s/gás', 1),
+(9, 'Bebida c/gás', 1);
 
 -- --------------------------------------------------------
 
@@ -364,6 +385,16 @@ CREATE TABLE IF NOT EXISTS `mesa` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `mesa`
+--
+
+INSERT INTO `mesa` (`id`, `n_lugares`, `estado`) VALUES
+(1, 5, 2),
+(2, 3, 2),
+(3, 20, 2),
+(4, 5, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -404,7 +435,7 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `estado` tinyint(1) NOT NULL,
   `tipo` tinyint(1) NOT NULL,
   `nome_pedido` varchar(255) DEFAULT NULL,
-  `id_mesa` int(11) NOT NULL,
+  `id_mesa` int(11) DEFAULT NULL,
   `id_perfil` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_perfil` (`id_perfil`),
@@ -423,6 +454,7 @@ CREATE TABLE IF NOT EXISTS `pedido_produto` (
   `id_produto` int(11) NOT NULL,
   `estado` tinyint(1) NOT NULL,
   `nota` varchar(255) DEFAULT NULL,
+  `quantidade` int(11) NOT NULL,
   KEY `id_produto` (`id_produto`),
   KEY `id_pedido` (`id_pedido`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -452,7 +484,8 @@ CREATE TABLE IF NOT EXISTS `perfil` (
 --
 
 INSERT INTO `perfil` (`id_user`, `nome`, `apelido`, `morada`, `datanascimento`, `codigopostal`, `nacionalidade`, `telemovel`, `genero`) VALUES
-(1, 'Rui', 'Jorge', 'Rua do tasco nº2', '2000-07-02', '2340-560', 'Portuguesa', '917283909', 1);
+(2, 'Joana', 'Ferreira', 'Rua do tasco nº2', '2020-11-11', '2459-233', 'Portugues', '983782982', 0),
+(7, 'ojpojcvej1', 'jvoejvopj', 'knvikedn', '2020-11-12', 'knvkdnkq', 'Portugal', '91839493', 1);
 
 -- --------------------------------------------------------
 
@@ -465,9 +498,22 @@ CREATE TABLE IF NOT EXISTS `produto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `ingredientes` varchar(500) NOT NULL,
-  `preco` float(4,2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `preco` decimal(4,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nome` (`nome`)
+) ENGINE=InnoDB AUTO_INCREMENT=183 DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `produto`
+--
+
+INSERT INTO `produto` (`id`, `nome`, `ingredientes`, `preco`) VALUES
+(176, 'bitoque', 'Pão, Queijo, Carne', '1.45'),
+(177, 'Teste', 'wddfwcdf', '1.45'),
+(178, 'dwdwdfw', 'vegeg', '1.45'),
+(180, 'fff', 'rbfrfr', '23.45'),
+(181, 'ccccccccccccc', 'grgrg', '1.45'),
+(182, 'mmmmm', 'fefefe', '45.45');
 
 -- --------------------------------------------------------
 
@@ -480,8 +526,21 @@ CREATE TABLE IF NOT EXISTS `produto_categoria_produto` (
   `id_produto` int(11) NOT NULL,
   `id_categoria_produto` int(11) NOT NULL,
   KEY `ProdutoCategoriaProduto` (`id_categoria_produto`),
-  KEY `CategoriaProdutoProduto` (`id_produto`)
+  KEY `CategoriaProdutoProduto` (`id_produto`),
+  KEY `id_produto` (`id_produto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `produto_categoria_produto`
+--
+
+INSERT INTO `produto_categoria_produto` (`id_produto`, `id_categoria_produto`) VALUES
+(176, 3),
+(177, 6),
+(178, 6),
+(180, 6),
+(181, 6),
+(182, 6);
 
 -- --------------------------------------------------------
 
@@ -525,14 +584,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `password_reset_token` (`password_reset_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Extraindo dados da tabela `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`) VALUES
-(1, 'Rui', 'xNwm2bIjhg5feM_iNYyBV02SkqT5gW4u', '$2y$13$reB6hNSylfZQM62DorHTQeS0wkzrzt1u.fWtDJw1DeXrT4OyYgJAS', NULL, 'rui@gmail.com', 10, '1604603050', '1604603050', 'pq-LXXJhApZ1ibNqMXqebcf8ncF0gb7I_1604603050');
+(2, 'Joana', 'evZ5KAZTPTI29WWT62uDdUs5V0qGUhHL', '$2y$13$Y6K7IXKMFLbme4CiXO2YweZskyFSYBD30/Hg1R7YGuSkO0Sd6Nl42', NULL, 'joana@gmail.com', 10, '1604615365', '1604615365', 'k4d-3xtA4q7gxQHwypxDqIAj4xonxunA_1604615365'),
+(5, 'rita', 'fmrhAfkq_Oonm1nRMyIY3mdR8wsJl5dZ', '$2y$13$5XFhObKRly70tF6UxSgt.eH1lFoVazjuLgxycwDY/R2leA1o0SxDm', NULL, 'rita@gmail.com', 10, '1604675217', '1604675217', 'Ib1irwi-HoI-MOJHIJabEnNyvWudIfC0_1604675217'),
+(7, 'Marcelo', 'k8cYW2_s_n_US7mF9bePHRw-vZBtPeP7', '$2y$13$QNn/ammk1yXp6njdsK7xk.DEIwRZBz/LG3u0J3Qxyzz8th42qRZUC', NULL, 'marcelo@gmail.com', 10, '1605141606', '1605141606', 'd9pHzwGRC_vw1Fcoggn6EIHZQZ8ETUBz_1605141606');
 
 --
 -- Constraints for dumped tables

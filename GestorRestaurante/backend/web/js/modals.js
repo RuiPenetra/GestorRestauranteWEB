@@ -103,3 +103,12 @@ $('#modal').on('show.bs.modal', function(e) {
     var produtoID = $(e.relatedTarget).data('produto-id');
     $(e.currentTarget).find('$produtoSelecionado').val(produtoID);
 });
+$(function mostrarInput() {
+    var checkBox = document.getElementById("myCheck");
+    var text = document.getElementById("show");
+    if (checkBox.checked == true){
+        text.style.display = "block";
+    } else {
+        text.style.display = "none";
+    }
+});

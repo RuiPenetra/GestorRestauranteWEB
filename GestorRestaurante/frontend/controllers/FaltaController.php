@@ -1,18 +1,18 @@
 <?php
 
-namespace backend\controllers;
+namespace frontend\controllers;
 
 use Yii;
-use common\models\Pedido;
-use common\models\PedidoSearch;
+use common\models\Falta;
+use common\models\FaltaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PedidoController implements the CRUD actions for Pedido model.
+ * FaltaController implements the CRUD actions for Falta model.
  */
-class PedidoController extends Controller
+class FaltaController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class PedidoController extends Controller
     }
 
     /**
-     * Lists all Pedido models.
+     * Lists all Falta models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PedidoSearch();
+        $searchModel = new FaltaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class PedidoController extends Controller
     }
 
     /**
-     * Displays a single Pedido model.
+     * Displays a single Falta model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class PedidoController extends Controller
     }
 
     /**
-     * Creates a new Pedido model.
+     * Creates a new Falta model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Pedido();
+        $model = new Falta();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class PedidoController extends Controller
     }
 
     /**
-     * Updates an existing Pedido model.
+     * Updates an existing Falta model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class PedidoController extends Controller
     }
 
     /**
-     * Deletes an existing Pedido model.
+     * Deletes an existing Falta model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class PedidoController extends Controller
     }
 
     /**
-     * Finds the Pedido model based on its primary key value.
+     * Finds the Falta model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Pedido the loaded model
+     * @return Falta the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Pedido::findOne($id)) !== null) {
+        if (($model = Falta::findOne($id)) !== null) {
             return $model;
         }
 

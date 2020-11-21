@@ -25,7 +25,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/adminlte.min.js',
-/*        'js/modal.js',*/
+        'js/tools.js',
         'js/bootstrap.bundle.min.js',
 //        'js/jquery.min.js',
     ];

@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Pedido;
-use common\models\PedidoSearch;
+use common\models\Mesa;
+use common\models\MesaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PedidoController implements the CRUD actions for Pedido model.
+ * MesaController implements the CRUD actions for Mesa model.
  */
-class PedidoController extends Controller
+class MesaController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,22 +30,40 @@ class PedidoController extends Controller
     }
 
     /**
-     * Lists all Pedido models.
+     * Lists all Mesa models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PedidoSearch();
+        $model = new Mesa();
+        $searchModel = new MesaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $model->estado=2;
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            Yii::$app->getSession()->setFlash('success', [
+                'type' => 'success',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Mesa criada com sucesso',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+
+            return $this->redirect(['index']);
+        }
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model
         ]);
     }
 
     /**
-     * Displays a single Pedido model.
+     * Displays a single Mesa model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +76,13 @@ class PedidoController extends Controller
     }
 
     /**
-     * Creates a new Pedido model.
+     * Creates a new Mesa model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Pedido();
+        $model = new Mesa();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +94,7 @@ class PedidoController extends Controller
     }
 
     /**
-     * Updates an existing Pedido model.
+     * Updates an existing Mesa model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +114,7 @@ class PedidoController extends Controller
     }
 
     /**
-     * Deletes an existing Pedido model.
+     * Deletes an existing Mesa model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +128,15 @@ class PedidoController extends Controller
     }
 
     /**
-     * Finds the Pedido model based on its primary key value.
+     * Finds the Mesa model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Pedido the loaded model
+     * @return Mesa the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Pedido::findOne($id)) !== null) {
+        if (($model = Mesa::findOne($id)) !== null) {
             return $model;
         }
 

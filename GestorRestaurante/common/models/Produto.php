@@ -75,20 +75,4 @@ class Produto extends \yii\db\ActiveRecord
         return $this->hasMany(ProdutoCategoriaProduto::className(), ['id_produto' => 'id']);
     }
 
-    public function beforeSave($insert) {
-
-        if (parent::beforeSave($insert)) {
-
-            $this->preco = str_replace(".", ",", $this->preco);
-
-            return true;
-
-        } else {
-
-            return false;
-
-        }
-
-    }
-
 }

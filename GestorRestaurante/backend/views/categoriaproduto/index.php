@@ -35,7 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
                 <div class="col-md-5 col-xl-3">
-                    <?php $form = ActiveForm::begin(); ?>
                     <div class="input-group mb-3">
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -51,7 +50,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="d-flex justify-content-end">
                         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
                     </div>
-                    <?php ActiveForm::end(); ?>
                 </div>
             </div>
             <?php ActiveForm::end(); ?>
@@ -80,8 +78,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td> <i class="fas fa-tags"></i></td>
                             <td><?=$cat->categoria?></td>
                             <td>
-                                <?php if($cat->categoria != "Entrada" && $cat->categoria != "Sopa" && $cat->categoria != "Carne"
-                                    && $cat->categoria != "Peixe" && $cat->categoria != "Sobremesa" && $cat->categoria != "Bebida" ):?>
+                                <a href="<?=Url::toRoute(['categoriaproduto/view', 'id' => $cat->id])?>" type="button" class="btn btn-dark">
+                                    <i class="far fa-edit color-white"></i>
+                                </a>
+                                <?php if($cat->editavel==true):?>
                                     <a href="<?=Url::toRoute(['categoriaproduto/update', 'id' => $cat->id])?>" type="button" class="btn btn-warning">
                                         <i class="far fa-edit color-white"></i>
                                     </a>

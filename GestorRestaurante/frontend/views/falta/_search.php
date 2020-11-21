@@ -15,23 +15,16 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id_user') ?>
+    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'nome') ?>
+    <?= $form->field($model, 'data_inicio') ?>
 
-    <?= $form->field($model, 'apelido') ?>
+    <?= $form->field($model, 'data_fim') ?>
 
-    <?= $form->field($model, 'morada') ?>
+    <?= $form->field($model, 'num_horas') ?>
 
-    <?= $form->field($model, 'datanascimento') ?>
+    <?= $form->field($model, 'id_funcionario') ?>
 
-    <?php // echo $form->field($model, 'codigopostal') ?>
-
-    <?php // echo $form->field($model, 'nacionalidade') ?>
-
-    <?php // echo $form->field($model, 'telemovel') ?>
-
-    <?php // echo $form->field($model, 'genero') ?>
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>

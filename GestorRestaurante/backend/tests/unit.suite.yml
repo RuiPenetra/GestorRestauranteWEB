@@ -1,2 +1,10 @@
 suite_namespace: backend\tests\unit
 actor: UnitTester
+modules:
+  enabled:
+    - Db
+  config:
+    Db:
+      dsn: 'mysql:host=localhost;dbname=gestorrestaurante_test'
+      user: 'root'
+      password: ''

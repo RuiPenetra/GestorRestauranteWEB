@@ -2,9 +2,16 @@
 
 namespace backend\controllers;
 
+use common\models\Perfil;
+use common\models\PerfilSearch;
+use common\models\User;
+use common\models\UserSearch;
+use phpDocumentor\Reflection\Types\Integer;
 use Yii;
 use common\models\Falta;
 use common\models\FaltaSearch;
+use yii\data\Pagination;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,6 +27,16 @@ class FaltaController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index','update','delete','view','create'],
+                        'allow' => true,
+                        'roles' => ['gerente'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -35,13 +52,31 @@ class FaltaController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new FaltaSearch();
+        /*$searchModel = new FaltaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
+            'users' => $searchModel,
             'dataProvider' => $dataProvider,
-        ]);
+        ]);*/
+        if (Yii::$app->user->can('consultarUtilizadores')) {
+
+            $query = Perfil::find()->where([]);
+            $countQuery = clone $query;
+            $pages = new Pagination(['totalCount' => $countQuery->count()]);
+            $users = $query->offset($pages->offset)
+                ->limit($pages->limit)
+                ->all();
+
+            return $this->render('index', [
+                'users' => $users,
+                'pages' => $pages,
+            ]);
+
+        }else{
+
+            return $this->render('site/error');
+        }
     }
 
     /**
@@ -52,8 +87,19 @@ class FaltaController extends Controller
      */
     public function actionView($id)
     {
+        $falta = new Falta();
+        $faltas=Falta::findAll($id);
+        $user=User::findOne($id);
+        $model = new Falta();
+
+        if ($falta->load(Yii::$app->request->post()) && $falta->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'falta' => $falta,
+            'faltas' => $faltas,
+            'user'=>$user
         ]);
     }
 
@@ -62,16 +108,20 @@ class FaltaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
+        $falta = new Falta();
+        $faltas=Falta::findAll($id);
+
         $model = new Falta();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($falta->load(Yii::$app->request->post()) && $falta->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'falta' => $falta,
+            'faltas' => $faltas,
         ]);
     }
 

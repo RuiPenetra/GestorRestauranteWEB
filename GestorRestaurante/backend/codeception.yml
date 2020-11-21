@@ -13,3 +13,7 @@ modules:
     config:
         Yii2:
             configFile: 'config/codeception-local.php'
+        Db:
+            dsn: 'mysql:host=localhost;dbname=gestorrestaurante_teste'
+            user: 'root'
+            password: ''

@@ -54,7 +54,7 @@ class UserController extends Controller
 
             return $this->render('index', [
                 'users' => $users
-                /*'searchModel' => $searchModel,
+                /*'searchModel' => $searchModel,    
                 'dataProvider' => dataProvider,*/
             ]);
         }else{

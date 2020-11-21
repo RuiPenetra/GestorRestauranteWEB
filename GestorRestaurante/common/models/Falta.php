@@ -61,4 +61,5 @@ class Falta extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Perfil::className(), ['id_user' => 'id_funcionario']);
     }
+
 }

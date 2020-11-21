@@ -52,7 +52,7 @@ class CategoriaprodutoController extends Controller
 
             /*        $searchModel = new CategoriaProdutoSearch();
                     $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
-
+            $model->editavel=true;
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
 

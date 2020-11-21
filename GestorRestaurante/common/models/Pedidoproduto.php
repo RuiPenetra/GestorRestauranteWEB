@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use common\models\Pedido;
 use Yii;
 
 /**
@@ -16,7 +15,7 @@ use Yii;
  * @property Produto $produto
  * @property Pedido $pedido
  */
-class Pedidoproduto extends \yii\db\ActiveRecord
+class PedidoProduto extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}

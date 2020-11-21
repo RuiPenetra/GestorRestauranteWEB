@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $categoria
+ * @property int $editavel
  *
  * @property ProdutoCategoriaProduto[] $produtoCategoriaProdutos
  */
@@ -28,9 +29,10 @@ class CategoriaProduto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['categoria'], 'required'],
-            [['categoria'], 'unique'],
+            [['categoria', 'editavel'], 'required'],
+            [['editavel'], 'boolean', 'trueValue' => true, 'falseValue' => false, 'strict' => true],
             [['categoria'], 'string', 'max' => 255],
+            [['categoria'], 'unique'],
         ];
     }
 
@@ -42,6 +44,7 @@ class CategoriaProduto extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'categoria' => 'Categoria',
+            'editavel' => 'Editavel',
         ];
     }
 

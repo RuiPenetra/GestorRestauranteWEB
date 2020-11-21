@@ -143,6 +143,15 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                             </p>
                         </a>
                     </li>
+                    <!-- MESA -->
+                    <li class="nav-item">
+                        <a href="<?= Url::toRoute(['mesa/index']) ?>" class="nav-link">
+                            <i class="fas fa-truck"></i>
+                            <p>
+                                Mesa
+                            </p>
+                        </a>
+                    </li>
                     <!-- PRODUTOS -->
                     <li class="nav-item">
                         <a href="<?= Url::toRoute(['produto/index']) ?>" class="nav-link">

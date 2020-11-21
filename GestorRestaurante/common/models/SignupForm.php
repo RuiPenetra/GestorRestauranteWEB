@@ -91,13 +91,13 @@ class SignupForm extends Model
 
         
         $utilizador  = new User();
-        $utilizador ->setUsername($this->username);
-        $utilizador ->setEmail($this->email);
-        $utilizador ->setPassword($this->password);
+        $utilizador->setUsername($this->username);
+        $utilizador->setEmail($this->email);
+        $utilizador->setPassword($this->password);
         $utilizador->setCreateAt($this->createAt);
         $utilizador->setUpdateAt($this->updateAt);
-        $utilizador ->generateAuthKey();
-        $utilizador ->generateEmailVerificationToken();
+        $utilizador->generateAuthKey();
+        $utilizador->generateEmailVerificationToken();
         $utilizador->save();
 
 

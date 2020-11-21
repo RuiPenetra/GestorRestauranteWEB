@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\CategoriaProduto;
 use common\models\ProdutoCategoriaProduto;
+use common\models\ProdutoForm;
 use phpDocumentor\Reflection\Types\Integer;
 use Yii;
 use common\models\Produto;
@@ -54,8 +55,8 @@ class ProdutoController extends Controller
 
             $produtos=Produto::find()->all();
             $categoria_produto_categoria=ProdutoCategoriaProduto::find()->all();
-            $produto_categoria= new ProdutoCategoriaProduto();
-            $model = new Produto();
+            $produto=new ProdutoForm();
+
 
             $categorias = ArrayHelper::map(CategoriaProduto::find()
                 ->where(['categoria' => 'Entrada'])
@@ -68,12 +69,7 @@ class ProdutoController extends Controller
                 ->all(),'id','categoria');
 
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-               /* var_dump($produto_categoria->id_categoria_produto);
-                die();*/
-                $produto_categoria->id_produto=$model->id;
-                $produto_categoria->save();
+            if ($produto->load(Yii::$app->request->post()) && $produto->produto()) {
 
                 Yii::$app->getSession()->setFlash('success', [
                     'type' => 'success',
@@ -92,8 +88,7 @@ class ProdutoController extends Controller
             return $this->render('index', [
                 'produtos' => $produtos,
                 'categorias' => $categorias,
-                'model' => $model,
-                'produto_categoria'=>$produto_categoria,
+                'produto' => $produto,
                 'categoria_produto_categoria'=>$categoria_produto_categoria
             ]);
 
@@ -197,6 +192,31 @@ class ProdutoController extends Controller
      */
     public function actionDelete($id)
     {
+//        ProdutoCategoriaProduto::findAll(array("condition"=>"id_produto =  $id"))->delete();
+
+        $produto = Produto::findOne($id);
+
+        $produto_categorias=$produto->getProdutoCategoriaProdutos();
+
+        ProdutoCategoriaProduto::deleteAll(['id_produto' => $produto->id]);
+      /*  if($produto_categorias!=null){
+
+            foreach ($produto_categorias as $item ){
+
+
+            }
+
+        }*/
+        Yii::$app->getSession()->setFlash('success', [
+            'type' => 'success',
+            'duration' => 5000,
+            'icon' => 'fas fa-tags',
+            'message' => 'Produto apagado com sucesso',
+            'title' => 'ALERTA',
+            'positonX' => 'right',
+            'positonY' => 'top'
+        ]);
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

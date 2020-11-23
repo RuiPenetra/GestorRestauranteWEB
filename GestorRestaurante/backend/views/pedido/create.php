@@ -21,33 +21,50 @@ $this->params['breadcrumbs'][] = $this->title;
             </button>
         </div>
     </div>
-    <div class="card-body text-center" style="display: block;">
-        <?php $form = ActiveForm::begin(); ?>
+    <div class="card-body" style="display: block;">
 
+        <?php $form = ActiveForm::begin(); ?>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="input-group mb-3 col-md-8">
                 <h5>Tipo de pedido:</h5>
                 </div>
-                <div class="input-group mb-3 col-md-8">
-                    <?= $form->field($model, 'tipo')->radio(['label' => 'Restaurante', 'value' => 0,'id'=>'checkHide','onclick' => 'mostrarInput()']) ?>
+                <div class="input-group mb-3 col-md-12">
+                    <div class="col-md-2">
+                        <?= $form->field($pedido, 'tipo')->radio(['label' => 'Restaurante','value' => 0,'id'=>'checkHide','onclick' => 'mostrarInput()']) ?>
+                    </div>
+                    <div class="col-md-10">
+                        <span class="input-group mb-3 col-md-5" id="" style="display:block">
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text rounded-left"><i class="fas fa-user"></i></span>
+                                </div>
+                                <?= $form->field($pedido, 'id_mesa')->dropDownList($mesas,['prompt' => '-- Selecione --','class'=>'form-control rounded-right','id'=>'dropDownMesas'])->label(false) ?>
+                            </div>
+                        </span>
+                    </div>
                 </div>
-                <div class="input-group mb-3 col-md-8">
-                    <?= $form->field($model, 'tipo')->radio(['label' => 'Takeaway', 'value' => 1,'id'=>'checkShow','onclick' => 'mostrarInput()'])?>
-                        <div class="col-md-6">
-                            <span class="input-group mb-3 col-md-5" id="show" style="display:none">
-                            <?= $form->field($model, 'nome_pedido')->textInput(['maxlength' => true,'placeholder'=>'Nome','id'=>'inputNome'])->label(false); ?>
-                            </span>
-                        <div>
+                <div class="input-group mb-3 col-md-12">
+                    <div class="col-md-2">
+                        <?= $form->field($pedido, 'tipo')->radio(['label' => 'Takeaway','value' => 1,'id'=>'checkShow','onclick' => 'mostrarInput()'])?>
+                    </div>
+                    <div class="col-md-10">
+                        <span class="input-group mb-3 col-md-5"  style="display:block">
+                            <div class="input-group mb-3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text rounded-left"><i class="fas fa-user"></i></span>
+                                </div>
+                                <?= $form->field($pedido, 'nome_pedido')->textInput(['class'=>'form-control rounded-right','maxlength' => true,'placeholder'=>'Nome Pedido','id'=>'inputNome'])->label(false); ?>
+
+                            </div>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="input-group mb-3 col-md-8">
-            <div class="form-group">
-                <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-            </div>
-            <?php ActiveForm::end(); ?>
-        <div>
-</div>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+
+        <?php ActiveForm::end(); ?>
+    </div>
 
 

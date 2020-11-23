@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-user"></i></span>
                                     </div>
                                     <?= $form->field($model, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
                                 </div>
@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-user"></i></span>
                                     </div>
                                     <?= $form->field($model, 'apelido', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Apelido"])->label(false) ?>
                                 </div>
@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-12">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-map-marker-alt"></i></span>
                                     </div>
                                     <?= $form->field($model, 'morada', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Morada"])->label(false) ?>
                                 </div>
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-envelope"></i></span>
                                     </div>
                                     <?= $form->field($model, 'codigopostal', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Codigo-Postal"])->label(false) ?>
                                 </div>
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-calendar-alt"></i></span>
                                     </div>
                                     <?= $form->field($model, 'datanascimento',['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'type' => 'date','autocomplete' => 'off'])->label(false) ?>
 
@@ -87,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-globe-asia"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-globe-asia"></i></span>
                                     </div>
                                     <?= $form->field($model, 'nacionalidade', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nacionalidade"])->label(false) ?>
 
@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-phone-alt"></i></span>
                                     </div>
                                     <?= $form->field($model, 'telemovel', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Telemovel"])->label(false) ?>
 
@@ -107,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-venus-mars"></i></span>
                                     </div>
                                     <?= $form->field($model, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'],
                                         ['prompt'=>'Selecione...'],['maxlenght'=> true],
@@ -117,7 +117,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-user-tag"></i></span>
                                     </div>
                                     <?= $form->field($model, 'cargo')->dropDownList(['gerente' => 'Gerente', 'atendedorPedidos' => 'Atendedor Pedidos', 'empregadoMesa' => 'Empregado Mesa', 'cozinheiro' => 'Cozinheiro', 'cliente' => 'Cliente'],
                                         ['prompt'=>'Selecione...'],['maxlenght'=> true],
@@ -135,7 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-user"></i></span>
                                     </div>
                                     <?= $form->field($model, 'username', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Username"])->label(false) ?>
                                 </div>
@@ -145,13 +145,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-envelope"></i></span>
                                     </div>
                                     <?= $form->field($model, 'email', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Email", 'type' => 'email'])->label(false) ?>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-key"></i></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-key"></i></i></span>
                                     </div>
                                     <?= $form->field($model, 'password', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Password", 'type' => 'password'])->label(false) ?>
                                 </div>

@@ -2,6 +2,7 @@
 
 namespace backend\models;
 
+use common\models\CategoriaProduto;
 use common\models\Produto;
 use Yii;
 

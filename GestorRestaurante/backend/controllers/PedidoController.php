@@ -2,9 +2,15 @@
 
 namespace backend\controllers;
 
+use backend\models\Mesa;
+use common\models\PedidoRestauranteForm;
+use common\models\PedidoTakeawayForm;
+use common\models\Perfil;
+use common\models\User;
 use Yii;
 use common\models\Pedido;
 use common\models\PedidoSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -64,14 +70,31 @@ class PedidoController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Pedido();
+        $mesas = ArrayHelper::map(Mesa::find()->all(),'id','id');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $id=Yii::$app->user->identity->getId();
+        $perfil=Perfil::findOne($id);
+
+        $pedido= new PedidoTakeawayForm();
+
+        if ($pedido->load(Yii::$app->request->post()) ) {
+
+            $pedido->teste($pedido->tipo,$pedido->id_mesa);
+            //$pedido->takeaway();
+          /*  var_dump($pedido->id_perfil,
+                    $pedido->id_mesa,
+                    $pedido->nome_pedido,
+                $pedido->tipo,
+                $pedido->data,
+                $pedido->estado);
+            die();*/
+//            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'mesas' => $mesas,
+            'pedido'=>$pedido
         ]);
     }
 

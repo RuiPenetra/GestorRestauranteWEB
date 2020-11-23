@@ -45,6 +45,9 @@ class Pedido extends \yii\db\ActiveRecord
         ];
     }
 
+
+
+
     /**
      * {@inheritdoc}
      */
@@ -100,4 +103,6 @@ class Pedido extends \yii\db\ActiveRecord
     {
         return $this->hasMany(PedidoProduto::className(), ['id_pedido' => 'id']);
     }
+
+
 }

@@ -14,7 +14,6 @@ $this->title = 'Gestor Restaurante';
 <h2>Bem vindo</h2>
 </div>
 
-
 <div class="container-fluid">
 
 

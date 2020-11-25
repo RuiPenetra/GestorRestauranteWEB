@@ -39,7 +39,7 @@ use yii\helpers\Url;
 
                     <h3 class="profile-username text-center"><?=$perfil->nome?> <?=$perfil->apelido?></h3>
 
-                    <p class="text-muted text-center">Gerente</p>
+                    <p class="text-muted text-center"><?= $user->cargo?></p>
 
                 </div>
                 <!-- /.card-body -->

@@ -188,6 +188,11 @@ a.badge-success:focus, a.badge-success.focus {
     background-color: #17a2b8;
 }
 
+.badge-info-black{
+    color:#000;
+    background-color:#17a2b8;
+}
+
 a.badge-info:hover, a.badge-info:focus {
     color: #fff;
     background-color: #117a8b;
@@ -208,6 +213,11 @@ a.badge-info:focus, a.badge-info.focus {
     background-color:#6610f2;
 }
 
+.badge-indigo-white {
+    color: #fff;
+    background-color:#6610f2;
+}
+
 a.badge-warning:hover, a.badge-warning:focus {
     color: #1f2d3d;
     background-color: #d39e00;
@@ -220,6 +230,11 @@ a.badge-warning:focus, a.badge-warning.focus {
 
 .badge-danger {
     color: #000;
+    background-color: rgba(237, 48, 69, 0.8);
+}
+
+.badge-danger-white {
+    color: #FFF;
     background-color: rgba(237, 48, 69, 0.8);
 }
 

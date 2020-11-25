@@ -47,7 +47,6 @@
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/phpunit/php-token-stream" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/phpunit/phpunit" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/psr/container" />
-      <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/psr/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/psr/http-message" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/ralouphie/getallheaders" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/rmrevin/yii2-ionicon" />
@@ -61,20 +60,17 @@
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/sebastian/object-reflector" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/sebastian/recursion-context" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/sebastian/resource-operations" />
-      <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/sebastian/type" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/sebastian/version" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/swiftmailer/swiftmailer" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/browser-kit" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/console" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/css-selector" />
-      <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/deprecation-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/dom-crawler" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/event-dispatcher-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/finder" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/polyfill-ctype" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/polyfill-iconv" />
-      <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/polyfill-intl-grapheme" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/polyfill-intl-idn" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/polyfill-intl-normalizer" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/polyfill-mbstring" />
@@ -82,7 +78,6 @@
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/polyfill-php73" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/polyfill-php80" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/service-contracts" />
-      <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/string" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/symfony/yaml" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/theseer/tokenizer" />
       <excludeFolder url="file://$MODULE_DIR$/GestorRestaurante/vendor/webmozart/assert" />

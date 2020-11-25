@@ -326,8 +326,6 @@ class m201016_160137_rbac extends Migration
             $apagarTakeaway->description="Apagar Takeaway";
             $auth->add($apagarTakeaway);
 
-
-
         //TODO: CRIAR ROLE E ATRIBUIR PREMISSÕES
 
         /**ROLE -> ADMIN__________________________________________________________________________**/
@@ -564,7 +562,7 @@ class m201016_160137_rbac extends Migration
             $auth->add($cliente);
 
             //# INTERFACE #
-            //$auth->addChild($cliente, $AcederInterfaceCliente);
+            $auth->addChild($cliente, $AcederInterfaceCliente);
 
         //# Perfil #
             $auth->addChild($cliente, $consultarPerfis);
@@ -584,6 +582,7 @@ class m201016_160137_rbac extends Migration
             $auth->addChild($cliente, $consultarTakeaway);
             $auth->addchild($cliente, $atualizarTakeaway);
             $auth->addchild($cliente, $apagarTakeaway);
+            
 
         //TODO: ATRUBUIR PREMISSÕES AO ADMIN ( GERENTE )
 

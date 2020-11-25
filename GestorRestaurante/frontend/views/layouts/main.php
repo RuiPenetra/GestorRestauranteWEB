@@ -3,6 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use common\models\Perfil;
 use yii\helpers\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
@@ -11,8 +12,11 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use yii\helpers\Url;
 
-AppAsset::register($this);
-?>
+
+AppAsset::register($this);?>
+    <?php $id = Yii::$app->user->identity->id; ?>
+    <?php $name = Yii::$app->user->identity->username ?>
+
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -29,9 +33,9 @@ AppAsset::register($this);
 
 <div class="wrapper_login">
     <!-- Navbar -->
-    <?php $id = Yii::$app->user->identity->id; ?>
-    <?php $name = Yii::$app->user->identity->username ?>
 
+
+    <?php $perfil=Perfil::findOne(['id_user'=>$id])?>
 
 
     <?php if(\Yii::$app->authManager->getAssignment('cliente',$id)!=null) {?>
@@ -42,7 +46,7 @@ AppAsset::register($this);
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="#" role="button">
+                <a class="nav-link" href="<?=URL::toRoute(['perfil/myperfil','id'=>$id])?>" role="button">
                     <i class="fas fa-user-edit"></i>
                     Perfil
                 </a>
@@ -69,7 +73,7 @@ AppAsset::register($this);
                 <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-responsive img-circle']); ?>
             </h3>
             <div class="info center">
-                <a href="#" class="d-block text-center"><?= $name?></a>
+                <a href="#" class="d-block text-center"><?=$perfil->nome?></a>
                 <div style="text-align: center;">
                     <span class="center badge badge-danger"><h8>Cliente</h8></span>
                 </div>
@@ -492,13 +496,7 @@ AppAsset::register($this);
     <!-- /.control-sidebar -->
 
     <!-- Main Footer -->
-    <footer class="main-footer">
-        <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-        All rights reserved.
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.1.0-pre
-        </div>
-    </footer>
+
 </div>
 <!-- ./wrapper -->
 <?php $this->endBody() ?>

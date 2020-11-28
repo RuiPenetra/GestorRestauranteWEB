@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="utilizador-search">
+<div class="user-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -19,27 +19,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'username') ?>
 
-    <?= $form->field($model, 'morada') ?>
+    <?= $form->field($model, 'auth_key') ?>
 
-    <?= $form->field($model, 'nome') ?>
+    <?= $form->field($model, 'password_hash') ?>
 
-    <?= $form->field($model, 'apelido') ?>
-
-    <?php // echo $form->field($model, 'datanascimento') ?>
-
-    <?php // echo $form->field($model, 'nacionalidade') ?>
-
-    <?php // echo $form->field($model, 'telemovel') ?>
-
-    <?php // echo $form->field($model, 'codigopostal') ?>
-
-    <?php // echo $form->field($model, 'genero') ?>
-
-    <?php // echo $form->field($model, 'auth_key') ?>
-
-    <?php // echo $form->field($model, 'password_hash') ?>
-
-    <?php // echo $form->field($model, 'password_reset_token') ?>
+    <?= $form->field($model, 'password_reset_token') ?>
 
     <?php // echo $form->field($model, 'email') ?>
 

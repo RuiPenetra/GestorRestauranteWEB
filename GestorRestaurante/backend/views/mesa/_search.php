@@ -14,6 +14,7 @@ use yii\widgets\ActiveForm;
 
 <div class="row">
     <div class="col-3">
+
         <?= $form->field($model, 'id')->textInput(['class'=>'form-control rounded', 'placeholder'=>'Nº', 'min'=>'0','type'=>'number'])->label(false) ?>
     </div>
     <div class="col-3">

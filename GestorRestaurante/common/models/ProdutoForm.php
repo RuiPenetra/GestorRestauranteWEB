@@ -38,6 +38,8 @@ class ProdutoForm extends Model
     public function produto(){
 
         if (!$this->validate()) {
+            var_dump('kkkkkkkk');
+            die();
             return null;
         }
 
@@ -57,4 +59,6 @@ class ProdutoForm extends Model
 
 
     }
+
+
 }

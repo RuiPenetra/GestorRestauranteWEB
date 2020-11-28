@@ -26,7 +26,7 @@ class PerfilController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','update','delete','view','create','myperfil'],
+                        'actions' => ['index','update','delete','view','create'],
                         'allow' => true,
                         'roles' => ['gerente'],
                     ],
@@ -61,97 +61,53 @@ class PerfilController extends Controller
 
     public function actionMyperfil($id)
     {
-        if (Yii::$app->user->can('consultarUtilizadores')) {
+        if (Yii::$app->user->can('consultarUtilizadores') && Yii::$app->user->can('atualizarUtilizadores') && Yii::$app->user->can('atualizarPerfis')) {
+                $perfil = Perfil::findOne($id);
+                $user = User::findOne($id);
 
-            $user =User::findOne($id);
-            $perfil= $this->findModel($user->id);
-            $auth = Yii::$app->authManager;
+                if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
 
-            $user->cargo=$this->actionGetcargo($user->id);
+                    $this->actionRemovecargo($perfil->id_user);
 
+                    $this->actionUpdatecargo($perfil->cargo, $perfil->id_user);
 
-            $user->password_atual=$user->password_hash;
-
-
-            if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
-
-                $this->actionRemovecargo($user->cargo,$user->id);
-
-                $cargo_selecionado=$user->cargo;
-
-                $novoCargo = $auth->getRole($cargo_selecionado);
-                $auth->assign($novoCargo, $user->id);
-
-
-                if($user->new_password != null ){
-                    $user->updatePassword($user->new_password);
+                    return $this->redirect(['view', 'id' => $user->id]);
                 }
 
+                return $this->render('update', [
+                    'user' => $user,
+                    'perfil' => $perfil
+                ]);
+        } else {
 
-                return $this->redirect(['myperfil', 'id' => $user->id]);
-            }
-
-            return $this->render('perfil', [
-                'perfil' =>$perfil,
-                'user' =>$user,
-            ]);
-
+            return $this->render('site/error');
         }
 
-    }
-
-    public function actionView($id)
-    {
-        if (Yii::$app->user->can('consultarPerfis')) {
-            return $this->render('view', [
-                'model' => $this->findModel($id),
-            ]);
-        }
-    }
-
-    public function actionCreate()
-    {
-        if (Yii::$app->user->can('consultarPerfil')) {
-
-            $model = new Perfil();
-
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_user]);
-            }
-
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-
-        }
     }
 
     public function actionUpdate($id)
     {
         if (Yii::$app->user->can('atualizarPerfis')) {
 
-            $model = $this->findModel($id);
+            $perfil=Perfil::findOne($id);
+            $user=User::findOne($id);
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id_user]);
+            if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
+
+                $this->actionRemovecargo($perfil->id_user);
+
+                $this->actionUpdatecargo($perfil->cargo,$perfil->id_user);
+
+                return $this->redirect(['update', 'id' => $user->id]);
             }
 
             return $this->render('update', [
-                'model' => $model,
+                'user' => $user,
+                'perfil' => $perfil
             ]);
         }
-    }
 
-    public function actionDelete($id)
-    {
-
-        if (Yii::$app->user->can('apagarPerfis')) {
-
-            $this->findModel($id)->delete();
-
-            return $this->redirect(['user/delete']);
-
-        }
+            return $this->render('site/error');
     }
 
     protected function findModel($id)
@@ -164,8 +120,6 @@ class PerfilController extends Controller
     }
 
     public function actionGetcargo($id_user){
-
-        if (Yii::$app->user->can('consultarCargos')) {
 
             if(Yii::$app->authManager->getAssignment('gerente',$id_user) != null){
 
@@ -183,9 +137,19 @@ class PerfilController extends Controller
 
                 return $cargo="cliente";
             }
+    }
 
-        }
+    public function actionUpdatecargo($cargo_novo,$id_user){
 
+        $auth = Yii::$app->authManager;
+        $novoCargo = $auth->getRole($cargo_novo);
+        $auth->assign($novoCargo, $id_user);
+
+    }
+
+    public function actionRemovecargo($id_user){
+
+         Yii::$app->authManager->revokeAll($id_user);
     }
 
 }

@@ -88,17 +88,20 @@ class FaltaController extends Controller
     public function actionView($id)
     {
         $falta = new Falta();
-        $faltas=Falta::findAll($id);
+        $searchFalta = new FaltaSearch();
+        $dataprovider = $searchFalta->search(Yii::$app->request->queryParams);
+
+        $falta->id_funcionario=$id;
         $user=User::findOne($id);
-        $model = new Falta();
 
         if ($falta->load(Yii::$app->request->post()) && $falta->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $user->id]);
         }
 
         return $this->render('view', [
             'falta' => $falta,
-            'faltas' => $faltas,
+            'dataprovider' => $dataprovider,
+            'searchFalta' => $searchFalta,
             'user'=>$user
         ]);
     }

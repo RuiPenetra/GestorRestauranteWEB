@@ -8,22 +8,17 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="categoria-produto-search">
-
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
-
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'categoria') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+<div class="row col-md-12 m-3">
+    <div class="col-md-3">
+        <?= $form->field($model, 'categoria')->textInput(['class'=>'form-control rounded', 'placeholder'=>'Nome'])->label(false) ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
+    <div class="col-md-4">
+        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('Limpar', ['class' => 'btn btn-outline-secondary']) ?>
+    </div>
 </div>
+<?php ActiveForm::end(); ?>

@@ -45,7 +45,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="<?= Url::toRoute(['perfil/myperfil' ,'id'=>$id_user]) ?>" role="button">
+                <a class="nav-link" href="<?= Url::toRoute(['perfil/update' ,'id'=>$id_user]) ?>" role="button">
                     <i class="fas fa-user-edit"></i>
                     Perfil
                 </a>
@@ -63,7 +63,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="#" class="brand-link">
-            <?= Html::img('img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'style' =>'opacity: .8']);?>
+            <?= Html::img('@web/img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'style' =>'opacity: .8']);?>
             <span class="brand-text font-weight-light">Gestor Restaurante</span>
         </a>
 
@@ -72,7 +72,12 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
             <!-- Sidebar user panel (optional) -->
             <div class="box-body box-profile user-painel mt-3">
                 <h3 class="profile-username text-center">
-                    <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-fluid img-circle']); ?>
+                    <?php if($perfil->genero==0):?>
+                        <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-fluid img-circle']); ?>
+                    <?php endif?>
+                    <?php if($perfil->genero==1):?>
+                        <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-fluid img-circle']); ?>
+                    <?php endif?>
                 </h3>
                 <div class="info center">
                     <a href="#" class="d-block text-center"><?= $perfil->nome;?> <?= $perfil->apelido;?></a>

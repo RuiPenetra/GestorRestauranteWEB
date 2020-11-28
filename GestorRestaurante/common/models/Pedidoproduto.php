@@ -7,10 +7,12 @@ use Yii;
 /**
  * This is the model class for table "pedido_produto".
  *
+ * @property int $id
  * @property int $id_pedido
  * @property int $id_produto
  * @property int $estado
  * @property string|null $nota
+ * @property int $quantidade
  *
  * @property Produto $produto
  * @property Pedido $pedido
@@ -31,8 +33,8 @@ class PedidoProduto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_pedido', 'id_produto', 'estado'], 'required'],
-            [['id_pedido', 'id_produto', 'estado'], 'integer'],
+            [['id_pedido', 'id_produto', 'estado', 'quantidade'], 'required'],
+            [['id_pedido', 'id_produto', 'estado', 'quantidade'], 'integer'],
             [['nota'], 'string', 'max' => 255],
             [['id_produto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::className(), 'targetAttribute' => ['id_produto' => 'id']],
             [['id_pedido'], 'exist', 'skipOnError' => true, 'targetClass' => Pedido::className(), 'targetAttribute' => ['id_pedido' => 'id']],
@@ -45,10 +47,12 @@ class PedidoProduto extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'id' => 'ID',
             'id_pedido' => 'Id Pedido',
             'id_produto' => 'Id Produto',
             'estado' => 'Estado',
             'nota' => 'Nota',
+            'quantidade' => 'Quantidade',
         ];
     }
 

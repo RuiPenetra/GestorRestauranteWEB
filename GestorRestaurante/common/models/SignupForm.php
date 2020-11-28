@@ -73,6 +73,7 @@ class SignupForm extends Model
             ['genero', 'required'],
             ['genero', 'in', 'range' => [0,1]],
 
+            ['cargo', 'required'],
             ['cargo', 'string'],
 
         ];
@@ -114,17 +115,14 @@ class SignupForm extends Model
         $perfil ->setCodigopostal($this->codigopostal);
         $perfil ->setTelemovel($this->telemovel);
         $perfil ->setGenero($this->genero);
+        $perfil->setCargo($this->cargo);
 
 
         $isGuest = Yii::$app->user->isGuest;
 
         $auth = Yii::$app->authManager;
 
-        $cargoselecionado=$this->cargo;
-
-
         if($isGuest ==true){
-
             $cliente = $auth->getRole('cliente');
             $auth->assign($cliente, $utilizador->id);
 
@@ -132,7 +130,8 @@ class SignupForm extends Model
 
             if (\Yii::$app->user->can('criarUtilizadores')) {
 
-                $cargo = $auth->getRole($cargoselecionado);
+                $perfil->setCargo($this->cargo);
+                $cargo = $auth->getRole($this->cargo);
                 $auth->assign($cargo, $utilizador->id);
 
             }
@@ -141,7 +140,6 @@ class SignupForm extends Model
         return $perfil ->save();
 
     }
-
 
     /**
      * Sends confirmation email to user

@@ -18,7 +18,7 @@ class PerfilSearch extends Perfil
     {
         return [
             [['id_user', 'genero'], 'integer'],
-            [['nome', 'apelido', 'morada', 'datanascimento', 'codigopostal', 'nacionalidade', 'telemovel'], 'safe'],
+            [['nome', 'apelido', 'morada', 'datanascimento', 'codigopostal', 'nacionalidade', 'telemovel', 'cargo'], 'safe'],
         ];
     }
 
@@ -58,9 +58,9 @@ class PerfilSearch extends Perfil
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id_user' => $this->id_user,
-            'datanascimento' => $this->datanascimento,
-            'genero' => $this->genero,
+            'nome' => $this->nome,
+            'apelido' => $this->apelido,
+            'cargo' => $this->cargo,
         ]);
 
         $query->andFilterWhere(['like', 'nome', $this->nome])
@@ -68,7 +68,8 @@ class PerfilSearch extends Perfil
             ->andFilterWhere(['like', 'morada', $this->morada])
             ->andFilterWhere(['like', 'codigopostal', $this->codigopostal])
             ->andFilterWhere(['like', 'nacionalidade', $this->nacionalidade])
-            ->andFilterWhere(['like', 'telemovel', $this->telemovel]);
+            ->andFilterWhere(['like', 'telemovel', $this->telemovel])
+            ->andFilterWhere(['like', 'cargo', $this->cargo]);
 
         return $dataProvider;
     }

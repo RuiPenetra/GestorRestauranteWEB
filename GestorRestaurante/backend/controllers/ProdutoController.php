@@ -51,12 +51,13 @@ class ProdutoController extends Controller
      */
     public function actionIndex()
     {
-        if (Yii::$app->user->can('consultarProdutos') && Yii::$app->user->can('criarProdutos')) {
+        if (Yii::$app->user->can('consultarProdutos')) {
 
-            $produtos=Produto::find()->all();
+            $produto=Produto::findOne(183);
+
+           var_dump($produto->produtoCategoriaProdutos);
+           die();
             $categoria_produto_categoria=ProdutoCategoriaProduto::find()->all();
-            $produto=new ProdutoForm();
-
 
             $categorias = ArrayHelper::map(CategoriaProduto::find()
                 ->where(['categoria' => 'Entrada'])
@@ -68,27 +69,7 @@ class ProdutoController extends Controller
                 ->orderBy('categoria')
                 ->all(),'id','categoria');
 
-
-            if ($produto->load(Yii::$app->request->post()) && $produto->produto()) {
-
-                Yii::$app->getSession()->setFlash('success', [
-                    'type' => 'success',
-                    'duration' => 5000,
-                    'icon' => 'fas fa-tags',
-                    'message' => 'Produto criado com sucesso',
-                    'title' => 'ALERTA',
-                    'positonX' => 'right',
-                    'positonY' => 'top'
-                ]);
-
-                return $this->redirect(['index']);
-
-            }
-
             return $this->render('index', [
-                'produtos' => $produtos,
-                'categorias' => $categorias,
-                'produto' => $produto,
                 'categoria_produto_categoria'=>$categoria_produto_categoria
             ]);
 
@@ -127,24 +108,41 @@ class ProdutoController extends Controller
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->can('consultarProdutos')) {
+        if (Yii::$app->user->can('criarProdutos')) {
 
-            $model = new Produto();
+            $produto=new ProdutoForm();
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $categorias = ArrayHelper::map(CategoriaProduto::find()
+                ->where(['categoria' => 'Entrada'])
+                ->orWhere(['categoria' => 'Sopa'])
+                ->orWhere(['categoria' => 'Carne'])
+                ->orWhere(['categoria' => 'Peixe'])
+                ->orWhere(['categoria' => 'Sobremesa'])
+                ->orWhere(['categoria' => 'Bebida'])
+                ->orderBy('categoria')
+                ->all(),'id','categoria');
 
-                $model = new Produto();
-                $categoria = new CategoriaProduto();
-                $produtos=Produto::find()->all();
 
-                return $this->render('index', [
-                    'categoria' => $categoria,
-                    'produtos' => $produtos,
-                    'model' => $model,
+            if ($produto->load(Yii::$app->request->post()) && $produto->produto()) {
+
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Produto criado com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
                 ]);
+
+                return $this->redirect(['index']);
+
             }
 
-            return $this->redirect(['index']);
+            return $this->render('create', [
+                'categorias' => $categorias,
+                'produto' => $produto
+            ]);
 
         }else{
 
@@ -162,25 +160,47 @@ class ProdutoController extends Controller
      */
     public function actionUpdate($id)
     {
-        $categorias_principais = ['0'=>'Entrada', 'Sopa' => 'Sopa', 'Carne' => 'Carne', 'Peixe' => 'Peixe', 'Sobremesa' => 'Sobremesa', 'Bebida'=>'Bebida'];
+        if (Yii::$app->user->can('atualizarProdutos')) {
 
-        $model = $this->findModel($id);
+            $model=$this->findModel($id);
+            $categoria=ProdutoCategoriaProduto::findOne($id);
+
+            $categorias = ArrayHelper::map(CategoriaProduto::find()
+                ->where(['categoria' => 'Entrada'])
+                ->orWhere(['categoria' => 'Sopa'])
+                ->orWhere(['categoria' => 'Carne'])
+                ->orWhere(['categoria' => 'Peixe'])
+                ->orWhere(['categoria' => 'Sobremesa'])
+                ->orWhere(['categoria' => 'Bebida'])
+                ->orderBy('categoria')
+                ->all(),'id','categoria');
 
 
-        $produto_categoria= ProdutoCategoriaProduto::find($id);
+            if ($produto->load(Yii::$app->request->post()) && $produto->produto()) {
 
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Produto criado com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $produto_categoria->id_produto=$model->id;
-            $produto_categoria->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['index']);
+
+            }
+
+            return $this->render('create', [
+                'categorias' => $categorias,
+                'produto' => $produto
+            ]);
+
+        }else{
+
+            return $this->render('site/error');
         }
-
-        return $this->render('update', [
-            'model' => $model,
-            'categorias_principais' => $categorias_principais,
-            'produto_categoria'=>$produto_categoria
-        ]);
     }
 
     /**

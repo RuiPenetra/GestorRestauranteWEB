@@ -202,6 +202,19 @@ a.badge-info:focus, a.badge-info.focus {
     color: #1f2d3d;
     background-color: #ffc107;
 }
+.badge-orange {
+    color: #fff;
+    background-color: #ff980f;
+}
+
+.badge-blue {
+    color: #fff;
+    background-color: #66aeff;
+}
+.badge-purple {
+    color: #fff;
+    background-color: #d983ff;
+}
 
 .badge-indigo {
     color:#000;
@@ -240,6 +253,11 @@ a.badge-danger:focus, a.badge-danger.focus {
 .badge-light {
     color: #1f2d3d;
     background-color: #f8f9fa;
+}
+
+.badge-pink {
+    color: #fff;
+    background-color: #fa6bae;
 }
 
 a.badge-light:hover, a.badge-light:focus {

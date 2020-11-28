@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="container">
                                 <div class="picture-container">
                                     <div class="picture">
-                                        <img src="img/perfil.png" class="picture-src" id="wizardPicturePreview" title="">
+                                        <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'id'=>'wizardPicturePreview', 'class' => 'profile-user-img img-fluid img-circle']); ?>
                                         <input type="file" id="wizard-picture" class="">
                                     </div>
                                     <h6 class="">Escolher imagem</h6>
@@ -111,7 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                     <?= $form->field($model, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'],
                                         ['prompt'=>'Selecione...'],['maxlenght'=> true],
-                                        ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
+                                        ['options'=> ['class' => 'rounded-right form-control input_user']])->label(false); ?>
                                 </div>
                             </div>
                             <div class="col-6">

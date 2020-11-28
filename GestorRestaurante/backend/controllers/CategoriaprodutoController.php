@@ -2,7 +2,9 @@
 
 namespace backend\controllers;
 
+use common\models\CategoriaProdutoSearch;
 use common\models\CategoriaProduto;
+use common\models\ProdutoCategoriaProduto;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -48,10 +50,12 @@ class CategoriaprodutoController extends Controller
         if (Yii::$app->user->can('consultarCategoriaProdutos')) {
 
             $model = new CategoriaProduto();
-            $categorias=CategoriaProduto::find()->orderBy('id')->all();
 
-            /*        $searchModel = new CategoriaProdutoSearch();
-                    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
+            $searchModel = new CategoriaProdutoSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            /*$searchModel = new UserSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
+
             $model->editavel=true;
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -70,7 +74,8 @@ class CategoriaprodutoController extends Controller
             }
 
             return $this->render('index', [
-                'categorias' => $categorias,
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
                 'model'=>$model
             ]);
 
@@ -88,8 +93,12 @@ class CategoriaprodutoController extends Controller
      */
     public function actionView($id)
     {
+        $categoria=$this->findModel($id);
+        $produtos_categoria =ProdutoCategoriaProduto::findAll(['id_categoria_produto'=>$id]);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'produtos_categoria' =>  $produtos_categoria,
+            'categoria' =>  $categoria
         ]);
     }
 

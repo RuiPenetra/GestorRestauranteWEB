@@ -37,18 +37,25 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-
-       /* 'urlManager' => [
+/*
+        'urlManager' => [
             'class'=>'yii\web\UrlManager',
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
             'rules' => [
-                ['site' => ''],
+                'users' => 'user/index',
+                'pedidos' => 'pedido/index',
+                'pedido/criar2passo/<tipo:\d+>' => 'pedido/criar2passo',
+                'pedido/criar2passo/' => 'pedido/criar2passo',
+                [
+                    'pattern' => 'pedido/criar2passo/<id:\d+>/<tag>',
+                    'route' => 'pedido/criar2passo',
+                    'defaults' => ['id' => 0, 'tag' => ''],
+                ],
             ],
         ],*/
 
         'urlManagerFrontend' => [
-            'class' => 'yii\web\urlManager',
+            'class'=>'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'baseUrl' => 'http://localhost/GestorRestauranteWeb/GestorRestaurante/frontend/web/index.php',

@@ -29,9 +29,6 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
-    public $cargo;
-    public $password_atual;
-    public $new_password;
     /**
      * {@inheritdoc}
      */
@@ -56,13 +53,11 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             [['username', 'email'], 'required', 'message' => 'Este campo é obrigatório.'],
             [['email'], 'email'],
-            //[['email'], 'unique', 'message' => 'Este email já se encontra registado.'],
+            [['email'], 'unique', 'message' => 'Este email já se encontra registado.'],
+            [['username'], 'unique', 'message' => 'Este username já se encontra registado.'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_ACTIVE, self::STATUS_DELETED]],
-            ['new_password', 'string', 'min' => 6],
-       /*     ['password_decrypt', 'required'],*/
-            ['password_atual', 'string'],
-            ['cargo', 'string']
+
         ];
     }
 

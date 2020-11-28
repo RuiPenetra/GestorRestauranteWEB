@@ -22,6 +22,9 @@ use Yii;
  */
 class Pedido extends \yii\db\ActiveRecord
 {
+    const SCENARIO_RESTAURANTE='scenariorestaurante';
+    const SCENARIO_TAKEAWAY='scenariotakeaway';
+
     /**
      * {@inheritdoc}
      */
@@ -30,13 +33,34 @@ class Pedido extends \yii\db\ActiveRecord
         return 'pedido';
     }
 
+    public function getCustomScenarios()
+    {
+        return[
+          self::SCENARIO_RESTAURANTE => [['data','estado','tipo','id_mesa','id_perfil'],'required'],
+          self::SCENARIO_TAKEAWAY => [['data','estado','tipo','nome_pedido','id_perfil'],'required']
+        ];
+    }
+
+    public function scenarios()
+    {
+        $scenarios=parent::scenarios();
+        $scenarios[self::SCENARIO_RESTAURANTE] = ['data','estado','tipo','id_mesa','id_perfil'];
+        $scenarios[self::SCENARIO_TAKEAWAY] = ['data','estado','tipo','nome_pedido','id_perfil'];
+        return $scenarios;
+    }
+
+    public function MofifyRequired(){
+        $allscenarios= $this->getCustomScenarios();
+        return $allscenarios;
+    }
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['data', 'estado', 'tipo', 'id_perfil'], 'required'],
+            [['estado','tipo','id_mesa','id_perfil'], 'required', 'on' => self::SCENARIO_RESTAURANTE],
+            [['estado','tipo','nome_pedido','id_perfil'], 'required', 'on' => self::SCENARIO_TAKEAWAY],
             [['data'], 'safe'],
             [['estado', 'tipo', 'id_mesa', 'id_perfil'], 'integer'],
             [['nome_pedido'], 'string', 'max' => 255],
@@ -44,9 +68,6 @@ class Pedido extends \yii\db\ActiveRecord
             [['id_mesa'], 'exist', 'skipOnError' => true, 'targetClass' => Mesa::className(), 'targetAttribute' => ['id_mesa' => 'id']],
         ];
     }
-
-
-
 
     /**
      * {@inheritdoc}
@@ -103,6 +124,4 @@ class Pedido extends \yii\db\ActiveRecord
     {
         return $this->hasMany(PedidoProduto::className(), ['id_pedido' => 'id']);
     }
-
-
 }

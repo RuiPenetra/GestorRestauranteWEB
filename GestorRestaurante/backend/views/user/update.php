@@ -8,21 +8,7 @@ use yii\helpers\Url;
 /* @var $model common\models\User */
 
 ?>
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0"><?= $this->title = 'Atualizar';?></h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?= Url::toRoute(['user/index']) ?>">Utilizadores</a></li>
-                    <li class="breadcrumb-item active"><?=$perfil->nome?></li>
-                </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-</div>
+
 <div class="utilizador-update">
 
     <div class="utilizador-create">
@@ -132,7 +118,7 @@ use yii\helpers\Url;
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
                                         </div>
-                                        <?= $form->field($user, 'cargo')->dropDownList(['gerente' => 'Gerente', 'atendedorPedidos' => 'Atendedor Pedidos', 'empregadoMesa' => 'Empregado Mesa', 'cozinheiro' => 'Cozinheiro', 'cliente' => 'Cliente'],
+                                   <?= $form->field($perfil, 'cargo')->dropDownList(['gerente' => 'Gerente', 'atendedorPedidos' => 'Atendedor Pedidos', 'empregadoMesa' => 'Empregado Mesa', 'cozinheiro' => 'Cozinheiro', 'cliente' => 'Cliente'],
                                             ['prompt'=>'Selecione...'],['maxlenght'=> true],
                                             ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
                                     </div>
@@ -166,7 +152,7 @@ use yii\helpers\Url;
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fas fa-key"></i></i></span>
                                         </div>
-                                        <?= $form->field($user, 'password_atual', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Password", 'type' => 'password'])->label(false) ?>
+<!--                                        --><?/*= $form->field($user, 'password_atual', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Password", 'type' => 'password'])->label(false) */?>
                                     </div>
                                 </div>
                             </div>

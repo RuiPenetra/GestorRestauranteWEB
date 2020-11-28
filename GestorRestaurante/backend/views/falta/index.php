@@ -74,18 +74,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </td>
                                     <td class=""  width="250px"><?=$user->apelido?> </td>
                                     <td class="dtr-control sorting_1 text-center" tabindex="8">
-                                        <a href="<?=Url::toRoute(['user/view', 'id' => $user->id_user])?>" type="button" class="btn btn-info">
-                                            <i class="fas fa-eye"></i>
+                                        <a href="<?=Url::toRoute(['falta/view', 'id' => $user->id_user])?>" type="button" class="btn btn-success">
+                                            <i class="fas fa-plus-circle"></i>
                                         </a>
-                                        <a href="<?=Url::toRoute(['user/update', 'id' => $user->id_user])?>" type="button" class="btn btn-warning">
-                                            <i class="far fa-edit color-white"></i>
+                                        <a href="<?=Url::toRoute(['falta/view', 'id' => $user->id_user])?>" type="button" class="btn btn-info" data-target="#verUser<?=$user->id_user?>">
+                                            <i class="fas fa-user"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#apagarUser<?=$user->id_user?>">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
+
                                     </td>
                                 </tr>
-                                <div class="modal fade"  id="apagarUser<?=$user->id_user?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade"  id="verUser<?=$user->id_user?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content mt-2" >
                                             <div class="modal-header">

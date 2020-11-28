@@ -236,21 +236,12 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
+        $model->cargo='cliente';
+
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
             return $this->goHome();
         }
-
-        $date = new \DateTime();
-
-        $model->createAt=//PERGUNTAR A STORA CARBON::NOW() NAO FUNCIONA :'(
-        $model->updateAt=
-        //$model->createAt=$date->format('d-m-Y');
-        //$model->updateAt=$date->format('d-m-Y');
-
-        $model->createAt= "1111111111111111";
-        $model->updateAt= date('Y-m-d H:i:s');
-
 
         $this->layout = "main_principal";
         return $this->render('signup', [

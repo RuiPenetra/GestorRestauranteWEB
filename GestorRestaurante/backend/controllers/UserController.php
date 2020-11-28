@@ -4,7 +4,9 @@ namespace backend\controllers;
 
 use Carbon\Carbon;
 use common\models\Perfil;
+use common\models\PerfilSearch;
 use common\models\SignupForm;
+use common\models\UserForm;
 use Yii;
 use common\models\User;
 use common\models\UserSearch;
@@ -48,14 +50,15 @@ class UserController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->can('consultarUtilizadores')) {
-            $users = User::find()->all();
+
+            $searchModel = new PerfilSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
             /*$searchModel = new UserSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
 
             return $this->render('index', [
-                'users' => $users
-                /*'searchModel' => $searchModel,    
-                'dataProvider' => dataProvider,*/
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel
             ]);
         }else{
 
@@ -114,32 +117,21 @@ class UserController extends Controller
     {
         if (Yii::$app->user->can('atualizarUtilizadores') && Yii::$app->user->can('atualizarPerfis')) {
 
-            $user = $this->findModel($id);
+        $perfil=Perfil::findOne($id);
+        $user=User::findOne($id);
 
-            $perfil=Perfil::findOne($id);
-            $auth = Yii::$app->authManager;
+        if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
 
-            $user->cargo=$this->actionGetcargo($user->id);
+            $this->actionRemovecargo($perfil->id_user);
 
-//            $user->password_atual=$user->password_hash;
+            $this->actionUpdatecargo($perfil->cargo,$perfil->id_user);
 
-            if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
-
-                $this->actionRemovecargo($user->id);
-
-                $cargo_selecionado=$user->cargo;
-                $novoCargo = $auth->getRole($cargo_selecionado);
-                $auth->assign($novoCargo, $user->id);
-
-                if($user->new_password != null ){
-                    $user->updatePassword($user->new_password);
-                }
-
-                return $this->redirect(['view', 'id' => $user->id]);
-            }
+            return $this->redirect(['view', 'id' => $user->id]);
+        }
 
             return $this->render('update', [
-                'user' => $user, 'perfil' =>$perfil
+                'user' => $user,
+                'perfil' => $perfil
             ]);
         }else{
 
@@ -153,9 +145,9 @@ class UserController extends Controller
     {
         if (Yii::$app->user->can('apagarUtilizadores') && Yii::$app->user->can('apagarPerfis')) {
 
-            Perfil::findOne($id)->delete();
-
-            $this->findModel($id)->delete();
+            $user=User::findOne($id);
+            $user->status=9;
+            $user->save();
 
             return $this->redirect(['index']);
 
@@ -184,9 +176,6 @@ class UserController extends Controller
             $novoCargo = $auth->getRole($cargo_novo);
             $auth->assign($novoCargo, $id_user);
 
-        }else{
-
-            return $this->render('site/error');
         }
 
     }
@@ -198,9 +187,6 @@ class UserController extends Controller
 
             Yii::$app->authManager->revokeAll($id_user);
 
-        }else{
-
-            return $this->render('site/error');
         }
     }
 

@@ -14,7 +14,7 @@ use yii\helpers\Url;
 
 <div class="content-header">
     <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="row mb-2" >
             <div class="col-sm-6">
                 <h1 class="m-0"><?= $this->title = 'Perfil';?></h1>
             </div><!-- /.col -->
@@ -39,7 +39,7 @@ use yii\helpers\Url;
 
                     <h3 class="profile-username text-center"><?=$perfil->nome?> <?=$perfil->apelido?></h3>
 
-                    <p class="text-muted text-center"><?= $user->cargo?></p>
+                    <p class="text-muted text-center">Gerente</p>
 
                 </div>
                 <!-- /.card-body -->

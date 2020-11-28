@@ -2,6 +2,9 @@
 
 namespace frontend\controllers;
 
+
+use Codeception\Lib\Connector\Yii2;
+use kartik\datetime\DateTimePicker;
 use Yii;
 use common\models\Pedido;
 use common\models\PedidoSearch;
@@ -34,12 +37,18 @@ class PedidoController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PedidoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        /*$searchModel = new PedidoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
+
+        $id = Yii::$app->user->identity->id;
+
+
+        $pedidos = Pedido::find()->where(['id_perfil'=>$id])->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'pedidos' => $pedidos
+            /*'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,*/
         ]);
     }
 
@@ -65,11 +74,22 @@ class PedidoController extends Controller
     {
         if (Yii::$app->user->can('criarTakeaway')) {
             $model = new Pedido();
+            $id = Yii::$app->user->identity->id;
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
 
             }
+            $model->estado=1;
+            $model->nome_pedido=null;
+            $model->id_mesa=null;
+            $model->id_perfil=$id;
+            $model->tipo='1';
+            $model->data=date("Y-M-D");
+
+
+            $model->save();
+
             return $this->render('create', [
                 'model' => $model,
             ]);

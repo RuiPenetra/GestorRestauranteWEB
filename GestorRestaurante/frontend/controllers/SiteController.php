@@ -19,6 +19,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\ContactForm;
 use common\models\User;
+use common\models\Perfil;
 
 /**
  * Site controller
@@ -41,7 +42,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout','index','login'],
+                        'actions' => ['logout','index','about'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -84,6 +85,7 @@ class SiteController extends Controller
             return $this->render('start');
         } else {
             $this->layout = "main";
+            $perfil = Perfil::find()->all();
             return $this->render('homepagelogin');
         }
     }
@@ -347,9 +349,11 @@ class SiteController extends Controller
     }
     public function actionIndex()
     {
-        $users = User::find()->all();
+        $id = Yii::$app->user->identity->getId();
+        $perfil = Perfil::findone($id);
+
         $this->layout='main';
-        return $this->render('homepagelogin',['users' => $users]);
+        return $this->render('homepagelogin',['perfil' => $perfil]);
 
     }
 }

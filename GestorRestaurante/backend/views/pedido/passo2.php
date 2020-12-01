@@ -17,9 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($pedido, 'nome_pedido')->textInput()->label(false) ?>
         <?=$form->field($pedido,'nota')->textArea()?>
-        <?=$form->field($pedido,'quantidade')->textInput(['type'=>'number'])?>
+        --><?/*=$form->field($pedido,'quantidade')->textInput(['type'=>'number'])*/?>
 
-        <?=$form->field($pedido,'id_produto')->textInput()->label(false)?>
+
+        <?php var_dump($pedido->errors)?>
 <?/*=$form->field($pedido,'tipo')->textInput()->label(false)*/?>
         <?= Html::submitButton('Criar', ['class' => 'btn col-md-4']) ?>
         <?php ActiveForm::end(); ?>

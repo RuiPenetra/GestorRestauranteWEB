@@ -122,7 +122,33 @@ class MesaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+
+        $mesa=Mesa::findOne($id);
+
+        if($mesa->estado!=2){
+            Yii::$app->getSession()->setFlash('danger', [
+                'type' => 'danger',
+                'duration' => 5000,
+                'icon' => 'fas fa-times',
+                'message' => 'Impossivel excluir a mesa, encontra se Reservada ou Ocupada',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+            return $this->redirect(['index']);
+
+        }
+
+        Yii::$app->getSession()->setFlash('success', [
+            'type' => 'success',
+            'duration' => 5000,
+            'icon' => 'fas fa-check',
+            'message' => 'Mesa excluida com sucesso',
+            'title' => 'ALERTA',
+            'positonX' => 'right',
+            'positonY' => 'top'
+        ]);
+        $mesa->delete();
 
         return $this->redirect(['index']);
     }

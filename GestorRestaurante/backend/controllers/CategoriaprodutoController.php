@@ -4,7 +4,7 @@ namespace backend\controllers;
 
 use common\models\CategoriaProdutoSearch;
 use common\models\CategoriaProduto;
-use common\models\ProdutoCategoriaProduto;
+use common\models\Produto;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -94,10 +94,10 @@ class CategoriaprodutoController extends Controller
     public function actionView($id)
     {
         $categoria=$this->findModel($id);
-        $produtos_categoria =ProdutoCategoriaProduto::findAll(['id_categoria_produto'=>$id]);
+        $produtos =Produto::findAll(['id_categoria'=>$id]);
 
         return $this->render('view', [
-            'produtos_categoria' =>  $produtos_categoria,
+            'produtos' =>  $produtos,
             'categoria' =>  $categoria
         ]);
     }

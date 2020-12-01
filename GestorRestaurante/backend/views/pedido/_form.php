@@ -14,11 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'data')->textInput() ?>
 
-    <?= $form->field($model, 'estado')->textInput() ?>
-
     <?= $form->field($model, 'tipo')->textInput() ?>
 
     <?= $form->field($model, 'nome_pedido')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'nota')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'estado')->textInput() ?>
 
     <?= $form->field($model, 'id_mesa')->textInput() ?>
 

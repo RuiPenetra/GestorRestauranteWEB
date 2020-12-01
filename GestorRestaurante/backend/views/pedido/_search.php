@@ -19,11 +19,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'data') ?>
 
-    <?= $form->field($model, 'estado') ?>
-
     <?= $form->field($model, 'tipo') ?>
 
     <?= $form->field($model, 'nome_pedido') ?>
+
+    <?= $form->field($model, 'nota') ?>
+
+    <?php // echo $form->field($model, 'estado') ?>
 
     <?php // echo $form->field($model, 'id_mesa') ?>
 

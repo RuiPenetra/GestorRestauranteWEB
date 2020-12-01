@@ -53,24 +53,10 @@ class ProdutoController extends Controller
     {
         if (Yii::$app->user->can('consultarProdutos')) {
 
-            $produto=Produto::findOne(183);
-
-           var_dump($produto->produtoCategoriaProdutos);
-           die();
-            $categoria_produto_categoria=ProdutoCategoriaProduto::find()->all();
-
-            $categorias = ArrayHelper::map(CategoriaProduto::find()
-                ->where(['categoria' => 'Entrada'])
-                ->orWhere(['categoria' => 'Sopa'])
-                ->orWhere(['categoria' => 'Carne'])
-                ->orWhere(['categoria' => 'Peixe'])
-                ->orWhere(['categoria' => 'Sobremesa'])
-                ->orWhere(['categoria' => 'Bebida'])
-                ->orderBy('categoria')
-                ->all(),'id','categoria');
+            $produtos=Produto::find()->all();
 
             return $this->render('index', [
-                'categoria_produto_categoria'=>$categoria_produto_categoria
+                'produtos'=>$produtos
             ]);
 
         }else{
@@ -110,20 +96,12 @@ class ProdutoController extends Controller
     {
         if (Yii::$app->user->can('criarProdutos')) {
 
-            $produto=new ProdutoForm();
+            $produto=new Produto();
 
-            $categorias = ArrayHelper::map(CategoriaProduto::find()
-                ->where(['categoria' => 'Entrada'])
-                ->orWhere(['categoria' => 'Sopa'])
-                ->orWhere(['categoria' => 'Carne'])
-                ->orWhere(['categoria' => 'Peixe'])
-                ->orWhere(['categoria' => 'Sobremesa'])
-                ->orWhere(['categoria' => 'Bebida'])
-                ->orderBy('categoria')
-                ->all(),'id','categoria');
+            $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
 
 
-            if ($produto->load(Yii::$app->request->post()) && $produto->produto()) {
+            if ($produto->load(Yii::$app->request->post()) && $produto->save()) {
 
                 Yii::$app->getSession()->setFlash('success', [
                     'type' => 'success',
@@ -162,21 +140,12 @@ class ProdutoController extends Controller
     {
         if (Yii::$app->user->can('atualizarProdutos')) {
 
-            $model=$this->findModel($id);
-            $categoria=ProdutoCategoriaProduto::findOne($id);
+            $produto=$this->findModel($id);
 
-            $categorias = ArrayHelper::map(CategoriaProduto::find()
-                ->where(['categoria' => 'Entrada'])
-                ->orWhere(['categoria' => 'Sopa'])
-                ->orWhere(['categoria' => 'Carne'])
-                ->orWhere(['categoria' => 'Peixe'])
-                ->orWhere(['categoria' => 'Sobremesa'])
-                ->orWhere(['categoria' => 'Bebida'])
-                ->orderBy('categoria')
-                ->all(),'id','categoria');
+            $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
 
 
-            if ($produto->load(Yii::$app->request->post()) && $produto->produto()) {
+            if ($produto->load(Yii::$app->request->post()) && $produto->save()) {
 
                 Yii::$app->getSession()->setFlash('success', [
                     'type' => 'success',

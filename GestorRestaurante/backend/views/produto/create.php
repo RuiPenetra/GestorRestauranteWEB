@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <?=$form->field($produto,'id_categoria_produto')->dropDownList($categorias)->label(false);?>
+                        <?=$form->field($produto,'id_categoria')->dropDownList($categorias)->label(false);?>
                     </div>
                 </div>
                 <div class="col-md-4">

@@ -11,7 +11,6 @@ use Yii;
  * @property int $id_pedido
  * @property int $id_produto
  * @property int $estado
- * @property string|null $nota
  * @property int $quantidade
  *
  * @property Produto $produto
@@ -35,7 +34,6 @@ class PedidoProduto extends \yii\db\ActiveRecord
         return [
             [['id_pedido', 'id_produto', 'estado', 'quantidade'], 'required'],
             [['id_pedido', 'id_produto', 'estado', 'quantidade'], 'integer'],
-            [['nota'], 'string', 'max' => 255],
             [['id_produto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::className(), 'targetAttribute' => ['id_produto' => 'id']],
             [['id_pedido'], 'exist', 'skipOnError' => true, 'targetClass' => Pedido::className(), 'targetAttribute' => ['id_pedido' => 'id']],
         ];
@@ -51,7 +49,6 @@ class PedidoProduto extends \yii\db\ActiveRecord
             'id_pedido' => 'Id Pedido',
             'id_produto' => 'Id Produto',
             'estado' => 'Estado',
-            'nota' => 'Nota',
             'quantidade' => 'Quantidade',
         ];
     }

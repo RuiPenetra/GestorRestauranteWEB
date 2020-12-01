@@ -9,10 +9,9 @@ use Yii;
  *
  * @property int $id
  * @property string $data
+ * @property int $estado
  * @property int $tipo
  * @property string|null $nome_pedido
- * @property string $nota
- * @property int $estado
  * @property int|null $id_mesa
  * @property int $id_perfil
  *
@@ -37,17 +36,22 @@ class Pedido extends \yii\db\ActiveRecord
     public function getCustomScenarios()
     {
         return[
-            self::SCENARIO_RESTAURANTE => [['estado','tipo','id_mesa','id_perfil'],'required'],
-            self::SCENARIO_TAKEAWAY => [['estado','tipo','nome_pedido','id_perfil'],'required']
+          self::SCENARIO_RESTAURANTE => [['data','estado','tipo','id_mesa','id_perfil'],'required'],
+          self::SCENARIO_TAKEAWAY => [['data','estado','tipo','nome_pedido','id_perfil'],'required']
         ];
     }
 
     public function scenarios()
     {
         $scenarios=parent::scenarios();
-        $scenarios[self::SCENARIO_RESTAURANTE] = ['estado','tipo','id_mesa','id_perfil'];
-        $scenarios[self::SCENARIO_TAKEAWAY] = ['estado','tipo','nome_pedido','id_perfil'];
+        $scenarios[self::SCENARIO_RESTAURANTE] = ['data','estado','tipo','id_mesa','id_perfil'];
+        $scenarios[self::SCENARIO_TAKEAWAY] = ['data','estado','tipo','nome_pedido','id_perfil'];
         return $scenarios;
+    }
+
+    public function MofifyRequired(){
+        $allscenarios= $this->getCustomScenarios();
+        return $allscenarios;
     }
     /**
      * {@inheritdoc}
@@ -55,11 +59,11 @@ class Pedido extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['data'], 'safe'],
             [['estado','tipo','id_mesa','id_perfil'], 'required', 'on' => self::SCENARIO_RESTAURANTE],
             [['estado','tipo','nome_pedido','id_perfil'], 'required', 'on' => self::SCENARIO_TAKEAWAY],
-            [['tipo', 'estado', 'id_mesa', 'id_perfil'], 'integer'],
-            [['nome_pedido', 'nota'], 'string', 'max' => 255],
+            [['data'], 'safe'],
+            [['estado', 'tipo', 'id_mesa', 'id_perfil'], 'integer'],
+            [['nome_pedido'], 'string', 'max' => 255],
             [['id_perfil'], 'exist', 'skipOnError' => true, 'targetClass' => Perfil::className(), 'targetAttribute' => ['id_perfil' => 'id_user']],
             [['id_mesa'], 'exist', 'skipOnError' => true, 'targetClass' => Mesa::className(), 'targetAttribute' => ['id_mesa' => 'id']],
         ];
@@ -73,10 +77,9 @@ class Pedido extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'data' => 'Data',
+            'estado' => 'Estado',
             'tipo' => 'Tipo',
             'nome_pedido' => 'Nome Pedido',
-            'nota' => 'Nota',
-            'estado' => 'Estado',
             'id_mesa' => 'Id Mesa',
             'id_perfil' => 'Id Perfil',
         ];

@@ -4,6 +4,7 @@ use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\FaltaSearch */
@@ -38,80 +39,264 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <!-- /.card-header -->
     <div class="card-body p-0">
-        <div class="row justify-content-center">
-            <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4 mt-3">
-                <div class="row">
-                    <div class="col-12">
-                        <table id="index" class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="index">
-                            <thead>
-                            <tr role="row">
-                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending">Username</th>
-                                <th class="sorting" tabindex="1" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Cargo</th>
-                                <th class="sorting" tabindex="2" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Email</th>
-                                <th class="sorting" tabindex="3" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending"></th>
-                            </thead>
-                            <tbody>
-                            <?php foreach ($users as $user):?>
-                                <tr role="row" class="odd">
-                                    <td class="" tabindex="" width="200px" ><?=$user->nome?></td>
-                                    <td class="dtr-control sorting_1" width="200px" tabindex="3">
-                                        <?php if (Yii::$app->authManager->getAssignment('gerente',$user->id_user) != null):?>
-                                            Gerente
-                                        <?php endif;?>
-                                        <?php if (Yii::$app->authManager->getAssignment('cliente',$user->id_user) != null):?>
-                                            Cliente
-                                        <?php endif;?>
-                                        <?php if (Yii::$app->authManager->getAssignment('atendedorPedidos',$user->id_user) != null):?>
-                                            Atendedor Pedidos
-                                        <?php endif;?>
-                                        <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$user->id_user) != null
-                                        ):?>
-                                            Empregado Mesa
-                                        <?php endif;?>
-                                        <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$user->id_user) != null):?>
-                                            Cozinheiro
-                                        <?php endif;?>
-                                    </td>
-                                    <td class=""  width="250px"><?=$user->apelido?> </td>
-                                    <td class="dtr-control sorting_1 text-center" tabindex="8">
-                                        <a href="<?=Url::toRoute(['falta/view', 'id' => $user->id_user])?>" type="button" class="btn btn-success">
-                                            <i class="fas fa-plus-circle"></i>
-                                        </a>
-                                        <a href="<?=Url::toRoute(['falta/view', 'id' => $user->id_user])?>" type="button" class="btn btn-info" data-target="#verUser<?=$user->id_user?>">
-                                            <i class="fas fa-user"></i>
-                                        </a>
+        <?php echo $this->render('//perfil/_search', ['model' => $searchModel]); ?>
+        <div class="row">
+            <table class="table table-striped projects mr-2 ml-2">
+                <thead>
+                <tr>
+                    <th class="text-center">
+                        #
+                    </th>
+                    <th class="text-center">
+                        Nome
+                    </th>
+                    <th class="text-center">
+                        Apelido
+                    </th>
+                    <th class="text-center">
+                        Email
+                    </th>
+                    <th class="text-center">
+                        Função
+                    </th>
+                    <th class="text-center">
+                        Estado
+                    </th>
+                    <th class="text-center">
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($dataProvider->models as $perfil):?>
+                    <tr>
+                        <td class="text-center">
+                            <ul class="list-inline">
 
-                                    </td>
-                                </tr>
-                                <div class="modal fade"  id="verUser<?=$user->id_user?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content mt-2" >
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash"></i> Tem a certeza que quer apagar?</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    Após apagar o utilizador selecionado não é possivel reverter.
+                                <li class="list-inline-item">
+                                    <?php if($perfil->genero==0):?>
+                                        <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
+                                    <?php endif?>
+                                    <?php if($perfil->genero==1):?>
+                                        <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
+                                    <?php endif?>
+                                </li>
+
+                            </ul>
+                        </td>
+                        <td class="text-center">
+                            <?=$perfil->nome?>
+                        </td >
+                        <td class="text-center">
+                            <?=$perfil->apelido?>
+                        </td>
+                        <td class="text-center">
+                            <?=$perfil->user->email?>
+                        </td>
+                        <td class="text-center">
+                            <?php if (Yii::$app->authManager->getAssignment('gerente',$perfil->id_user) != null):?>
+                                Gerente
+                            <?php endif;?>
+                            <?php if (Yii::$app->authManager->getAssignment('cliente',$perfil->id_user) != null):?>
+                                Cliente
+                            <?php endif;?>
+                            <?php if (Yii::$app->authManager->getAssignment('atendedorPedidos',$perfil->id_user) != null):?>
+                                Atendedor Pedidos
+                            <?php endif;?>
+                            <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$perfil->id_user) != null
+                            ):?>
+                                Empregado Mesa
+                            <?php endif;?>
+                            <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$perfil->id_user) != null):?>
+                                Cozinheiro
+                            <?php endif;?>
+                        </td>
+                        <td class="text-center">
+                            <?php if($perfil->user->status==9):?>
+                                <button type="button" class="btn btn-block btn-warning btn-sm">INATIVO</button>
+                            <?php endif?>
+
+                            <?php if($perfil->user->status==10):?>
+                                <button type="button" class="btn btn-block btn-success btn-sm">ATIVO</button>
+                            <?php endif?>
+                        </td>
+                        <td class="text-center">
+                            <a href="<?=Url::toRoute(['falta/create', 'id' => $perfil->id_user])?>" type="button" class="btn btn-success">
+                                <i class="fas fa-plus-circle"></i>
+                            </a>
+                            <a href="" type="button" class="btn btn-info" data-target="#verUser<?=$perfil->id_user?>" data-toggle="modal">
+                                <i class="fas fa-user"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <div class="modal fade"  id="verUser<?=$perfil->id_user?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content mt-2 p-0" >
+                                <div class="modal-header">
+<!--                                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash"></i> Tem a certeza que quer apagar?</h5>-->
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-10">
+                                            <div class="card p-5">
+                                                <div class="card-body">
+                                                    <div class="align-center">
+                                                        <?php $form = ActiveForm::begin(); ?>
+                                                        <div class="mb-4">
+                                                            <h6 class="text-uppercase">Dados Pessoais</h6>
+                                                            <!-- Solid divider -->
+                                                            <hr class="solid">
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <div class="box-body box-profile user-painel mt-3">
+                                                                    <div class="profile-username text-center">
+                                                                        <?php if($perfil->genero==0):?>
+                                                                            <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
+                                                                        <?php endif?>
+                                                                        <?php if($perfil->genero==1):?>
+                                                                            <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
+                                                                        <?php endif?>
+                                                                        <div class="info center">
+                                                                            <div style="text-align: center;">
+                                                                                <?php if (Yii::$app->authManager->getAssignment('gerente',$perfil->id_user) != null):?>
+                                                                                    <span class="center badge badge-warning"><h8>Gerente</h8></span>
+                                                                                <?php endif;?>
+                                                                                <?php if (Yii::$app->authManager->getAssignment('cliente',$perfil->id_user) != null):?>
+                                                                                    <span class="center badge badge-danger"><h8>Cliente</h8></span>
+                                                                                <?php endif;?>
+                                                                                <?php if (Yii::$app->authManager->getAssignment('atendedorPedidos',$perfil->id_user) != null):?>
+                                                                                    <span class="center badge badge-primary"><h8>Atendedor Pedidos</h8></span>
+                                                                                <?php endif;?>
+                                                                                <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$perfil->id_user) != null
+                                                                                ):?>
+                                                                                    <span class="center badge badge-indigo-light"><h8>Empregado Mesa</h8></span>
+                                                                                <?php endif;?>
+                                                                                <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$perfil->id_user) != null):?>
+                                                                                    <span class="center badge badge-success"><h8>Cozinheiro</h8></span>
+                                                                                <?php endif;?>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="input-group mb-3 rounded-left">
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                                    </div>
+                                                                    <?= $form->field($perfil, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome"])->label(false) ?>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                                    </div>
+                                                                    <?= $form->field($perfil, 'apelido', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Apelido"])->label(false) ?>
+                                                                </div>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+                                                                    </div>
+                                                                    <?= $form->field($perfil, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'], ['disabled' => 'disabled'],
+                                                                        ['prompt'=>'Selecione...'],['maxlenght'=> true],
+                                                                        ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                                                    </div>
+                                                                    <?= $form->field($perfil, 'morada', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Morada"])->label(false) ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                                                    </div>
+                                                                    <?= $form->field($perfil, 'codigopostal', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Codigo-Postal"])->label(false) ?>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text"><i class="fas fa-globe-asia"></i></span>
+                                                                    </div>
+                                                                    <?= $form->field($perfil, 'datanascimento',['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'type' => 'date','autocomplete' => 'off'])->label(false) ?>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                                                    </div>
+                                                                    <?= $form->field($perfil, 'nacionalidade', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Nacionalidade"])->label(false) ?>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                                                                    </div>
+                                                                    <?= $form->field($perfil, 'telemovel', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Telemovel"])->label(false) ?>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                        </div>
+                                                        <div class="mb-4 mt-4">
+                                                            <h6 class="text-uppercase">Dados Acesso</h6>
+                                                            <!-- Solid divider -->
+                                                            <hr class="solid">
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                                                    </div>
+                                                                    <?= $form->field($perfil->user, 'username', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Username"])->label(false) ?>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="input-group mb-3">
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                                                                    </div>
+                                                                    <?= $form->field($perfil->user, 'email', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Email", 'type' => 'email'])->label(false) ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <?php ActiveForm::end(); ?>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" href="<?=Url::toRoute(['user/delete', 'id' => $user->id_user])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
-                                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
-                                            </div>
+                                                <!-- /.tab-content -->
+                                            </div><!-- /.card-body -->
                                         </div>
                                     </div>
                                 </div>
-
-                            <?php endforeach;?>
-
-                            </tbody>
-                        </table>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <!-- /.card-body -->
-            </div>
+
+                <?php endforeach;?>
+                </tbody>
+            </table>
         </div>
+
     </div>
+    <!-- /.card-body -->
+</div>

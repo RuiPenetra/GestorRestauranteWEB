@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 
-<h1><?= Html::encode($categoria->categoria) ?></h1>
+<h1><?= Html::encode($categoria->nome) ?></h1>
     <p>
 <?= Html::a('Update', ['update', 'id' => $categoria->id], ['class' => 'btn btn-primary']) ?>
 <?= Html::a('Delete', ['delete', 'id' => $categoria->id], ['class' => 'btn btn-danger', 'data' => ['confirm' => 'Are you sure you want to delete this item?', 'method' => 'post']])?>
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($produtos_categoria as $categoria):?>
+    <?php foreach ($produtos as $produto):?>
         <tr>
             <td class="text-center">
                 <ul class="list-inline">
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </ul>
             </td>
             <td class="text-center">
-                <?=$categoria->produto->nome?>
+                <?=$produto->nome?>
             </td >
             <td class="text-center">
                 <!--<a href="<?/*=Url::toRoute(['categoriaproduto/view', 'id' => $categoria->categoriaProduto->id])*/?>" type="button" class="btn btn-dark">
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </button>-->
             </td>
         </tr>
-        <div class="modal fade"  id="apagarCategoria<?=$categoria->categoriaProduto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade"  id="apagarCategoria<?=$categoria->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content mt-2" >
                     <div class="modal-header">
@@ -75,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" href="<?=Url::toRoute(['categoriaproduto/delete', 'id' => $categoria->categoriaProduto->id])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
+                        <button type="button" href="<?=Url::toRoute(['categoriaproduto/delete', 'id' => $categoria->id])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
                     </div>
                 </div>

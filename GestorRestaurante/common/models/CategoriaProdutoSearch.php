@@ -18,7 +18,7 @@ class CategoriaProdutoSearch extends CategoriaProduto
     {
         return [
             [['id', 'editavel'], 'integer'],
-            [['categoria'], 'safe'],
+            [['nome'], 'safe'],
         ];
     }
 
@@ -62,7 +62,7 @@ class CategoriaProdutoSearch extends CategoriaProduto
             'editavel' => $this->editavel,
         ]);
 
-        $query->andFilterWhere(['like', 'categoria', $this->categoria]);
+        $query->andFilterWhere(['like', 'nome', $this->nome]);
 
         return $dataProvider;
     }

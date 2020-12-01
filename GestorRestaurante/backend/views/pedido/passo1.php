@@ -25,10 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card-body" style="display: block;">
         <div class="row col-md-12">
             <div class="row col-md-12 d-flex justify-content-center">
-                <a href="<?=Url::toRoute(['pedido/criar2passo','id'=>0])?>" type="button" class="btn btn-success p-0" style="width: 200px; height: 30px">
+                <a href="<?=Url::toRoute(['pedido/criar2passo','tipo'=>0])?>" type="button" class="btn btn-success p-0" style="width: 200px; height: 30px">
                     Restaurante
                 </a>
-                <a href="<?=Url::toRoute(['pedido/criar2passo','id'=>1])?>" type="button" class="btn btn-success p-0" style="width: 200px; height: 30px">
+                <a href="<?=Url::toRoute(['pedido/criar2passo','tipo'=>1])?>" type="button" class="btn btn-success p-0" style="width: 200px; height: 30px">
                     Takeaway
                 </a>
                 <?/*= Html::a('<div class="col-md-4">

@@ -8,10 +8,10 @@ use Yii;
  * This is the model class for table "categoria_produto".
  *
  * @property int $id
- * @property string $categoria
+ * @property string $nome
  * @property int $editavel
  *
- * @property ProdutoCategoriaProduto[] $produtoCategoriaProdutos
+ * @property Produto[] $produtos
  */
 class CategoriaProduto extends \yii\db\ActiveRecord
 {
@@ -29,10 +29,10 @@ class CategoriaProduto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['categoria', 'editavel'], 'required'],
-            [['editavel'], 'boolean', 'trueValue' => true, 'falseValue' => false, 'strict' => true],
-            [['categoria'], 'string', 'max' => 255],
-            [['categoria'], 'unique'],
+            [['nome', 'editavel'], 'required'],
+            [['editavel'], 'integer'],
+            [['nome'], 'string', 'max' => 255],
+            [['nome'], 'unique'],
         ];
     }
 
@@ -43,18 +43,18 @@ class CategoriaProduto extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'categoria' => 'Categoria',
+            'nome' => 'Nome',
             'editavel' => 'Editavel',
         ];
     }
 
     /**
-     * Gets query for [[ProdutoCategoriaProdutos]].
+     * Gets query for [[Produtos]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProdutoCategoriaProdutos()
+    public function getProdutos()
     {
-        return $this->hasMany(ProdutoCategoriaProduto::className(), ['id_categoria_produto' => 'id']);
+        return $this->hasMany(Produto::className(), ['id_categoria' => 'id']);
     }
 }

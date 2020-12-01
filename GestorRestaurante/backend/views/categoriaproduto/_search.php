@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
     ]); ?>
 <div class="row col-md-12 m-3">
     <div class="col-md-3">
-        <?= $form->field($model, 'categoria')->textInput(['class'=>'form-control rounded', 'placeholder'=>'Nome'])->label(false) ?>
+        <?= $form->field($model, 'nome')->textInput(['class'=>'form-control rounded', 'placeholder'=>'Nome'])->label(false) ?>
     </div>
     <div class="col-md-4">
         <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>

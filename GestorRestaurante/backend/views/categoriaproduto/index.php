@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <?= $form->field($model, 'categoria', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
+                        <?= $form->field($model, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
                     </div>
                     <div class="d-flex justify-content-end">
                         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
@@ -86,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </ul>
                             </td>
                             <td class="text-center">
-                                <?=$categoria->categoria?>
+                                <?=$categoria->nome?>
                             </td >
                             <td class="text-center">
                                 <a href="<?=Url::toRoute(['categoriaproduto/view', 'id' => $categoria->id])?>" type="button" class="btn btn-dark">

@@ -65,8 +65,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="col-md-12">
                                     <ul class="products-list product-list-in-card pl-2 pr-2">
                                         <div class="row">
-                                    <?php foreach ($categoria_produto_categoria as $prod_cat):?>
-                                    <?php if( $prod_cat->categoriaProduto->id == 1):?>
+                                    <?php foreach ($produtos as $produto):?>
+                                    <?php if( $produto->id_categoria == 1):?>
                                         <div class="col-md-6">
                                             <div class="card bg-light p-2" >
                                                 <li class="item">
@@ -74,16 +74,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-responsive']); ?>
                                                     </div>
                                                     <div class="product-info">
-                                                        <a href="javascript:void(0)" class="product-title"><?=$prod_cat->produto->nome?>
-                                                            <span class="badge badge-dark float-right"><?=$prod_cat->produto->preco?> €</span></a>
+                                                        <a href="javascript:void(0)" class="product-title"><?=$produto->nome?>
+                                                            <span class="badge badge-dark float-right"><?=$produto->preco?> €</span></a>
                                                         <span class="product-description text-right">
-                                                                      <a href="" type="button" class="btn btn-info p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?=$prod_cat->id_produto?>">
+                                                                      <a href="" type="button" class="btn btn-info p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?=$produto->id?>">
                                                                <i class="fas fa-eye"></i>
                                                             </a>
-                                                            <a href="<?=Url::toRoute(['produto/update', 'id' => $prod_cat->id_produto])?>" type="button" class="btn btn-warning p-0" style="width: 40px;">
+                                                            <a href="<?=Url::toRoute(['produto/update', 'id' => $produto->id])?>" type="button" class="btn btn-warning p-0" style="width: 40px;">
                                                                <i class="far fa-edit color-white" ></i>
                                                            </a>
-                                                           <a href="" type="button" class="btn btn-danger p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?=$prod_cat->id_produto?>">
+                                                           <a href="" type="button" class="btn btn-danger p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?=$produto->id?>">
                                                                 <i class="far fa-trash-alt color-white"></i>
                                                             </a>
                                                           </span>
@@ -91,11 +91,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 </li>
                                         </div>
                                         </div>
-                                            <div class="modal fade"  id="viewProduto<?=$prod_cat->id_produto?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade"  id="viewProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog modal-lg">
                                                     <div class="modal-content mt-2" >
                                                         <div class="modal-header">
-                                                            <h3><?=$prod_cat->produto->nome?> </h3>
+                                                            <h3><?=$produto->nome?> </h3>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
@@ -115,7 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                             </h3>
                                                                         </div>
                                                                         <div class="card-body">
-                                                                            <?=$prod_cat->produto->ingredientes?>
+                                                                            <?=$produto->ingredientes?>
                                                                         </div>
                                                                         <!-- /.card-body -->
                                                                     </div>
@@ -125,7 +125,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <div class="col-md-6">
                                                                     <div class="bg-gradient-warning py-2 px-3 mt-5 rounded text-center">
                                                                         <h2 class="mb-0">
-                                                                            <?=$prod_cat->produto->preco?> €
+                                                                            <?=$produto->preco?> €
                                                                         </h2>
                                                                     </div>
                                                                 </div>
@@ -138,12 +138,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                             </h3>
                                                                         </div>
                                                                         <div class="card-body">
-                                                                            <?php
-                                                                                foreach ($categoria_produto_categoria as $categoria):
-                                                                                    if($categoria->id_produto== $prod_cat->id_produto):
-                                                                                        if($categoria->id_categoria_produto== 1):?>
-                                                                                          <span class="badge badge-purple"><?=$categoria->categoriaProduto->categoria?>
-                                                                            <?php endif;endif;endforeach;?>
+                                                                            <?php if($produto->id_categoria== 1):?>
+                                                                                  <span class="badge badge-purple"><?=$produto->categoria->nome?>
+                                                                            <?php endif;?>
                                                                         </div>
                                                                         <!-- /.card-body -->
                                                                     </div>
@@ -157,7 +154,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="modal fade"  id="apagarProduto<?=$prod_cat->id_produto?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade"  id="apagarProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content mt-2" >
                                                         <div class="modal-header">
@@ -172,7 +169,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="button" href="<?=Url::toRoute(['produto/delete', 'id' => $prod_cat->id_produto])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
+                                                            <button type="button" href="<?=Url::toRoute(['produto/delete', 'id' => $produto->id])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
                                                             <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
                                                         </div>
                                                     </div>
@@ -189,8 +186,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-md-12">
                                 <ul class="products-list product-list-in-card pl-2 pr-2">
                                     <div class="row">
-                                        <?php foreach ($categoria_produto_categoria as $prod_cat):?>
-                                            <?php if( $prod_cat->categoriaProduto->id == 2):?>
+                                        <?php foreach ($produtos as $produto):?>
+                                            <?php if( $produto->id_categoria == 2):?>
                                                 <div class="col-md-6">
                                                     <div class="card bg-light p-2" >
                                                         <li class="item">
@@ -198,26 +195,26 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-size-50']); ?>
                                                             </div>
                                                             <div class="product-info">
-                                                                <a href="javascript:void(0)" class="product-title"><?=$prod_cat->produto->nome?>
-                                                                    <span class="badge badge-dark float-right"><?=$prod_cat->produto->preco?> €</span></a>
+                                                                <a href="javascript:void(0)" class="product-title"><?=$produto->nome?>
+                                                                    <span class="badge badge-dark float-right"><?=$produto->preco?> €</span></a>
                                                                 <span class="product-description text-right">
-                                                                 <a href="" type="button" class="btn btn-info p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?=$prod_cat->id_produto?>">
+                                                                 <a href="" type="button" class="btn btn-info p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?=$produto->id?>">
                                                                <i class="fas fa-eye"></i>
                                                             </a>
-                                                            <a href="<?=Url::toRoute(['produto/update', 'id' => $prod_cat->id_produto])?>" type="button" class="btn btn-warning p-0" style="width: 40px;">
+                                                            <a href="<?=Url::toRoute(['produto/update', 'id' => $produto->id])?>" type="button" class="btn btn-warning p-0" style="width: 40px;">
                                                                <i class="far fa-edit color-white" ></i>
                                                            </a>
-                                                           <a href="" type="button" class="btn btn-danger p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?=$prod_cat->id_produto?>">
+                                                           <a href="" type="button" class="btn btn-danger p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?=$produto->id?>">
                                                                 <i class="far fa-trash-alt color-white"></i>
                                                             </a>
                                                           </span>
                                                             </div>
                                                         </li>
-                                                        <div class="modal fade"  id="viewProduto<?=$prod_cat->id_produto?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade"  id="viewProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog modal-lg">
                                                                 <div class="modal-content mt-2" >
                                                                     <div class="modal-header">
-                                                                        <h3><?=$prod_cat->produto->nome?> </h3>
+                                                                        <h3><?=$produto->nome?> </h3>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
@@ -237,7 +234,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </h3>
                                                                                     </div>
                                                                                     <div class="card-body">
-                                                                                        <?=$prod_cat->produto->ingredientes?>
+                                                                                        <?=$produto->ingredientes?>
                                                                                     </div>
                                                                                     <!-- /.card-body -->
                                                                                 </div>
@@ -247,7 +244,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                             <div class="col-md-6">
                                                                                 <div class="bg-gradient-warning py-2 px-3 mt-5 rounded text-center">
                                                                                     <h2 class="mb-0">
-                                                                                        <?=$prod_cat->produto->preco?> €
+                                                                                        <?=$produto->preco?> €
                                                                                     </h2>
                                                                                 </div>
                                                                             </div>
@@ -260,12 +257,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </h3>
                                                                                     </div>
                                                                                     <div class="card-body">
-                                                                                        <?php
-                                                                                        foreach ($categoria_produto_categoria as $categoria):
-                                                                                        if($categoria->id_produto== $prod_cat->id_produto):
-                                                                                        if($categoria->id_categoria_produto== 2):?>
-                                                                                        <span class="badge badge-success"><?=$categoria->categoriaProduto->categoria?>
-                                                                                            <?php endif;endif;endforeach;?>
+                                                                                        <?php if($produto->id_categoria== 2):?>
+                                                                                            <span class="badge badge-success"><?=$produto->categoria->nome?></span>
+                                                                                        <?php endif;?>
                                                                                     </div>
                                                                                     <!-- /.card-body -->
                                                                                 </div>
@@ -278,7 +272,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="modal fade"  id="apagarProduto<?=$prod_cat->id_produto?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade"  id="apagarProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content mt-2" >
                                                                     <div class="modal-header">
@@ -293,7 +287,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" href="<?=Url::toRoute(['produto/delete', 'id' => $prod_cat->id_produto])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
+                                                                        <button type="button" href="<?=Url::toRoute(['produto/delete', 'id' => $produto->id])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
                                                                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
                                                                     </div>
                                                                 </div>
@@ -312,8 +306,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-md-12">
                                 <ul class="products-list product-list-in-card pl-2 pr-2">
                                     <div class="row">
-                                        <?php foreach ($categoria_produto_categoria as $prod_cat):?>
-                                            <?php if( $prod_cat->categoriaProduto->id == 3):?>
+                                        <?php foreach ($produtos as $produto):?>
+                                            <?php if( $produto->id_categoria == 3):?>
                                                 <div class="col-md-6">
                                                     <div class="card bg-light p-2" >
                                                         <li class="item">
@@ -321,26 +315,26 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-size-50']); ?>
                                                             </div>
                                                             <div class="product-info">
-                                                                <a href="javascript:void(0)" class="product-title"><?=$prod_cat->produto->nome?>
-                                                                    <span class="badge badge-dark float-right"><?=$prod_cat->produto->preco?> €</span></a>
+                                                                <a href="javascript:void(0)" class="product-title"><?=$produto->nome?>
+                                                                    <span class="badge badge-dark float-right"><?=$produto->preco?> €</span></a>
                                                                 <span class="product-description text-right">
-                                                                 <a href="" type="button" class="btn btn-info p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?=$prod_cat->id_produto?>">
+                                                                 <a href="" type="button" class="btn btn-info p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?=$produto->id?>">
                                                                <i class="fas fa-eye"></i>
                                                             </a>
-                                                            <a href="<?=Url::toRoute(['produto/update', 'id' => $prod_cat->id_produto])?>" type="button" class="btn btn-warning p-0" style="width: 40px;">
+                                                            <a href="<?=Url::toRoute(['produto/update', 'id' => $produto->id])?>" type="button" class="btn btn-warning p-0" style="width: 40px;">
                                                                <i class="far fa-edit color-white" ></i>
                                                            </a>
-                                                           <a href="" type="button" class="btn btn-danger p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?=$prod_cat->id_produto?>">
+                                                           <a href="" type="button" class="btn btn-danger p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?=$produto->id?>">
                                                                 <i class="far fa-trash-alt color-white"></i>
                                                             </a>
                                                           </span>
                                                             </div>
                                                         </li>
-                                                        <div class="modal fade"  id="viewProduto<?=$prod_cat->id_produto?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade"  id="viewProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog modal-lg">
                                                                 <div class="modal-content mt-2" >
                                                                     <div class="modal-header">
-                                                                        <h3><?=$prod_cat->produto->nome?> </h3>
+                                                                        <h3><?=$produto->nome?> </h3>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
@@ -360,7 +354,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </h3>
                                                                                     </div>
                                                                                     <div class="card-body">
-                                                                                        <?=$prod_cat->produto->ingredientes?>
+                                                                                        <?=$produto->ingredientes?>
                                                                                     </div>
                                                                                     <!-- /.card-body -->
                                                                                 </div>
@@ -370,7 +364,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                             <div class="col-md-6">
                                                                                 <div class="bg-gradient-warning py-2 px-3 mt-5 rounded text-center">
                                                                                     <h2 class="mb-0">
-                                                                                        <?=$prod_cat->produto->preco?> €
+                                                                                        <?=$produto->preco?> €
                                                                                     </h2>
                                                                                 </div>
                                                                             </div>
@@ -383,14 +377,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </h3>
                                                                                     </div>
                                                                                     <div class="card-body">
-                                                                                        <?php
-                                                                                        foreach ($categoria_produto_categoria as $categoria):
-                                                                                        if($categoria->id_produto== $prod_cat->id_produto):
-                                                                                        if($categoria->id_categoria_produto== 3):?>
-                                                                                        <span class="badge badge-pink"><?=$categoria->categoriaProduto->categoria?>
-                                                                                            <?php endif;endif;endforeach;?>
+                                                                                        <?php if($produto->id_categoria== 3):?>
+                                                                                            <span class="badge badge-pink"><?=$produto->categoria->nome?></span>
+                                                                                        <?php endif;?>
                                                                                     </div>
-                                                                                    <!-- /.card-body -->
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -401,7 +391,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="modal fade"  id="apagarProduto<?=$prod_cat->id_produto?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade"  id="apagarProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content mt-2" >
                                                                     <div class="modal-header">
@@ -416,7 +406,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" href="<?=Url::toRoute(['produto/delete', 'id' => $prod_cat->id_produto])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
+                                                                        <button type="button" href="<?=Url::toRoute(['produto/delete', 'id' => $produto->id])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
                                                                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
                                                                     </div>
                                                                 </div>
@@ -435,8 +425,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-md-12">
                                 <ul class="products-list product-list-in-card pl-2 pr-2">
                                     <div class="row">
-                                        <?php foreach ($categoria_produto_categoria as $prod_cat):?>
-                                            <?php if( $prod_cat->categoriaProduto->id == 4):?>
+                                        <?php foreach ($produtos as $produto):?>
+                                            <?php if( $produto->id_categoria == 4):?>
                                                 <div class="col-md-6">
                                                     <div class="card bg-light p-2" >
                                                         <li class="item">
@@ -444,26 +434,26 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-size-50']); ?>
                                                             </div>
                                                             <div class="product-info">
-                                                                <a href="javascript:void(0)" class="product-title"><?=$prod_cat->produto->nome?>
-                                                                    <span class="badge badge-dark float-right"><?=$prod_cat->produto->preco?> €</span></a>
+                                                                <a href="javascript:void(0)" class="product-title"><?=$produto->nome?>
+                                                                    <span class="badge badge-dark float-right"><?=$produto->preco?> €</span></a>
                                                                 <span class="product-description text-right">
-                                                                <a href="" type="button" class="btn btn-info p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?=$prod_cat->id_produto?>">
+                                                                <a href="" type="button" class="btn btn-info p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?=$produto->id?>">
                                                                <i class="fas fa-eye"></i>
                                                             </a>
-                                                            <a href="<?=Url::toRoute(['produto/update', 'id' => $prod_cat->id_produto])?>" type="button" class="btn btn-warning p-0" style="width: 40px;">
+                                                            <a href="<?=Url::toRoute(['produto/update', 'id' => $produto->id])?>" type="button" class="btn btn-warning p-0" style="width: 40px;">
                                                                <i class="far fa-edit color-white" ></i>
                                                            </a>
-                                                           <a href="" type="button" class="btn btn-danger p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?=$prod_cat->id_produto?>">
+                                                           <a href="" type="button" class="btn btn-danger p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?=$produto->id?>">
                                                                 <i class="far fa-trash-alt color-white"></i>
                                                             </a>
                                                           </span>
                                                             </div>
                                                         </li>
-                                                        <div class="modal fade"  id="viewProduto<?=$prod_cat->id_produto?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade"  id="viewProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog modal-lg">
                                                                 <div class="modal-content mt-2" >
                                                                     <div class="modal-header">
-                                                                        <h3><?=$prod_cat->produto->nome?> </h3>
+                                                                        <h3><?=$produto->nome?> </h3>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
@@ -483,7 +473,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </h3>
                                                                                     </div>
                                                                                     <div class="card-body">
-                                                                                        <?=$prod_cat->produto->ingredientes?>
+                                                                                        <?=$produto->ingredientes?>
                                                                                     </div>
                                                                                     <!-- /.card-body -->
                                                                                 </div>
@@ -493,7 +483,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                             <div class="col-md-6">
                                                                                 <div class="bg-gradient-warning py-2 px-3 mt-5 rounded text-center">
                                                                                     <h2 class="mb-0">
-                                                                                        <?=$prod_cat->produto->preco?> €
+                                                                                        <?=$produto->preco?> €
                                                                                     </h2>
                                                                                 </div>
                                                                             </div>
@@ -506,12 +496,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </h3>
                                                                                     </div>
                                                                                     <div class="card-body">
-                                                                                        <?php
-                                                                                        foreach ($categoria_produto_categoria as $categoria):
-                                                                                        if($categoria->id_produto== $prod_cat->id_produto):
-                                                                                        if($categoria->id_categoria_produto== 4):?>
-                                                                                        <span class="badge badge-blue"><?=$categoria->categoriaProduto->categoria?>
-                                                                                            <?php endif;endif;endforeach;?>
+                                                                                        <?php if($produto->id_categoria== 4):?>
+                                                                                            <span class="badge badge-blue"><?=$produto->categoriaProduto->nome?></span>
+                                                                                        <?php endif;?>
                                                                                     </div>
                                                                                     <!-- /.card-body -->
                                                                                 </div>
@@ -524,7 +511,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="modal fade"  id="apagarProduto<?=$prod_cat->id_produto?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade"  id="apagarProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content mt-2" >
                                                                     <div class="modal-header">
@@ -539,7 +526,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" href="<?=Url::toRoute(['produto/delete', 'id' => $prod_cat->id_produto])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
+                                                                        <button type="button" href="<?=Url::toRoute(['produto/delete', 'id' => $produto->id])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
                                                                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
                                                                     </div>
                                                                 </div>
@@ -558,8 +545,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-md-12">
                                 <ul class="products-list product-list-in-card pl-2 pr-2">
                                     <div class="row">
-                                        <?php foreach ($categoria_produto_categoria as $prod_cat):?>
-                                            <?php if( $prod_cat->categoriaProduto->id == 5):?>
+                                        <?php foreach ($produtos as $produto):?>
+                                            <?php if( $produto->id_categoria == 5):?>
                                                 <div class="col-md-6">
                                                     <div class="card bg-light p-2" >
                                                         <li class="item">
@@ -567,26 +554,26 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-size-50']); ?>
                                                             </div>
                                                             <div class="product-info">
-                                                                <a href="javascript:void(0)" class="product-title"><?=$prod_cat->produto->nome?>
-                                                                    <span class="badge badge-dark float-right"><?=$prod_cat->produto->preco?> €</span></a>
+                                                                <a href="javascript:void(0)" class="product-title"><?=$produto->nome?>
+                                                                    <span class="badge badge-dark float-right"><?=$produto->preco?> €</span></a>
                                                                 <span class="product-description text-right">
-                                                                 <a href="" type="button" class="btn btn-info p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?=$prod_cat->id_produto?>">
+                                                                 <a href="" type="button" class="btn btn-info p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?=$produto->id?>">
                                                                <i class="fas fa-eye"></i>
                                                             </a>
-                                                            <a href="<?=Url::toRoute(['produto/update', 'id' => $prod_cat->id_produto])?>" type="button" class="btn btn-warning p-0" style="width: 40px;">
+                                                            <a href="<?=Url::toRoute(['produto/update', 'id' => $produto->id])?>" type="button" class="btn btn-warning p-0" style="width: 40px;">
                                                                <i class="far fa-edit color-white" ></i>
                                                            </a>
-                                                           <a href="" type="button" class="btn btn-danger p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?=$prod_cat->id_produto?>">
+                                                           <a href="" type="button" class="btn btn-danger p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?=$produto->id?>">
                                                                 <i class="far fa-trash-alt color-white"></i>
                                                             </a>
                                                           </span>
                                                             </div>
                                                         </li>
-                                                        <div class="modal fade"  id="viewProduto<?=$prod_cat->id_produto?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade"  id="viewProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog modal-lg">
                                                                 <div class="modal-content mt-2" >
                                                                     <div class="modal-header">
-                                                                        <h3><?=$prod_cat->produto->nome?> </h3>
+                                                                        <h3><?=$produto->nome?> </h3>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
@@ -606,7 +593,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </h3>
                                                                                     </div>
                                                                                     <div class="card-body">
-                                                                                        <?=$prod_cat->produto->ingredientes?>
+                                                                                        <?=$produto->ingredientes?>
                                                                                     </div>
                                                                                     <!-- /.card-body -->
                                                                                 </div>
@@ -616,7 +603,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                             <div class="col-md-6">
                                                                                 <div class="bg-gradient-warning py-2 px-3 mt-5 rounded text-center">
                                                                                     <h2 class="mb-0">
-                                                                                        <?=$prod_cat->produto->preco?> €
+                                                                                        <?=$produto->preco?> €
                                                                                     </h2>
                                                                                 </div>
                                                                             </div>
@@ -629,12 +616,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </h3>
                                                                                     </div>
                                                                                     <div class="card-body">
-                                                                                        <?php
-                                                                                        foreach ($categoria_produto_categoria as $categoria):
-                                                                                        if($categoria->id_produto== $prod_cat->id_produto):
-                                                                                        if($categoria->id_categoria_produto== 2):?>
-                                                                                        <span class="badge badge-pink"><?=$categoria->categoriaProduto->categoria?>
-                                                                                            <?php endif;endif;endforeach;?>
+                                                                                        <?php if($produto->id_categoria== 2):?>
+                                                                                            <span class="badge badge-pink"><?=$produto->categoriaProduto->nome?>
+                                                                                        <?php endif;?>
                                                                                     </div>
                                                                                     <!-- /.card-body -->
                                                                                 </div>
@@ -647,7 +631,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="modal fade"  id="apagarProduto<?=$prod_cat->id_produto?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade"  id="apagarProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content mt-2" >
                                                                     <div class="modal-header">
@@ -662,7 +646,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" href="<?=Url::toRoute(['produto/delete', 'id' => $prod_cat->id_produto])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
+                                                                        <button type="button" href="<?=Url::toRoute(['produto/delete', 'id' => $produto->id])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
                                                                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
                                                                     </div>
                                                                 </div>
@@ -681,8 +665,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-md-12">
                                 <ul class="products-list product-list-in-card pl-2 pr-2">
                                     <div class="row">
-                                        <?php foreach ($categoria_produto_categoria as $prod_cat):?>
-                                            <?php if( $prod_cat->categoriaProduto->id == 6):?>
+                                        <?php foreach ($produtos as $produto):?>
+                                            <?php if( $produto->id_categoria == 6):?>
                                                 <div class="col-md-6">
                                                     <div class="card bg-light p-2" >
                                                         <li class="item">
@@ -690,26 +674,26 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-size-50']); ?>
                                                             </div>
                                                             <div class="product-info">
-                                                                <a href="javascript:void(0)" class="product-title"><?=$prod_cat->produto->nome?>
-                                                                    <span class="badge badge-dark float-right"><?=$prod_cat->produto->preco?> €</span></a>
+                                                                <a href="javascript:void(0)" class="product-title"><?=$produto->nome?>
+                                                                    <span class="badge badge-dark float-right"><?=$produto->preco?> €</span></a>
                                                                 <span class="product-description text-right">
-                                                                <a href="" type="button" class="btn btn-info p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?=$prod_cat->id_produto?>">
+                                                                <a href="" type="button" class="btn btn-info p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?=$produto->id?>">
                                                                <i class="fas fa-eye"></i>
                                                             </a>
-                                                            <a href="<?=Url::toRoute(['produto/update', 'id' => $prod_cat->id_produto])?>" type="button" class="btn btn-warning p-0" style="width: 40px;">
+                                                            <a href="<?=Url::toRoute(['produto/update', 'id' => $produto->id])?>" type="button" class="btn btn-warning p-0" style="width: 40px;">
                                                                <i class="far fa-edit color-white" ></i>
                                                            </a>
-                                                           <a href="" type="button" class="btn btn-danger p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?=$prod_cat->id_produto?>">
+                                                           <a href="" type="button" class="btn btn-danger p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?=$produto->id?>">
                                                                 <i class="far fa-trash-alt color-white"></i>
                                                             </a>
                                                           </span>
                                                             </div>
                                                         </li>
-                                                        <div class="modal fade"  id="viewProduto<?=$prod_cat->id_produto?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade"  id="viewProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog modal-lg">
                                                                 <div class="modal-content mt-2" >
                                                                     <div class="modal-header">
-                                                                        <h3><?=$prod_cat->produto->nome?> </h3>
+                                                                        <h3><?=$produto->nome?> </h3>
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                             <span aria-hidden="true">&times;</span>
                                                                         </button>
@@ -729,7 +713,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </h3>
                                                                                     </div>
                                                                                     <div class="card-body">
-                                                                                        <?=$prod_cat->produto->ingredientes?>
+                                                                                        <?=$produto->ingredientes?>
                                                                                     </div>
                                                                                     <!-- /.card-body -->
                                                                                 </div>
@@ -739,7 +723,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                             <div class="col-md-6">
                                                                                 <div class="bg-gradient-warning py-2 px-3 mt-5 rounded text-center">
                                                                                     <h2 class="mb-0">
-                                                                                        <?=$prod_cat->produto->preco?> €
+                                                                                        <?=$produto->preco?> €
                                                                                     </h2>
                                                                                 </div>
                                                                             </div>
@@ -752,12 +736,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                         </h3>
                                                                                     </div>
                                                                                     <div class="card-body">
-                                                                                        <?php
-                                                                                        foreach ($categoria_produto_categoria as $categoria):
-                                                                                        if($categoria->id_produto== $prod_cat->id_produto):
-                                                                                        if($categoria->id_categoria_produto== 6):?>
-                                                                                        <span class="badge badge-orange"><?=$categoria->categoriaProduto->categoria?>
-                                                                                            <?php endif;endif;endforeach;?>
+                                                                                        <?php if($produto->id_categoria== 6):?>
+                                                                                            <span class="badge badge-orange"><?=$produto->categoriaProduto->nome?>
+                                                                                        <?php endif;?>
                                                                                     </div>
                                                                                     <!-- /.card-body -->
                                                                                 </div>
@@ -770,7 +751,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="modal fade"  id="apagarProduto<?=$prod_cat->id_produto?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal fade"  id="apagarProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content mt-2" >
                                                                     <div class="modal-header">
@@ -785,7 +766,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
-                                                                        <button type="button" href="<?=Url::toRoute(['produto/delete', 'id' => $prod_cat->id_produto])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
+                                                                        <button type="button" href="<?=Url::toRoute(['produto/delete', 'id' => $produto->id])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
                                                                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
                                                                     </div>
                                                                 </div>

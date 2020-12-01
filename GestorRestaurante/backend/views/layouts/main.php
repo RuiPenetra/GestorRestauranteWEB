@@ -6,6 +6,7 @@
 use common\models\Perfil;
 use common\widgets\AlertModal;
 use kartik\growl\Growl;
+use yii\bootstrap4\Breadcrumbs;
 use yii\bootstrap4\Modal;
 use yii\helpers\Html;
 use backend\assets\AppAsset;
@@ -221,8 +222,8 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="<?= Url::toRoute(['site/index']) ?>">Home</a></li>
-                            <li class="breadcrumb-item active"><?=$this->title?></li>
+                            <!--TODO-->
+                        </ol>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->

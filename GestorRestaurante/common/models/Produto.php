@@ -2,8 +2,6 @@
 
 namespace common\models;
 
-use backend\models\Pedidoproduto;
-use backend\models\ProdutoCategoriaProduto;
 use Yii;
 
 /**
@@ -13,13 +11,13 @@ use Yii;
  * @property string $nome
  * @property string $ingredientes
  * @property float $preco
+ * @property int $id_categoria
  *
  * @property PedidoProduto[] $pedidoProdutos
- * @property ProdutoCategoriaProduto[] $produtoCategoriaProdutos
+ * @property CategoriaProduto $categoria
  */
 class Produto extends \yii\db\ActiveRecord
 {
-    public $categoria;
     /**
      * {@inheritdoc}
      */
@@ -34,11 +32,13 @@ class Produto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'ingredientes', 'preco'], 'required'],
-            [['preco'], 'number', 'numberPattern' => '/^\s*[-+]?[0-9]*[.,]?[0-9]+([eE][-+]?[0-9]+)?\s*$/'],
+            [['nome', 'ingredientes', 'preco', 'id_categoria'], 'required'],
+            [['preco'], 'number'],
+            [['id_categoria'], 'integer'],
             [['nome'], 'string', 'max' => 255],
             [['ingredientes'], 'string', 'max' => 500],
-
+            [['nome'], 'unique'],
+            [['id_categoria'], 'exist', 'skipOnError' => true, 'targetClass' => CategoriaProduto::className(), 'targetAttribute' => ['id_categoria' => 'id']],
         ];
     }
 
@@ -52,6 +52,7 @@ class Produto extends \yii\db\ActiveRecord
             'nome' => 'Nome',
             'ingredientes' => 'Ingredientes',
             'preco' => 'Preco',
+            'id_categoria' => 'Id Categoria',
         ];
     }
 
@@ -66,13 +67,12 @@ class Produto extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[ProdutoCategoriaProdutos]].
+     * Gets query for [[Categoria]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getProdutoCategoriaProdutos()
+    public function getCategoria()
     {
-        return $this->hasMany(ProdutoCategoriaProduto::className(), ['id_produto' => 'id']);
+        return $this->hasOne(CategoriaProduto::className(), ['id' => 'id_categoria']);
     }
-
 }

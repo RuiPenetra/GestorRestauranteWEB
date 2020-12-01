@@ -61,16 +61,14 @@ class FaltaController extends Controller
         ]);*/
         if (Yii::$app->user->can('consultarUtilizadores')) {
 
-            $query = Perfil::find()->where([]);
-            $countQuery = clone $query;
-            $pages = new Pagination(['totalCount' => $countQuery->count()]);
-            $users = $query->offset($pages->offset)
-                ->limit($pages->limit)
-                ->all();
+            $searchModel = new PerfilSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            /*$searchModel = new UserSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
 
             return $this->render('index', [
-                'users' => $users,
-                'pages' => $pages,
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel
             ]);
 
         }else{
@@ -114,17 +112,21 @@ class FaltaController extends Controller
     public function actionCreate($id)
     {
         $falta = new Falta();
-        $faltas=Falta::findAll($id);
+        $searchFalta = new FaltaSearch();
+        $dataprovider = $searchFalta->search(Yii::$app->request->queryParams);
 
-        $model = new Falta();
+        $falta->id_funcionario=$id;
+        $user=User::findOne($id);
 
         if ($falta->load(Yii::$app->request->post()) && $falta->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $user->id]);
         }
 
-        return $this->render('create', [
+        return $this->render('view', [
             'falta' => $falta,
-            'faltas' => $faltas,
+            'dataprovider' => $dataprovider,
+            'searchFalta' => $searchFalta,
+            'user'=>$user
         ]);
     }
 

@@ -4,31 +4,26 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\PedidoSearch */
+/* @var $model app\models\PedidoprodutoSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="pedido-search">
+<div class="pedidoproduto-search">
 
     <?php $form = ActiveForm::begin([
+        'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'data') ?>
+    <?= $form->field($model, 'id_pedido') ?>
 
-    <?= $form->field($model, 'tipo') ?>
+    <?= $form->field($model, 'id_produto') ?>
 
-    <?= $form->field($model, 'nome_pedido') ?>
+    <?= $form->field($model, 'estado') ?>
 
-    <?= $form->field($model, 'nota') ?>
-
-    <?php // echo $form->field($model, 'estado') ?>
-
-    <?php // echo $form->field($model, 'id_mesa') ?>
-
-    <?php // echo $form->field($model, 'id_perfil') ?>
+    <?= $form->field($model, 'quantidade') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

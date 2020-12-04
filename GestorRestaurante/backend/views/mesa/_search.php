@@ -8,7 +8,6 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <?php $form = ActiveForm::begin([
-    'action' => ['index'],
     'method' => 'get',
 ]); ?>
 

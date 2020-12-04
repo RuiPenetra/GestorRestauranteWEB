@@ -15,6 +15,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
         'css/login.css',
         'css/signup.css',
+        'css/tabs.css',
         'css/adminlte.css',
         'css/skins.css',
         'css/alert/toastr.min.css',

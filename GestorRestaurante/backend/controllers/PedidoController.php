@@ -96,39 +96,35 @@ class PedidoController extends Controller
 
     public function actionCriar2passo($tipo)
     {
-
-        $tipo = $this->lertipo();//(Integer)Yii::$app->request->post('tipo'); var_dump($tipo.'--');
-
-
-        $pedido = new Pedido2passoForm();
-
-        $pedido->tipo = $tipo;
+        $searchModel = new MesaSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $pedido = new Pedido();
 
         $id_user = Yii::$app->user->identity->getId();
-        $perfil = Perfil::findOne($id_user);
-        $produtos = Produto::find()->all();
+        $perfil = Perfil::findOne($id_user);;
         $pedido->id_perfil = $perfil->id_user;
         $pedido->estado = 0;
-     /*   var_dump($pedido);
-        var_dump('-----------------------------');*/
+        $pedido->tipo=0;
 
-        if ($pedido->tipo == 0){
+        if ($pedido->tipo==0) {
+
             $pedido->scenario = 'scenariorestaurante';
         }else{
+
             $pedido->scenario = 'scenariotakeaway';
+
         }
 
-        if ($pedido->load(Yii::$app->request->post()) && $pedido->pedido()) {
+        if ($pedido->load(Yii::$app->request->post()) && $pedido->save()) {
 
-//           return $this->redirect(['update','id'=>$pedido->id]);
-           return $this->redirect(['index']);
+                return $this->redirect(['/pedidoproduto/index','id'=>$pedido->id]);
+
 
         }
         return $this->render('passo2', [
             'pedido'=>$pedido,
-            'produtos'=>$produtos,
-//            'searchMesa' => $searchMesa,
-//            'mesas' => $mesas
+           'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider
         ]);
 
     }

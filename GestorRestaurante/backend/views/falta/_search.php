@@ -12,7 +12,6 @@ use yii\widgets\ActiveForm;
 <div class="falta-search">
 
     <?php $form = ActiveForm::begin([
-        'action' => ['index'],
         'method' => 'get',
     ]); ?>
 

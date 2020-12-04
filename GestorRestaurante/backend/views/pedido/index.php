@@ -127,12 +127,10 @@ use yii\widgets\ActiveForm; ?>
                                             <?php endif;?>
                                         </td>
                                         <td class="project-actions text-right">
-                                            <a class="btn btn-primary btn-sm" href="#">
-                                                <i class="fas fa-folder">
-                                                </i>
-                                            </a>
-                                            <a class="btn btn-info btn-sm" href="#">
-                                                <i class="fas fa-pencil-alt">
+                                            <?= Html::a(' <i class="fas fa-folder">
+                                                        </i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-primary btn-sm']) ?>
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-trash">
                                                 </i>
                                             </a>
                                             <a class="btn btn-danger btn-sm" href="#">
@@ -272,14 +270,8 @@ use yii\widgets\ActiveForm; ?>
                                                     <?php endif;?>
                                                 </td>
                                                 <td class="project-actions text-right">
-                                                    <a class="btn btn-primary btn-sm" href="#">
-                                                        <i class="fas fa-folder">
-                                                        </i>
-                                                    </a>
-                                                    <a class="btn btn-info btn-sm" href="#">
-                                                        <i class="fas fa-pencil-alt">
-                                                        </i>
-                                                    </a>
+                                                    <?= Html::a(' <i class="fas fa-folder">
+                                                        </i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-primary']) ?>
                                                     <a class="btn btn-danger btn-sm" href="#">
                                                         <i class="fas fa-trash">
                                                         </i>

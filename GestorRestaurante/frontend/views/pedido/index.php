@@ -21,8 +21,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Criar Takeaway', ['create'], ['class' => 'btn btn-danger']) ?>
     </div>
 
+    <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
+    <div class="card card-outline card-danger mr-5 ml-5"><!--collapsed-card-->
+    <?php endif?>
+     <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
+        <div class="card card-outline card-blue mr-5 ml-5"><!--collapsed-card-->
+        <?php endif?>
 
-    <div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
+
         <div class="card-header">
             <h3 class="card-title">
                 <i class="fas fa-shopping-bag"></i>
@@ -33,10 +39,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 </button>
             </div>
         </div>
+
         <div class="card-body" style="display: block;">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-warning card-tabs">
+                    <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
+                    <div class="card card-danger card-tabs">
+                        <?php endif?>
+                        <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
+                        <div class="card card-blue card-tabs">
+                            <?php endif?>
+
                         <div class="card-header p-0 pt-1">
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                 <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
@@ -59,7 +72,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="card-body">
                             <div class="tab-content" id="custom-tabs-one-tabContent">
-                                <div class="tab-pane fade show active" id="custom-tabs-one-restaurante" role="tabpanel"
+                                <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
+                                    <div class="tab-pane fade show active" id="custom-tabs-one-restaurante" role="tabpanel"
+                                <?php endif?>
+                                <div class="tab-pane fade show" id="custom-tabs-one-restaurante" role="tabpanel"
                                      aria-labelledby="custom-tabs-one-restaurante-tab">
                                     <table class="table table-striped projects">
                                         <thead>
@@ -95,7 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             </td>
                                             <td>
                                                 <?php if($pedido->tipo==0):?>
-                                                <span class='badge badge-danger-white'>Restaurante</span>
+                                                <span class='badge badge-orange'>Restaurante</span>
                                                 <?php endif;?>
                                             </td>
                                             <td class="project_progress">
@@ -128,7 +144,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </tbody>
                                     </table>
                                 </div>
-
+                                <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
+                                <div class="tab-pane fade show active" id="custom-tabs-one-takeaway" role="tabpanel"
+                                <?php endif?>
                                 <div class="tab-pane fade show" id="custom-tabs-one-takeaway" role="tabpanel"
                                      aria-labelledby="custom-tabs-one-takeaway-tab">
                                     <table class="table table-striped projects">
@@ -165,7 +183,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 </td>
                                                 <td>
                                                     <?php if($pedido->tipo==1):?>
-                                                        <span class='badge badge-indigo-white'>Takeaway</span>
+                                                        <span class='badge badge-blue-light'>Takeaway</span>
                                                     <?php endif;?>
                                                 </td>
                                                 <td class="project_progress">

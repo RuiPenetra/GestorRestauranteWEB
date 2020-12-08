@@ -92,19 +92,23 @@ $this->title = 'Gestor Restaurante';
                     <h6>Faça Download da nossa aplicação atraves da playstore</h6>
                 </div>
 
-                <div class="card-footer">
-                    <!--PERGUNTAR A STORA-->
-                        <div class="row col-md-12 d-flex justify-content-center">
-                         <?//php return Html::a('',"www.play.google.com"); Html::img('img/android_download.png' , ['alt'=>'some', 'class'=>'img-responsive','style'=>'width:200px']);?>
-                              <?//= HTML::img('img/android_download.png',URL::to('www.google.com'))?>
-                            <div class="row col-md-12 d-flex justify-content-center">
 
-)
-                            <?=Html::img('img/apple_download.png',['alt'=>'some', 'class'=>'img-responsive','style'=>'width:200px'])?> <?=Html::a("","www.play.google.com")?> </a>
-                        </div>
-                </div>
+<div class="card-footer">
+                    <!--PERGUNTAR A STORA-->
+    <div class="row col-md-12 d-flex justify-content-center">
+        <a href="https://play.google.com/store" >
+            <?=Html::img('img/android_download',['alt'=>'some', 'class'=>'img-responsive','style'=>'width:200px'])?>
+        </a>
+<br><br><br>
+            <div class="row col-md-12 d-flex justify-content-center">
+                <a href="https://www.apple.com/app-store/" >
+                    <?=Html::img('img/apple_download.png',['alt'=>'some', 'class'=>'img-responsive','style'=>'width:200px'])?>
+                </a>
+    </div>
+    </div>
 
 </div>
+
 
 
 

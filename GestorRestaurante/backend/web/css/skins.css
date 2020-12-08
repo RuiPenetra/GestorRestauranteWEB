@@ -240,6 +240,7 @@ a.badge-warning:focus, a.badge-warning.focus {
     background-color: #dc3545;
 }
 
+
 a.badge-danger:hover, a.badge-danger:focus {
     color: #fff;
     background-color: #bd2130;

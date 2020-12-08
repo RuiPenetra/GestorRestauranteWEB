@@ -195,7 +195,15 @@ a.desc:after {
     border-radius: .25rem;
 }
 
+.precobox{
+    padding-left: 20px ;
 
+}
+
+.categoriabox{
+    padding-left: 20px ;
+    padding-top:32px;
+}
 
 /**
  * --------------------------------------------

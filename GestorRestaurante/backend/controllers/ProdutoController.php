@@ -181,21 +181,11 @@ class ProdutoController extends Controller
      */
     public function actionDelete($id)
     {
-//        ProdutoCategoriaProduto::findAll(array("condition"=>"id_produto =  $id"))->delete();
-
-        $produto = Produto::findOne($id);
-
-        $produto_categorias=$produto->getProdutoCategoriaProdutos();
-
-        ProdutoCategoriaProduto::deleteAll(['id_produto' => $produto->id]);
-      /*  if($produto_categorias!=null){
-
-            foreach ($produto_categorias as $item ){
 
 
-            }
+        ProdutoCategoriaProduto::deleteAll(['id_produto' => $id]);
 
-        }*/
+
         Yii::$app->getSession()->setFlash('success', [
             'type' => 'success',
             'duration' => 5000,

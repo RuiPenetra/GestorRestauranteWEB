@@ -7,7 +7,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
-
+use yii\helpers\Url;
 ?>
 
 <div class="container h-100 align-middle">
@@ -47,7 +47,7 @@ use yii\bootstrap4\ActiveForm;
         </div>
             <div class="mt-4">
                 <div class="d-flex justify-content-center links">
-                    Não tem conta?? <a href="#" class="ml-2">Registar-me</a>
+                    Não tem conta?? <a href="<?=URL::toRoute(['site/signup'])?>" class="ml-2">Registar-me</a>
                 </div>
             </div>
         </div>

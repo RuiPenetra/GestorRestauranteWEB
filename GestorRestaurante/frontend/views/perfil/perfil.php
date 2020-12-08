@@ -12,26 +12,28 @@ use yii\helpers\Url;
 ?>
 <?php $id_user = Yii::$app->user->identity->id;?>
 
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0"><?= $this->title = 'Perfil';?></h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?= Url::toRoute(['site/index']) ?>">Home</a></li>
-                    <li class="breadcrumb-item active"><?=$this->params['breadcrumbs'][] = $this->title;?></li>
-                </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-</div>
+
 <div class="utilizador-update">
     <div class="row d-flex justify-content-center">
         <div class="col-md-3">
             <!-- Profile Image -->
-            <div class="card card-yellow card-outline">
+            <?php if(Yii::$app->authManager->getAssignment('cliente',$id_user) != null):?>
+                    <div class="card card-danger card-outline">
+            <?php endif?>
+
+            <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
+                    <div class="card card-blue card-outline">
+            <?php endif?>
+
+            <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id_user) != null):?>
+                    <div class="card card-green card-outline">
+            <?php endif?>
+
+            <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null):?>
+                    <div class="card card-purple card-outline">
+            <?php endif?>
+
+
                 <div class="card-body box-profile">
                     <div class="text-center">
                         <?= Html::img('img/perfil.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img img-fluid img-circle']); ?>
@@ -39,7 +41,22 @@ use yii\helpers\Url;
 
                     <h3 class="profile-username text-center"><?=$perfil->nome?> <?=$perfil->apelido?></h3>
 
-                    <p class="text-muted text-center"><?= $user->cargo?></p>
+                    <?php if(Yii::$app->authManager->getAssignment('cliente',$id_user) != null):?>
+                    <p class="d-flex justify-content-center"><span class="badge badge-danger">Cliente</span></p>
+                    <?php endif?>
+
+                    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
+                        <p class="d-flex justify-content-center"><span class="badge badge-primary">Atendedor Pedidos</span></p>
+                    <?php endif?>
+
+                    <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id_user) != null):?>
+                        <p class="d-flex justify-content-center"><span class="badge badge-success">Cozinheiro</span></p>
+                    <?php endif?>
+
+                    <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null):?>
+                        <p class="d-flex justify-content-center"><span class="badge badge-indigo">Empregado Mesa</span></p>
+                    <?php endif?>
+
 
                 </div>
                 <!-- /.card-body -->
@@ -166,7 +183,7 @@ use yii\helpers\Url;
                             <div class="row">
                                 <div class="col-6">
                                     <div class="input-group mb-3">
-                                        <div class="input-group-append">
+                                        <div class="input-group-append" id="genero">
                                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                         </div>
                                         <?= $form->field($perfil, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'],

@@ -6,7 +6,7 @@ use yii\helpers\Url;
 
 $this->title = 'Gestor Restaurante';
 ?>
-
+<h1 align="center"><b>Ementa</b></h1>
 <div class="site-index-img">
     <img src="img/logo.png" width="200px" height="200px"  class="rounded mx-auto d-block" alt="...">
 
@@ -30,7 +30,7 @@ $this->title = 'Gestor Restaurante';
         <i class="fas fa-glass-martini-alt"></i>
     </a>
     <a type="button" href="<?= Url::toRoute(['site/menusopa'])?>" class="btn btn-success">Sopa
-
+        <img src="https://img.icons8.com/ios-filled/20/000000/soup-plate.png"/>
     </a>
     <a type="button" href="<?= Url::toRoute(['site/menusobremesa'])?>" class="btn btn-dark">Sobremesas
         <i class="fas fa-ice-cream"></i>

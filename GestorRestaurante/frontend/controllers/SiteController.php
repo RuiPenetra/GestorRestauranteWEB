@@ -3,6 +3,8 @@ namespace frontend\controllers;
 
 use Carbon\Carbon;
 use Cassandra\Date;
+use common\models\CategoriaProduto;
+use common\models\ProdutoCategoriaProduto;
 use common\models\SignupForm;
 use DateTime;
 use frontend\models\ResendVerificationEmailForm;
@@ -10,11 +12,13 @@ use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
 //use yii\debug\models\search\User;
+use yii\db\Query;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\Produto;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\ContactForm;
@@ -42,7 +46,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout','index','about'],
+                        'actions' => ['logout','index','about','menu'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -190,8 +194,19 @@ class SiteController extends Controller
 
     public function actionMenu()
     {
-        $this->layout='main_principal';
-        return $this->render('menu');
+        $produtos=Produto::find()->all();
+
+        if (Yii::$app->user->isGuest) {
+            $this->layout = 'main_principal';
+            return $this->render('menu', [
+                'produtos' => $produtos]);
+        }
+        else
+        {
+            $this->layout = 'main';
+            return $this->render('menu2', [
+                'produtos' => $produtos]);
+        }
     }
 
     public function actionMenuentradas()
@@ -356,4 +371,5 @@ class SiteController extends Controller
         return $this->render('homepagelogin',['perfil' => $perfil]);
 
     }
+
 }

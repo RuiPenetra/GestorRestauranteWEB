@@ -2,19 +2,20 @@
 
 namespace frontend\controllers;
 
-use common\models\User;
+use common\models\CategoriaProduto;
 use Yii;
-use common\models\Perfil;
-use common\models\PerfilSearch;
+use common\models\Produto;
+use common\models\ProdutoSearch;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PerfilController implements the CRUD actions for Perfil model.
+ * ProdutoController implements the CRUD actions for Produto model.
  */
-class PerfilController extends Controller
+class ProdutoController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -26,9 +27,14 @@ class PerfilController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['myperfil','index', 'update', 'view'],
+                        'actions' => ['index','view'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' =>['@'],
+                    ],
+                    [
+                        'actions' => ['index','view','create','update','delete'],
+                        'allow' => true,
+                        'roles' =>['cozinheiro'],
                     ],
                 ],
             ],
@@ -36,29 +42,32 @@ class PerfilController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
-
                 ],
             ],
         ];
     }
 
     /**
-     * Lists all Perfil models.
+     * Lists all Produto models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PerfilSearch();
+        $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
+        $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'categorias'=>$categorias
+
+
         ]);
     }
 
     /**
-     * Displays a single Perfil model.
+     * Displays a single Produto model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -67,29 +76,31 @@ class PerfilController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+
         ]);
     }
 
     /**
-     * Creates a new Perfil model.
+     * Creates a new Produto model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Perfil();
-
+        $model = new Produto();
+        $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_user]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'categorias'=>$categorias
         ]);
     }
 
     /**
-     * Updates an existing Perfil model.
+     * Updates an existing Produto model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -98,18 +109,20 @@ class PerfilController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_user]);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'categorias'=>$categorias
         ]);
     }
 
     /**
-     * Deletes an existing Perfil model.
+     * Deletes an existing Produto model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -123,72 +136,18 @@ class PerfilController extends Controller
     }
 
     /**
-     * Finds the Perfil model based on its primary key value.
+     * Finds the Produto model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Perfil the loaded model
+     * @return Produto the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Perfil::findOne($id)) !== null) {
+        if (($model = Produto::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
-
-    public function actionMyperfil($id)
-    {
-
-        $user = User::findOne($id);
-        $perfil = $this->findModel($user->id);
-        $auth = Yii::$app->authManager;
-
-        $perfil->cargo = $this->actionGetcargo($user->id);
-
-
-       // $user->password_atual = $user->password_hash;
-
-
-        if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
-
-
-            if ($user->new_password != null) {
-                $user->updatePassword($user->new_password);
-            }
-
-
-            return $this->redirect(['myperfil', 'id' => $user->id]);
-        }
-
-        return $this->render('perfil', [
-            'perfil' => $perfil,
-            'user' => $user
-        ]);
-
-    }
-
-
-    public function actionGetcargo($id_user)
-    {
-
-
-            if (Yii::$app->authManager->getAssignment('gerente', $id_user) != null) {
-
-                return $cargo = "Gerente";
-            } else if (Yii::$app->authManager->getAssignment('atendedorPedidos', $id_user) != null) {
-
-                return $cargo = "AtendedorPedidos";
-            } else if (Yii::$app->authManager->getAssignment('empregadoMesa', $id_user) != null) {
-
-                return $cargo = "EmpregadoMesa";
-            } else if (Yii::$app->authManager->getAssignment('cozinheiro', $id_user) != null) {
-
-                return $cargo = "Cozinheiro";
-            } else {
-
-                return $cargo = "Cliente";
-            }
-        }
 }

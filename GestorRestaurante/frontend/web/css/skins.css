@@ -209,7 +209,7 @@ a.badge-info:focus, a.badge-info.focus {
 }
 
 .badge-indigo {
-    color:#000;
+    color:#FFF;
     background-color:#6610f2;
 }
 
@@ -246,6 +246,17 @@ a.badge-danger:hover, a.badge-danger:focus {
 a.badge-danger:focus, a.badge-danger.focus {
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}
+
+
+.badge-orange{
+    color:#FFF;
+    background-color: #ff9500;
+}
+
+.badge-blue-light{
+    color:#FFF;
+    background-color: #07c0ff;
 }
 
 .badge-light {

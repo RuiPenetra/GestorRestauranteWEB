@@ -107,7 +107,7 @@ AppAsset::register($this);?>
                 </li>
                 <!-- EMENTA -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="<?=Url::toRoute(['produto/index'])?>" class="nav-link">
                         <i class="fas fa-utensils"></i>
                         <p>
                             Ementa
@@ -194,7 +194,7 @@ AppAsset::register($this);?>
 
                         <!-- HOME -->
                         <li class="nav-item">
-                            <a href="<?= Url::toRoute(['site/main']) ?>" class="nav-link active">
+                            <a href="<?= Url::toRoute(['site/index']) ?>" class="nav-link active">
                                 <i class="fas fa-home"></i>
                                 <p>
                                     Home
@@ -203,7 +203,7 @@ AppAsset::register($this);?>
                         </li>
                         <!--Ementa-->
                         <li class="nav-item">
-                            <a href="<?=URL::toRoute(['#'])?>" class="nav-link">
+                            <a href="<?=URL::toRoute(['produto/index'])?>" class="nav-link">
                                 <i class="fas fa-utensils"></i>
                                 <p>
                                     Ementa
@@ -290,7 +290,7 @@ AppAsset::register($this);?>
 
                         <!-- HOME -->
                         <li class="nav-item">
-                            <a href="<?= Url::toRoute(['site/main']) ?>" class="nav-link active">
+                            <a href="<?= Url::toRoute(['site/index']) ?>" class="nav-link active">
                                 <i class="fas fa-home"></i>
                                 <p>
                                     Home
@@ -299,22 +299,14 @@ AppAsset::register($this);?>
                         </li>
                         <!-- Ementa -->
                         <li class="nav-item">
-                            <a href="<?=URL::toRoute(['#'])?>" class="nav-link">
+                            <a href="<?=URL::toRoute(['produto/index'])?>" class="nav-link">
                                 <i class="fas fa-utensils"></i>
                                 <p>
                                     Ementa
                                 </p>
                             </a>
                         </li>
-                        <!-- Pedidos -->
-                        <li class="nav-item">
-                            <a href="<?=URL::to(['pedido/index'])?>" class="nav-link">
-                                <i class="fas fa-clipboard"></i>
-                                <p>
-                                    Pedidos
-                                </p>
-                            </a>
-                        </li>
+
                         <!-- CONTACTOS -->
                         <li class="nav-item">
                             <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
@@ -402,24 +394,6 @@ AppAsset::register($this);?>
                                 </p>
                             </a>
                         </li>
-                        <!-- TAKEAWAY -->
-                        <li class="nav-item">
-                            <a href="<?=URL::toRoute(['pedido/index'])?>" class="nav-link">
-                                <i class="fas fa-shopping-bag"></i>
-                                <p>
-                                    Takeaway
-                                </p>
-                            </a>
-                        </li>
-                        <!-- EMENTA -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-clipboard"></i>
-                                <p>
-                                    Ementa
-                                </p>
-                            </a>
-                        </li>
                         <!-- Pedidos -->
                         <li class="nav-item">
                             <a href="<?=URL::toRoute(['pedido/index'])?>" class="nav-link">
@@ -429,6 +403,26 @@ AppAsset::register($this);?>
                                 </p>
                             </a>
                         </li>
+                        <!-- EMENTA -->
+                        <li class="nav-item">
+                            <a href="<?=URL::toRoute(['produto/index'])?>" class="nav-link">
+                                <i class="fas fa-clipboard"></i>
+                                <p>
+                                    Ementa
+                                </p>
+                            </a>
+                        </li>
+
+                        <!--RESERVA-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-marker"></i>
+                                <p>
+                                    Reserva
+                                </p>
+                            </a>
+                        </li>
+
                         <!-- CONTACTOS -->
                         <li class="nav-item">
                             <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
@@ -440,15 +434,7 @@ AppAsset::register($this);?>
                         </li>
                     </ul>
                     <!--EXTRA-->
-                    <!-- RESERVA -->
-                    <!-- <li class="nav-item">
-                         <a href="#" class="nav-link">
-                             <i class="fas fa-poll-h"></i>
-                             <p>
-                                 Reserva
-                             </p>
-                         </a>
-                     </li>-->
+
 
                 </nav>
                 <!-- /.sidebar-menu -->

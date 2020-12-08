@@ -38,8 +38,9 @@ class MesaController extends Controller
         $model = new Mesa();
         $searchModel = new MesaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         $model->estado=2;
+        $dataProvider->pagination = ['pageSize' => 5];
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             Yii::$app->getSession()->setFlash('success', [

@@ -1,5 +1,6 @@
 <?php
 
+use kartik\datetime\DateTimePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -8,33 +9,34 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="pedido-search">
-
     <?php $form = ActiveForm::begin([
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'data') ?>
-
-    <?= $form->field($model, 'tipo') ?>
-
-    <?= $form->field($model, 'nome_pedido') ?>
-
-    <?= $form->field($model, 'nota') ?>
-
-    <?php // echo $form->field($model, 'estado') ?>
-
-    <?php // echo $form->field($model, 'id_mesa') ?>
-
-    <?php // echo $form->field($model, 'id_perfil') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+<div class="row col-md-12">
+    <div class="col-md-2">
+        <?= $form->field($model, 'data')->widget(DateTimePicker::classname(), [
+            'options' => ['placeholder' => 'Data','class'=>'rounded'],
+            'type' =>DateTimePicker::TYPE_COMPONENT_PREPEND,
+            'size'=>'md',
+            'readonly' => true,
+            'pluginOptions' => [
+                'todayBtn' => true,
+                'autoclose' => true,
+                'language'=>'pt-PT',
+            ]
+        ])->label(false);?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
+    <div class="col-md-2">
+        <?= $form->field($model, 'tipo')->dropDownList(['0' => 'Restaurante', '1' => 'Takeaway'],['prompt'=>'Selecione...', 'maxlenght'=> true,'class' => 'form-control rounded'])->label(false); ?>    </div>
+    <div class="col-md-2">
+        <?= $form->field($model, 'estado')->dropDownList(['0' => 'Em Processo', '1' => 'Em Progresso', '2' => 'Concluido'],['prompt'=>'Selecione...', 'maxlenght'=> true,'class' => 'form-control rounded'])->label(false); ?>
+    </div>
+    <div class="col-md-3">
+        <?= $form->field($model, 'id_mesa')->dropDownList($mesas,['prompt'=>'Selecione...', 'maxlenght'=> true,'class' => 'form-control rounded'])->label(false); ?>
+    </div>
+    <div class="col-md-3">
+        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
+    </div>
 </div>
+<?php ActiveForm::end(); ?>

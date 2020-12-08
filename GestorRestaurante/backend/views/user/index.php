@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
@@ -12,31 +13,25 @@ $this->title = 'Utilizadores';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-    <div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
-        <div class="card-header">
-            <h3 class="card-title">
-                <i class="fas fa-bullhorn"></i>
-                Criar utilizador
-            </h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
+
+    <div class="row col-md-12 d-flex justify-content-center">
+        <?= Html::a('<div class="col-md-4">
+            <!-- small card -->
+            <div class="small-box bg-gradient-orange p-3" style="width: 300px">
+                <div class="inner text-white">
+                    <h4><b>Novo</b></h4>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
             </div>
-        </div>
-        <div class="card-body" style="display: block;">
-            <button type="button" class="btn btn-success">
-                <a class="btn-success" href="<?= Url::toRoute(['user/create']) ?>" role="button">
-                    <i class="fas fa-plus"></i>
-                    Novo
-                </a>
-            </button>
-        </div>
-        <!-- /.card-body -->
+          </div>',['user/create']) ?>
     </div>
-    <div class="card card-warning mr-5 ml-5">
+
+    <div class="card card-yellow mr-5 ml-5">
         <div class="card-header">
-            <h3 class="card-title">
-                <i class="fas fa-bullhorn"></i>
+            <h3 class="card-title text-gray-dark">
+                <i class="fas fa-users"></i>
                 <b>Lista Utilizadores</b>
             </h3>
         </div>
@@ -74,7 +69,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         <tr>
                             <td class="text-center">
                                 <ul class="list-inline">
-
                                     <li class="list-inline-item">
                                         <?php if($user->genero==0):?>
                                             <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
@@ -114,22 +108,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php endif;?>
                             </td>
                             <td class="text-center">
-                                <?php if($user->user->status==9):?>
+                                <?php if($user->user->status==9){?>
                                     <button type="button" class="btn btn-block btn-warning btn-sm">INATIVO</button>
-                                <?php endif?>
-
-                                <?php if($user->user->status==10):?>
+                                <?php }else{?>
                                     <button type="button" class="btn btn-block btn-success btn-sm">ATIVO</button>
-                                <?php endif?>
+                                <?php }?>
                             </td>
                             <td class="text-center">
-                                <a href="<?=Url::toRoute(['user/view', 'id' => $user->id_user])?>" type="button" class="btn btn-info">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="<?=Url::toRoute(['user/update', 'id' => $user->id_user])?>" type="button" class="btn btn-warning">
-                                    <i class="far fa-edit color-white"></i>
-                                </a>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#apagarUser<?=$user->id_user?>">
+                                <?= Html::a('<i class="fas fa-eye"></i>', ['user/view', 'id' => $user->id_user], ['class' => 'btn btn-info btn-sm']) ?>
+                                <?= Html::a('<i class="far fa-edit color-white"></i>', ['user/update', 'id' => $user->id_user], ['class' => 'btn btn-warning btn-sm']) ?>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#apagarUser<?=$user->id_user?>">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </td>
@@ -149,7 +137,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" href="<?=Url::toRoute(['user/delete', 'id' => $user->id_user])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
+                                        <?= Html::a('<b>SIM</b>', ['delete', 'id' => $user->id_user], [
+                                            'class' => 'btn btn-outline-success',
+                                            'data' => [
+                                                'method' => 'post',
+                                            ],
+                                        ]) ?>
                                         <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
                                     </div>
                                 </div>
@@ -159,6 +152,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php endforeach;?>
                     </tbody>
                 </table>
+                <div class="row col-md-12 d-flex justify-content-center">
+                    <?= LinkPager::widget([
+                        'pagination' => $dataProvider->getPagination(),
+                        'options' => [
+                            'class' => 'page-item',
+                        ],
+                    ]);?>
+                </div>
             </div>
 
         </div>

@@ -50,7 +50,7 @@ class Pedido extends \yii\db\ActiveRecord
         return $scenarios;
     }
     /**
-     * {@inheritdoc}
+     * {@inheritdo
      */
     public function rules()
     {

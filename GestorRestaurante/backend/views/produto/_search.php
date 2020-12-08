@@ -8,26 +8,23 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="produto-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+<?php $form = ActiveForm::begin([
+    'method' => 'get',
+]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'nome') ?>
-
-    <?= $form->field($model, 'ingredientes') ?>
-
-    <?= $form->field($model, 'preco') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+<div class="row col-md-12">
+    <div class="col-md-3">
+        <?= $form->field($model, 'nome')->textInput(['class'=>'form-control rounded', 'placeholder'=>'Nome'])->label(false) ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
+    <div class="col-md-3">
+        <?= $form->field($model, 'preco', ['options' => ['tag' => 'input',  'style' => 'display: none; ']])->textInput(['class'=>'form-control rounded' , 'placeholder' => 'Preço',  'type'=>'number', 'step' => '0.01', 'autofocus' => true])->label(false) ?>
+    </div>
+    <div class="col-md-3">
+        <?=$form->field($model,'id_categoria')->dropDownList($categorias,['class'=>'form-control rounded','prompt' => '---Categoria---'])->label(false);?>
+    </div>
+    <div class="col-md-3">
+        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
+    </div>
 </div>
+<?php ActiveForm::end(); ?>

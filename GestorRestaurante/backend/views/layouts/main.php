@@ -152,7 +152,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     <!-- MESA -->
                     <li class="nav-item">
                         <a href="<?= Url::toRoute(['mesa/index']) ?>" class="nav-link">
-                            <i class="fas fa-truck"></i>
+                            <i class="fas fa-table"></i>
                             <p>
                                 Mesa
                             </p>
@@ -161,7 +161,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     <!-- PRODUTOS -->
                     <li class="nav-item">
                         <a href="<?= Url::toRoute(['produto/index']) ?>" class="nav-link">
-                            <i class="fas fa-truck"></i>
+                            <i class="fas fa-utensils"></i>
                             <p>
                                 Produtos
                             </p>
@@ -176,19 +176,10 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                             </p>
                         </a>
                     </li>
-                    <!-- FATURAS -->
-                    <li class="nav-item">
-                        <a href="<?= Url::toRoute(['fatura/index']) ?>" class="nav-link">
-                            <i class="fas fa-truck"></i>
-                            <p>
-                                Faturas
-                            </p>
-                        </a>
-                    </li>
                     <!-- RESERVAS -->
                     <li class="nav-item">
                         <a href="<?= Url::toRoute(['reserva/index']) ?>" class="nav-link">
-                            <i class="fas fa-truck"></i>
+                            <i class="fas fa-marker"></i>
                             <p>
                                 Reservas
                             </p>
@@ -197,7 +188,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     <!-- CONTACTOS -->
                     <li class="nav-item">
                         <a href="<?= Url::toRoute(['pedido/index']) ?>" class="nav-link">
-                            <i class="fas fa-truck"></i>
+                            <i class="fas fa-phone"></i>
                             <p>
                                 Contactos
                             </p>

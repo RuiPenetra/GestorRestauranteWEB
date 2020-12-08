@@ -15,12 +15,12 @@ class AppAsset extends AssetBundle
         'css/site.css',
         'css/login.css',
         'css/signup.css',
-        'css/tabs.css',
+        //'css/tabs.css',
         'css/adminlte.css',
         'css/skins.css',
-        'css/alert/toastr.min.css',
-        'css/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css',
-        'css/alert/sweetalert2.min.css',
+       // 'css/alert/toastr.min.css',
+        'css/modal.css',
+        //'css/alert/sweetalert2.min.css',
 
 //        'css/cardExpanded.css',
     ];

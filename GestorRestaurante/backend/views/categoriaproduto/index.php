@@ -1,6 +1,7 @@
 <?php
 
 use kartik\growl\Growl;
+use yii\bootstrap4\LinkPager;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -89,14 +90,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?=$categoria->nome?>
                             </td >
                             <td class="text-center">
-                                <a href="<?=Url::toRoute(['categoriaproduto/view', 'id' => $categoria->id])?>" type="button" class="btn btn-dark">
-                                    <i class="far fa-eye"></i>
-                                </a>
+                                <?=Html::a('<i class="far fa-eye"></i>', ['categoriaproduto/view', 'id' => $categoria->id], ['class' => 'btn btn-dark btn-sm']) ?>
                                 <?php if($categoria->editavel==true):?>
-                                    <a href="<?=Url::toRoute(['categoriaproduto/update', 'id' => $categoria->id])?>" type="button" class="btn btn-warning">
-                                        <i class="far fa-edit color-white"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#apagarCategoria<?=$categoria->id?>">
+                                    <?=Html::a('<i class="far fa-edit color-white"></i>', ['categoriaproduto/update', 'id' => $categoria->id], ['class' => 'btn btn-warning btn-sm']) ?>
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#apagarCategoria<?=$categoria->id?>">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 <?php endif;?>
@@ -127,6 +124,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php endforeach;?>
                     </tbody>
                 </table>
+                <div class="row col-md-12 d-flex justify-content-center">
+                    <?= LinkPager::widget([
+                        'pagination' => $dataProvider->getPagination(),
+                        'options' => [
+                            'class' => 'page-item',
+                        ],
+                    ]);?>
+                </div>
             </div>
 
         </div>

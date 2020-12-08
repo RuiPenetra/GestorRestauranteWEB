@@ -626,6 +626,10 @@ a.badge-dark:focus, a.badge-dark.focus {
     background-color: #007bff !important;
 }
 
+.bg-teal {
+    background-color: #20c997 !important;
+}
+
 .bg-primary,
 .bg-primary > a {
     color: #fff !important;

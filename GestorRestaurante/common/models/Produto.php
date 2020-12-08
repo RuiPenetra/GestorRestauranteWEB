@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $nome
- * @property string $ingredientes
+ * @property string|null $ingredientes
  * @property float $preco
  * @property int $id_categoria
  *
@@ -32,7 +32,7 @@ class Produto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'ingredientes', 'preco', 'id_categoria'], 'required'],
+            [['nome', 'preco', 'id_categoria'], 'required'],
             [['preco'], 'number'],
             [['id_categoria'], 'integer'],
             [['nome'], 'string', 'max' => 255],

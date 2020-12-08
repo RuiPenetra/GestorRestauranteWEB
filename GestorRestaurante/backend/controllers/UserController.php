@@ -53,8 +53,8 @@ class UserController extends Controller
 
             $searchModel = new PerfilSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-            /*$searchModel = new UserSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
+
+            $dataProvider->pagination = ['pageSize' => 5];
 
             return $this->render('index', [
                 'dataProvider' => $dataProvider,
@@ -145,8 +145,17 @@ class UserController extends Controller
     {
         if (Yii::$app->user->can('apagarUtilizadores') && Yii::$app->user->can('apagarPerfis')) {
 
-            $user=User::findOne($id);
-            $user->status=9;
+          $user=$this->findModel($id);
+
+          if($user->status==10){
+
+              $user->status=9;
+
+          }else{
+
+              $user->status=10;
+
+          }
             $user->save();
 
             return $this->redirect(['index']);

@@ -63,8 +63,8 @@ class FaltaController extends Controller
 
             $searchModel = new PerfilSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-            /*$searchModel = new UserSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
+
+            $dataProvider->pagination = ['pageSize' => 5];
 
             return $this->render('index', [
                 'dataProvider' => $dataProvider,

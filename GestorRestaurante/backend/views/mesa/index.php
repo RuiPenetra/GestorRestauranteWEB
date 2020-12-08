@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
@@ -71,8 +72,8 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <div class="card-body" style="display: block;">
-    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
         <div class="row d-flex justify-content-center">
+            <?php echo $this->render('_search', ['model' => $searchModel]); ?>
             <table class="table">
                 <thead>
                 <tr>
@@ -98,11 +99,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php if($mesa->estado==2):?>
                             <td class="text-center"><span class="badge bg-success">Livre</span></td>
                         <?php endif;?>
-                        <td class="text-center">
-                            <a href="<?=Url::toRoute(['mesa/view', 'id' => $mesa->id])?>" type="button" class="btn btn-warning">
-                                <i class="far fa-edit color-white"></i>
-                            </a>
-                            <a href="" type="button" class="btn btn-danger" data-toggle="modal" data-target="#apagarMesa<?=$mesa->id?>">
+                        <td class="project-actions text-center">
+                            <?= Html::a('<i class="fas fa-eye"></i>', ['mesa/view', 'id' => $mesa->id], ['class' => 'btn btn-info btn-sm']) ?>
+                            <?= Html::a('<i class="far fa-edit color-white"></i>', ['mesa/update', 'id' => $mesa->id], ['class' => 'btn btn-warning btn-sm']) ?>
+                            <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#apagarMesa<?=$mesa->id?>">
                                 <i class="far fa-trash-alt color-white"></i>
                             </a>
                         </td>
@@ -131,6 +131,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endforeach;?>
                 </tbody>
             </table>
+            <div class="row col-md-12 d-flex justify-content-center">
+                <?= LinkPager::widget([
+                    'pagination' => $dataProvider->getPagination(),
+                    'options' => [
+                        'class' => 'page-item',
+                    ],
+                ]);?>
+            </div>
         </div>
     </div>
     <!-- /.card-body -->

@@ -56,7 +56,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['email'], 'unique', 'message' => 'Este email já se encontra registado.'],
             [['username'], 'unique', 'message' => 'Este username já se encontra registado.'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
 
         ];
     }

@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\CategoriaProduto;
 use common\models\ProdutoCategoriaProduto;
 use common\models\ProdutoForm;
+use common\models\ProdutoSearch;
 use phpDocumentor\Reflection\Types\Integer;
 use Yii;
 use common\models\Produto;
@@ -53,10 +54,18 @@ class ProdutoController extends Controller
     {
         if (Yii::$app->user->can('consultarProdutos')) {
 
-            $produtos=Produto::find()->all();
+            $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
+
+            $searchModel = new ProdutoSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            $dataProvider->pagination = ['pageSize' => 10];
+
 
             return $this->render('index', [
-                'produtos'=>$produtos
+                'searchModel'=>$searchModel,
+                'dataProvider'=>$dataProvider,
+                'categorias'=>$categorias
             ]);
 
         }else{

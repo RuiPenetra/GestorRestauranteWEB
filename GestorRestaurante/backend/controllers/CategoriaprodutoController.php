@@ -6,6 +6,7 @@ use common\models\CategoriaProdutoSearch;
 use common\models\CategoriaProduto;
 use common\models\Produto;
 use Yii;
+use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -53,10 +54,10 @@ class CategoriaprodutoController extends Controller
 
             $searchModel = new CategoriaProdutoSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-            /*$searchModel = new UserSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
 
-            $model->editavel=true;
+            $model->editavel=1;
+
+            $dataProvider->pagination = ['pageSize' => 5];
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -69,14 +70,15 @@ class CategoriaprodutoController extends Controller
                     'positonX' => 'right',
                     'positonY' => 'top'
                 ]);
-                $model->categoria='';
+                $model->nome='';
+
                 return $this->redirect(['index']);
             }
 
             return $this->render('index', [
                 'dataProvider' => $dataProvider,
                 'searchModel' => $searchModel,
-                'model'=>$model
+                'model'=>$model,
             ]);
 
         }else{
@@ -95,6 +97,7 @@ class CategoriaprodutoController extends Controller
     {
         $categoria=$this->findModel($id);
         $produtos =Produto::findAll(['id_categoria'=>$id]);
+
 
         return $this->render('view', [
             'produtos' =>  $produtos,

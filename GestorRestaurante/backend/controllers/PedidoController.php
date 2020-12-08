@@ -13,6 +13,7 @@ use common\models\PedidoTakeawayForm;
 use common\models\Perfil;
 use common\models\Produto;
 use common\models\ProdutoCategoriaProduto;
+use common\models\ProdutoSearch;
 use common\models\User;
 use phpDocumentor\Reflection\Types\Integer;
 use Yii;
@@ -62,10 +63,17 @@ class PedidoController extends Controller
     public function actionIndex()
     {
         $searchModel = new PedidoSearch();
-        $pedidos=Pedido::find()->all();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $mesas = ArrayHelper::map(Mesa::find()->all(),'id','id');
+
+
+        $dataProvider->pagination = ['pageSize' => 5];
 
         return $this->render('index', [
-            'pedidos' => $pedidos
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'mesas' => $mesas
         ]);
     }
 
@@ -82,18 +90,6 @@ class PedidoController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Pedido model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-
-    public function actionCriar1passo()
-    {
-        return $this->render('passo1');
-
-    }
-
     public function actionCriar2passo($tipo)
     {
         $searchModel = new MesaSearch();
@@ -104,7 +100,8 @@ class PedidoController extends Controller
         $perfil = Perfil::findOne($id_user);;
         $pedido->id_perfil = $perfil->id_user;
         $pedido->estado = 0;
-        $pedido->tipo=0;
+        $pedido->tipo=$tipo;
+        $pedido->id_mesa=2;
 
         if ($pedido->tipo==0) {
 
@@ -115,15 +112,18 @@ class PedidoController extends Controller
 
         }
 
-        if ($pedido->load(Yii::$app->request->post()) && $pedido->save()) {
+        if ($pedido->load(Yii::$app->request->post())) {
 
-                return $this->redirect(['/pedidoproduto/index','id'=>$pedido->id]);
+            var_dump($pedido->id_mesa);
+            die();
 
+            return $this->redirect(['/pedidoproduto/index','id'=>$pedido->id]);
 
         }
+
         return $this->render('passo2', [
             'pedido'=>$pedido,
-           'searchModel' => $searchModel,
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider
         ]);
 

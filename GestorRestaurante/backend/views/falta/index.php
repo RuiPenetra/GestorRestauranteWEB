@@ -21,11 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
     <span style="font-size: small"><b>Legenda : </b></span>
         <button type="button" class="btn btn-outline-dark">
-            <i class="fas fa-eye"></i>
+            <i class="fas fa-user"></i>
         </button>
         Consultar utilizador
         <button type="button" class="btn btn-outline-success ml-3">
-            <i class="fas fa-check-circle"></i>
+            <i class="fas fa-plus-circle"></i>
         </button>
         Selecionar utilizador
     </p>
@@ -120,10 +120,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php endif?>
                         </td>
                         <td class="text-center">
-                            <a href="<?=Url::toRoute(['falta/create', 'id' => $perfil->id_user])?>" type="button" class="btn btn-success">
-                                <i class="fas fa-plus-circle"></i>
-                            </a>
-                            <a href="" type="button" class="btn btn-info" data-target="#verUser<?=$perfil->id_user?>" data-toggle="modal">
+                            <?=Html::a('<i class="fas fa-plus-circle"></i>', ['falta/create', 'id' => $perfil->id_user], ['class' => 'btn btn-success btn-sm']) ?>
+                            <a href="" type="button" class="btn btn-info btn-sm" data-target="#verUser<?=$perfil->id_user?>" data-toggle="modal">
                                 <i class="fas fa-user"></i>
                             </a>
                         </td>
@@ -162,20 +160,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                         <div class="info center">
                                                                             <div style="text-align: center;">
                                                                                 <?php if (Yii::$app->authManager->getAssignment('gerente',$perfil->id_user) != null):?>
-                                                                                    <span class="center badge badge-warning"><h8>Gerente</h8></span>
+                                                                                    <span class="center badge badge-warning">Gerente</span>
                                                                                 <?php endif;?>
                                                                                 <?php if (Yii::$app->authManager->getAssignment('cliente',$perfil->id_user) != null):?>
-                                                                                    <span class="center badge badge-danger"><h8>Cliente</h8></span>
+                                                                                    <span class="center badge badge-danger">Cliente</span>
                                                                                 <?php endif;?>
                                                                                 <?php if (Yii::$app->authManager->getAssignment('atendedorPedidos',$perfil->id_user) != null):?>
-                                                                                    <span class="center badge badge-primary"><h8>Atendedor Pedidos</h8></span>
+                                                                                    <span class="center badge badge-primary">Atendedor Pedidos</span>
                                                                                 <?php endif;?>
                                                                                 <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$perfil->id_user) != null
                                                                                 ):?>
-                                                                                    <span class="center badge badge-indigo-light"><h8>Empregado Mesa</h8></span>
+                                                                                    <span class="center badge badge-indigo-light">Empregado Mesa</span>
                                                                                 <?php endif;?>
                                                                                 <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$perfil->id_user) != null):?>
-                                                                                    <span class="center badge badge-success"><h8>Cozinheiro</h8></span>
+                                                                                    <span class="center badge badge-success">Cozinheiro</span>
                                                                                 <?php endif;?>
                                                                             </div>
                                                                         </div>
@@ -295,6 +293,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endforeach;?>
                 </tbody>
             </table>
+            <div class="row col-md-12 d-flex justify-content-center">
+                <?= LinkPager::widget([
+                    'pagination' => $dataProvider->getPagination(),
+                    'options' => [
+                        'class' => 'page-item',
+                    ],
+                ]);?>
+            </div>
         </div>
 
     </div>

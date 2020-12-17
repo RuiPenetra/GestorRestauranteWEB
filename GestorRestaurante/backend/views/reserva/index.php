@@ -10,6 +10,9 @@ use yii\grid\GridView;
 $this->title = 'Reservas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="col-sm-6">
+    <h1 class="m-0"><?= $this->title?></h1>
+</div><!-- /.col -->
 <div class="row col-md-12 d-flex justify-content-center">
     <?= Html::a('<div class="col-md-4">
                 <!-- small card -->

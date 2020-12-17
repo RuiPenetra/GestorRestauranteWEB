@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -17,7 +17,8 @@ class PedidoprodutoSearch extends Pedidoproduto
     public function rules()
     {
         return [
-            [['id', 'id_pedido', 'id_produto', 'estado', 'quantidade'], 'integer'],
+            [['id', 'id_pedido', 'id_produto', 'estado', 'quant_Pedida', 'quant_Entregue'], 'integer'],
+            [['preco'], 'number'],
         ];
     }
 
@@ -61,7 +62,9 @@ class PedidoprodutoSearch extends Pedidoproduto
             'id_pedido' => $this->id_pedido,
             'id_produto' => $this->id_produto,
             'estado' => $this->estado,
-            'quantidade' => $this->quantidade,
+            'quant_Pedida' => $this->quant_Pedida,
+            'preco' => $this->preco,
+            'quant_Entregue' => $this->quant_Entregue,
         ]);
 
         return $dataProvider;

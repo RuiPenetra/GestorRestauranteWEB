@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm; ?>
                                         </div>
                                     </div>
                                   </div>',
-        ['pedido/criar2passo','tipo'=>0], [ 'class'=>''])?>
+        ['pedido/create','tipo'=>0], [ 'class'=>''])?>
 
     <?= Html::a('<div class="col-md-4">
                                     <!-- small card -->
@@ -34,7 +34,7 @@ use yii\widgets\ActiveForm; ?>
                                         </div>
                                     </div>
                                   </div>',
-        ['pedido/criar2passo','tipo'=>1], [ 'class'=>''])?>
+        ['pedido/create','tipo'=>1], [ 'class'=>''])?>
 </div>
 
 <div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
@@ -55,13 +55,13 @@ use yii\widgets\ActiveForm; ?>
                 <table class="table table-striped projects">
                     <thead>
                     <tr>
-                        <th style="width: 1%">
+                        <th style="width: 7%">
                             #
                         </th>
                         <th style="width: 20%">
                             Pedido
                         </th>
-                        <th style="width: 30%">
+                        <th class="text-center" style="width: 30%">
                             Responsável
                         </th>
                         <th style="width: 20%">
@@ -77,8 +77,13 @@ use yii\widgets\ActiveForm; ?>
                     <tbody>
                     <?php foreach ($dataProvider->models as $pedido): ?>
                         <tr>
-                            <td>
-                                #
+                            <td class="text-center">
+                                <?php if($pedido->tipo==0):?>
+                                    <?= Html::img('@web/img/table.png', ['alt' => 'imgTable', 'class' => 'img-fluid']); ?>
+                                <?php endif?>
+                                <?php if($pedido->tipo==1):?>
+                                    <?= Html::img('@web/img/takeaway.png', ['alt' => 'imgTakeaway', 'class' => 'img-fluid']); ?>
+                                <?php endif?>
                             </td>
                             <td>
                                 <a>
@@ -89,7 +94,7 @@ use yii\widgets\ActiveForm; ?>
                                     Data: <?= $pedido->data ?>
                                 </small>
                             </td>
-                            <td>
+                            <td class="text-center">
                                 <ul class="list-inline">
 
                                     <li class="list-inline-item">

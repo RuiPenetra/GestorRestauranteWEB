@@ -12,6 +12,7 @@ use Yii;
  * @property string|null $ingredientes
  * @property float $preco
  * @property int $id_categoria
+ * @property int $estado
  *
  * @property PedidoProduto[] $pedidoProdutos
  * @property CategoriaProduto $categoria
@@ -32,9 +33,9 @@ class Produto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'preco', 'id_categoria'], 'required'],
+            [['nome', 'preco', 'id_categoria', 'estado'], 'required'],
             [['preco'], 'number'],
-            [['id_categoria'], 'integer'],
+            [['id_categoria', 'estado'], 'integer'],
             [['nome'], 'string', 'max' => 255],
             [['ingredientes'], 'string', 'max' => 500],
             [['nome'], 'unique'],
@@ -53,6 +54,7 @@ class Produto extends \yii\db\ActiveRecord
             'ingredientes' => 'Ingredientes',
             'preco' => 'Preco',
             'id_categoria' => 'Id Categoria',
+            'estado' => 'Estado',
         ];
     }
 

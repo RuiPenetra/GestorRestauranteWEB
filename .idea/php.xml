@@ -98,6 +98,14 @@
       <path value="$PROJECT_DIR$/GestorRestaurante/vendor/kartik-v/yii2-widget-datetimepicker" />
       <path value="$PROJECT_DIR$/GestorRestaurante/vendor/kartik-v/yii2-krajee-base" />
       <path value="$PROJECT_DIR$/GestorRestaurante/vendor/fakerphp/faker" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/symfony/debug" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/yiisoft/yii2-bootstrap" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/2amigos/yii2-date-time-picker-widget" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/bower-asset/bootstrap" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/bower-asset/smalot-bootstrap-datetimepicker" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/codeception/module-db" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/phpunit/phpunit-mock-objects" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/psr/log" />
     </include_path>
   </component>
 </project>

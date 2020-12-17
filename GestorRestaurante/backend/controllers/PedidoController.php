@@ -2,7 +2,8 @@
 
 namespace backend\controllers;
 
-use backend\models\Mesa;
+use common\models\Mesa;
+use Codeception\Util\Debug;
 use common\models\CategoriaProduto;
 use common\models\MesaSearch;
 use common\models\Pedido1passoForm;
@@ -16,12 +17,14 @@ use common\models\ProdutoCategoriaProduto;
 use common\models\ProdutoSearch;
 use common\models\User;
 use phpDocumentor\Reflection\Types\Integer;
+use Symfony\Component\Yaml\Dumper;
 use Yii;
 use common\models\Pedido;
 use common\models\PedidoSearch;
 use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -41,7 +44,7 @@ class PedidoController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','update','delete','view','criar1passo','criar2passo','criar3passo'],
+                        'actions' => ['index','create','update','delete','view'],
                         'allow' => true,
                         'roles' => ['gerente'],
                     ],
@@ -90,7 +93,7 @@ class PedidoController extends Controller
         ]);
     }
 
-    public function actionCriar2passo($tipo)
+    public function actionCreate($tipo)
     {
         $searchModel = new MesaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -101,7 +104,6 @@ class PedidoController extends Controller
         $pedido->id_perfil = $perfil->id_user;
         $pedido->estado = 0;
         $pedido->tipo=$tipo;
-        $pedido->id_mesa=2;
 
         if ($pedido->tipo==0) {
 
@@ -112,16 +114,18 @@ class PedidoController extends Controller
 
         }
 
-        if ($pedido->load(Yii::$app->request->post())) {
+        if ($pedido->load(Yii::$app->request->post()) && $pedido->save()) {
 
-            var_dump($pedido->id_mesa);
-            die();
-
-            return $this->redirect(['/pedidoproduto/index','id'=>$pedido->id]);
+            if($pedido->mesa!=null) {
+                $mesa = Mesa::findOne($pedido->id_mesa);
+                $mesa->estado = 1;
+                $mesa->save();
+            }
+                return $this->redirect(['/pedidoproduto/index','id'=>$pedido->id]);
 
         }
 
-        return $this->render('passo2', [
+        return $this->render('create', [
             'pedido'=>$pedido,
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider
@@ -161,13 +165,6 @@ class PedidoController extends Controller
 
     }
 
-    /**
-     * Updates an existing Pedido model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
         $pedido = $this->findModel($id);
@@ -190,47 +187,6 @@ class PedidoController extends Controller
 
         return $this->redirect(['index']);
     }
-
-    public function actionPedidorestaurante($id){
-
-        $searchModel = new MesaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        $model = new PedidoRestauranteForm();
-        $pedido=$this->findModel($id);
-
-        $model->id_pedido=$pedido->id;
-
-        if ($model->load(Yii::$app->request->post()) && $model->restaurante()) {
-
-           return $this->redirect(['index']);
-        }
-
-        return $this->render('pedidorestaurante', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'model' => $model
-        ]);
-
-    }
-    public function actionPedidotakeaway($id){
-
-        $model = new PedidoTakeawayForm();
-        $pedido=$this->findModel($id);
-
-        $model->id_pedido=$pedido->id;
-
-        if ($model->load(Yii::$app->request->post()) && $model->takeaway()) {
-
-            return $this->redirect(['view', 'id' => $pedido->id]);
-        }
-
-        return $this->render('pedidotakeaway', [
-            'model' => $model,
-        ]);
-
-    }
-
 
     protected function findModel($id)
     {

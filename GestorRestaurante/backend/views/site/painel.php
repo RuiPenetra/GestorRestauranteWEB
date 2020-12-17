@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'Gestor Restaurante';
+$this->title = 'Home';
 $nome='';
 use yii\helpers\Url; ?>
 <div class="site-index">
@@ -17,26 +17,26 @@ use yii\helpers\Url; ?>
                     <p>%</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                    <i class="fas fa-users"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <a href="<?= Url::toRoute(['user/index']) ?>" class="small-box-footer">
                     Mais informação <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div>
-        <!-- CARD - CARGOS -->
+        <!-- CARD - MESAS -->
         <div class="col-lg-3 col-6">
             <!-- small card -->
             <div class="small-box bg-teal">
                 <div class="inner">
-                    <h4><b>Cargo</b></h4>
+                    <h4><b>Mesas</b></h4>
 
                     <p>%</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-arrow-graph-up-right"></i>
+                    <i class="fas fa-table"></i>
                 </div>
-                <a href="#" class="small-box-footer" >
+                <a href="<?= Url::toRoute(['mesa/index']) ?>" class="small-box-footer" >
                     Mais informação <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -53,7 +53,7 @@ use yii\helpers\Url; ?>
                 <div class="icon">
                     <i class="ion ion-pricetags"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <a href="<?= Url::toRoute(['categoriaproduto/index']) ?>" class="small-box-footer">
                     Mais informação <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -69,9 +69,9 @@ use yii\helpers\Url; ?>
                     <p>%</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-wineglass"></i>
+                    <i class="fas fa-marker"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <a href="<?= Url::toRoute(['reserva/index']) ?>" class="small-box-footer">
                     Mais informação <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -89,9 +89,9 @@ use yii\helpers\Url; ?>
                     <p>%</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-fork"></i>
+                    <i class="fas fa-utensils"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <a href="<?= Url::toRoute(['produto/index']) ?>" class="small-box-footer">
                     Mais informação <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -106,9 +106,9 @@ use yii\helpers\Url; ?>
                     <p>%</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-spoon"></i>
+                    <i class="fas fa-truck"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <a href="<?= Url::toRoute(['pedido/index']) ?>" class="small-box-footer">
                     Mais informação <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -123,9 +123,9 @@ use yii\helpers\Url; ?>
                     <p>%</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-clipboard"></i>
+                    <i class="fas fa-user-alt-slash"></i>
                 </div>
-                <a href="#" class="small-box-footer">
+                <a href="<?= Url::toRoute(['falta/index']) ?>" class="small-box-footer">
                     Mais informação <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -140,9 +140,9 @@ use yii\helpers\Url; ?>
                     <p style="color: white">%</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-android-calendar"></i>
+                    <i class="fas fa-calendar-alt"></i>
                 </div>
-                <a href="#" class="small-box-footer"  >
+                <a href="<?= Url::toRoute(['horario/index']) ?>" class="small-box-footer"  >
                      Mais informação <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>

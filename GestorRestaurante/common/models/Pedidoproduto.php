@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "pedido_produto".
@@ -11,12 +12,14 @@ use Yii;
  * @property int $id_pedido
  * @property int $id_produto
  * @property int $estado
- * @property int $quantidade
+ * @property int $quant_Pedida
+ * @property float $preco
+ * @property int|null $quant_Entregue
  *
  * @property Produto $produto
  * @property Pedido $pedido
  */
-class PedidoProduto extends \yii\db\ActiveRecord
+class PedidoProduto extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -32,8 +35,9 @@ class PedidoProduto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_pedido', 'id_produto', 'estado', 'quantidade'], 'required'],
-            [['id_pedido', 'id_produto', 'estado', 'quantidade'], 'integer'],
+            [['id_pedido', 'id_produto', 'estado', 'quant_Pedida','quant_Entregue', 'preco'], 'required'],
+            [['id_pedido', 'id_produto', 'estado', 'quant_Pedida', 'quant_Entregue'], 'integer'],
+            [['preco'], 'number'],
             [['id_produto'], 'exist', 'skipOnError' => true, 'targetClass' => Produto::className(), 'targetAttribute' => ['id_produto' => 'id']],
             [['id_pedido'], 'exist', 'skipOnError' => true, 'targetClass' => Pedido::className(), 'targetAttribute' => ['id_pedido' => 'id']],
         ];
@@ -49,7 +53,9 @@ class PedidoProduto extends \yii\db\ActiveRecord
             'id_pedido' => 'Id Pedido',
             'id_produto' => 'Id Produto',
             'estado' => 'Estado',
-            'quantidade' => 'Quantidade',
+            'quant_Pedida' => 'Quant Pedida',
+            'preco' => 'Preco',
+            'quant_Entregue' => 'Quant Entregue',
         ];
     }
 

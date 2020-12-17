@@ -106,6 +106,7 @@ class ProdutoController extends Controller
         if (Yii::$app->user->can('criarProdutos')) {
 
             $produto=new Produto();
+            $produto->estado=0;
 
             $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
 

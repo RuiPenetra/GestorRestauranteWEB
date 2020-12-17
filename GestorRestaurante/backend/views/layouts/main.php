@@ -113,15 +113,6 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                             </p>
                         </a>
                     </li>
-                    <!-- CARGOS -->
-                    <li class="nav-item">
-                        <a href="<?= Url::toRoute(['cargo/index']) ?>" class="nav-link">
-                            <i class="fas fa-user-tag"></i>
-                            <p>
-                                Cargos
-                            </p>
-                        </a>
-                    </li>
                     <!-- FALTAS -->
                     <li class="nav-item">
                         <a href="<?= Url::toRoute(['falta/index']) ?>" class="nav-link">
@@ -209,12 +200,11 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0"><?= $this->title = 'Utilizadores';?></h1>
+                        <h1 class="m-0"><?= $this->title?></h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <!--TODO-->
-                        </ol>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->

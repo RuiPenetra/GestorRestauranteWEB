@@ -6,10 +6,10 @@ use common\models\CategoriaProduto;
 use common\models\Mesa;
 use common\models\MesaSearch;
 use common\models\Pedido;
+use common\models\PedidoprodutoSearch;
 use common\models\ProdutoSearch;
 use Yii;
 use common\models\Pedidoproduto;
-use app\models\PedidoprodutoSearch;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -93,15 +93,33 @@ class PedidoprodutoController extends Controller
         $pedidoProduto = new Pedidoproduto();
         $pedidoProduto->id_pedido=$pedido->id;
         $pedidoProduto->estado=0;
+        $pedidoProduto->quant_Entregue=0;
         $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
         $searchProduto= new ProdutoSearch();
         $dataProvider = $searchProduto->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 6];
 
 
-        if ($pedidoProduto->load(Yii::$app->request->post()) && $pedidoProduto->save()) {
 
+        if ($pedidoProduto->load(Yii::$app->request->post())) {
 
-            return $this->redirect(['index', 'id' => $pedidoProduto->id_pedido]);
+            $resultado=PedidoProduto::findOne(['id_produto'=>$pedidoProduto->id_produto]);
+
+            if($resultado !=null){
+
+                $resultado->quant_Pedida= $resultado->quant_Pedida + $pedidoProduto->quant_Pedida;
+                $resultado->preco=$resultado->quant_Pedida * $pedidoProduto->produto->preco;
+
+                $resultado->save();
+
+                return $this->redirect(['index', 'id' => $pedidoProduto->id_pedido]);
+
+            }else if($pedidoProduto->save()){
+
+                return $this->redirect(['index', 'id' => $pedidoProduto->id_pedido]);
+
+            }
+
         }
 
         return $this->render('create', [

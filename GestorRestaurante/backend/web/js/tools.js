@@ -1,20 +1,54 @@
- function mostrarInput() {
-    var checkBoxTakeaway = document.getElementById("checkShow");
-    var checkBoxRestaurante = document.getElementById("checkHide");
-    var text_restaurante = document.getElementById("showRestaurante");
-    var text_takeaway = document.getElementById("showTakeaway");
+
+var table = document.getElementById("table-item-pedido"), sumVal=0;
+var k;
+for(var i = 1; i < table.rows.length; i++)
+{
+    sumVal = sumVal + parseFloat(table.rows[i].cells[2].innerHTML);
+}
+document.getElementById("val").innerHTML = sumVal;
 
 
-    if (checkBoxTakeaway.checked == true){
-
-        text_takeaway.style.display = "block";
-        text_restaurante.style.display = "none";
-        document.getElementById('dropDownMesas').value = "";
-
-    }else{
-        document.getElementById('inputNome').value = "";
-        text_takeaway.style.display = "none";
-        text_restaurante.style.display = "block";
-    }
+function quantIncrement() {
+        document.getElementById('inputQuantidade').value ++;
 
 }
+function quantDeincrement() {
+    var val=document.getElementById('inputQuantidade').value;
+
+    if(val!=0){
+        document.getElementById('inputQuantidade').value --;
+    }
+}
+
+
+
+ function calcularPreco() {
+    var inputQuantidade = document.getElementById("inputQuantidade");
+    var inputPreco = document.getElementById("inputPreco");
+    var inputPrecoTotal = document.getElementById("inputPrecoTotal");
+
+     document.getElementById("inputPrecoTotal").value=document.getElementById("inputQuantidade").value * document.getElementById("inputPreco").value;
+
+
+}
+
+ function produtoSelecionado(id) {
+
+
+    if(document.getElementById("radio"+id).checked){
+
+        document.getElementById("inputNome").value=document.getElementById("produtoNome"+id).textContent;
+        document.getElementById("inputPreco").value=document.getElementById("produtoPreco"+id).textContent;
+        document.getElementById("inputQuantidade").value='0,00';
+
+
+    }
+ }
+
+ function unCkeck(id) {
+     document.getElementById("teste"+id).checked=false;
+
+     document.getElementById("inputQuantidade").value="";
+     document.getElementById("inputPrecoTotal").value="";
+ }
+;

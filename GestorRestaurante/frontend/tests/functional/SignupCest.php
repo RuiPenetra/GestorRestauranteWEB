@@ -14,6 +14,24 @@ class SignupCest
         $I->amOnRoute('site/signup');
     }
 
+    public function tryToTest(FunctionalTester $I)
+    {
+        $I->amOnPage('web/index.php?r=site%2Fsignup');
+        $I->fillField('SignupForm[nome]', 'Rui');
+        $I->fillField('SignupForm[apelido]', 'Penetra');
+        $I->fillField('SignupForm[morada]', 'Rua do Tascao');
+        $I->fillField('SignupForm[codigopostal]', '2569-499');
+        $I->fillField('SignupForm[datanascimento]', '08/12/2020');
+        $I->fillField('SignupForm[nacionalidade]', 'Portuguesa');
+        $I->fillField('SignupForm[telemovel]', '919999998');
+        $I->selectOption('SignupForm[genero]', 'Masculino');
+        $I->fillField('SignupForm[username]','Popito');
+        $I->fillField('SignupForm[email]','Popito@gmail.com');
+        $I->fillField('SignupForm[password]','Teste321');
+        $I->click('login-button');
+        $I->amOnPage('web/index.php?r=site%2Fsignup');
+    }
+
     public function signupWithEmptyFields(FunctionalTester $I)
     {
         $I->see('Signup', 'h1');

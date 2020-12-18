@@ -10,5 +10,8 @@ class FirstCest
     // tests
     public function tryToTest(AcceptanceTester $I)
     {
+        $I->wantTo('Test the response code');
+        $I->amOnPage('/');
+        $I->seeResponseCodeis('200');
     }
 }

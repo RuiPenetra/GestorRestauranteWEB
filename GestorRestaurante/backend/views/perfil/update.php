@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Perfil */
 
-$this->title = 'Update Perfil: ' . $perfil->id_user;
+$this->title = 'Perfil';
 $this->params['breadcrumbs'][] = ['label' => 'Perfils', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $perfil->id_user, 'url' => ['view', 'id' => $perfil->id_user]];
 $this->params['breadcrumbs'][] = 'Update';
@@ -24,7 +24,8 @@ $this->params['breadcrumbs'][] = 'Update';
                         <?php endif?>
                         <?php if($perfil->genero==1):?>
                             <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-fluid img-circle']); ?>
-                        <?php endif?>                    </div>
+                        <?php endif?>
+                    </div>
 
                     <h3 class="profile-username text-center"><?=$perfil->nome?> <?=$perfil->apelido?></h3>
 

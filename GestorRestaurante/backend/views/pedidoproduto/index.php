@@ -86,31 +86,91 @@ $this->params['breadcrumbs'][] = $this->title;
             <thead>
             <tr>
                 <th style="width: 60px" class="text-center"></th>
-                <th class="text-center">Nº</th>
-                <th class="text-center">Lugares</th>
+                <th class="text-center">Nome Produto</th>
+                <th class="text-center">Quant Pedida</th>
+                <th class="text-center">Quant Entregue</th>
+                <th class="text-center">Preço</th>
+                <th class="text-center">Estado</th>
+                <th class="text-center"></th>
 
             </thead>
             <tbody>
-            <?php foreach ($dataProvider->models as $mesa):?>
+            <?php foreach ($dataProvider->models as $itemPedido):?>
                 <tr>
-                    <td class="text-center"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/table.png"/></td>
-                    <td class="text-center"><?=$mesa->produto->nome?></td>
-                    <td class="text-center"><?=$mesa->preco?>€</td>
+                    <td class="text-center">
+                        <?php if ($itemPedido->produto->categoria->nome == 'Entrada'): ?>
+                            <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-fluid']); ?>
+                        <?php endif; ?>
+                        <?php if ($itemPedido->produto->categoria->nome == 'Sopa'): ?>
+                            <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-fluid']); ?>
+                        <?php endif; ?>
+                        <?php if ($itemPedido->produto->categoria->nome == 'Carne'): ?>
+                            <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-fluid']); ?>
+                        <?php endif; ?>
+                        <?php if ($itemPedido->produto->categoria->nome == 'Peixe'): ?>
+                            <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-fluid']); ?>
+                        <?php endif; ?>
+                        <?php if ($itemPedido->produto->categoria->nome == 'Sobremesa'): ?>
+                            <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-fluid']); ?>
+                        <?php endif; ?>
+                        <?php if ($itemPedido->produto->categoria->nome == 'Bebida'): ?>
+                            <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-fluid']); ?>
+                        <?php endif; ?>
+                    </td>
+                    <td class="text-center"><?=$itemPedido->produto->nome?></td>
+                    <td class="text-center"><?=$itemPedido->quant_Pedida?> <i class="fas fa-times text-red"></i></td>
+                    <td class="text-center"><?=$itemPedido->quant_Entregue?> <i class="fas fa-check text-green"></i></td>
+                    <td class="text-center"><?=$itemPedido->preco?>€</td>
+                    <td class="text-center">
+                        <?php if ($itemPedido->estado == 0): ?>
+                            <span class="badge badge-info"> Em Processo</span>
+                        <?php endif;
+                        if ($itemPedido->estado == 1):?>
+                            <span class="badge badge-warning text-white"> Em Preparação</span>
+                        <?php endif;
+                        if ($itemPedido->estado == 2):?>
+                            <span class="badge badge-success text-white"> Pronto</span>
+                        <?php endif;
+                        if ($itemPedido->estado == 3):?>
+                            <span class="badge badge-dark"> Entregue</span>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?= Html::a('  <i class="fas fa-sync fa-spin"></i>', ['pedidoproduto/cozinhaupdate', 'id' => $itemPedido->id], ['class' => 'btn btn-info btn-sm']) ?>
+                        <?= Html::a('<i class="fas fa-plus"></i>', ['pedidoproduto/update', 'id' => $itemPedido->id], ['class' => 'btn btn-success btn-sm']) ?>
+                        <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>
+                    </td>
                 </tr>
+                <div class="modal fade"  id="apagarItemPedido<?=$itemPedido->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content mt-2" >
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash"></i> Tem a certeza que quer apagar?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    Após apagar o produto selecionado não é possivel reverter.
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <?= Html::a('<b>SIM</b>', ['delete', 'id' => $itemPedido->id], [
+                                    'class' => 'btn btn-outline-success',
+                                    'data' => [
+                                        'method' => 'post',
+                                    ],
+                                ]) ?>
+                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             <?php endforeach;?>
             </tbody>
         </table>
-        <?= GridView::widget([
-                'id'=>'table-item-pedido',
-            'dataProvider' => $dataProvider,
-            'columns' => [
-                'produto.nome',
-                'produto.preco',
-                'produto.categoria.nome',
-                'quantidade',
-                'preco',
-            ],
-        ]) ?>
     </div>
     <!-- /.card-body -->
 </div>

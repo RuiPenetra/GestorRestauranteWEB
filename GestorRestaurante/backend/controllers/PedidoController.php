@@ -169,7 +169,8 @@ class PedidoController extends Controller
     {
         $pedido = $this->findModel($id);
 
-        $items_pedido=$pedido->getPedidoProdutos();
+        $searchModel = new MesaSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         if ($pedido->load(Yii::$app->request->post()) && $pedido->save()) {
             return $this->redirect(['view', 'id' => $pedido->id]);
@@ -177,14 +178,38 @@ class PedidoController extends Controller
 
         return $this->render('update', [
             'pedido' => $pedido,
-            'items_pedido'=>$items_pedido
+            'dataProvider'=>$dataProvider
         ]);
     }
 
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $pedido=$this->findModel($id);
 
+        if($pedido->estado==0){
+            $pedido->delete();
+            Yii::$app->getSession()->setFlash('success', [
+                'type' => 'success',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Pedido eliminado com sucesso',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+
+        }else{
+            Yii::$app->getSession()->setFlash('danger', [
+                'type' => 'danger',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Não é possivel eliminar o pedido, porque se encontra em processo/concluido',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+
+        }
         return $this->redirect(['index']);
     }
 

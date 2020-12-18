@@ -6,7 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Pedidoproduto */
 
-$this->title = 'Atualizar item';
+$this->title = 'Cozinha';
+
 ?>
 <?php $form = ActiveForm::begin(['class'=>'','validateOnBlur'=>false])?>
 
@@ -37,24 +38,26 @@ $this->title = 'Atualizar item';
                 <label>Quantidade:</label>
             </div>
             <div class="row col-md-12 d-flex justify-content-center">
+                <div class="col-md-5 d-flex justify-content-center">
+                    <?= $form->field($itemPedido, 'quant_Pedida')->textInput(['type'=>'text','class'=>' form-control w-75 rounded', 'readonly'=>'true'])->label(false) ?>
+                </div>
+            </div>
+            <div class="row col-md-12 d-flex justify-content-center">
                 <div class="col-md-2">
                     <i class="fas fa-minus-circle fa-2x" style="color: red" onclick="quantDeincrement(<?=$itemPedido->id?>,<?=$itemPedido->produto->preco?>);"></i>
                 </div>
                 <div class="col-md-5 d-flex justify-content-center">
-                    <?= $form->field($itemPedido, 'quant_Pedida')->textInput(['type'=>'text','value'=>$itemPedido->quant_Pedida,'class'=>' form-control w-75 rounded','id'=>'inputQuantidade'.$itemPedido->id, 'readonly'=>'true','oninput'=>'calcularPreco('.$itemPedido->id.','.$itemPedido->produto->preco.')', 'placeholder'=>'0'])->label(false) ?>
+                    <?= $form->field($itemPedido, 'quant_Entregue')->textInput(['type'=>'text','class'=>' form-control w-75 rounded','id'=>'inputQuantidade'.$itemPedido->id, 'readonly'=>'true', 'placeholder'=>'0'])->label(false) ?>
                 </div>
                 <div class="col-md-2">
                     <i class="fas fa-plus-circle fa-2x" style="color: limegreen" onclick="quantIncrement(<?=$itemPedido->id?>,<?=$itemPedido->produto->preco?>);"></i>
                 </div>
             </div>
-            <div class="col-md-6 d-flex justify-content-center">
-                <?= $form->field($itemPedido, 'preco')->textInput(['type'=>'number','class'=>' form-control rounded w-75','min'=>'0' , 'step'=>'0.01','id'=>'inputPrecoTotal'.$itemPedido->id, 'readonly'=>'true'])->label('Preço Total') ?>
-            </div>
         </div>
     </div>
 </div>
 <div class="row col-md-12 d-flex justify-content-center">
-    <?= $form->field($pedido, 'nota')->textarea(['class'=>' form-control','value'=>$itemPedido->pedido->nota,'rows'=>5,'cols'=>60])->label(true) ?>
+    <?= $form->field($itemPedido->pedido, 'nota')->textarea(['class'=>' form-control','readonly'=>'true','value'=>$itemPedido->pedido->nota,'rows'=>5,'cols'=>60])->label(true) ?>
 </div>
 
 <?= Html::submitButton('Atualizar', ['class' => 'btn btn-success']) ?>

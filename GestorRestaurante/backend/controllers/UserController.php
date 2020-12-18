@@ -21,7 +21,6 @@ use yii\filters\VerbFilter;
  */
 class UserController extends Controller
 {
-    public $cargo;
     /**
      * {@inheritdoc}
      */
@@ -94,8 +93,16 @@ class UserController extends Controller
 
             $model = new SignupForm();
             if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-                Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-
+/*                Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');*/
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Utilizador criado com sucesso',
+                    'title' => 'Sucesso',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
                 return $this->redirect(['index']);
             }
 
@@ -122,9 +129,14 @@ class UserController extends Controller
 
         if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
 
-            $this->actionRemovecargo($perfil->id_user);
+            $cargoAtual=$this->actionGetcargo($user->id);
 
-            $this->actionUpdatecargo($perfil->cargo,$perfil->id_user);
+            if($perfil->cargo!=$cargoAtual){
+
+                $this->actionRemovecargo($perfil->id_user);
+
+                $this->actionUpdatecargo($perfil->cargo,$perfil->id_user);
+            }
 
             return $this->redirect(['view', 'id' => $user->id]);
         }

@@ -139,13 +139,6 @@ class ProdutoController extends Controller
 
     }
 
-    /**
-     * Updates an existing Produto model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
         if (Yii::$app->user->can('atualizarProdutos')) {
@@ -154,14 +147,13 @@ class ProdutoController extends Controller
 
             $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
 
-
             if ($produto->load(Yii::$app->request->post()) && $produto->save()) {
 
                 Yii::$app->getSession()->setFlash('success', [
                     'type' => 'success',
                     'duration' => 5000,
                     'icon' => 'fas fa-tags',
-                    'message' => 'Produto criado com sucesso',
+                    'message' => 'Produto atualizado com sucesso',
                     'title' => 'ALERTA',
                     'positonX' => 'right',
                     'positonY' => 'top'
@@ -171,7 +163,7 @@ class ProdutoController extends Controller
 
             }
 
-            return $this->render('create', [
+            return $this->render('update', [
                 'categorias' => $categorias,
                 'produto' => $produto
             ]);
@@ -182,31 +174,23 @@ class ProdutoController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Produto model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($id)
     {
 
+        $produto=$this->findModel($id);
 
-        ProdutoCategoriaProduto::deleteAll(['id_produto' => $id]);
-
+        $produto->estado=1;
+        $produto->save();
 
         Yii::$app->getSession()->setFlash('success', [
             'type' => 'success',
             'duration' => 5000,
             'icon' => 'fas fa-tags',
-            'message' => 'Produto apagado com sucesso',
+            'message' => 'Produto inativado com sucesso',
             'title' => 'ALERTA',
             'positonX' => 'right',
             'positonY' => 'top'
         ]);
-
-        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }

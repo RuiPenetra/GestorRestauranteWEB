@@ -70,7 +70,7 @@ $this->title = 'Criar Pedido';
                             <td>
                                 <?php if($mesa->estado==2):?>
                                     <div style="height: 15px">
-                                        <?= $form->field($pedido, 'id_mesa')->radio(['class'=>'form-group mb-0','uncheck'=>null,'value' => $mesa->id])->label('Selecioanr')?>
+                                        <?= $form->field($pedido, 'id_mesa')->radio(['class'=>'','uncheck'=>null,'value' => $mesa->id,'label'=>'Selecionar'])?>
                                     </div>
                                 <?php endIf?>
                             </td>

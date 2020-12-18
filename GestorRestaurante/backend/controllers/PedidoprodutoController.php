@@ -31,7 +31,7 @@ class PedidoprodutoController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','create','update','delete','view'],
+                        'actions' => ['index','create','update','cozinhaupdate','delete','view'],
                         'allow' => true,
                         'roles' => ['gerente'],
                     ],
@@ -107,15 +107,20 @@ class PedidoprodutoController extends Controller
 
             if($resultado !=null){
 
-                $resultado->quant_Pedida= $resultado->quant_Pedida + $pedidoProduto->quant_Pedida;
-                $resultado->preco=$resultado->quant_Pedida * $pedidoProduto->produto->preco;
+                $resultado->quant_Pedida=$pedidoProduto->quant_Pedida;
+                $resultado->preco=$pedidoProduto->quant_Pedida*$pedidoProduto->produto->preco;
 
-                $resultado->save();
+                if($resultado->save()){
 
-                return $this->redirect(['index', 'id' => $pedidoProduto->id_pedido]);
+                    $pedido->load(Yii::$app->request->post());
 
-            }else if($pedidoProduto->save()){
+                    $pedido->save();
+                    return $this->redirect(['index', 'id' => $pedidoProduto->id_pedido]);
 
+                }
+
+            }else{
+                $pedidoProduto->save();
                 return $this->redirect(['index', 'id' => $pedidoProduto->id_pedido]);
 
             }
@@ -124,6 +129,7 @@ class PedidoprodutoController extends Controller
 
         return $this->render('create', [
             'pedidoProduto'=>$pedidoProduto,
+            'pedido'=>$pedido,
             'categorias'=>$categorias,
             'dataProvider'=>$dataProvider,
             'searchProduto'=>$searchProduto,
@@ -141,16 +147,61 @@ class PedidoprodutoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $pedido=Pedido::findOne($model->id_pedido);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $pedido->load(Yii::$app->request->post());
+
+            $pedido->save();
+            return $this->redirect(['index', 'id' => $model->id_pedido]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'itemPedido' => $model,
+            'pedido' => $pedido,
         ]);
     }
 
+    public function actionCozinhaupdate($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $pedido=Pedido::findOne($model->id_pedido);
+
+            if($model->quant_Entregue<$model->quant_Pedida){
+
+                $model->estado=1;
+                $model->save();
+                $pedido->estado=1;
+                $pedido->save();
+            }elseif ($model->quant_Entregue==$model->quant_Pedida){
+                $model->estado=2;
+                $model->save();
+                $pedido->estado=1;
+                $pedido->save();
+            }else{
+                Yii::$app->getSession()->setFlash('danger', [
+                    'type' => 'danger',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Quantidade Entregue superior a quantidade pedida',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+                return $this->render('updatecozinha', [
+                    'itemPedido' => $model,
+                ]);
+            }
+            return $this->redirect(['index', 'id' => $model->id_pedido]);
+        }
+
+        return $this->render('updatecozinha', [
+            'itemPedido' => $model,
+        ]);
+    }
     /**
      * Deletes an existing Pedidoproduto model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -160,9 +211,36 @@ class PedidoprodutoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        $itemPedido =$this->findModel($id);
+
+        if($itemPedido->estado!=0){
+            Yii::$app->getSession()->setFlash('danger', [
+                'type' => 'danger',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'O produto/produtos que pretende apagar já se encontra em preparação',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+
+        }else{
+
+            $itemPedido->delete();
+            Yii::$app->getSession()->setFlash('success', [
+                'type' => 'success',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'O produto/produtos foram apagados com sucesso',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+
+        }
+
+        return $this->redirect(['index', 'id' => $itemPedido->id_pedido]);
     }
 
     /**

@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = 'Pedidos';
 
 use yii\bootstrap4\Html;
 use yii\bootstrap4\LinkPager;
@@ -116,35 +116,69 @@ use yii\widgets\ActiveForm; ?>
                                 </ul>
                             </td>
                             <td class="project_progress">
-                                <div class="progress progress-sm">
-                                    <div class="progress-bar bg-green" role="progressbar" aria-valuenow="57"
-                                         aria-valuemin="0" aria-valuemax="100" style="width: 57%">
+                                <?php if ($pedido->estado == 0): ?>
+                                    <div class="progress progress-sm active">
+                                        <div class="progress-bar bg-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                                        </div>
                                     </div>
-                                </div>
-                                <small>
-                                    57% Complete
-                                </small>
+                                <?php endif;
+                                if ($pedido->estado == 1):?>
+                                    <div class="progress progress-sm active">
+                                        <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                                        </div>
+                                    </div>
+                                <?php endif;
+                                if ($pedido->estado == 2):?>
+                                    <div class="progress progress-sm active">
+                                        <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
                             </td>
                             <td class="project-state">
                                 <?php if ($pedido->estado == 0): ?>
                                     <span class="badge badge-info"> Em Processo</span>
                                 <?php endif;
                                 if ($pedido->estado == 1):?>
-                                    <span class="badge badge-warning"> Em Progresso</span>
+                                    <span class="badge badge-warning text-white"> Em Progresso</span>
                                 <?php endif;
                                 if ($pedido->estado == 2):?>
-                                    <span class="badge badge-success"> Concluido</span>
+                                    <span class="badge badge-success text-white"> Concluido</span>
                                 <?php endif; ?>
                             </td>
                             <td class="project-actions text-right">
-                                <?= Html::a('<i class="fas fa-folder"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-primary btn-sm']) ?>
+                                <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
                                 <?= Html::a('<i class="fas fa-cart-plus"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-success btn-sm']) ?>
-                                <a class="btn btn-danger btn-sm" href="#">
-                                    <i class="fas fa-trash">
-                                    </i>
-                                </a>
+                                <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $pedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarPedido'.$pedido->id,]) ?>
                             </td>
                         </tr>
+                        <div class="modal fade"  id="apagarPedido<?=$pedido->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content mt-2" >
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash"></i> Tem a certeza que quer apagar?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            Após apagar o pedido selecionado não é possivel reverter.
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <?= Html::a('<b>SIM</b>', ['delete', 'id' => $pedido->id], [
+                                            'class' => 'btn btn-outline-success',
+                                            'data' => [
+                                                'method' => 'post',
+                                            ],
+                                        ]) ?>
+                                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     <?php endforeach; ?>
                     </tbody>
                 </table>

@@ -10,21 +10,6 @@ use yii\widgets\DetailView;
 
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0"><?=$perfil->nome?> <?=$perfil->apelido?></h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="<?= Url::toRoute(['user/index']) ?>">Utilizadores</a></li>
-                    <li class="breadcrumb-item active"><?=$perfil->nome?> <?=$perfil->apelido?></li>
-                </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-</div>
 <div class="utilizador-view">
         <div class="row d-flex justify-content-center">
             <div class="col-10">
@@ -41,17 +26,21 @@ use yii\widgets\DetailView;
                                 <div class="col-6">
                                     <div class="box-body box-profile user-painel mt-3">
                                         <div class="profile-username text-center">
-                                            <img class="img-responsive img-circle" width="100px" height="100px" src="img/perfil.png" alt="imgPerfil">
-                                            <div class="info center">
+                                            <?php if($perfil->genero==0):?>
+                                                <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img img-fluid img-circle']); ?>
+                                            <?php endif?>
+                                            <?php if($perfil->genero==1):?>
+                                                <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img img-fluid img-circle']); ?>
+                                            <?php endif?>                                              <div class="info center">
                                                 <div style="text-align: center;">
                                                     <?php if (Yii::$app->authManager->getAssignment('gerente',$user->id) != null):?>
-                                                        <span class="center badge badge-warning"><h8>Gerente</h8></span>
+                                                        <span class="center badge badge-warning text-white"><h8>Gerente</h8></span>
                                                     <?php endif;?>
                                                     <?php if (Yii::$app->authManager->getAssignment('cliente',$user->id) != null):?>
-                                                        <span class="center badge badge-danger"><h8>Cliente</h8></span>
+                                                        <span class="center badge badge-danger text-white"><h8>Cliente</h8></span>
                                                     <?php endif;?>
                                                     <?php if (Yii::$app->authManager->getAssignment('atendedorPedidos',$user->id) != null):?>
-                                                        <span class="center badge badge-primary"><h8>Atendedor Pedidos</h8></span>
+                                                        <span class="center badge badge-primary text-white"><h8>Atendedor Pedidos</h8></span>
                                                     <?php endif;?>
                                                     <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$user->id) != null
                                                     ):?>

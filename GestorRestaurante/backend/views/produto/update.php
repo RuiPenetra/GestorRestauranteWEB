@@ -7,13 +7,13 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Produto */
 
-
+$this->title = 'Atualizar Produto';
 ?>
 <div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
     <div class="card-header">
         <h3 class="card-title">
             <i class="fas fa-bullhorn"></i>
-            Criar produto
+            Atualizar produto
         </h3>
         <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -48,7 +48,7 @@ use yii\widgets\ActiveForm;
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
-                        <?=$form->field($produto,'id_categoria_produto')->dropDownList($categorias)->label(false);?>
+                        <?=$form->field($produto,'id_categoria')->dropDownList($categorias)->label(false);?>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -56,7 +56,7 @@ use yii\widgets\ActiveForm;
                         <?= $form->field($produto, 'ingredientes')->textArea([ 'class'=>'col-12','maxlength' => 300, 'rows' => 3 , 'cols' => 40,'placeholder'=>'Ingredientes'])->label(false)?>
                     </div>
                     <div class="input-group mb-3">
-                        <?= Html::submitButton('Criar', ['class' => 'btn login_btn col-md-4', 'name' => 'login-button']) ?>
+                        <?= Html::submitButton('Atualizar', ['class' => 'btn login_btn col-md-4', 'name' => 'login-button']) ?>
                     </div>
                 </div>
             </div>

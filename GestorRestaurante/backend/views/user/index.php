@@ -99,8 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php if (Yii::$app->authManager->getAssignment('atendedorPedidos',$user->id_user) != null):?>
                                     Atendedor Pedidos
                                 <?php endif;?>
-                                <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$user->id_user) != null
-                                ):?>
+                                <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$user->id_user) != null):?>
                                     Empregado Mesa
                                 <?php endif;?>
                                 <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$user->id_user) != null):?>

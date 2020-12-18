@@ -118,9 +118,13 @@ use yii\helpers\Url;
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
                                         </div>
-                                   <?= $form->field($perfil, 'cargo')->dropDownList(['gerente' => 'Gerente', 'atendedorPedidos' => 'Atendedor Pedidos', 'empregadoMesa' => 'Empregado Mesa', 'cozinheiro' => 'Cozinheiro', 'cliente' => 'Cliente'],
-                                            ['prompt'=>'Selecione...'],['maxlenght'=> true],
-                                            ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
+                                        <?php if($perfil->cargo=="gerente"):?>
+                                   <?= $form->field($perfil, 'cargo')->textInput(['class' => 'form-control input_user rounded-right','readonly'=>'true'])->label(false); ?>
+                                        <?php else:?>
+                                            <?= $form->field($perfil, 'cargo')->dropDownList(['gerente' => 'Gerente', 'atendedorPedidos' => 'Atendedor Pedidos', 'empregadoMesa' => 'Empregado Mesa', 'cozinheiro' => 'Cozinheiro', 'cliente' => 'Cliente'],
+                                                ['prompt'=>'Selecione...'],['maxlenght'=> true],
+                                                ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
+                                        <?php endif;?>
                                     </div>
                                 </div>
                             </div>

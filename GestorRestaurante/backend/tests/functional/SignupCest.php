@@ -5,12 +5,13 @@ class SignupCest
 {
     public function _before(FunctionalTester $I)
     {
-        $I->amOnPage('backend/web/index.php?r=user%2Fcreate');
     }
 
     // tests
     public function tryToTest(FunctionalTester $I)
     {
+
+        $I->amOnRoute('user/create');
         $I->fillField('SignupForm[nome]', 'Rui');
         $I->fillField('SignupForm[apelido]', 'Penetra');
         $I->fillField('SignupForm[morada]', 'Rua do Tascao');

@@ -151,7 +151,7 @@ AppAsset::register($this);?>
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="#" role="button">
+                <a class="nav-link" href="<?=URL::toRoute(['perfil/myperfil','id'=>$id])?>" role="button">
                     <i class="fas fa-user-edit"></i>
                     Perfil
                 </a>
@@ -167,7 +167,7 @@ AppAsset::register($this);?>
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="<?=Url::toRoute('site/main')?>" class="brand-link">
+            <a href="<?=Url::toRoute('site/index')?>" class="brand-link">
                 <?= Html::img('img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'style' =>'opacity: .8']);?>
                 <span class="brand-text font-weight-light">Gestor Restaurante</span>
             </a>
@@ -248,7 +248,7 @@ AppAsset::register($this);?>
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="#" role="button">
+                <a class="nav-link" href="<?=URL::toRoute(['perfil/myperfil','id'=>$id])?>" role="button">
                     <i class="fas fa-user-edit"></i>
                     Perfil
                 </a>
@@ -263,7 +263,7 @@ AppAsset::register($this);?>
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="<?=Url::toRoute('site/main')?>" class="brand-link">
+            <a href="<?=Url::toRoute('site/index')?>" class="brand-link">
                 <?= Html::img('img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'style' =>'opacity: .8']);?>
                 <span class="brand-text font-weight-light">Gestor Restaurante</span>
             </a>
@@ -344,7 +344,7 @@ AppAsset::register($this);?>
             <ul class="navbar-nav ml-auto">
                 <!-- Messages Dropdown Menu -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#" role="button">
+                    <a class="nav-link" href="<?=URL::toRoute(['perfil/myperfil','id'=>$id])?>" role="button">
                         <i class="fas fa-user-edit"></i>
                         Perfil
                     </a>

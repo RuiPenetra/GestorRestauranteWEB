@@ -415,10 +415,10 @@ AppAsset::register($this);?>
 
                         <!--RESERVA-->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<?= Url::toRoute('reserva/index')?>" class="nav-link">
                                 <i class="fas fa-marker"></i>
                                 <p>
-                                    Reserva
+                                    Reservas
                                 </p>
                             </a>
                         </li>

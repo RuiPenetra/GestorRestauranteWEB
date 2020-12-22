@@ -33,7 +33,7 @@ class ReservaController extends Controller
                 'class'=> AccessControl::className(),
                 'rules'=>[
                     [
-                        'actions'=>['index','view','create','update','delete'],
+                        'actions'=>['index','view','create','update','delete','create2'],
                         'allow'=>true,
                         'roles'=>['atendedorPedidos'],
                     ],
@@ -82,8 +82,19 @@ class ReservaController extends Controller
         $searchModel = new MesaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $id_user = Yii::$app->user->identity->getId();
+
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            if ($model->mesa!=null) {
+
+                $mesa=Mesa::findOne($model->id_mesa);
+                $mesa->estado = 1;
+                $mesa->save();
+
+            }
+            return $this->redirect(['/reserva/create2', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -95,7 +106,7 @@ class ReservaController extends Controller
 
     public function actionCreate2()
     {
-        return $this->redirect(['view','id'=> $model->id]);
+        return $this->render('create2');
     }
     /**
      * Updates an existing Reserva model.

@@ -43,7 +43,7 @@ class PedidoController extends Controller
         $id = Yii::$app->user->identity->id;
 
 
-        $pedidos = Pedido::find()->where(['id_perfil'=>$id])->all();
+        $pedidos = Pedido::find()->all();
 
         return $this->render('index', [
             'pedidos' => $pedidos

@@ -85,7 +85,9 @@ $this->title = 'Criar Pedido';
         </div>
             <?php }?>
         <div class="col-md-12 text-center">
+
             <?= Html::submitButton('Seguinte', ['class' => 'btn btn-success']) ?>
+
             <?php ActiveForm::end(); ?>
         </div>
     </div>

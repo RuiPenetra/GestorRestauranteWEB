@@ -50,11 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <td class="text-center"><span class="badge bg-success">Livre</span></td>
                                 <?php endif;?>
                                 <td>
-                                    <?php if($mesa->estado==2 || $mesa->estado==0 ||$mesa->estado==1):?>
-                                        <div style="height: 15px">
-                                            <?= $form->field($mesa, 'id')->radio(['class'=>'','uncheck'=>null,'value' => $mesa->id,'label'=>'Selecionar'])?>
-                                        </div>
-                                    <?php endIf?>
+                                            <?= $form->field($mesa, 'id')->radio(['class'=>'','checked'=>false,'value' => $mesa->id,'label'=>'Selecionar'])?>
                                 </td>
                             </tr>
                         <?php endforeach;?>
@@ -64,7 +60,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="col-md-12 text-center">
                 <?= Html::submitButton('Seguinte', ['class' => 'btn btn-success']) ?>
+
                 <?php ActiveForm::end(); ?>
+
             </div>
         </div>
     </div>

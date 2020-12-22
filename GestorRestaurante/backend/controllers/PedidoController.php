@@ -67,7 +67,7 @@ class PedidoController extends Controller
     {
         $searchModel = new PedidoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
         $mesas = ArrayHelper::map(Mesa::find()->all(),'id','id');
 
 

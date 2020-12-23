@@ -4,10 +4,13 @@ namespace frontend\controllers;
 
 
 use Codeception\Lib\Connector\Yii2;
+use common\models\Mesa;
 use kartik\datetime\DateTimePicker;
 use Yii;
 use common\models\Pedido;
 use common\models\PedidoSearch;
+use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -22,6 +25,22 @@ class PedidoController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['cliente'],
+                    ],
+
+                    [
+                        'actions' => ['index','view','create','update','delete'],
+                        'allow' => true,
+                        'roles' => ['atendedorPedidos'],
+                    ]
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -37,19 +56,31 @@ class PedidoController extends Controller
      */
     public function actionIndex()
     {
-        /*$searchModel = new PedidoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);*/
+        if (\Yii::$app->user->can('consultarPedidos') || \Yii::$app->user->can('consultarTakeaway')){
+            $id = Yii::$app->user->identity->id;
 
-        $id = Yii::$app->user->identity->id;
+        $searchModel = new PedidoSearch();
+        if (\Yii::$app->user->can('consultarTakeaway')){
+        $searchModel->id_perfil = $id;
+             }
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $mesas = ArrayHelper::map(Mesa::find()->all(),'id','id');
 
 
-        $pedidos = Pedido::find()->all();
+            $dataProvider->pagination = ['pageSize' => 5];
 
-        return $this->render('index', [
-            'pedidos' => $pedidos
-            /*'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,*/
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+                'searchModel' => $searchModel,
+                'mesas' => $mesas
+
         ]);
+        }else{
+            return $this->render('/site/error',[
+               'name'=>'name'
+            ]);
+
+        }
     }
 
     /**

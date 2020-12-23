@@ -8,32 +8,23 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="pedido-search">
+<?php $form = ActiveForm::begin([
+    'method' => 'get',
+]); ?>
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+<div class="row col-md-12">
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'data') ?>
-
-    <?= $form->field($model, 'estado') ?>
-
-    <?= $form->field($model, 'tipo') ?>
-
-    <?= $form->field($model, 'nome_pedido') ?>
-
-    <?php // echo $form->field($model, 'id_mesa') ?>
-
-    <?php // echo $form->field($model, 'id_perfil') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+    <div class="col-md-2">
+        <?= $form->field($model, 'tipo')->dropDownList(['0' => 'Restaurante', '1' => 'Takeaway'],['prompt'=>'Selecione...', 'maxlenght'=> true,'class' => 'form-control rounded'])->label(false); ?>    </div>
+    <div class="col-md-2">
+        <?= $form->field($model, 'estado')->dropDownList(['0' => 'Em Processo', '1' => 'Em Progresso', '2' => 'Concluido'],['prompt'=>'Selecione...', 'maxlenght'=> true,'class' => 'form-control rounded'])->label(false); ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
+    <div class="col-md-3">
+        <?= $form->field($model, 'id_mesa')->dropDownList($mesas,['prompt'=>'Selecione...', 'maxlenght'=> true,'class' => 'form-control rounded'])->label(false); ?>
+    </div>
+    <div class="col-md-3">
+        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
+    </div>
 </div>
+<?php ActiveForm::end(); ?>
+

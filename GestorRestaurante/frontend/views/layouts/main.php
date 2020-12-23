@@ -114,6 +114,8 @@ AppAsset::register($this);?>
                         </p>
                     </a>
                 </li>
+
+
                 <!-- CONTACTOS -->
                 <li class="nav-item">
                     <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
@@ -124,16 +126,7 @@ AppAsset::register($this);?>
                     </a>
                 </li>
             </ul>
-            <!--EXTRA-->
-            <!-- RESERVA -->
-            <!-- <li class="nav-item">
-                 <a href="#" class="nav-link">
-                     <i class="fas fa-poll-h"></i>
-                     <p>
-                         Reserva
-                     </p>
-                 </a>
-             </li>-->
+
 
         </nav>
         <!-- /.sidebar-menu -->
@@ -210,6 +203,26 @@ AppAsset::register($this);?>
                                 </p>
                             </a>
                         </li>
+
+                        <!--Faltas-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-users"></i>
+                                <p>
+                                    Faltas
+                                </p>
+                            </a>
+                        </li>
+
+                        <!--HORARIO-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-clock"></i>
+                                <p>
+                                    Horario
+                                </p>
+                            </a>
+                        </li>
                         <!-- CONTACTOS -->
                         <li class="nav-item">
                             <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
@@ -220,16 +233,7 @@ AppAsset::register($this);?>
                             </a>
                         </li>
                     </ul>
-                    <!--EXTRA-->
-                    <!-- RESERVA -->
-                    <!-- <li class="nav-item">
-                         <a href="#" class="nav-link">
-                             <i class="fas fa-poll-h"></i>
-                             <p>
-                                 Reserva
-                             </p>
-                         </a>
-                     </li>-->
+
 
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -307,6 +311,26 @@ AppAsset::register($this);?>
                             </a>
                         </li>
 
+                        <!--Faltas-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-users"></i>
+                                <p>
+                                    Faltas
+                                </p>
+                            </a>
+                        </li>
+
+                        <!--HORARIO-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-clock"></i>
+                                <p>
+                                    Horario
+                                </p>
+                            </a>
+                        </li>
+
                         <!-- CONTACTOS -->
                         <li class="nav-item">
                             <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
@@ -317,16 +341,8 @@ AppAsset::register($this);?>
                             </a>
                         </li>
                     </ul>
-                    <!--EXTRA-->
-                    <!-- RESERVA -->
-                    <!-- <li class="nav-item">
-                         <a href="#" class="nav-link">
-                             <i class="fas fa-poll-h"></i>
-                             <p>
-                                 Reserva
-                             </p>
-                         </a>
-                     </li>-->
+
+
 
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -422,7 +438,25 @@ AppAsset::register($this);?>
                                 </p>
                             </a>
                         </li>
+                        <!--Faltas-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-users"></i>
+                                <p>
+                                    Faltas
+                                </p>
+                            </a>
+                        </li>
 
+                        <!--HORARIO-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-clock"></i>
+                                <p>
+                                    Horario
+                                </p>
+                            </a>
+                        </li>
                         <!-- CONTACTOS -->
                         <li class="nav-item">
                             <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
@@ -433,7 +467,7 @@ AppAsset::register($this);?>
                             </a>
                         </li>
                     </ul>
-                    <!--EXTRA-->
+
 
 
                 </nav>

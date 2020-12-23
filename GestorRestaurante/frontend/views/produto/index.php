@@ -111,15 +111,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td class="text-center">
                         <ul>
                         <span class="product-description text-right">
-                                <a href="" type="button" class="btn btn-info btn-sm" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?=$produto->id?>">
-                                   <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="<?=Url::toRoute(['produto/update', 'id' => $produto->id])?>" type="button" class="btn btn-warning btn-sm" style="width: 40px;">
-                                   <i class="far fa-edit color-white"></i>
-                                </a>
-                                <a href="" type="button" class="btn btn-danger btn-sm" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?=$produto->id?>">
-                                    <i class="far fa-trash-alt color-white"></i>
-                                </a>
+
+                                <?= Html::a('<i class="fas fa-eye"></i>', ['produto/view', 'id' => $produto->id], ['class' => 'btn btn-info btn-sm']) ?>
+                                <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$id) !=null){?>
+                                <?= Html::a('<i class="far fa-edit color-white"></i>', ['produto/update', 'id' => $produto->id], ['class' => 'btn btn-warning btn-sm']) ?>
+                                <?= Html::a('<i class="far fa-trash-alt color-white"></i>', ['produto/delete', 'id' => $produto->id], ['class' => 'btn btn-danger btn-sm','data' => [
+                                'confirm' => 'Are you sure you want to delete this item?',
+                                'method' => 'post',
+                                 ]]) ;}?>
+
                       </span>
 
                     </td>

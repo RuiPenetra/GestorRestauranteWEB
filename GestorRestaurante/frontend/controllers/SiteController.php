@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use Cassandra\Date;
 use common\models\CategoriaProduto;
 use common\models\ProdutoCategoriaProduto;
+use common\models\ProdutoSearch;
 use common\models\SignupForm;
 use DateTime;
 use frontend\models\ResendVerificationEmailForm;
@@ -13,6 +14,7 @@ use Yii;
 use yii\base\InvalidArgumentException;
 //use yii\debug\models\search\User;
 use yii\db\Query;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -195,11 +197,16 @@ class SiteController extends Controller
     public function actionMenu()
     {
         $produtos=Produto::find()->all();
-
+        $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
+        $searchModel = new ProdutoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         if (Yii::$app->user->isGuest) {
             $this->layout = 'main_principal';
             return $this->render('menu', [
-                'produtos' => $produtos]);
+                'categorias'=>$categorias,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
         }
         else
         {
@@ -209,41 +216,6 @@ class SiteController extends Controller
         }
     }
 
-    public function actionMenuentradas()
-    {
-        $this->layout='main_principal';
-        return $this->render('entradas');
-    }
-
-    public function actionMenucarne()
-    {
-        $this->layout='main_principal';
-        return $this->render('carne');
-    }
-
-    public function actionMenupeixe()
-    {
-        $this->layout='main_principal';
-        return $this->render('peixe');
-    }
-
-    public function actionMenubebida()
-    {
-        $this->layout='main_principal';
-        return $this->render('bebida');
-    }
-
-    public function actionMenusopa()
-    {
-        $this->layout='main_principal';
-        return $this->render('sopa');
-    }
-
-    public function actionMenusobremesa()
-    {
-        $this->layout='main_principal';
-        return $this->render('sobremesa');
-    }
 
     /**
      * Signs user up.

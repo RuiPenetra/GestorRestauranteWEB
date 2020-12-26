@@ -26,6 +26,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'id_categoria')->dropDownList($categorias,['prompt'=>'Todas as Categorias'])->label(false);?>
 </div>
     </div>
+    
     <div class="form-group d-flex justify-content-center">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
     </div>

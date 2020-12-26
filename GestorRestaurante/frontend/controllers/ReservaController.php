@@ -2,9 +2,12 @@
 
 namespace frontend\controllers;
 
+use common\models\Mesa;
+use common\models\MesaSearch;
 use Yii;
 use common\models\Reserva;
 use common\models\ReservaSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -24,6 +27,16 @@ class ReservaController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access'=>[
+                'class'=> AccessControl::className(),
+                'rules'=>[
+                    [
+                        'actions'=>['index','view','create','update','delete','create2'],
+                        'allow'=>true,
+                        'roles'=>['atendedorPedidos'],
+                    ],
                 ],
             ],
         ];
@@ -64,17 +77,37 @@ class ReservaController extends Controller
      */
     public function actionCreate()
     {
+
         $model = new Reserva();
+        $searchModel = new MesaSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $id_user = Yii::$app->user->identity->getId();
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            if ($model->mesa!=null) {
+
+                $mesa=Mesa::findOne($model->id_mesa);
+                $mesa->estado = 1;
+                $mesa->save();
+
+            }
+            return $this->redirect(['/reserva/create2', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider'=> $dataProvider
         ]);
     }
 
+    public function actionCreate2()
+    {
+        return $this->render('create2');
+    }
     /**
      * Updates an existing Reserva model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -87,7 +120,7 @@ class ReservaController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('update', [

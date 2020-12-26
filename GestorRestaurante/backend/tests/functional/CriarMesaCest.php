@@ -11,6 +11,7 @@ class CriarMesaCest
     // tests
     public function tryToTest(FunctionalTester $I)
     {
+        $I->amOnPage('mesa/index');
         $I->wantTo('Create a table');
         $I->fillField('Mesa[id]','50');
         $I->fillField('Mesa[n_lugares]','5');

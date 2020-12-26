@@ -8,34 +8,63 @@ $this->title = 'Gestor Restaurante';
 ?>
 <h1 align="center"><b>Ementa</b></h1>
 <div class="site-index-img">
-    <img src="img/logo.png" width="200px" height="200px"  class="rounded mx-auto d-block" alt="...">
 
 </div>
 <br>
-<div class="site-menu-butoes">
-    <a type="button" href="<?= Url::toRoute(['site/menuentradas']) ?>"class="btn btn-warning">Entradas
-        <i class="fas fa-bread-slice"></i>
+<div class="card card-lime mr-5 ml-5">
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-utensils"></i>
+            <b>Lista Ementas</b>
+        </h3>
+    </div>
 
 
-    </a>
-    <a type="button" href="<?= Url::toRoute(['site/menucarne'])?>"class="btn btn-danger">Carne
-        <i class="fas fa-drumstick-bite"></i>
-    </a>
+    <div class="card-body p-0">
+        <!-- /.card-header -->
+        <?php echo $this->render('//produto/_search', ['model' => $searchModel,'categorias'=>$categorias]); ?>
+        <div class="row">
+            <table class="table table-striped projects mr-2 ml-2" >
+                <thead>
+                <tr>
+                    <th class="text-center">
+                        Nome
+                    </th>
+                    <th class="text-center">
+                        Categoria
+                    </th>
+                    <th class="text-center">
+                        Preco
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($dataProvider->models as $produto):?>
+                <tr>
+                    <td class="text-center">
+                        <ul class="list-inline">
 
-    <a type="button" href="<?= Url::toRoute(['site/menupeixe'])?>" class="btn btn-info">Peixe
-        <i class="fas fa-fish"></i>
-    </a>
-        <br><br>
-    <a type="button" href="<?= Url::toRoute(['site/menubebida'])?>" class="btn btn-primary">Bebidas
-        <i class="fas fa-glass-martini-alt"></i>
-    </a>
-    <a type="button" href="<?= Url::toRoute(['site/menusopa'])?>" class="btn btn-success">Sopa
-        <img src="https://img.icons8.com/ios-filled/20/000000/soup-plate.png"/>
-    </a>
-    <a type="button" href="<?= Url::toRoute(['site/menusobremesa'])?>" class="btn btn-dark">Sobremesas
-        <i class="fas fa-ice-cream"></i>
-    </a>
-</div>
+                            <li class="list-inline-item">
+                                <?= $produto->nome?>
+                            </li>
+
+                        </ul>
+
+                    </td>
+                    <td class="text-center">
+                        <?= ($produto->categoria->nome)?>
+                    </td >
+                    <td class="text-center">
+                        <ul class="list-inline">
+
+                            <li class="list-inline-item">
+                                <?= $produto->preco?>€
+                            </li>
+
+                    <td class="text-center">
+                        <ul>
+                        <?php endforeach;?>
+
 
 <div class="container-fluid">
 

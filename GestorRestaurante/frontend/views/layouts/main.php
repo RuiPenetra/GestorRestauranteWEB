@@ -114,6 +114,8 @@ AppAsset::register($this);?>
                         </p>
                     </a>
                 </li>
+
+
                 <!-- CONTACTOS -->
                 <li class="nav-item">
                     <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
@@ -124,16 +126,7 @@ AppAsset::register($this);?>
                     </a>
                 </li>
             </ul>
-            <!--EXTRA-->
-            <!-- RESERVA -->
-            <!-- <li class="nav-item">
-                 <a href="#" class="nav-link">
-                     <i class="fas fa-poll-h"></i>
-                     <p>
-                         Reserva
-                     </p>
-                 </a>
-             </li>-->
+
 
         </nav>
         <!-- /.sidebar-menu -->
@@ -151,7 +144,7 @@ AppAsset::register($this);?>
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="#" role="button">
+                <a class="nav-link" href="<?=URL::toRoute(['perfil/myperfil','id'=>$id])?>" role="button">
                     <i class="fas fa-user-edit"></i>
                     Perfil
                 </a>
@@ -167,7 +160,7 @@ AppAsset::register($this);?>
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="<?=Url::toRoute('site/main')?>" class="brand-link">
+            <a href="<?=Url::toRoute('site/index')?>" class="brand-link">
                 <?= Html::img('img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'style' =>'opacity: .8']);?>
                 <span class="brand-text font-weight-light">Gestor Restaurante</span>
             </a>
@@ -210,6 +203,26 @@ AppAsset::register($this);?>
                                 </p>
                             </a>
                         </li>
+
+                        <!--Faltas-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-users"></i>
+                                <p>
+                                    Faltas
+                                </p>
+                            </a>
+                        </li>
+
+                        <!--HORARIO-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-clock"></i>
+                                <p>
+                                    Horario
+                                </p>
+                            </a>
+                        </li>
                         <!-- CONTACTOS -->
                         <li class="nav-item">
                             <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
@@ -220,16 +233,7 @@ AppAsset::register($this);?>
                             </a>
                         </li>
                     </ul>
-                    <!--EXTRA-->
-                    <!-- RESERVA -->
-                    <!-- <li class="nav-item">
-                         <a href="#" class="nav-link">
-                             <i class="fas fa-poll-h"></i>
-                             <p>
-                                 Reserva
-                             </p>
-                         </a>
-                     </li>-->
+
 
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -248,7 +252,7 @@ AppAsset::register($this);?>
         <ul class="navbar-nav ml-auto">
             <!-- Messages Dropdown Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="#" role="button">
+                <a class="nav-link" href="<?=URL::toRoute(['perfil/myperfil','id'=>$id])?>" role="button">
                     <i class="fas fa-user-edit"></i>
                     Perfil
                 </a>
@@ -263,7 +267,7 @@ AppAsset::register($this);?>
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="<?=Url::toRoute('site/main')?>" class="brand-link">
+            <a href="<?=Url::toRoute('site/index')?>" class="brand-link">
                 <?= Html::img('img/logo.png' , ['alt' => 'Gestor Restaurante logo', 'class' => 'brand-image img-circle elevation-3' , 'style' =>'opacity: .8']);?>
                 <span class="brand-text font-weight-light">Gestor Restaurante</span>
             </a>
@@ -307,6 +311,26 @@ AppAsset::register($this);?>
                             </a>
                         </li>
 
+                        <!--Faltas-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-users"></i>
+                                <p>
+                                    Faltas
+                                </p>
+                            </a>
+                        </li>
+
+                        <!--HORARIO-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-clock"></i>
+                                <p>
+                                    Horario
+                                </p>
+                            </a>
+                        </li>
+
                         <!-- CONTACTOS -->
                         <li class="nav-item">
                             <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
@@ -317,16 +341,8 @@ AppAsset::register($this);?>
                             </a>
                         </li>
                     </ul>
-                    <!--EXTRA-->
-                    <!-- RESERVA -->
-                    <!-- <li class="nav-item">
-                         <a href="#" class="nav-link">
-                             <i class="fas fa-poll-h"></i>
-                             <p>
-                                 Reserva
-                             </p>
-                         </a>
-                     </li>-->
+
+
 
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -344,7 +360,7 @@ AppAsset::register($this);?>
             <ul class="navbar-nav ml-auto">
                 <!-- Messages Dropdown Menu -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#" role="button">
+                    <a class="nav-link" href="<?=URL::toRoute(['perfil/myperfil','id'=>$id])?>" role="button">
                         <i class="fas fa-user-edit"></i>
                         Perfil
                     </a>
@@ -415,14 +431,32 @@ AppAsset::register($this);?>
 
                         <!--RESERVA-->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="<?= Url::toRoute('reserva/index')?>" class="nav-link">
                                 <i class="fas fa-marker"></i>
                                 <p>
-                                    Reserva
+                                    Reservas
+                                </p>
+                            </a>
+                        </li>
+                        <!--Faltas-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-users"></i>
+                                <p>
+                                    Faltas
                                 </p>
                             </a>
                         </li>
 
+                        <!--HORARIO-->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-clock"></i>
+                                <p>
+                                    Horario
+                                </p>
+                            </a>
+                        </li>
                         <!-- CONTACTOS -->
                         <li class="nav-item">
                             <a href="<?= Url::toRoute('site/about')?>" class="nav-link">
@@ -433,7 +467,7 @@ AppAsset::register($this);?>
                             </a>
                         </li>
                     </ul>
-                    <!--EXTRA-->
+
 
 
                 </nav>

@@ -332,8 +332,7 @@ class m201016_160137_rbac extends Migration
         $gerente = $auth->createRole('gerente');
         $auth->add($gerente);
 
-            //# INTERFACE #
-             //$auth->addChild($gerente, $AcederInterfaceGerente);
+
 
             //# UTILIZADORES #
             $auth->addChild($gerente, $criarUtilizadores);
@@ -418,8 +417,7 @@ class m201016_160137_rbac extends Migration
             $atendedorPedidos = $auth->createRole('atendedorPedidos');
             $auth->add($atendedorPedidos);
 
-            //# INTERFACE #
-            //$auth->addChild($atendedorPedidos, $AcederInterfaceAtendedorPedidos);
+
 
             //# PERFIS #
             $auth->addChild($atendedorPedidos, $consultarPerfis);
@@ -461,11 +459,6 @@ class m201016_160137_rbac extends Migration
             $auth->addChild($atendedorPedidos, $atualizarFaturas);
             $auth->addChild($atendedorPedidos, $apagarFaturas);
 
-            //#TAKEAWAY#
-            $auth->addChild($atendedorPedidos, $criarTakeaway);
-            $auth->addchild($atendedorPedidos, $consultarTakeaway);
-            $auth->addChild($atendedorPedidos, $atualizarTakeaway);
-            $auth->addchild($atendedorPedidos, $apagarTakeaway);
 
 
         /**ROLE -> EMPREGADO DE MESA_____________________________________________________________________________**/
@@ -473,8 +466,7 @@ class m201016_160137_rbac extends Migration
             $empregadoMesa = $auth->createRole('empregadoMesa');
             $auth->add($empregadoMesa);
 
-            //# INTERFACE #
-           // $auth->addChild($empregadoMesa, $AcederInterfaceEmpregadoMesa);
+
 
             //# Perfil #
             $auth->addChild($empregadoMesa, $consultarPerfis);
@@ -522,9 +514,6 @@ class m201016_160137_rbac extends Migration
             $cozinheiro = $auth->createRole('cozinheiro');
             $auth->add($cozinheiro);
 
-            //# INTERFACE #
-           // $auth->addChild($cozinheiro, $AcederInterfaceCozinheiro);
-
 
         //# Perfil #
             $auth->addChild($cozinheiro, $consultarPerfis);
@@ -561,8 +550,6 @@ class m201016_160137_rbac extends Migration
             $cliente = $auth->createRole('cliente');
             $auth->add($cliente);
 
-            //# INTERFACE #
-            $auth->addChild($cliente, $AcederInterfaceCliente);
 
         //# Perfil #
             $auth->addChild($cliente, $consultarPerfis);

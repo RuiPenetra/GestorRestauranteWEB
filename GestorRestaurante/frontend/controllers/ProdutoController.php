@@ -34,7 +34,7 @@ class ProdutoController extends Controller
                     [
                         'actions' => ['index','view','create','update','delete'],
                         'allow' => true,
-                        'roles' =>['cozinheiro'],
+                        'roles' =>['Cozinheiro'],
                     ],
                 ],
             ],
@@ -88,6 +88,7 @@ class ProdutoController extends Controller
     public function actionCreate()
     {
         $model = new Produto();
+        $model->estado=0;
         $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

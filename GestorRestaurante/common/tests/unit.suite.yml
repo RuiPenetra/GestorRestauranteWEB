@@ -2,6 +2,12 @@ suite_namespace: common\tests\unit
 actor: UnitTester
 bootstrap: false
 modules:
-    enabled:
-        - Yii2:
-            part: fixtures
+  enabled:
+    - Yii2:
+        configFile: ../config/test-local.php
+        part: [fixtures, orm, email]
+        cleanup: false
+    - Db:
+        dsn: 'mysql:host=localhost;dbname=bdgestorrestaurante_tests'
+        user: 'root'
+        password: ''

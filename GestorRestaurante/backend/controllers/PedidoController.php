@@ -12,6 +12,7 @@ use common\models\PedidoProduto;
 use common\models\PedidoRestauranteForm;
 use common\models\PedidoTakeawayForm;
 use common\models\Perfil;
+use common\models\PerfilSearch;
 use common\models\Produto;
 use common\models\ProdutoCategoriaProduto;
 use common\models\ProdutoSearch;
@@ -95,8 +96,10 @@ class PedidoController extends Controller
 
     public function actionCreate($tipo)
     {
-        $searchModel = new MesaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchMesa = new MesaSearch();
+        $dataProviderMesa = $searchMesa->search(Yii::$app->request->queryParams);
+        $dataProviderMesa->pagination = ['pageSize' => 5];
+
         $pedido = new Pedido();
 
         $id_user = Yii::$app->user->identity->getId();
@@ -104,6 +107,11 @@ class PedidoController extends Controller
         $pedido->id_perfil = $perfil->id_user;
         $pedido->estado = 0;
         $pedido->tipo=$tipo;
+
+        $searchPerfil= new PerfilSearch();
+        $dataProviderUser = $searchPerfil->search(Yii::$app->request->queryParams);
+
+        $dataProviderUser->pagination = ['pageSize' => 5];
 
         if ($pedido->tipo==0) {
 
@@ -127,8 +135,10 @@ class PedidoController extends Controller
 
         return $this->render('create', [
             'pedido'=>$pedido,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider
+            'searchMesa' => $searchMesa,
+            'dataProviderMesa' => $dataProviderMesa,
+            'searchPerfil' => $searchPerfil,
+            'dataProviderUser' => $dataProviderUser
         ]);
 
     }
@@ -187,6 +197,13 @@ class PedidoController extends Controller
         $pedido=$this->findModel($id);
 
         if($pedido->estado==0){
+
+            if($pedido->tipo==0) {
+                $mesa = Mesa::findOne($pedido->id_mesa);
+                $mesa->estado = 2;
+                $mesa->save();
+            }
+
             $pedido->delete();
             Yii::$app->getSession()->setFlash('success', [
                 'type' => 'success',

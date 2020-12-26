@@ -1,6 +1,8 @@
 <?php
 
+use kartik\datetime\DateTimePicker;
 use yii\bootstrap4\ActiveForm;
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -8,6 +10,7 @@ use yii\helpers\Url;
 /* @var $model common\models\Pedido */
 
 $this->title = 'Criar Pedido';
+
 ?>
 
 <div class="col-md-12">
@@ -32,15 +35,23 @@ $this->title = 'Criar Pedido';
         </div>
     </div>
 </div>
-
-<div class="card card-outline mr-5 ml-5 mt-3"> <!--collapsed-card-->
+<div class="card card-outline card-yellow mr-5 ml-5 mt-3"> <!--collapsed-card-->
+    <div class="card-header">
+        <h3 class="card-title text-gray-dark">
+            <i class="fas fa-users"></i>
+            <?php if($pedido->tipo==0):?>
+            <b>Pedido Restaurante</b>
+            <?php else:?>
+            <b>Pedido Takeaway</b>
+            <?php endif;?>
+        </h3>
+    </div>
     <div class="card-body" style="display: block;">
-
         <?php if($pedido->tipo==0):?>
-            <?php echo $this->render('//mesa/_search', ['model' => $searchModel]);
+            <?php echo $this->render('//mesa/_search', ['model' => $searchMesa]);
         endIf?>
         <?php $form = ActiveForm::begin(['validateOnBlur'=>false]);
-        if($pedido->tipo==0){?>
+        if($pedido->tipo==0):?>
             <div class="row d-flex justify-content-center">
                 <table class="table" id="table-item-pedido">
                     <thead>
@@ -53,7 +64,7 @@ $this->title = 'Criar Pedido';
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($dataProvider->models as $mesa):?>
+                    <?php foreach ($dataProviderMesa->models as $mesa):?>
                         <tr>
                             <td class="text-center"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/table.png"/></td>
                             <td class="text-center"><?=$mesa->id?></td>
@@ -78,12 +89,34 @@ $this->title = 'Criar Pedido';
                     <?php endforeach;?>
                     </tbody>
                 </table>
+                <div class="row col-md-12 d-flex justify-content-center">
+                    <?= LinkPager::widget([
+                        'pagination' => $dataProviderMesa->getPagination(),
+                        'options' => [
+                            'class' => 'page-item',
+                        ],
+                    ]);?>
+                </div>
             </div>
-        <?php }else{?>
-        <div class="col-md-12 text-center">
-            <?= $form->field($pedido, 'nome_pedido')->textInput(['class'=>'form-control rounded w-25','width'=>'100px','placeholder'=>'Nome Pedido'])->label(false) ?>
+            <?php endif;?>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-3">
+            <?php if($pedido->tipo!=0):?>
+                <?= $form->field($pedido, 'nome_pedido')->textInput(['class'=>'form-control rounded w-100','placeholder'=>'Nome Pedido','maxlength' => 80])->label(false) ?>
+            <?php endif;?>
+                <?= $form->field($pedido, 'data')->widget(DateTimePicker::classname(), [
+                    'options' => ['placeholder' => 'Data'],
+                    'type' =>DateTimePicker::TYPE_COMPONENT_PREPEND,
+                    'size'=>'md',
+                    'readonly' => true,
+                    'pluginOptions' => [
+                        'todayBtn' => true,
+                        'autoclose' => true,
+                        'language'=>'pt-PT',
+                    ]
+                ])->label(false);?>
+            </div>
         </div>
-            <?php }?>
         <div class="col-md-12 text-center">
             <?= Html::submitButton('Seguinte', ['class' => 'btn btn-success']) ?>
             <?php ActiveForm::end(); ?>

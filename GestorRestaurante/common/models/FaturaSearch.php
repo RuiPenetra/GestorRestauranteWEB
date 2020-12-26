@@ -4,12 +4,12 @@ namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Falta;
+use common\models\Fatura;
 
 /**
- * FaltaSearch represents the model behind the search form of `common\models\Falta`.
+ * FaturaSearch represents the model behind the search form of `common\models\Fatura`.
  */
-class FaltaSearch extends Falta
+class FaturaSearch extends Fatura
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class FaltaSearch extends Falta
     public function rules()
     {
         return [
-            [['id', 'num_horas', 'id_funcionario'], 'integer'],
-            [['data'], 'safe'],
+            [['id', 'id_pedido', 'nif'], 'integer'],
+            [['valor'], 'number'],
         ];
     }
 
@@ -40,7 +40,7 @@ class FaltaSearch extends Falta
      */
     public function search($params)
     {
-        $query = Falta::find();
+        $query = Fatura::find();
 
         // add conditions that should always apply here
 
@@ -59,9 +59,9 @@ class FaltaSearch extends Falta
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'data' => $this->data,
-            'num_horas' => $this->num_horas,
-            'id_funcionario' => $this->id_funcionario,
+            'id_pedido' => $this->id_pedido,
+            'nif' => $this->nif,
+            'valor' => $this->valor,
         ]);
 
         return $dataProvider;

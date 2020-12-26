@@ -81,17 +81,27 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <a href="javascript:void(0)" class="product-title"><?= $produto->nome ?>
                                             <span class="badge badge-dark float-right"><?= $produto->preco ?> €</span>
                                         </a>
-                                        <span class="product-description text-right">
-                                            <a href="" type="button" class="btn btn-info btn-sm p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?= $produto->id ?>">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a href="<?= Url::toRoute(['produto/update', 'id' => $produto->id]) ?>" type="button" class="btn btn-warning btn-sm p-0" style="width: 40px;">
-                                               <i class="far fa-edit color-white"></i>
-                                            </a>
-                                           <a href="" type="button" class="btn btn-danger btn-sm p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?= $produto->id ?>">
-                                                <i class="far fa-trash-alt color-white"></i>
-                                           </a>
-                                        </span>
+                                        <div class="row col-md-12">
+                                            <div class="col-md-2 text-left">
+                                               <?php if ($produto->estado==0):?>
+                                                   <span class="badge badge-success text-white">Ativo</span>
+                                               <?php else:?>
+                                                   <span class="badge badge-danger text-white">Inativo</span>
+                                               <?php endif;?>
+                                            </div>
+                                                    <div class="col-md-10 text-right">
+                                                    <a href="" type="button" class="btn btn-info btn-sm p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?= $produto->id ?>">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="<?= Url::toRoute(['produto/update', 'id' => $produto->id]) ?>" type="button" class="btn btn-warning btn-sm p-0" style="width: 40px;">
+                                                   <i class="far fa-edit color-white"></i>
+                                                </a>
+                                               <a href="" type="button" class="btn btn-danger btn-sm p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?= $produto->id ?>">
+                                                    <i class="far fa-trash-alt color-white"></i>
+                                               </a>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </li>
                                 <!-- ## MODAL ##-->

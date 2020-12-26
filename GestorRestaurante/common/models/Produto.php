@@ -36,7 +36,7 @@ class Produto extends \yii\db\ActiveRecord
             [['nome', 'preco', 'id_categoria', 'estado'], 'required'],
             [['preco'], 'number'],
             [['id_categoria', 'estado'], 'integer'],
-            [['nome'], 'string', 'max' => 255],
+            [['nome'], 'string', 'max' => 50],
             [['ingredientes'], 'string', 'max' => 500],
             [['nome'], 'unique'],
             [['id_categoria'], 'exist', 'skipOnError' => true, 'targetClass' => CategoriaProduto::className(), 'targetAttribute' => ['id_categoria' => 'id']],

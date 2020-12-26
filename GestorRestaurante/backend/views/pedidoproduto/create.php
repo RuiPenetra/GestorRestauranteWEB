@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="modal-content mt-2" >
                                         <div class="modal-header">
                                             <h3><?=$produto->nome?> </h3>
-                                            <button type="button" class="close" data-dismiss="modal" onclick="unCkeck(<?=$produto->id?>)" aria-label="Close">
+                                            <button type="button" class="close" data-dismiss="modal" onclick="unCheck(<?=$produto->id?>)" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>

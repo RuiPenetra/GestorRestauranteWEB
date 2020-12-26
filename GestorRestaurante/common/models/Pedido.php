@@ -37,16 +37,16 @@ class Pedido extends \yii\db\ActiveRecord
     public function getCustomScenarios()
     {
         return[
-            self::SCENARIO_RESTAURANTE => [['estado','tipo','id_mesa','id_perfil'],'required'],
-            self::SCENARIO_TAKEAWAY => [['estado','tipo','nome_pedido','id_perfil'],'required']
+            self::SCENARIO_RESTAURANTE => [['estado','tipo','id_mesa','id_perfil','data'],'required'],
+            self::SCENARIO_TAKEAWAY => [['estado','tipo','nome_pedido','id_perfil','data'],'required']
         ];
     }
 
     public function scenarios()
     {
         $scenarios=parent::scenarios();
-        $scenarios[self::SCENARIO_RESTAURANTE] = ['estado','tipo','id_mesa','id_perfil'];
-        $scenarios[self::SCENARIO_TAKEAWAY] = ['estado','tipo','nome_pedido','id_perfil'];
+        $scenarios[self::SCENARIO_RESTAURANTE] = ['estado','tipo','id_mesa','id_perfil','data'];
+        $scenarios[self::SCENARIO_TAKEAWAY] = ['estado','tipo','nome_pedido','id_perfil','data'];
         return $scenarios;
     }
     /**
@@ -55,11 +55,12 @@ class Pedido extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['data'], 'safe'],
-            [['estado','tipo','id_mesa','id_perfil'], 'required', 'on' => self::SCENARIO_RESTAURANTE],
-            [['estado','tipo','nome_pedido','id_perfil'], 'required', 'on' => self::SCENARIO_TAKEAWAY],
+            [['estado','tipo','id_mesa','id_perfil','data'], 'required', 'on' => self::SCENARIO_RESTAURANTE],
+            [['estado','tipo','nome_pedido','id_perfil','data'], 'required', 'on' => self::SCENARIO_TAKEAWAY],
             [['tipo', 'estado', 'id_mesa', 'id_perfil'], 'integer'],
-            [['nome_pedido', 'nota'], 'string', 'max' => 255],
+            [['data'], 'safe'],
+            [['nome_pedido'], 'string', 'max' => 50],
+            [['nota'], 'string', 'max' => 255],
             [['id_perfil'], 'exist', 'skipOnError' => true, 'targetClass' => Perfil::className(), 'targetAttribute' => ['id_perfil' => 'id_user']],
             [['id_mesa'], 'exist', 'skipOnError' => true, 'targetClass' => Mesa::className(), 'targetAttribute' => ['id_mesa' => 'id']],
         ];

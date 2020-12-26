@@ -79,10 +79,10 @@ use yii\widgets\ActiveForm; ?>
                         <tr>
                             <td class="text-center">
                                 <?php if($pedido->tipo==0):?>
-                                    <?= Html::img('@web/img/table.png', ['alt' => 'imgTable', 'class' => 'img-fluid']); ?>
+                                    <?= Html::img('@web/img/table.png', ['alt' => 'imgTable', 'class' => 'img-fluid', 'width'=>'50px']); ?>
                                 <?php endif?>
                                 <?php if($pedido->tipo==1):?>
-                                    <?= Html::img('@web/img/takeaway.png', ['alt' => 'imgTakeaway', 'class' => 'img-fluid']); ?>
+                                    <?= Html::img('@web/img/takeaway.png', ['alt' => 'imgTakeaway', 'class' => 'img-fluid', 'width'=>'50px']); ?>
                                 <?php endif?>
                             </td>
                             <td>

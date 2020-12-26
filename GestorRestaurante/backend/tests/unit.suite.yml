@@ -4,7 +4,7 @@ modules:
   enabled:
     - Yii2:
         configFile: ../config/test-local.php
-        part: [fixtures, orm, email]
+        part: ORM
         cleanup: false
     - Db:
       dsn: 'mysql:host=localhost;dbname=gestorrestaurante_test'

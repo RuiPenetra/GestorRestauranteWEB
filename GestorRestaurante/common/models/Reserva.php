@@ -34,11 +34,10 @@ class Reserva extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'n_pessoas', 'data_hora', 'nome_da_reserva', 'tempo_reserva', 'id_mesa', 'id_funcionario'], 'required'],
-            [['id', 'n_pessoas', 'id_mesa', 'id_funcionario'], 'integer'],
+            [['n_pessoas', 'data_hora', 'nome_da_reserva', 'tempo_reserva', 'id_mesa', 'id_funcionario'], 'required'],
+            [['n_pessoas', 'id_mesa', 'id_funcionario'], 'integer'],
             [['data_hora', 'tempo_reserva'], 'safe'],
             [['nome_da_reserva'], 'string', 'max' => 255],
-            [['id'], 'unique'],
             [['id_funcionario'], 'exist', 'skipOnError' => true, 'targetClass' => Perfil::className(), 'targetAttribute' => ['id_funcionario' => 'id_user']],
             [['id_mesa'], 'exist', 'skipOnError' => true, 'targetClass' => Mesa::className(), 'targetAttribute' => ['id_mesa' => 'id']],
         ];

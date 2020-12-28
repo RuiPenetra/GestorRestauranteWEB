@@ -177,18 +177,36 @@ class PedidoController extends Controller
 
     public function actionUpdate($id)
     {
-        $pedido = $this->findModel($id);
 
-        $searchModel = new MesaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $pedido=$this->findModel($id);
+        $searchMesa = new MesaSearch();
+        $searchMesa->estado=2;
+        $dataProviderMesa = $searchMesa->search(Yii::$app->request->queryParams);
+        $dataProviderMesa->pagination = ['pageSize' => 5];
+
+        $searchUser= new PerfilSearch();
+        $dataProviderUser = $searchUser->search(Yii::$app->request->queryParams);
+
+        $dataProviderUser->pagination = ['pageSize' => 5];
+
 
         if ($pedido->load(Yii::$app->request->post()) && $pedido->save()) {
-            return $this->redirect(['view', 'id' => $pedido->id]);
+
+            if($pedido->mesa!=null) {
+                $mesa = Mesa::findOne($pedido->id_mesa);
+                $mesa->estado = 1;
+                $mesa->save();
+            }
+            return $this->redirect(['/pedidoproduto/index','id'=>$pedido->id]);
+
         }
 
-        return $this->render('update', [
-            'pedido' => $pedido,
-            'dataProvider'=>$dataProvider
+        return $this->render('create', [
+            'pedido'=>$pedido,
+            'searchMesa' => $searchMesa,
+            'dataProviderMesa' => $dataProviderMesa,
+            'searchUser' => $searchUser,
+            'dataProviderUser' => $dataProviderUser
         ]);
     }
 

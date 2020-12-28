@@ -84,9 +84,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div class="row col-md-12">
                                             <div class="col-md-2 text-left">
                                                <?php if ($produto->estado==0):?>
-                                                   <span class="badge badge-success text-white">Ativo</span>
+                                                   <span class="badge badge-success text-white">Disponivel</span>
                                                <?php else:?>
-                                                   <span class="badge badge-danger text-white">Inativo</span>
+                                                   <span class="badge badge-danger text-white">Indisponivel</span>
                                                <?php endif;?>
                                             </div>
                                                     <div class="col-md-10 text-right">
@@ -96,9 +96,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <a href="<?= Url::toRoute(['produto/update', 'id' => $produto->id]) ?>" type="button" class="btn btn-warning btn-sm p-0" style="width: 40px;">
                                                    <i class="far fa-edit color-white"></i>
                                                 </a>
-                                               <a href="" type="button" class="btn btn-danger btn-sm p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?= $produto->id ?>">
-                                                    <i class="far fa-trash-alt color-white"></i>
-                                               </a>
+                                                <?php if ($produto->estado==0):?>
+                                                    <a href="" type="button" class="btn btn-danger btn-sm p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?= $produto->id ?>">
+                                                        <i class="far fa-trash-alt color-white"></i>
+                                                    </a>
+                                                <?php else:?>
+                                                    <a href="" type="button" class="btn btn-success btn-sm p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?= $produto->id ?>">
+                                                        <i class="fas fa-trash-restore-alt"></i>
+                                                    </a>
+                                                <?php endif;?>
                                             </div>
 
                                         </div>

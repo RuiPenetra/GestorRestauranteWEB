@@ -97,6 +97,7 @@ class PedidoprodutoController extends Controller
         $pedidoProduto->quant_Entregue=0;
         $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
         $searchProduto= new ProdutoSearch();
+        $searchProduto->estado=0;
         $dataProvider = $searchProduto->search(Yii::$app->request->queryParams);
         $dataProvider->pagination = ['pageSize' => 6];
 

@@ -179,29 +179,37 @@ class ProdutoController extends Controller
 
         $produto=$this->findModel($id);
 
-        $produto->estado=1;
-        $produto->save();
+        if($produto->estado!=0){
+            $produto->estado=0;
+            $produto->save();
 
-        Yii::$app->getSession()->setFlash('success', [
-            'type' => 'success',
-            'duration' => 5000,
-            'icon' => 'fas fa-tags',
-            'message' => 'Produto inativado com sucesso',
-            'title' => 'ALERTA',
-            'positonX' => 'right',
-            'positonY' => 'top'
-        ]);
+            Yii::$app->getSession()->setFlash('success', [
+                'type' => 'success',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Produto disponivel com sucesso',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+        }else{
+            $produto->estado=1;
+            $produto->save();
+
+            Yii::$app->getSession()->setFlash('success', [
+                'type' => 'success',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Produto indisponivel com sucesso',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+        }
 
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Produto model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Produto the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Produto::findOne($id)) !== null) {

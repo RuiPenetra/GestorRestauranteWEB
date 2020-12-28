@@ -12,7 +12,7 @@ use yii\helpers\Url;
 $this->title = 'Utilizadores';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
+<?php $id_userLogado=Yii::$app->user->identity->getId()?>
 
     <div class="row col-md-12 d-flex justify-content-center">
         <?= Html::a('<div class="col-md-4">
@@ -108,11 +108,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php }?>
                             </td>
                             <td class="text-center">
-                                <?= Html::a('<i class="fas fa-eye"></i>', ['user/view', 'id' => $user->id_user], ['class' => 'btn btn-info btn-sm']) ?>
-                                <?= Html::a('<i class="far fa-edit color-white"></i>', ['user/update', 'id' => $user->id_user], ['class' => 'btn btn-warning btn-sm']) ?>
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#apagarUser<?=$user->id_user?>">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
+                                <?php if($user->id_user!=$id_userLogado):?>
+                                    <?= Html::a('<i class="fas fa-eye"></i>', ['user/view', 'id' => $user->id_user], ['class' => 'btn btn-info btn-sm']) ?>
+                                    <?= Html::a('<i class="far fa-edit color-white"></i>', ['user/update', 'id' => $user->id_user], ['class' => 'btn btn-warning btn-sm']) ?>
+                                    <?php if ($user->user->status!=9):?>
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#apagarUser<?=$user->id_user?>">
+                                            <i class="far fa-trash-alt color-white"></i>
+                                        </button>
+                                    <?php else:?>
+                                        <?= Html::a('<i class="fas fa-trash-restore-alt"></i>', ['user/delete', 'id' => $user->id_user],[
+                                            'class' => 'btn btn-success btn-sm',
+                                            'data' => [
+                                                'method' => 'post',
+                                            ],
+                                        ]) ?>
+                                    <?php endif;?>
+                                <?php endIf?>
                             </td>
                         </tr>
                         <div class="modal fade"  id="apagarUser<?=$user->id_user?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">

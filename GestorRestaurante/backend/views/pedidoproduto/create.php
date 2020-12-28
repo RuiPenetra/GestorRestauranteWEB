@@ -43,7 +43,16 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                             <div class="col-md-9">
                                 <div class="row">
-                                    <label class="product-title" id="produtoNome<?=$produto->id?>"><?=$produto->nome?></label>
+                                    <div class="col-md-6 text-left">
+                                        <label class="product-title" id="produtoNome<?=$produto->id?>"><?=$produto->nome?></label>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <?php if ($produto->estado==0):?>
+                                            <span class="badge badge-success text-white">Disponivel</span>
+                                        <?php else:?>
+                                            <span class="badge badge-danger text-white">Indisponivel</span>
+                                        <?php endif;?>
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <span class="badge badge-dark float-right"><h7 id="produtoPreco<?=$produto->id?>"><?=$produto->preco?></h7> €</span>

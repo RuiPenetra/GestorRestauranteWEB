@@ -15,17 +15,7 @@ use yii\widgets\ActiveForm;
 
 <div class="row col-md-12">
     <div class="col-md-2">
-        <?= $form->field($model, 'data')->widget(DateTimePicker::classname(), [
-            'options' => ['placeholder' => 'Data','class'=>'rounded'],
-            'type' =>DateTimePicker::TYPE_COMPONENT_PREPEND,
-            'size'=>'md',
-            'readonly' => true,
-            'pluginOptions' => [
-                'todayBtn' => true,
-                'autoclose' => true,
-                'language'=>'pt-PT',
-            ]
-        ])->label(false);?>
+
     </div>
     <div class="col-md-2">
         <?= $form->field($model, 'tipo')->dropDownList(['0' => 'Restaurante', '1' => 'Takeaway'],['prompt'=>'Selecione...', 'maxlenght'=> true,'class' => 'form-control rounded'])->label(false); ?>    </div>

@@ -52,9 +52,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 Apelido
                             </th>
                             <th class="text-center">
-                                Email
-                            </th>
-                            <th class="text-center">
                                 Função
                             </th>
                             <th class="text-center">
@@ -85,9 +82,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             </td >
                             <td class="text-center">
                                 <?=$user->apelido?>
-                            </td>
-                            <td class="text-center">
-                                <?=$user->user->email?>
                             </td>
                             <td class="text-center">
                                 <?php if (Yii::$app->authManager->getAssignment('gerente',$user->id_user) != null):?>

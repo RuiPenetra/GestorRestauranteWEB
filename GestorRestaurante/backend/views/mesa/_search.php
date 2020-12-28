@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
     'method' => 'get',
 ]); ?>
 
-<div class="row">
+<div class="row m-2">
     <div class="col-3">
 
         <?= $form->field($model, 'id')->textInput(['class'=>'form-control rounded', 'placeholder'=>'Nº', 'min'=>'0','type'=>'number'])->label(false) ?>
@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'estado')->dropDownList(['0'=>'Reservada','1'=>'Ocupada','2'=>'Livre'],['prompt' => '-- Select one --','class'=>'form-control rounded'])->label(false) ?>
     </div>
     <div class="col-3">
-        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('<i class="fas fa-search"></i>', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Limpar', ['class' => 'btn btn-outline-secondary']) ?>
     </div>
 </div>

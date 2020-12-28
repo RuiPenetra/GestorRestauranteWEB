@@ -7,6 +7,7 @@ use common\models\Mesa;
 use common\models\MesaSearch;
 use common\models\Pedido;
 use common\models\PedidoprodutoSearch;
+use common\models\Produto;
 use common\models\ProdutoSearch;
 use Yii;
 use common\models\Pedidoproduto;
@@ -103,12 +104,12 @@ class PedidoprodutoController extends Controller
 
         if ($pedidoProduto->load(Yii::$app->request->post())) {
 
-            $resultado=PedidoProduto::findOne(['id_produto'=>$pedidoProduto->id_produto]);
+            $resultado=PedidoProduto::findOne(['id_pedido'=>$pedidoProduto->id_pedido ,'id_produto'=>$pedidoProduto->id_produto]);
 
             if($resultado !=null){
 
-                $resultado->quant_Pedida=$pedidoProduto->quant_Pedida;
-                $resultado->preco=$pedidoProduto->quant_Pedida*$pedidoProduto->produto->preco;
+                $resultado->quant_Pedida= $pedidoProduto->quant_Pedida;
+                $resultado->preco= $pedidoProduto->quant_Pedida*$pedidoProduto->produto->preco;
 
                 if($resultado->save()){
 
@@ -181,7 +182,12 @@ class PedidoprodutoController extends Controller
                 $model->save();
                 $pedido->estado=1;
                 $pedido->save();
-            }else{
+            }elseif($model->quant_Pedida==0){
+                $model->estado=0;
+                $model->save();
+                $pedido->estado=1;
+                $pedido->save();
+
                 Yii::$app->getSession()->setFlash('danger', [
                     'type' => 'danger',
                     'duration' => 5000,

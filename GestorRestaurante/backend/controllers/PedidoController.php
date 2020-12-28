@@ -97,19 +97,19 @@ class PedidoController extends Controller
     public function actionCreate($tipo)
     {
         $searchMesa = new MesaSearch();
+        $searchMesa->estado=2;
         $dataProviderMesa = $searchMesa->search(Yii::$app->request->queryParams);
         $dataProviderMesa->pagination = ['pageSize' => 5];
 
         $pedido = new Pedido();
 
         $id_user = Yii::$app->user->identity->getId();
-        $perfil = Perfil::findOne($id_user);;
-        $pedido->id_perfil = $perfil->id_user;
         $pedido->estado = 0;
         $pedido->tipo=$tipo;
 
-        $searchPerfil= new PerfilSearch();
-        $dataProviderUser = $searchPerfil->search(Yii::$app->request->queryParams);
+        $searchUser= new PerfilSearch();
+        $searchUser->cargo='empregadoMesa';
+        $dataProviderUser = $searchUser->search(Yii::$app->request->queryParams);
 
         $dataProviderUser->pagination = ['pageSize' => 5];
 
@@ -137,7 +137,7 @@ class PedidoController extends Controller
             'pedido'=>$pedido,
             'searchMesa' => $searchMesa,
             'dataProviderMesa' => $dataProviderMesa,
-            'searchPerfil' => $searchPerfil,
+            'searchUser' => $searchUser,
             'dataProviderUser' => $dataProviderUser
         ]);
 

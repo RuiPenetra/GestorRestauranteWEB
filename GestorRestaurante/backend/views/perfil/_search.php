@@ -8,12 +8,11 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <?php $form = ActiveForm::begin([
-    'action' => ['index'],
     'method' => 'get',
 ]); ?>
 
 
-<div class="row col-md-12 m-3">
+<div class="row m-2">
     <div class="col-md-3">
         <?= $form->field($model, 'nome')->textInput(['class'=>'form-control rounded', 'placeholder'=>'Nome'])->label(false) ?>
     </div>
@@ -24,7 +23,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'cargo')->dropDownList(['gerente' => 'Gerente', 'atendedorPedidos' => 'Atendedor Pedidos', 'empregadoMesa' => 'Empregado Mesa', 'cozinheiro' => 'Cozinheiro', 'cliente' => 'Cliente'],['prompt' => '-- Selecione --','class'=>'form-control rounded'])->label(false) ?>
     </div>
     <div class="col-md-3">
-        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('<i class="fas fa-search"></i>', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Limpar', ['class' => 'btn btn-outline-secondary']) ?>
     </div>
 </div>

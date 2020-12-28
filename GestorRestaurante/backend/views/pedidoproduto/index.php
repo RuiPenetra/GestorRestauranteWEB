@@ -80,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
         <div class="col-md-8">
-            <div class="row d-flex justify-content-center mb-4">
+<!--            <div class="row d-flex justify-content-center mb-4">
                 <div class="col-md-1">
                     <div class="row justify-content-center"><a class="bg-black rounded-circle text-center" style="width: 50px; height: 50px;"><i class="fas fa-cart-plus m-3"></i></a></div>
                     <div class="row d-flex justify-content-center">Criar</div>
@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="row justify-content-center"><a class="bg-dark rounded-circle text-center" style="width: 50px; height: 50px;"><i class="fas fa-cash-register m-3"></i></a></div>
                     <div class="row d-flex justify-content-center">Terminar</div>
                 </div>
-            </div>
+            </div>-->
             <div class="row d-flex justify-content-center mt-5">
                 <div class="row col-md-12">
                     <div class="col-md-7">

@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
     <div class="d-flex justify-content-center mt-4">
-        <?= Html::a('Criar Takeaway', ['create'], ['class' => 'btn btn-danger']) ?>
+        <?= Html::a('Criar Takeaway', ['pedido/create','tipo'=>1], ['class' => 'btn btn-danger']) ?>
     </div>
 
     <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null):?>

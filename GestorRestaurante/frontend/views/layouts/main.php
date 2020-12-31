@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use common\models\Perfil;
+use kartik\growl\Growl;
 use yii\helpers\Html;
 use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
@@ -39,7 +40,7 @@ AppAsset::register($this);?>
 
 
     <?php if(\Yii::$app->authManager->getAssignment('cliente',$id)!=null) {?>
-    <nav class="main-header navbar navbar-expand navbar-red navbar-light">
+    <nav class="main-header navbar navbar-expand navbar-red navbar-light" style="z-index:0">
 
 
         <!-- Right navbar links -->
@@ -137,7 +138,7 @@ AppAsset::register($this);?>
     <?php }?>
 
     <?php if(\Yii::$app->authManager->getAssignment('cozinheiro',$id)!=null) {?>
-    <nav class="main-header navbar navbar-expand navbar-success navbar-light">
+    <nav class="main-header navbar navbar-expand navbar-success navbar-light" style="z-index:0">
 
 
         <!-- Right navbar links -->
@@ -245,7 +246,7 @@ AppAsset::register($this);?>
 
     <?php if(\Yii::$app->authManager->getAssignment('empregadoMesa',$id)!=null) {?>
 
-        <nav class="main-header navbar navbar-expand navbar-indigo navbar-light">
+        <nav class="main-header navbar navbar-expand navbar-indigo navbar-light" style="z-index:0">
 
 
         <!-- Right navbar links -->
@@ -353,7 +354,7 @@ AppAsset::register($this);?>
         <?php }?>
 
     <?php if(\Yii::$app->authManager->getAssignment('atendedorPedidos',$id)!=null) {?>
-        <nav class="main-header navbar navbar-expand navbar-primary navbar-light">
+        <nav class="main-header navbar navbar-expand navbar-primary navbar-light" style="z-index:0">
 
 
             <!-- Right navbar links -->
@@ -481,29 +482,49 @@ AppAsset::register($this);?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
+        <!--<div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0"><?= $this->title = 'Home';?></h1>
-                    </div><!-- /.col -->
+                        <h1 class="m-0"><?/*= $this->title = 'Home';*/?></h1>
+                    </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#"><?=$this->params['breadcrumbs'][] = $this->title;?></a></li>
-                            <li class="breadcrumb-item active"><?=$this->params['breadcrumbs'][] = $this->title;?></li>
+                            <li class="breadcrumb-item"><a href="#"><?/*=$this->params['breadcrumbs'][] = $this->title;*/?></a></li>
+                            <li class="breadcrumb-item active"><?/*=$this->params['breadcrumbs'][] = $this->title;*/?></li>
                         </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
         <!-- /.content-header -->
 
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
+                <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
+                    <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
+                        <?php
+                        echo Growl::widget([
+                            'type' => (!empty($message['type'])) ? $message['type'] : 'danger',
+                            'title' => (!empty($message['title'])) ? Html::encode($message['title']) : 'Title Not Set!',
+                            'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
+                            'body' => (!empty($message['message'])) ? Html::encode($message['message']) : 'Message Not Set!',
+                            'showSeparator' => true,
+                            'delay' => 1, //This delay is how long before the message shows
+                            'pluginOptions' => [
+                                'delay' => (!empty($message['duration'])) ? $message['duration'] : 3000, //This delay is how long the message shows for
+                                'placement' => [
+                                    'from' => (!empty($message['positonY'])) ? $message['positonY'] : 'bottom',
+                                    'align' => (!empty($message['positonX'])) ? $message['positonX'] : 'right',
+                                ]
+                            ],
+                        ]);
+                        ?>
+                    <?php endforeach; ?>
+                <?php endforeach; ?>
                 <?=$content?>
-            </div><!--/. container-fluid -->
+            </div>
         </section>
         <!-- /.content -->
     </div>

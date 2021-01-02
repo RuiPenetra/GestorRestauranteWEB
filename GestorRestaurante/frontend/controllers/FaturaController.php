@@ -2,20 +2,19 @@
 
 namespace frontend\controllers;
 
-use common\models\CategoriaProduto;
+use common\models\Pedido;
+use common\models\PedidoProduto;
 use Yii;
-use common\models\Produto;
-use common\models\ProdutoSearch;
-use yii\filters\AccessControl;
-use yii\helpers\ArrayHelper;
+use common\models\Fatura;
+use common\models\FaturaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ProdutoController implements the CRUD actions for Produto model.
+ * FaturaController implements the CRUD actions for Fatura model.
  */
-class ProdutoController extends Controller
+class FaturaController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -23,21 +22,6 @@ class ProdutoController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['index','view'],
-                        'allow' => true,
-                        'roles' =>['@'],
-                    ],
-                    [
-                        'actions' => ['index','view','create','update','delete'],
-                        'allow' => true,
-                        'roles' =>['Cozinheiro'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -48,26 +32,43 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Lists all Produto models.
+     * Lists all Fatura models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id)
     {
-        $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
-        $searchModel = new ProdutoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $pedido=Pedido::findOne($id);
+
+        $items_pedido=PedidoProduto::findAll(['id_pedido'=>$pedido->id]);
+        $model=new Fatura();
+        $model->id_pedido=$pedido->id;
+        $model->valor=PedidoProduto::find()->where(['id_pedido'=>$id])->sum('preco');
+
+
+        $fatura=Fatura::findOne($pedido->id);
+
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            if($fatura!=null){
+                $this->findModel($fatura->id)->delete();
+            }
+            if($model->save()){
+
+                return $this->redirect(['index', 'id' => $model->id_pedido]);
+
+            }
+        }
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'categorias'=>$categorias
-
-
+            'model' => $model,
+            'fatura' => $fatura,
+            'items_pedido' => $items_pedido,
         ]);
     }
 
     /**
-     * Displays a single Produto model.
+     * Displays a single Fatura model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -76,32 +77,33 @@ class ProdutoController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
-
         ]);
     }
 
     /**
-     * Creates a new Produto model.
+     * Creates a new Fatura model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
-        $model = new Produto();
-        $model->estado=0;
-        $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
+        $pedido=Pedido::findOne($id);
+
+        $fatura = new Fatura();
+
+        $fatura->id_pedido=$pedido->id;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'categorias'=>$categorias
         ]);
     }
 
     /**
-     * Updates an existing Produto model.
+     * Updates an existing Fatura model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -110,7 +112,6 @@ class ProdutoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -118,12 +119,11 @@ class ProdutoController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'categorias'=>$categorias
         ]);
     }
 
     /**
-     * Deletes an existing Produto model.
+     * Deletes an existing Fatura model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -131,23 +131,21 @@ class ProdutoController extends Controller
      */
     public function actionDelete($id)
     {
-        $model=$this->findModel($id);
-        $model->estado=1;
-         $model->save();
-            return $this->redirect(['index']);
+        $this->findModel($id)->delete();
 
+        return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Produto model based on its primary key value.
+     * Finds the Fatura model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Produto the loaded model
+     * @return Fatura the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Produto::findOne($id)) !== null) {
+        if (($model = Fatura::findOne($id)) !== null) {
             return $model;
         }
 

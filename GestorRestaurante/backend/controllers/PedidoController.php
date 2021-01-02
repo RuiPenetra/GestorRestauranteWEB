@@ -120,11 +120,11 @@ class PedidoController extends Controller
 
         if ($pedido->load(Yii::$app->request->post()) && $pedido->save()) {
 
-            if($pedido->mesa!=null) {
-                $mesa = Mesa::findOne($pedido->id_mesa);
-                $mesa->estado = 1;
-                $mesa->save();
-            }
+                if($pedido->mesa!=null) {
+                    $mesa = Mesa::findOne($pedido->id_mesa);
+                    $mesa->estado = 1;
+                    $mesa->save();
+                }
                 return $this->redirect(['/pedidoproduto/index','id'=>$pedido->id]);
 
         }

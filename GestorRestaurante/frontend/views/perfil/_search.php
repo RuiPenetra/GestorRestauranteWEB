@@ -7,37 +7,25 @@ use yii\widgets\ActiveForm;
 /* @var $model common\models\PerfilSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<?php $form = ActiveForm::begin([
+    'method' => 'get',
+]); ?>
 
-<div class="perfil-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
-
-    <?= $form->field($model, 'id_user') ?>
-
-    <?= $form->field($model, 'nome') ?>
-
-    <?= $form->field($model, 'apelido') ?>
-
-    <?= $form->field($model, 'morada') ?>
-
-    <?= $form->field($model, 'datanascimento') ?>
-
-    <?php // echo $form->field($model, 'codigopostal') ?>
-
-    <?php // echo $form->field($model, 'nacionalidade') ?>
-
-    <?php // echo $form->field($model, 'telemovel') ?>
-
-    <?php // echo $form->field($model, 'genero') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+<div class="row m-2">
+    <div class="col-md-3">
+        <?= $form->field($model, 'nome')->textInput(['class'=>'form-control rounded', 'placeholder'=>'Nome'])->label(false) ?>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
+    <div class="col-md-3">
+        <?= $form->field($model, 'apelido')->textInput(['class'=>'form-control rounded', 'placeholder'=>'Apelido'])->label(false) ?>
+    </div>
+    <div class="col-md-3">
+        <?= $form->field($model, 'cargo')->dropDownList(['gerente' => 'Gerente', 'atendedorPedidos' => 'Atendedor Pedidos', 'empregadoMesa' => 'Empregado Mesa', 'cozinheiro' => 'Cozinheiro', 'cliente' => 'Cliente'],['prompt' => '-- Selecione --','class'=>'form-control rounded'])->label(false) ?>
+    </div>
+    <div class="col-md-3">
+        <?= Html::submitButton('<i class="fas fa-search"></i>', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('Limpar', ['class' => 'btn btn-outline-secondary']) ?>
+    </div>
 </div>
+<?php ActiveForm::end(); ?>
+

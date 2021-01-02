@@ -87,6 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </thead>
                 <tbody>
                 <?php foreach ($dataProvider->models as $produto):?>
+                <?php if($produto->estado==0):?>
                 <tr>
                     <td class="text-center">
                         <ul class="list-inline">
@@ -124,6 +125,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     </td>
                         </ul>
+                    <?php endif;?>
             <?php endforeach;?>
 
 

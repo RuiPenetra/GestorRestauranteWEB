@@ -23,7 +23,8 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/adminlte.js',
         'js/card.js',
-        'js/bootstrap.bundle.js'
+        'js/bootstrap.bundle.js',
+        'js/tools.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

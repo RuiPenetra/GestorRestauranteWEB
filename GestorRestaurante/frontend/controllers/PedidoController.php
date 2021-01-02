@@ -5,6 +5,10 @@ namespace frontend\controllers;
 
 use Codeception\Lib\Connector\Yii2;
 use common\models\Mesa;
+use common\models\MesaSearch;
+use common\models\PedidoProduto;
+use common\models\Perfil;
+use common\models\PerfilSearch;
 use kartik\datetime\DateTimePicker;
 use Yii;
 use common\models\Pedido;
@@ -29,7 +33,7 @@ class PedidoController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index','create','delete'],
                         'allow' => true,
                         'roles' => ['cliente'],
                     ],
@@ -101,31 +105,79 @@ class PedidoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($tipo)
     {
-        if (Yii::$app->user->can('criarTakeaway')) {
-            $model = new Pedido();
-            $id = Yii::$app->user->identity->id;
+        $id_user = Yii::$app->user->identity->getId();
+        $perfil = Perfil::findOne($id_user);
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+        $checkpedido = Pedido::find()->where(['id_perfil'=>$id_user])->andWhere(['estado'=>[0,1]])->all();
+        if ($perfil->cargo == 'cliente' && $checkpedido!=null) {
 
-            }
-            $model->estado=1;
-            $model->nome_pedido=null;
-            $model->id_mesa=null;
-            $model->id_perfil=$id;
-            $model->tipo='1';
-            $model->data=date("Y-M-D");
-
-
-            $model->save();
-
-            return $this->render('create', [
-                'model' => $model,
+            Yii::$app->getSession()->setFlash('danger', [
+                'type' => 'danger',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Não é possivel criar novo pedido com 1 pedido enquanto existir pedidos a decorrer',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
             ]);
-        }
+            return $this->redirect(['index']);
+        }else{
+
+                $searchMesa = new MesaSearch();
+                $searchMesa->estado = 2;
+                $dataProviderMesa = $searchMesa->search(Yii::$app->request->queryParams);
+                $dataProviderMesa->pagination = ['pageSize' => 5];
+
+                $pedido = new Pedido();
+                $pedido->estado = 0;
+                $pedido->tipo = $tipo;
+
+                $pedido->id_perfil = $id_user;
+                $pedido->data = date('Y-m-d H:i:s');
+
+                $searchUser = new PerfilSearch();
+                $searchUser->cargo = 'empregadoMesa';
+                $dataProviderUser = $searchUser->search(Yii::$app->request->queryParams);
+
+                $dataProviderUser->pagination = ['pageSize' => 5];
+
+                if ($pedido->tipo == 0) {
+
+                    $pedido->scenario = 'scenariorestaurante';
+                } else {
+
+                    $pedido->scenario = 'scenariotakeaway';
+
+                }
+
+
+                if ($pedido->load(Yii::$app->request->post()) && $pedido->save()) {
+
+                    if ($pedido->mesa != null) {
+                        $mesa = Mesa::findOne($pedido->id_mesa);
+                        $mesa->estado = 1;
+                        $mesa->save();
+                    }
+                    return $this->redirect(['/pedidoproduto/index', 'id' => $pedido->id]);
+
+                }
+
+                return $this->render('create', [
+                    'pedido' => $pedido,
+                    'searchMesa' => $searchMesa,
+                    'dataProviderMesa' => $dataProviderMesa,
+                    'searchUser' => $searchUser,
+                    'dataProviderUser' => $dataProviderUser
+                ]);
+            }
     }
+
+
+
+
+   // }
 
 
 
@@ -162,7 +214,35 @@ class PedidoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+
+        $pedido=Pedido::findOne($id);
+        if($pedido->estado==0) {
+
+
+            PedidoProduto::deleteAll(['id_pedido' => $id]);
+
+            $pedido->delete();
+            Yii::$app->getSession()->setFlash('success', [
+                'type' => 'success',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Pedido apagado com sucesso',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+        }else{
+            Yii::$app->getSession()->setFlash('danger', [
+                'type' => 'danger',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Não é possivel apagar o pedido pois encontra-se em preparação/concluido',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+        }
+
 
         return $this->redirect(['index']);
     }
@@ -182,4 +262,5 @@ class PedidoController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 }

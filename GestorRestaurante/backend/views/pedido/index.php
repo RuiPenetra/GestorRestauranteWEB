@@ -147,9 +147,13 @@ use yii\widgets\ActiveForm; ?>
                                 <?php endif; ?>
                             </td>
                             <td class="project-actions text-right">
-                                <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
-                                <?= Html::a('<i class="fas fa-cart-plus"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-success btn-sm']) ?>
-                                <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $pedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarPedido'.$pedido->id,]) ?>
+                                <?php if($pedido->estado!=2):?>
+                                    <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
+                                    <?= Html::a('<i class="fas fa-cart-plus"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-success btn-sm']) ?>
+                                    <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $pedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarPedido'.$pedido->id,]) ?>
+                                <?php else:?>
+                                    <?= Html::a('<i class="fas fa-eye"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-info btn-sm']) ?>
+                                <?php endif;?>
                             </td>
                         </tr>
                         <div class="modal fade"  id="apagarPedido<?=$pedido->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">

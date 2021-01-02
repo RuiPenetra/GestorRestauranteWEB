@@ -110,7 +110,7 @@ class PedidoprodutoController extends Controller
 
             if($resultado !=null){
 
-                $resultado->quant_Pedida= $pedidoProduto->quant_Pedida;
+                $resultado->quant_Pedida= $resultado->quant_Pedida + $pedidoProduto->quant_Pedida;
                 $resultado->preco= $pedidoProduto->quant_Pedida*$pedidoProduto->produto->preco;
 
                 if($resultado->save()){

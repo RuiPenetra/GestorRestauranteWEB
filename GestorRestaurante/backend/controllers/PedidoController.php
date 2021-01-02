@@ -139,19 +139,14 @@ class PedidoController extends Controller
 
     }
 
-    public function lertipo(){
-        return (Integer)Yii::$app->request->post('tipo');
-    }
-
     public function actionUpdate($id)
     {
 
         $pedido=$this->findModel($id);
+        $mesa_antiga=$pedido->id_mesa;
         $searchMesa = new MesaSearch();
-        $searchMesa->estado=2;
         $dataProviderMesa = $searchMesa->search(Yii::$app->request->queryParams);
         $dataProviderMesa->pagination = ['pageSize' => 5];
-
         $searchUser= new PerfilSearch();
         $dataProviderUser = $searchUser->search(Yii::$app->request->queryParams);
 
@@ -160,16 +155,23 @@ class PedidoController extends Controller
 
         if ($pedido->load(Yii::$app->request->post()) && $pedido->save()) {
 
-            if($pedido->mesa!=null) {
-                $mesa = Mesa::findOne($pedido->id_mesa);
-                $mesa->estado = 1;
-                $mesa->save();
+            if($pedido->tipo==0 && $pedido->id_mesa!=$mesa_antiga){
+
+                $mesa_antiga = Mesa::findOne($mesa_antiga);
+                $mesa_antiga->estado=2;
+                $mesa_antiga->save();
+
+                $mesa_nova=Mesa::findOne($pedido->id_mesa);
+                $mesa_nova->estado=1;
+                $mesa_nova->save();
+
             }
+
             return $this->redirect(['/pedidoproduto/index','id'=>$pedido->id]);
 
         }
 
-        return $this->render('create', [
+        return $this->render('update', [
             'pedido'=>$pedido,
             'searchMesa' => $searchMesa,
             'dataProviderMesa' => $dataProviderMesa,

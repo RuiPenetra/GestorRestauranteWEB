@@ -9,7 +9,7 @@ use yii\widgets\ListView;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PedidoprodutoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
+$this->title='Pedido: '.$pedido->id;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="col-md-12 ml-5">
@@ -30,13 +30,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?=$pedido->perfil->nome?> <?=$pedido->perfil->apelido?>
                         <?= Html::a('<i class="fas fa-edit"></i>', ['pedidoproduto/update', 'id' => $pedido->id], ['class' => 'btn btn-dark btn-sm ml-2']) ?>
                     </h5>
-                    <h6 class="widget-user-desc">
-                        <?php if ($pedido->perfil->cargo=='gerente'):?>
-                            <h6 class="widget-user-desc"><span class="badge badge-dark"><b>Gerente</b></span></h6>
-                        <?php elseif ($pedido->perfil->cargo=='empregadoMesa'):?>
-                            <h6 class="widget-user-desc"><span class="badge badge-dark"><b>Empregado Mesa</b></span></h6>
-                        <?php endif;?>
-                    </h6>
+                    <?php if ($pedido->perfil->cargo=='gerente'):?>
+                        <h6 class="widget-user-desc"><span class="badge badge-dark"><b>Gerente</b></span></h6>
+                    <?php endif;?>
+                    <?php if ($pedido->perfil->cargo=='empregadoMesa'):?>
+                        <h6 class="widget-user-desc"><span class="badge badge-dark"><b>Empregado Mesa</b></span></h6>
+                    <?php endif;?>
+                    <?php if ($pedido->perfil->cargo=='atendedorPedidos'):?>
+                    <h6 class="widget-user-desc"><span class="badge badge-dark"><b>Atendedor Pedidos</b></span></h6>
+                    <?php endif;?>
+                    <?php if ($pedido->perfil->cargo=='cliente'):?>
+                    <h6 class="widget-user-desc"><span class="badge badge-dark"><b>Cliente</b></span></h6>
+                    <?php endif;?>
                 </div>
                 <div class="card-footer p-0">
                     <ul class="nav flex-column">
@@ -104,28 +109,42 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="row col-md-12">
                     <div class="col-md-7">
                         <div class="row col-md-12">
-                            <?= Html::a('<div class="col-md-2">
-        <!-- small card -->
-        <div class="small-box bg-gradient-info p-3" style="width: 200px">
-            <div class="inner">
-                <h4><b>Novo</b></h4>
-            </div>
-            <div class="icon">
-                <i class="fas fa-cart-plus"></i>
-            </div>
-        </div>
-      </div>',['pedidoproduto/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
-                            <?= Html::a('<div class="col-md-1">
-        <!-- small card -->
-        <div class="small-box bg-gradient-success p-3" style="width: 250px">
-            <div class="inner">
-                <h4><b>Terminar</b></h4>
-            </div>
-            <div class="icon">
-                <i class="fas fa-check"></i>
-            </div>
-        </div>
-      </div>',['fatura/index', 'id' => $pedido->id], [ 'class'=>'']) ?>
+                            <?php if($pedido->estado!=2):?>
+                                <?= Html::a('<div class="col-md-2">
+                                        <!-- small card -->
+                                        <div class="small-box bg-gradient-info p-3" style="width: 200px">
+                                            <div class="inner">
+                                                <h4><b>Novo</b></h4>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="fas fa-cart-plus"></i>
+                                            </div>
+                                        </div>
+                                      </div>',['pedidoproduto/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
+                                <?= Html::a('<div class="col-md-1">
+                                    <!-- small card -->
+                                    <div class="small-box bg-gradient-success p-3" style="width: 250px">
+                                        <div class="inner">
+                                            <h4><b>Terminar</b></h4>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="fas fa-check"></i>
+                                        </div>
+                                    </div>
+                                  </div>',['fatura/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
+                            <?php else:?>
+                                <?= Html::a('<div class="col-md-1">
+                                    <!-- small card -->
+                                    <div class="small-box bg-gradient-success p-3" style="width: 250px">
+                                        <div class="inner">
+                                            <h4><b>Fatura</b></h4>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="fas fa-check"></i>
+                                        </div>
+                                    </div>
+                                  </div>',['fatura/view', 'id' => $pedido->id], [ 'class'=>'']) ?>
+                            <?php endif;?>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -205,9 +224,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php endif;?>
                     </td>
                     <td>
-                        <?= Html::a('  <i class="fas fa-sync fa-spin"></i>', ['pedidoproduto/cozinhaupdate', 'id' => $itemPedido->id], ['class' => 'btn btn-info btn-sm']) ?>
-                        <?= Html::a('<i class="fas fa-plus"></i>', ['pedidoproduto/update', 'id' => $itemPedido->id], ['class' => 'btn btn-success btn-sm']) ?>
-                        <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>
+                        <?php if($pedido->estado!=2):?>
+                            <?= Html::a('  <i class="fas fa-sync fa-spin"></i>', ['pedidoproduto/cozinhaupdate', 'id' => $itemPedido->id], ['class' => 'btn btn-info btn-sm']) ?>
+                            <?= Html::a('<i class="fas fa-plus"></i>', ['pedidoproduto/update', 'id' => $itemPedido->id], ['class' => 'btn btn-success btn-sm']) ?>
+                            <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>
+                        <?php endif;?>
                     </td>
                 </tr>
                 <div class="modal fade"  id="apagarItemPedido<?=$itemPedido->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">

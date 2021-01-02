@@ -9,7 +9,7 @@ use yii\bootstrap4\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Pedido */
 
-$this->title = 'Atualizar Pedido:  Ref: ' . $pedido->id;
+$this->title = 'Atualizar Pedido:' . $pedido->id;
 $this->params['breadcrumbs'][] = ['label' => 'Pedidos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $pedido->id, 'url' => ['view', 'id' => $pedido->id]];
 $this->params['breadcrumbs'][] = 'Update';
@@ -87,7 +87,7 @@ $this->params['breadcrumbs'][] = 'Update';
                                                 <td class="text-center"><span class="badge bg-success">Livre</span></td>
                                             <?php endif;?>
                                             <td>
-                                                <?php if($mesa->estado==2):?>
+                                                <?php if($mesa->estado==2 || $mesa->id==$pedido->id_mesa):?>
                                                     <div style="height: 15px">
                                                         <?= $form->field($pedido, 'id_mesa')->radio(['class'=>'','uncheck'=>null,'value' => $mesa->id,'label'=>'Selecionar'])?>
                                                     </div>

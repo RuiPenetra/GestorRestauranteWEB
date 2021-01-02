@@ -100,7 +100,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                         <a href="<?= Url::toRoute(['site/index']) ?>" class="nav-link active">
                             <i class="fas fa-home"></i>
                             <p>
-                                Home
+                                Painel
                             </p>
                         </a>
                     </li>

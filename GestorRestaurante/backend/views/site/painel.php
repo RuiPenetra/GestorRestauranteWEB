@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'Home';
+$this->title = 'Painel';
 $nome='';
 use yii\helpers\Url; ?>
 <div class="site-index">

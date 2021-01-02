@@ -144,7 +144,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card-header">
         <h3 class="card-title">
             <i class="fas fa-bullhorn"></i>
-            Criar produto
+            Produtos Pedidos
         </h3>
         <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -158,6 +158,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <th style="width: 60px" class="text-center"></th>
                 <th class="text-center">Nome Produto</th>
                 <th class="text-center">Quant Pedida</th>
+                <th class="text-center">Quant Preparação</th>
                 <th class="text-center">Quant Entregue</th>
                 <th class="text-center">Preço</th>
                 <th class="text-center">Estado</th>
@@ -188,8 +189,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php endif; ?>
                     </td>
                     <td class="text-center"><?=$itemPedido->produto->nome?></td>
-                    <td class="text-center"><?=$itemPedido->quant_Pedida?> <i class="fas fa-times text-red"></i></td>
-                    <td class="text-center"><?=$itemPedido->quant_Entregue?> <i class="fas fa-check text-green"></i></td>
+                    <td class="text-center"><i class="fas fa-shopping-basket text-blue"></i>  <?=$itemPedido->quant_Pedida?></td>
+                    <td class="text-center"><i class="fas fa-utensils text-orange"></i>  <?=$itemPedido->quant_Preparacao?></td>
+                    <td class="text-center"><i class="fas fa-clipboard-check text-success"></i>  <?=$itemPedido->quant_Entregue?></td>
                     <td class="text-center"><?=$itemPedido->preco?>€</td>
                     <td class="text-center">
                         <?php if ($itemPedido->estado == 0): ?>
@@ -199,11 +201,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             <span class="badge badge-warning text-white"> Em Preparação</span>
                         <?php endif;
                         if ($itemPedido->estado == 2):?>
-                            <span class="badge badge-success text-white"> Pronto</span>
-                        <?php endif;
-                        if ($itemPedido->estado == 3):?>
-                            <span class="badge badge-dark"> Entregue</span>
-                        <?php endif; ?>
+                            <span class="badge badge-success text-white"> Entregue </span>
+                        <?php endif;?>
                     </td>
                     <td>
                         <?= Html::a('  <i class="fas fa-sync fa-spin"></i>', ['pedidoproduto/cozinhaupdate', 'id' => $itemPedido->id], ['class' => 'btn btn-info btn-sm']) ?>

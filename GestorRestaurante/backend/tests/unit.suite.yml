@@ -7,7 +7,7 @@ modules:
         part: ORM
         cleanup: false
     - Db:
-      dsn: 'mysql:host=localhost;dbname=gestorrestaurante_test'
+      dsn: 'mysql:host=localhost;dbname=bdgestorrestaurante_tests'
       user: 'root'
       password: ''
 

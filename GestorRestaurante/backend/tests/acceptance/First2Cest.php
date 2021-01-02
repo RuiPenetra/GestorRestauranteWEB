@@ -1,4 +1,4 @@
-<?php namespace frontend\tests\acceptance;
+<?php namespace backend\tests\acceptance;
 use backend\tests\AcceptanceTester;
 
 class First2Cest
@@ -10,5 +10,7 @@ class First2Cest
     // tests
     public function tryToTest(AcceptanceTester $I)
     {
+        $I->wantTo('Test the response code');
+        $I->amOnPage('/');
     }
 }

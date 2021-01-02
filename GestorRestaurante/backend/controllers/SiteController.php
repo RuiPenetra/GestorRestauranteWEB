@@ -77,8 +77,17 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
             if (Yii::$app->user->can('apagarUtilizadores')) {
-                Yii::$app->session->setFlash('danger', 'Utilizador não tem premissão para aceder');
+//                Yii::$app->session->setFlash('danger', 'Utilizador não tem premissão para aceder');
 
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Login feito com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
 
                 return $this->goBack();
             }else{

@@ -69,6 +69,7 @@ class Pedido extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+
     public function attributeLabels()
     {
         return [
@@ -88,6 +89,7 @@ class Pedido extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
+
     public function getFaturas()
     {
         return $this->hasMany(Fatura::className(), ['id_pedido' => 'id']);
@@ -98,6 +100,7 @@ class Pedido extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
+
     public function getPerfil()
     {
         return $this->hasOne(Perfil::className(), ['id_user' => 'id_perfil']);
@@ -108,6 +111,7 @@ class Pedido extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
+
     public function getMesa()
     {
         return $this->hasOne(Mesa::className(), ['id' => 'id_mesa']);
@@ -118,6 +122,7 @@ class Pedido extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
+
     public function getPedidoProdutos()
     {
         return $this->hasMany(PedidoProduto::className(), ['id_pedido' => 'id']);

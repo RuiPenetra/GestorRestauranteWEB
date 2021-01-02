@@ -30,7 +30,7 @@ class LoginFormTest extends \Codeception\Test\Unit
         ];
     }
 
-    public function testLoginNoUser()
+/*    public function testLoginNoUser()
     {
         $model = new LoginForm([
             'username' => 'not_existing_username',
@@ -63,5 +63,5 @@ class LoginFormTest extends \Codeception\Test\Unit
         expect('model should login user', $model->login())->true();
         expect('error message should not be set', $model->errors)->hasntKey('password');
         expect('user should be logged in', Yii::$app->user->isGuest)->false();
-    }
+    }*/
 }

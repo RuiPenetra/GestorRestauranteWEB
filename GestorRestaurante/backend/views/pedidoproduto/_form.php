@@ -20,9 +20,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'quant_Pedida')->textInput() ?>
 
-    <?= $form->field($model, 'preco')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'quant_Entregue')->textInput() ?>
+
+    <?= $form->field($model, 'quant_Preparacao')->textInput() ?>
+
+    <?= $form->field($model, 'preco')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -3,9 +3,9 @@ var table = document.getElementById("table-item-pedido"), sumVal=0;
 var k;
 for(var i = 1; i < table.rows.length; i++)
 {
-    sumVal = sumVal + parseFloat(table.rows[i].cells[4].innerHTML);
+    sumVal = sumVal + parseFloat(table.rows[i].cells[5].innerHTML);
 }
-document.getElementById("val").innerHTML = sumVal;
+document.getElementById("val").innerHTML = sumVal.toFixed(2);
 
 if(document.getElementById('inputQuantidade'+id).value=""){
     document.getElementById('inputPrecoTotal'+id).value ="";
@@ -48,17 +48,31 @@ function quantDeincrement(id,preco) {
     }
 }
 
-function quantEntreIncrement(id) {
+function QuantEntregueIncrement(id) {
 
     document.getElementById('inputQuantEntregue'+id).value ++;
 }
-function quantEntreDeincrement(id) {
+function QuantEntregueDeincrement(id) {
 
     if(document.getElementById('inputQuantEntregue'+id).value>=1 ){
         document.getElementById('inputQuantEntregue'+id).value= document.getElementById('inputQuantEntregue'+id).value-1;
 
     }else{
         document.getElementById('inputQuantEntregue'+id).value="0";
+    }
+}
+
+function QuantPreparacaoIncrement(id) {
+
+    document.getElementById('inputQuantPreparacao'+id).value ++;
+}
+function QuantPreparacaoDeincrement(id) {
+
+    if(document.getElementById('inputQuantPreparacao'+id).value>=1 ){
+        document.getElementById('inputQuantPreparacao'+id).value= document.getElementById('inputQuantPreparacao'+id).value-1;
+
+    }else{
+        document.getElementById('inputQuantPreparacao'+id).value="0";
     }
 }
 

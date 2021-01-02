@@ -48,42 +48,37 @@ class SignupForm extends Model
 
             ['nome', 'trim'],
             ['nome', 'required'],
-            ['nome', 'string', 'min' => 2, 'max' => 255],
+            ['nome', 'string', 'min' => 3, 'max' => 25],
 
             ['apelido', 'trim'],
             ['apelido', 'required'],
-            ['apelido', 'string', 'min' => 2, 'max' => 255],
+            ['apelido', 'string', 'min' => 3, 'max' => 25],
 
             ['morada', 'required'],
-            ['morada', 'string', 'min' => 2, 'max' => 255],
+            ['morada', 'string', 'max' => 150],
 
             ['codigopostal', 'required'],
-            ['codigopostal', 'string', 'min' => 2, 'max' => 255],
+            ['codigopostal', 'string', 'max' => 8],
 
             ['datanascimento', 'required'],
-            ['datanascimento', 'string'],
-
+            ['datanascimento', 'safe'],
 
             ['telemovel', 'required'],
-            ['telemovel', 'string', 'min' => 2, 'max' => 22],
+            ['telemovel', 'string', 'max' => 13],
 
             ['nacionalidade', 'required'],
-            ['nacionalidade', 'string', 'min' => 2, 'max' => 255],
+            ['nacionalidade', 'string', 'max' => 50],
 
             ['genero', 'required'],
             ['genero', 'in', 'range' => [0,1]],
 
             ['cargo', 'required'],
-            ['cargo', 'string'],
+            ['cargo', 'string', 'max' => 50],
 
         ];
     }
 
-    /**
-     * Signs user up.
-     *
-     * @return bool whether the creating new account was successful and email was sent
-     */
+
     public function signup()
     {
         if (!$this->validate()) {
@@ -106,15 +101,15 @@ class SignupForm extends Model
 
 
         $perfil  = new Perfil();
-        $perfil ->setIdUser($utilizador->id);
-        $perfil ->setNome($this->nome);
-        $perfil ->setApelido($this->apelido);
-        $perfil ->setMorada($this->morada);
-        $perfil ->setNacionalidade($this->nacionalidade);
-        $perfil ->setDatanascimento($this->datanascimento);
-        $perfil ->setCodigopostal($this->codigopostal);
-        $perfil ->setTelemovel($this->telemovel);
-        $perfil ->setGenero($this->genero);
+        $perfil->setIdUser($utilizador->id);
+        $perfil->setNome($this->nome);
+        $perfil->setApelido($this->apelido);
+        $perfil->setMorada($this->morada);
+        $perfil->setNacionalidade($this->nacionalidade);
+        $perfil->setDatanascimento($this->datanascimento);
+        $perfil->setCodigopostal($this->codigopostal);
+        $perfil->setTelemovel($this->telemovel);
+        $perfil->setGenero($this->genero);
         $perfil->setCargo($this->cargo);
 
 
@@ -128,7 +123,7 @@ class SignupForm extends Model
 
         }else{
 
-            if (\Yii::$app->user->can('criarUtilizadores')) {
+            if (Yii::$app->user->can('criarUtilizadores')) {
 
                 $perfil->setCargo($this->cargo);
                 $cargo = $auth->getRole($this->cargo);
@@ -137,7 +132,14 @@ class SignupForm extends Model
             }
         }
 
-        return $perfil ->save();
+        if($perfil ->save()){
+
+            return true;
+        }else{
+
+            $utilizador->delete();
+            return false;
+        }
 
     }
 

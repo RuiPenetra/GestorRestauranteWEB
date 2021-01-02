@@ -94,6 +94,7 @@ class PedidoprodutoController extends Controller
         $pedidoProduto = new Pedidoproduto();
         $pedidoProduto->id_pedido=$pedido->id;
         $pedidoProduto->estado=0;
+        $pedidoProduto->quant_Preparacao=0;
         $pedidoProduto->quant_Entregue=0;
         $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
         $searchProduto= new ProdutoSearch();
@@ -155,6 +156,9 @@ class PedidoprodutoController extends Controller
             $pedido->load(Yii::$app->request->post());
 
             $pedido->save();
+
+            $this->ValidarEstadoPedido($model->id_pedido);
+
             return $this->redirect(['index', 'id' => $model->id_pedido]);
         }
 
@@ -170,52 +174,47 @@ class PedidoprodutoController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $pedido=Pedido::findOne($model->id_pedido);
+            $resultado = $this->ValidarQuantidadeItemProduto($model);
 
-            if($model->quant_Entregue<$model->quant_Pedida){
-
-                $model->estado=1;
-                $model->save();
-                $pedido->estado=1;
-                $pedido->save();
-            }elseif ($model->quant_Entregue==$model->quant_Pedida){
-                $model->estado=2;
-                $model->save();
-                $pedido->estado=1;
-                $pedido->save();
-            }elseif($model->quant_Pedida==0){
-                $model->estado=0;
-                $model->save();
-                $pedido->estado=1;
-                $pedido->save();
+            if ($resultado != null) {
 
                 Yii::$app->getSession()->setFlash('danger', [
                     'type' => 'danger',
                     'duration' => 5000,
                     'icon' => 'fas fa-tags',
-                    'message' => 'Quantidade Entregue superior a quantidade pedida',
+                    'message' => $resultado,
                     'title' => 'ALERTA',
                     'positonX' => 'right',
                     'positonY' => 'top'
                 ]);
-                return $this->render('updatecozinha', [
-                    'itemPedido' => $model,
-                ]);
-            }
-            return $this->redirect(['index', 'id' => $model->id_pedido]);
-        }
 
+            } else {
+
+                $model->save();
+
+                $this->ValidarEstadoItemProduto($model->id);
+
+                $this->ValidarEstadoPedido($model->id_pedido);
+
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Produto pedido atualizado com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+
+                return $this->redirect(['index', 'id' => $model->id_pedido]);
+
+            }
+        }
         return $this->render('updatecozinha', [
             'itemPedido' => $model,
         ]);
     }
-    /**
-     * Deletes an existing Pedidoproduto model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     public function actionDelete($id)
     {
 
@@ -235,6 +234,8 @@ class PedidoprodutoController extends Controller
         }else{
 
             $itemPedido->delete();
+
+            $this->ValidarEstadoPedido($itemPedido->id_pedido);
             Yii::$app->getSession()->setFlash('success', [
                 'type' => 'success',
                 'duration' => 5000,
@@ -250,13 +251,76 @@ class PedidoprodutoController extends Controller
         return $this->redirect(['index', 'id' => $itemPedido->id_pedido]);
     }
 
-    /**
-     * Finds the Pedidoproduto model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Pedidoproduto the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+    public function ValidarEstadoItemProduto($id)
+    {
+
+        $itemPedido=$this->findModel($id);
+
+        if($itemPedido->quant_Preparacao ==0 && $itemPedido->quant_Entregue==0){
+
+            $itemPedido->estado=0; //Processo
+        }
+
+        if($itemPedido->quant_Preparacao !=0){
+
+            $itemPedido->estado=1; //Preparação
+        }
+        if($itemPedido->quant_Entregue == $itemPedido->quant_Pedida){
+
+            $itemPedido->estado=2; //Entregue
+            $itemPedido->quant_Preparacao=0;
+        }
+        $itemPedido->save();
+    }
+
+    public function ValidarQuantidadeItemProduto($itemPedido){
+
+        if($itemPedido->quant_Preparacao>$itemPedido->quant_Pedida && $itemPedido->quant_Entregue>$itemPedido->quant_Pedida){
+
+            $messagem="Quantidade Entregue e em Preparação não podem ser maiores que a quantidade pedida";
+
+        }elseif($itemPedido->quant_Preparacao>$itemPedido->quant_Pedida){
+
+            $messagem="Quantidade em Preparação não pode ser maior que a quantidade pedida";
+
+        }elseif ($itemPedido->quant_Entregue>$itemPedido->quant_Pedida){
+
+            $messagem="Quantidade Entregue não podem ser maior que a quantidade pedida";
+
+        }else{
+            $quantidade=$itemPedido->quant_Preparacao+$itemPedido->quant_Entregue;
+
+            if($quantidade>$itemPedido->quant_Pedida){
+
+                $messagem="A quantidade entregue e a quantidade preparada não pode exceder a quantidade pedida";
+
+            }else{
+                $messagem=null;
+
+            }
+        }
+
+        return $messagem;
+    }
+
+    public function ValidarEstadoPedido($id_pedido)
+    {
+        //Pedido::find()->where(['id_perfil'=>$id_user])->andWhere(['estado'=>[0,1]])->all();
+
+        $pedido=Pedido::findOne($id_pedido);
+
+        $itemsPedido=PedidoProduto::findAll(['id_pedido'=>$id_pedido , 'estado'=>[1,2]]);
+
+        if($itemsPedido!=null){
+
+            $pedido->estado=1;
+        }else{
+            $pedido->estado=0;
+        }
+
+        $pedido->save();
+    }
+
     protected function findModel($id)
     {
         if (($model = Pedidoproduto::findOne($id)) !== null) {

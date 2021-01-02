@@ -42,8 +42,12 @@ class Perfil extends \yii\db\ActiveRecord
         return [
             [['id_user', 'nome', 'apelido', 'morada', 'datanascimento', 'codigopostal', 'nacionalidade', 'telemovel', 'genero', 'cargo'], 'required'],
             [['id_user', 'genero'], 'integer'],
-            [['datanascimento'], 'safe'],
-            [['nome', 'apelido', 'morada', 'codigopostal', 'nacionalidade', 'telemovel', 'cargo'], 'string', 'max' => 255],
+            [['datanascimento'],  'safe'],
+            [['nome', 'apelido'], 'string', 'max' => 25],
+            [['morada'], 'string', 'max' => 150],
+            [['codigopostal'], 'string', 'max' => 8],
+            [['nacionalidade', 'cargo'], 'string', 'max' => 50],
+            [['telemovel'], 'string', 'max' => 13],
             [['telemovel'], 'unique'],
             [['id_user'], 'unique'],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_user' => 'id']],
@@ -67,56 +71,6 @@ class Perfil extends \yii\db\ActiveRecord
             'genero' => 'Genero',
             'cargo' => 'Cargo',
         ];
-    }
-
-    /**
-     * Gets query for [[Faltas]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getFaltas()
-    {
-        return $this->hasMany(Falta::className(), ['id_funcionario' => 'id_user']);
-    }
-
-    /**
-     * Gets query for [[Horarios]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getHorarios()
-    {
-        return $this->hasMany(Horario::className(), ['id_funcionario' => 'id_user']);
-    }
-
-    /**
-     * Gets query for [[Pedidos]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPedidos()
-    {
-        return $this->hasMany(Pedido::className(), ['id_perfil' => 'id_user']);
-    }
-
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'id_user']);
-    }
-
-    /**
-     * Gets query for [[Reservas]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getReservas()
-    {
-        return $this->hasMany(Reserva::className(), ['id_funcionario' => 'id_user']);
     }
 
     /**
@@ -200,4 +154,53 @@ class Perfil extends \yii\db\ActiveRecord
     }
 
 
+    /**
+     * Gets query for [[Faltas]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFaltas()
+    {
+        return $this->hasMany(Falta::className(), ['id_funcionario' => 'id_user']);
+    }
+
+    /**
+     * Gets query for [[Horarios]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHorarios()
+    {
+        return $this->hasMany(Horario::className(), ['id_funcionario' => 'id_user']);
+    }
+
+    /**
+     * Gets query for [[Pedidos]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPedidos()
+    {
+        return $this->hasMany(Pedido::className(), ['id_perfil' => 'id_user']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'id_user']);
+    }
+
+    /**
+     * Gets query for [[Reservas]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReservas()
+    {
+        return $this->hasMany(Reserva::className(), ['id_funcionario' => 'id_user']);
+    }
 }

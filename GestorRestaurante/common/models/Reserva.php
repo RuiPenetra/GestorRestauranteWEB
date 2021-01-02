@@ -11,7 +11,6 @@ use Yii;
  * @property int $n_pessoas
  * @property string $data_hora
  * @property string $nome_da_reserva
- * @property string $tempo_reserva
  * @property int $id_mesa
  * @property int $id_funcionario
  *
@@ -34,10 +33,10 @@ class Reserva extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['n_pessoas', 'data_hora', 'nome_da_reserva', 'tempo_reserva', 'id_mesa', 'id_funcionario'], 'required'],
+            [['n_pessoas', 'data_hora', 'nome_da_reserva', 'id_mesa', 'id_funcionario'], 'required'],
             [['n_pessoas', 'id_mesa', 'id_funcionario'], 'integer'],
-            [['data_hora', 'tempo_reserva'], 'safe'],
-            [['nome_da_reserva'], 'string', 'max' => 255],
+            [['data_hora'], 'safe'],
+            [['nome_da_reserva'], 'string', 'max' => 50],
             [['id_funcionario'], 'exist', 'skipOnError' => true, 'targetClass' => Perfil::className(), 'targetAttribute' => ['id_funcionario' => 'id_user']],
             [['id_mesa'], 'exist', 'skipOnError' => true, 'targetClass' => Mesa::className(), 'targetAttribute' => ['id_mesa' => 'id']],
         ];
@@ -53,7 +52,6 @@ class Reserva extends \yii\db\ActiveRecord
             'n_pessoas' => 'N Pessoas',
             'data_hora' => 'Data Hora',
             'nome_da_reserva' => 'Nome Da Reserva',
-            'tempo_reserva' => 'Tempo Reserva',
             'id_mesa' => 'Id Mesa',
             'id_funcionario' => 'Id Funcionario',
         ];

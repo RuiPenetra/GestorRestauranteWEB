@@ -1,5 +1,6 @@
 <?php
 
+use kartik\date\DatePicker;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -78,8 +79,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="input-group-append">
                                         <span class="input-group-text rounded-left"><i class="fas fa-calendar-alt"></i></span>
                                     </div>
-                                    <?= $form->field($model, 'datanascimento',['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'type' => 'date','autocomplete' => 'off'])->label(false) ?>
-
+                                    <?=$form->field($model, 'datanascimento')->widget(DatePicker::classname(), [
+                                        'options' => [
+                                            'placeholder' => 'Enter birth date ...',
+                                            'readonly' => true
+                                        ],
+                                        'pluginOptions' => [
+                                            'autoclose'=>true,
+                                            'format' => 'dd/mm/yyyy'
+                                        ]
+                                    ]);?>
                                 </div>
                             </div>
                         </div>

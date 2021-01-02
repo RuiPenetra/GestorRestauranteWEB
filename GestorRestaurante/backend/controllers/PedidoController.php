@@ -102,15 +102,11 @@ class PedidoController extends Controller
         $dataProviderMesa->pagination = ['pageSize' => 5];
 
         $pedido = new Pedido();
-
-        $id_user = Yii::$app->user->identity->getId();
         $pedido->estado = 0;
         $pedido->tipo=$tipo;
 
         $searchUser= new PerfilSearch();
-        $searchUser->cargo='empregadoMesa';
         $dataProviderUser = $searchUser->search(Yii::$app->request->queryParams);
-
         $dataProviderUser->pagination = ['pageSize' => 5];
 
         if ($pedido->tipo==0) {
@@ -145,34 +141,6 @@ class PedidoController extends Controller
 
     public function lertipo(){
         return (Integer)Yii::$app->request->post('tipo');
-    }
-
-    public function actionCriar3passo($id)
-    {
-        $pedido=Pedido::findOne($id);
-
-        if($pedido->tipo == 0){
-            $pedido->scenario='scenariorestaurante';
-            if ($pedido->load(Yii::$app->request->post()) && $pedido->save()) {
-
-                $this->redirect('index');
-
-            }
-            return $this->render('3_passo', [
-                'pedido'=>$pedido
-            ]);
-        }else{
-            $pedido->scenario='scenariotakeaway';
-            if ($pedido->load(Yii::$app->request->post()) && $pedido->save()) {
-
-                $this->redirect('index');
-
-            }
-            return $this->render('3_passo', [
-                'pedido'=>$pedido
-            ]);
-        }
-
     }
 
     public function actionUpdate($id)
@@ -222,6 +190,7 @@ class PedidoController extends Controller
                 $mesa->save();
             }
 
+            PedidoProduto::deleteAll(['id_pedido' => $id]);
             $pedido->delete();
             Yii::$app->getSession()->setFlash('success', [
                 'type' => 'success',

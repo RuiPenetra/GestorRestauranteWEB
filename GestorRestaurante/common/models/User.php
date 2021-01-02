@@ -266,4 +266,13 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->updated_at;
     }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
 }

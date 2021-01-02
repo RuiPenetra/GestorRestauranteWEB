@@ -17,7 +17,7 @@ class PedidoprodutoSearch extends Pedidoproduto
     public function rules()
     {
         return [
-            [['id', 'id_pedido', 'id_produto', 'estado', 'quant_Pedida', 'quant_Entregue'], 'integer'],
+            [['id', 'id_pedido', 'id_produto', 'estado', 'quant_Pedida', 'quant_Entregue', 'quant_Preparacao'], 'integer'],
             [['preco'], 'number'],
         ];
     }
@@ -63,8 +63,9 @@ class PedidoprodutoSearch extends Pedidoproduto
             'id_produto' => $this->id_produto,
             'estado' => $this->estado,
             'quant_Pedida' => $this->quant_Pedida,
-            'preco' => $this->preco,
             'quant_Entregue' => $this->quant_Entregue,
+            'quant_Preparacao' => $this->quant_Preparacao,
+            'preco' => $this->preco,
         ]);
 
         return $dataProvider;

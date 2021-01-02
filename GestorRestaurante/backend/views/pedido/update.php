@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = 'Update';
                 <?php echo $this->render('//perfil/_search', ['model' => $searchUser]); ?>
             </div>
         </div>
-        <?php $form = ActiveForm::begin(['validateOnBlur'=>false]);?>
+        <?php $form = ActiveForm::begin(['enableClientValidation'=> false]);?>
         <div class="row col-md-12">
             <div class="col-md-6">
                 <?php if($pedido->tipo!=0):?>

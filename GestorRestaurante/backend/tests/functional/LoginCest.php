@@ -32,10 +32,13 @@ class LoginCest
      */
     public function loginUser(FunctionalTester $I)
     {
-        $I->amOnPage('web/index');
-        $I->fillField('LoginForm[username]', 'Joana');
+        $I->wantTo('Login do utilizador');
+        $I->amOnPage('web/index.php?r=site%2Flogin');
+        $I->fillField('LoginForm[username]', 'joana');
         $I->fillField('LoginForm[password]', '1234567');
         $I->click('login-button');
-        $I->amOnPage('/web/index.php/site/login');
+        //$I->amOnPage('web/index.php?r=user%index');
+        $I->see('Painel');
+        //$I->amLoggedInAs(2);
     }
 }

@@ -100,7 +100,7 @@ AppAsset::register($this);?>
                 <!-- TAKEAWAY -->
                 <li class="nav-item">
                     <a href="<?=URL::toRoute(['pedido/index'])?>" class="nav-link">
-                        <i class="fas fa-shopping-bag"></i>
+                        <i class="fas fa-shopping-basket"></i>
                         <p>
                             Takeaway
                         </p>
@@ -204,7 +204,15 @@ AppAsset::register($this);?>
                                 </p>
                             </a>
                         </li>
-
+                        <!-- Pedidos -->
+                        <li class="nav-item">
+                            <a href="<?=URL::toRoute(['pedido/index'])?>" class="nav-link">
+                                <i class="fas fa-clipboard"></i>
+                                <p>
+                                    Pedidos
+                                </p>
+                            </a>
+                        </li>
                         <!--Faltas-->
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -311,7 +319,15 @@ AppAsset::register($this);?>
                                 </p>
                             </a>
                         </li>
-
+                        <!-- Pedidos -->
+                        <li class="nav-item">
+                            <a href="<?=URL::toRoute(['pedido/index'])?>" class="nav-link">
+                                <i class="fas fa-clipboard"></i>
+                                <p>
+                                    Pedidos
+                                </p>
+                            </a>
+                        </li>
                         <!--Faltas-->
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -414,7 +430,7 @@ AppAsset::register($this);?>
                         <!-- Pedidos -->
                         <li class="nav-item">
                             <a href="<?=URL::toRoute(['pedido/index'])?>" class="nav-link">
-                                <i class="fas fa-utensils"></i>
+                                <i class="fas fa-clipboard"></i>
                                 <p>
                                     Pedidos
                                 </p>
@@ -423,7 +439,7 @@ AppAsset::register($this);?>
                         <!-- EMENTA -->
                         <li class="nav-item">
                             <a href="<?=URL::toRoute(['produto/index'])?>" class="nav-link">
-                                <i class="fas fa-clipboard"></i>
+                                <i class="fas fa-utensils"></i>
                                 <p>
                                     Ementa
                                 </p>

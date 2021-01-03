@@ -34,7 +34,7 @@ class ProdutoController extends Controller
                     [
                         'actions' => ['index','view','create','update','delete'],
                         'allow' => true,
-                        'roles' =>['Cozinheiro'],
+                        'roles' =>['cozinheiro'],
                     ],
                 ],
             ],

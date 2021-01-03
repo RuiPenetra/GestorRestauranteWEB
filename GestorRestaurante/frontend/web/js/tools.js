@@ -3,9 +3,9 @@ var table = document.getElementById("table-item-pedido"), sumVal=0;
 var k;
 for(var i = 1; i < table.rows.length; i++)
 {
-    sumVal = sumVal + parseFloat(table.rows[i].cells[4].innerHTML);
+    sumVal = sumVal + parseFloat(table.rows[i].cells[5].innerHTML);
 }
-document.getElementById("val").innerHTML = sumVal;
+document.getElementById("val").innerHTML = sumVal.toFixed(2);
 
 if(document.getElementById('inputQuantidade'+id).value=""){
     document.getElementById('inputPrecoTotal'+id).value ="";
@@ -25,7 +25,8 @@ if(document.getElementById('tipo_restaurante').checked==true){
 function quantIncrement(id,preco) {
 
     document.getElementById('inputQuantidade'+id).value ++;
-    document.getElementById("inputPrecoTotal"+id).value=document.getElementById("inputQuantidade"+id).value *preco;
+    preco=document.getElementById("inputQuantidade"+id).value *preco;
+    document.getElementById("inputPrecoTotal"+id).value=preco.toFixed(2);
 
 }
 function quantDeincrement(id,preco) {
@@ -34,7 +35,8 @@ function quantDeincrement(id,preco) {
         document.getElementById('inputQuantidade'+id).value= document.getElementById('inputQuantidade'+id).value-1;
 
         if(document.getElementById('inputQuantidade'+id).value>0){
-            document.getElementById("inputPrecoTotal"+id).value=document.getElementById("inputQuantidade"+id).value *preco;
+            preco=document.getElementById("inputQuantidade"+id).value *preco;
+            document.getElementById("inputPrecoTotal"+id).value=preco.toFixed(2);
 
         }else{
             document.getElementById('inputQuantidade'+id).value="";
@@ -48,17 +50,36 @@ function quantDeincrement(id,preco) {
     }
 }
 
-function quantEntreIncrement(id) {
+function QuantEntregueIncrement(id) {
 
     document.getElementById('inputQuantEntregue'+id).value ++;
+    document.getElementById('inputQuantPreparacao'+id).value =document.getElementById('inputQuantPreparacao'+id).value -document.getElementById('inputQuantEntregue'+id).value;
+
+
 }
-function quantEntreDeincrement(id) {
+function QuantEntregueDeincrement(id) {
 
     if(document.getElementById('inputQuantEntregue'+id).value>=1 ){
         document.getElementById('inputQuantEntregue'+id).value= document.getElementById('inputQuantEntregue'+id).value-1;
 
+
+
     }else{
         document.getElementById('inputQuantEntregue'+id).value="0";
+    }
+}
+
+function QuantPreparacaoIncrement(id) {
+
+    document.getElementById('inputQuantPreparacao'+id).value ++;
+}
+function QuantPreparacaoDeincrement(id) {
+
+    if(document.getElementById('inputQuantPreparacao'+id).value>=1 ){
+        document.getElementById('inputQuantPreparacao'+id).value= document.getElementById('inputQuantPreparacao'+id).value-1;
+
+    }else{
+        document.getElementById('inputQuantPreparacao'+id).value="0";
     }
 }
 
@@ -86,8 +107,8 @@ function calcularPreco(id,preco) {
  function unCheck(id) {
      document.getElementById("radio"+id).checked=false;
 
-     document.getElementById("inputQuantidade").value="";
-     document.getElementById("inputPrecoTotal").value="";
+     document.getElementById("inputQuantidade"+id).value="";
+     document.getElementById("inputPrecoTotal"+id).value="";
  }
 
 function showDivRestaurante() {

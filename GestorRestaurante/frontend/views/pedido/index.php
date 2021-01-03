@@ -1,6 +1,7 @@
 <?php
 
 use kartik\datetime\DateTimePicker;
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
@@ -27,6 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
      <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
         <div class="card card-outline card-blue mr-5 ml-5"><!--collapsed-card-->
         <?php endif?>
+    <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id) != null):?>
+            <div class="card card-outline card-indigo mr-5 ml-5"><!--collapsed-card-->
+    <?php endif?>
 
 
         <div class="card-header">
@@ -43,6 +47,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card-body">
                 <?php if (Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
                 <?php echo $this->render('//pedido/_search', ['model' => $searchModel, 'mesas' => $mesas]); ?>
+                <?php endif?>
+
+                <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$id) != null):?>
+                    <?php echo $this->render('//pedido/_search', ['model' => $searchModel, 'mesas' => $mesas]); ?>
                 <?php endif?>
                 <table class="table table-striped projects">
                     <thead>
@@ -102,7 +110,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                     echo "<span class='badge badge-success'>Concluido</span>";
                                 } ?>
                             <td class="project-actions text-right">
-
+                                <?php if(Yii::$app->authManager->getAssignment('cliente',$id)!=null || Yii::$app->authManager->getAssignment('cozinheiro',$id) !=null){?>
+                                <?= Html::a('<i class="fas fa-eye"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-info btn-sm']) ?>
+                                <?php }?>
+                                <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id) != null){?>
+                                    <?php if($pedido->tipo==0):?>
+                                        <?= Html::a('<i class="fas fa-eye"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-info btn-sm']) ?>
+                                    <?php endif;?>
+                                <?php }?>
+                                <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null){?>
+                                <?php if($pedido->tipo==1){?>
+                                <?php if($pedido->estado==1 || $pedido->estado==2){?>
+                                <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
+                                <?= Html::a('<i class="fas fa-cart-plus"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-success btn-sm']) ?>
+                               <?php }?>
+                                <?php }?>
+                                <?php }?>
                                 <?php if($pedido->estado==0){?>
                                 <?= Html::a('<i class="far fa-trash-alt color-white"></i>', ['pedido/delete', 'id' => $pedido->id], ['class' => 'btn btn-danger btn-sm','data' => [
                                     'confirm' => 'Are you sure you want to delete this item?',
@@ -115,6 +138,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php endforeach;?>
                     </tbody>
                 </table>
+                <div class="row col-md-12 d-flex justify-content-center">
+                    <?= LinkPager::widget([
+                        'pagination' => $dataProvider->getPagination(),
+                        'options' => [
+                            'class' => 'page-item',
+                        ],
+                    ]);?>
+                </div>
+
             </div>
 
     </div>

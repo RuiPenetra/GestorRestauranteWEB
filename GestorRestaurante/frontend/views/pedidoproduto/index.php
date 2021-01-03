@@ -12,13 +12,17 @@ use yii\widgets\ListView;
 
 
 $this->params['breadcrumbs'][] = $this->title;
+$id = Yii::$app->user->identity->id;
 ?>
 <div class="col-md-12 ml-5">
     <div class="row">
+        <?php if($pedido->perfil->cargo!='cliente'):?>
         <div class="col-md-4">
             <div class="card card-widget widget-user-2 p-0">
                 <!-- Add the bg color to the header using any of the bg-* classes -->
+
                 <div class="widget-user-header bg-warning">
+
                     <div class="widget-user-image">
                         <?php if($pedido->perfil->genero==0):?>
                             <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'img-circle elevation-2']); ?>
@@ -29,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <!-- /.widget-user-image -->
                     <h5 class="widget-user-username">
                         <?=$pedido->perfil->nome?> <?=$pedido->perfil->apelido?>
-                        <?= Html::a('<i class="fas fa-edit"></i>', ['pedidoproduto/update', 'id' => $pedido->id], ['class' => 'btn btn-dark btn-sm ml-2']) ?>
+
                     </h5>
                     <h6 class="widget-user-desc">
                         <?php if ($pedido->perfil->cargo=='gerente'):?>
@@ -64,49 +68,35 @@ $this->params['breadcrumbs'][] = $this->title;
                             </a>
                         </li>
                         <?php if($pedido->tipo==0):?>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                Mesa: <span class="float-right"><?=$pedido->id_mesa?></span>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Mesa: <span class="float-right"><?=$pedido->id_mesa?></span>
+                                </a>
+                            </li>
                         <?php else:?>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                Nome pedido: <span class="float-right"><?=$pedido->nome_pedido?></span>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    Nome pedido: <span class="float-right"><?=$pedido->nome_pedido?></span>
+                                </a>
+                            </li>
                         <?php endif;?>
+
                     </ul>
                 </div>
+
             </div>
         </div>
+        <?php endif?>
         <div class="col-md-8">
-<!--            <div class="row d-flex justify-content-center mb-4">
-                <div class="col-md-1">
-                    <div class="row justify-content-center"><a class="bg-black rounded-circle text-center" style="width: 50px; height: 50px;"><i class="fas fa-cart-plus m-3"></i></a></div>
-                    <div class="row d-flex justify-content-center">Criar</div>
-                </div>
-                <div class="col-md-2">
-                    <hr class="connecting-line rounded">
-                </div>
-                <div class="col-md-1">
-                    <div class="row justify-content-center"><a class="bg-warning rounded-circle text-center" style="width: 50px; height: 50px;"><i class="fas fa-utensils m-3"></i></a></div>
-                    <div class="row d-flex justify-content-center">Produtos</div>
-                </div>
-                <div class="col-md-2">
-                    <hr class="connecting-line rounded">
-                </div>
-                <div class="col-md-1">
-                    <div class="row justify-content-center"><a class="bg-dark rounded-circle text-center" style="width: 50px; height: 50px;"><i class="fas fa-cash-register m-3"></i></a></div>
-                    <div class="row d-flex justify-content-center">Terminar</div>
-                </div>
-            </div>-->
+
             <div class="row d-flex justify-content-center mt-5">
                 <div class="row col-md-12">
                     <div class="col-md-7">
                         <div class="row col-md-12">
-                            <?= Html::a('<div class="col-md-2">
+                            <?php if($pedido->estado!=2):?>
+                                <?= Html::a('<div class="col-md-2">
         <!-- small card -->
+        
         <div class="small-box bg-gradient-info p-3" style="width: 200px">
             <div class="inner">
                 <h4><b>Novo</b></h4>
@@ -116,7 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
       </div>',['pedidoproduto/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
-                            <?= Html::a('<div class="col-md-1">
+                                <?= Html::a('<div class="col-md-1">
         <!-- small card -->
         <div class="small-box bg-gradient-success p-3" style="width: 250px">
             <div class="inner">
@@ -127,9 +117,22 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
       </div>',['fatura/index', 'id' => $pedido->id], [ 'class'=>'']) ?>
+                            <?php else:?>
+                                <?= Html::a('<div class="col-md-1">
+                                    <!-- small card -->
+                                    <div class="small-box bg-gradient-success p-3" style="width: 250px">
+                                        <div class="inner">
+                                            <h4><b>Fatura</b></h4>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="fas fa-check"></i>
+                                        </div>
+                                    </div>
+                                  </div>',['fatura/view', 'id' => $pedido->id], [ 'class'=>'']) ?>
+                            <?php endif;?>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-auto">
                         <div class="row d-flex justify-content-end m-4">
                             <h1 id="val" class="mr-3">0,00</h1>
                             <i class="fas fa-euro-sign fa-3x" style="color: orange"></i>
@@ -159,6 +162,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <th style="width: 60px" class="text-center"></th>
                 <th class="text-center">Nome Produto</th>
                 <th class="text-center">Quant Pedida</th>
+                <th class="text-center">Quant Preparação</th>
                 <th class="text-center">Quant Entregue</th>
                 <th class="text-center">Preço</th>
                 <th class="text-center">Estado</th>
@@ -189,8 +193,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php endif; ?>
                     </td>
                     <td class="text-center"><?=$itemPedido->produto->nome?></td>
-                    <td class="text-center"><?=$itemPedido->quant_Pedida?> <i class="fas fa-times text-red"></i></td>
-                    <td class="text-center"><?=$itemPedido->quant_Entregue?> <i class="fas fa-check text-green"></i></td>
+                    <td class="text-center"><i class="fas fa-shopping-basket text-blue"></i>  <?=$itemPedido->quant_Pedida?></td>
+                    <td class="text-center"><i class="fas fa-utensils text-orange"></i>  <?=$itemPedido->quant_Preparacao?></td>
+                    <td class="text-center"><i class="fas fa-clipboard-check text-success"></i>  <?=$itemPedido->quant_Entregue?></td>
                     <td class="text-center"><?=$itemPedido->preco?>€</td>
                     <td class="text-center">
                         <?php if ($itemPedido->estado == 0): ?>
@@ -200,16 +205,19 @@ $this->params['breadcrumbs'][] = $this->title;
                             <span class="badge badge-warning text-white"> Em Preparação</span>
                         <?php endif;
                         if ($itemPedido->estado == 2):?>
-                            <span class="badge badge-success text-white"> Pronto</span>
-                        <?php endif;
-                        if ($itemPedido->estado == 3):?>
                             <span class="badge badge-dark"> Entregue</span>
                         <?php endif; ?>
                     </td>
                     <td>
-                        <?= Html::a('  <i class="fas fa-sync fa-spin"></i>', ['pedidoproduto/cozinhaupdate', 'id' => $itemPedido->id], ['class' => 'btn btn-info btn-sm']) ?>
-                        <?= Html::a('<i class="fas fa-plus"></i>', ['pedidoproduto/update', 'id' => $itemPedido->id], ['class' => 'btn btn-success btn-sm']) ?>
-                        <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>
+                        <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id) != null):?>
+                            <?= Html::a('  <i class="fas fa-sync fa-spin"></i>', ['pedidoproduto/cozinhaupdate', 'id' => $itemPedido->id], ['class' => 'btn btn-info btn-sm']) ?>
+                        <?php endif?>
+                        <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
+                            <?= HTML::a('<i class="fas fa-check"></i>',['pedidoproduto/atendedorpedidosupdate','id'=>$itemPedido->id],['class'=>'btn btn-info btn-sm'])?>
+                            <?= Html::a('<i class="fas fa-plus"></i>', ['pedidoproduto/update', 'id' => $itemPedido->id], ['class' => 'btn btn-success btn-sm']) ?>
+
+                            <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>
+                        <?php endif?>
                     </td>
                 </tr>
                 <div class="modal fade"  id="apagarItemPedido<?=$itemPedido->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">

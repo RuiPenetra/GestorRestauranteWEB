@@ -543,6 +543,12 @@ class m201016_160137_rbac extends Migration
             $auth->addChild($cozinheiro, $atualizarProdutoCategoriaProduto);
             $auth->addChild($cozinheiro, $apagarProdutoCategoriaProduto);
 
+            //# PEDIDOS #
+          $auth->addChild($cozinheiro, $consultarPedidos);
+
+            //# PEDIDO-PRODUTO #
+          $auth->addChild($cozinheiro, $consultarPedidoProduto);
+          $auth->addChild($cozinheiro, $atualizarPedidoProduto);
 
 
         /**ROLE -> CLIENTE_______________________________________________________________________________________**/
@@ -557,12 +563,6 @@ class m201016_160137_rbac extends Migration
 
             //# PRODUTOS #
             $auth->addChild($cliente, $consultarProdutos);
-
-            //# PEDIDOS #
-            $auth->addChild($cliente, $criarPedidos);
-            $auth->addChild($cliente, $consultarPedidos);
-            $auth->addChild($cliente, $atualizarPedidos);
-            $auth->addChild($cliente, $apagarPedidos);
 
             //#TAKEAWAY #
             $auth->addChild($cliente, $criarTakeaway);

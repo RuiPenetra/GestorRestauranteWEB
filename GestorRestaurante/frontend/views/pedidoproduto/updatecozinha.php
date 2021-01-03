@@ -32,33 +32,59 @@ $this->title = 'Preparação';
             <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
         <?php endif; ?>
     </div>
-    <div class="col-md-3">
-        <div class="row col-md-12 d-flex justify-content-center">
-            <label>Quantidade Pedida:</label>
-        </div>
-        <div class="row col-md-12 d-flex justify-content-center">
-            <div class="col-md-5 d-flex justify-content-center">
-                <?= $form->field($itemPedido, 'quant_Pedida')->textInput(['type'=>'text','class'=>' form-control w-75 rounded', 'readonly'=>'true'])->label(false) ?>
-            </div>
-        </div>
+    <div class="col-md-4 text-center d-inline-block">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <h3>Quantidade</h3>
+            </tr>
+            <tr>
+                <th style="width: 40px">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-3">
+                            <i class="fas fa-shopping-basket text-blue"></i>
+                        </div>
+                        <div class="col-md-6">
+                            Pedida
+                        </div>
+                    </div>
+                </th>
+                <th style="width: 40px">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-3">
+                            <i class="fas fa-utensils text-orange"></i>
+                        </div>
+                        <div class="col-md-6">
+                            Preparação
+                        </div>
+                    </div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <div class="row d-flex justify-content-center">
+                        <?= $form->field($itemPedido, 'quant_Pedida')->textInput(['type'=>'text','class'=>'form-control rounded text-center','style'=>'width:80px', 'readonly'=>'true'])->label(false) ?>
+                    </div>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <i class="fas fa-minus-circle fa-2x" style="color: #ff7e6a" onclick="QuantPreparacaoDeincrement(<?=$itemPedido->id?>);"></i>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($itemPedido, 'quant_Preparacao')->textInput(['type'=>'text','class'=>'form-control rounded text-center','style'=>'width:70px','id'=>'inputQuantPreparacao'.$itemPedido->id, 'readonly'=>'true', 'placeholder'=>'0'])->label(false) ?>
+                        </div>
+                        <div class="col-md-3">
+                            <i class="fas fa-plus-circle fa-2x" style="color: #6fda44" onclick="QuantPreparacaoIncrement(<?=$itemPedido->id?>);"></i>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <div class="col-md-3">
-        <div class="row col-md-12 d-flex justify-content-center">
-            <label>Quantidade Entregue:</label>
-        </div>
-        <div class="row col-md-12 d-flex justify-content-center">
-            <div class="col-md-1 d-flex justify-content-center">
-                <i class="fas fa-minus-circle fa-2x" style="color: #ff7e6a" onclick="quantEntreDeincrement(<?=$itemPedido->id?>);"></i>
-            </div>
-            <div class="col-md-4 d-flex justify-content-center">
-                <?= $form->field($itemPedido, 'quant_Entregue')->textInput(['type'=>'text','class'=>' form-control rounded w-75','id'=>'inputQuantEntregue'.$itemPedido->id, 'readonly'=>'true', 'placeholder'=>'0'])->label(false) ?>
-            </div>
-            <div class="col-md-1 d-flex justify-content-center">
-                <i class="fas fa-plus-circle fa-2x" style="color: #6fda44" onclick="quantEntreIncrement(<?=$itemPedido->id?>);"></i>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="row col-md-12 d-flex justify-content-center">
     <div class="row col-md-12 d-flex justify-content-center">
         <?= $form->field($itemPedido->pedido, 'nota')->textarea(['class'=>' form-control','readonly'=>'true','value'=>$itemPedido->pedido->nota,'rows'=>5,'cols'=>60])->label(true) ?>

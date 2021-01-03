@@ -106,6 +106,14 @@
       <path value="$PROJECT_DIR$/GestorRestaurante/vendor/codeception/module-db" />
       <path value="$PROJECT_DIR$/GestorRestaurante/vendor/phpunit/phpunit-mock-objects" />
       <path value="$PROJECT_DIR$/GestorRestaurante/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/php-webdriver/webdriver" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/codeception/module-phpbrowser" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/codeception/module-webdriver" />
+      <path value="$PROJECT_DIR$/GestorRestaurante/vendor/kartik-v/yii2-widget-datepicker" />
     </include_path>
   </component>
 </project>

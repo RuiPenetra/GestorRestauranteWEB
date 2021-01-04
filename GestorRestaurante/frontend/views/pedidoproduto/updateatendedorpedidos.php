@@ -51,11 +51,21 @@ $this->title = 'Preparação';
                 </th>
                 <th style="width: 40px">
                     <div class="row d-flex justify-content-center">
-                        <div class="col-md-3">
+                        <div class="col-md-1">
                             <i class="fas fa-utensils text-orange"></i>
                         </div>
                         <div class="col-md-6">
                             Preparação
+                        </div>
+                    </div>
+                </th>
+                <th style="width: 40px">
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-3">
+                            <i class="fas fa-clipboard-check text-green"></i>
+                        </div>
+                        <div class="col-md-6">
+                            Entregue
                         </div>
                     </div>
                 </th>
@@ -69,21 +79,26 @@ $this->title = 'Preparação';
                     </div>
                 </td>
                 <td>
+                    <div class="row d-flex justify-content-center">
+                            <?= $form->field($itemPedido, 'quant_Preparacao')->textInput(['type'=>'text','class'=>'form-control rounded text-center','style'=>'width:80px','readonly'=>'true'])->label(false) ?>
+
+                    </div>
+                </td>
+                <td>
                     <div class="row">
-                        <div class="col-md-3">
-                            <i class="fas fa-minus-circle fa-2x" style="color: #ff7e6a" onclick="QuantPreparacaoDeincrement(<?=$itemPedido->id?>);"></i>
-                        </div>
+                            <i class="fas fa-minus-circle fa-2x" style="color: #ff7e6a" onclick="QuantEntregueDeincrement(<?=$itemPedido->id?>);"></i>
                         <div class="col-md-6">
-                            <?= $form->field($itemPedido, 'quant_Preparacao')->textInput(['type'=>'text','class'=>'form-control rounded text-center','style'=>'width:70px','id'=>'inputQuantPreparacao'.$itemPedido->id, 'readonly'=>'true', 'placeholder'=>'0'])->label(false) ?>
+                            <?= $form->field($itemPedido, 'quant_Entregue')->textInput(['type'=>'text','class'=>'form-control rounded text-center','style'=>'width:70px','id'=>'inputQuantEntregue'.$itemPedido->id, 'readonly'=>'true', 'placeholder'=>'0'])->label(false) ?>
                         </div>
                         <div class="col-md-3">
-                            <i class="fas fa-plus-circle fa-2x" style="color: #6fda44" onclick="QuantPreparacaoIncrement(<?=$itemPedido->id?>);"></i>
+                            <i class="fas fa-plus-circle fa-2x" style="color: #6fda44" onclick="QuantEntregueIncrement(<?=$itemPedido->id?>);"></i>
                         </div>
                     </div>
                 </td>
             </tr>
             </tbody>
         </table>
+    </div>
     </div>
 <div class="row col-md-12 d-flex justify-content-center">
     <div class="row col-md-12 d-flex justify-content-center">

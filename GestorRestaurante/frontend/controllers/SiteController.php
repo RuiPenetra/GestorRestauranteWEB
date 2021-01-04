@@ -127,7 +127,7 @@ class SiteController extends Controller
 
 
             }
-            return $this->actionIndex();
+            return $this->redirect(['index']);
         }
             else {
             $model->password = '';
@@ -337,9 +337,10 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $id = Yii::$app->user->identity->getId();
-        $perfil = Perfil::findone($id);
+        $perfil = Perfil::findOne($id);
 
         $this->layout='main';
+
         return $this->render('homepagelogin',['perfil' => $perfil]);
 
     }

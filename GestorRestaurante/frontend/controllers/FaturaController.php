@@ -7,6 +7,7 @@ use common\models\PedidoProduto;
 use Yii;
 use common\models\Fatura;
 use common\models\FaturaSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -22,6 +23,21 @@ class FaturaController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index','view'],
+                        'allow' => true,
+                        'roles' => ['cliente'],
+                    ],
+                    [
+                        'actions' => ['index','create','view'],
+                        'allow' => true,
+                        'roles' => ['atendedorPedidos'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

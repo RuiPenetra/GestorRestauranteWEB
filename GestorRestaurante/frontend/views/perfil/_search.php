@@ -12,6 +12,7 @@ use yii\widgets\ActiveForm;
 ]); ?>
 
 
+
 <div class="row m-2">
     <div class="col-md-3">
         <?= $form->field($model, 'nome')->textInput(['class'=>'form-control rounded', 'placeholder'=>'Nome'])->label(false) ?>

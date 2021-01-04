@@ -42,7 +42,17 @@ class PedidoController extends Controller
                         'actions' => ['index','view','create','update','delete'],
                         'allow' => true,
                         'roles' => ['atendedorPedidos'],
-                    ]
+                    ],
+                    [
+                        'actions' => ['index','view'],
+                        'allow' => true,
+                        'roles' => ['cozinheiro'],
+                    ],
+                    [
+                        'actions' => ['index','view'],
+                        'allow' => true,
+                        'roles' => ['empregadoMesa'],
+                    ],
                 ],
             ],
             'verbs' => [
@@ -64,9 +74,11 @@ class PedidoController extends Controller
             $id = Yii::$app->user->identity->id;
 
         $searchModel = new PedidoSearch();
-        if (\Yii::$app->user->can('consultarTakeaway')){
-        $searchModel->id_perfil = $id;
-             }
+        if(\Yii::$app->user->can('consultarTakeaway')){
+            $searchModel->id_perfil = $id;
+        }
+
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $mesas = ArrayHelper::map(Mesa::find()->all(),'id','id');
 
@@ -176,15 +188,6 @@ class PedidoController extends Controller
 
 
 
-
-   // }
-
-
-
-
-
-
-
     /**
      * Updates an existing Pedido model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -197,7 +200,7 @@ class PedidoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index', 'id' => $model->id]);
         }
 
         return $this->render('update', [

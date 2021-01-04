@@ -1,0 +1,9 @@
+actor: AcceptanceTester
+modules:
+  enabled:
+    - WebDriver:
+        url: http://localhost/GestorRestaurante/gestorrestauranteweb/frontend/web
+        browser: chrome
+        port: 9515
+    - Yii2:
+        part: init

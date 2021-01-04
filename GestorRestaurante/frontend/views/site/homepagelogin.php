@@ -34,7 +34,8 @@ $this->title = 'Gestor Restaurante';
                             </div>
                     </div>
                     <div class="card-body col-12 d-flex justify-content-center">
-                        <h6>Desfrute do nosso takeaway no conforto da sua casa</h6>
+                        <h6>Desfrute do nosso takeaway no conforto da sua casa e veja quando esta
+                        pronto para ir buscar em tempo real atraves do nosso website.</h6>
                     </div>
             </div>
 
@@ -53,7 +54,8 @@ $this->title = 'Gestor Restaurante';
                 </div>
 
                 <div class="card-body">
-                    <h6>Veja a nossa ementa em qualquer parte do mundo</h6>
+                    <h6>Veja a nossa ementa em qualquer parte do mundo e procure um prato
+                    de 1 categoria especifica atraves dos nossos filtros.</h6>
                 </div>
             </div>
 
@@ -72,7 +74,7 @@ $this->title = 'Gestor Restaurante';
                 </div>
 
                 <div class="card-body">
-                    <h6>Em caso de alguma duvida não hesite em contactar-nos</h6>
+                    <h6>Em caso de alguma duvida não hesite em contactar-nos.</h6>
                 </div>
             </div>
 
@@ -94,7 +96,7 @@ $this->title = 'Gestor Restaurante';
 
 
 <div class="card-footer">
-                    <!--PERGUNTAR A STORA-->
+
     <div class="row col-md-12 d-flex justify-content-center">
         <a href="https://play.google.com/store" >
             <?=Html::img('img/android_download',['alt'=>'some', 'class'=>'img-responsive','style'=>'width:200px'])?>
@@ -109,10 +111,3 @@ $this->title = 'Gestor Restaurante';
 
 </div>
 
-
-
-
-<div class="container-fluid">
-
-
-</div>

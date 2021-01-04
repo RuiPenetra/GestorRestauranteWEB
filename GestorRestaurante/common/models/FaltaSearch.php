@@ -18,7 +18,7 @@ class FaltaSearch extends Falta
     {
         return [
             [['id', 'num_horas', 'id_funcionario'], 'integer'],
-            [['data'], 'safe'],
+            [['data', 'hora_inicio', 'hora_fim'], 'safe'],
         ];
     }
 
@@ -60,6 +60,8 @@ class FaltaSearch extends Falta
         $query->andFilterWhere([
             'id' => $this->id,
             'data' => $this->data,
+            'hora_inicio' => $this->hora_inicio,
+            'hora_fim' => $this->hora_fim,
             'num_horas' => $this->num_horas,
             'id_funcionario' => $this->id_funcionario,
         ]);

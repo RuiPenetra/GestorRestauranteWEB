@@ -18,10 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
         <div class="card-header">
-            <h3 class="card-title">
-                <i class="fas fa-bullhorn"></i>
-                Criar categoria
-            </h3>
+            <h3 class="card-title"><i class="fas fa-tags"></i> Todas as categorias</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -52,9 +49,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <!-- /.card-body -->
     </div>
 
-    <div class="card card-warning mr-5 ml-5">
+    <div class="card card-outline card-warning mr-5 ml-5">
         <div class="card-header">
-            <h3 class="card-title">Todas as categorias</h3>
+            <h3 class="card-title"><i class="fas fa-tags"></i> Todas as categorias</h3>
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">

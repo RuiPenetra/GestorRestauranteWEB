@@ -3,41 +3,22 @@
 namespace backend\controllers;
 
 use common\models\Mesa;
-use Codeception\Util\Debug;
-use common\models\CategoriaProduto;
 use common\models\MesaSearch;
-use common\models\Pedido1passoForm;
-use common\models\Pedido2passoForm;
 use common\models\PedidoProduto;
-use common\models\PedidoRestauranteForm;
-use common\models\PedidoTakeawayForm;
-use common\models\Perfil;
 use common\models\PerfilSearch;
-use common\models\Produto;
-use common\models\ProdutoCategoriaProduto;
-use common\models\ProdutoSearch;
-use common\models\User;
-use phpDocumentor\Reflection\Types\Integer;
-use Symfony\Component\Yaml\Dumper;
 use Yii;
 use common\models\Pedido;
 use common\models\PedidoSearch;
-use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
-use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
- * PedidoController implements the CRUD actions for Pedido model.
- */
+
 class PedidoController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function behaviors()
     {
         return [
@@ -60,10 +41,6 @@ class PedidoController extends Controller
         ];
     }
 
-    /**
-     * Lists all Pedido models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $searchModel = new PedidoSearch();
@@ -81,12 +58,6 @@ class PedidoController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Pedido model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
         return $this->render('view', [

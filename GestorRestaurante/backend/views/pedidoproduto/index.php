@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <!-- /.widget-user-image -->
                     <h5 class="widget-user-username">
                         <?=$pedido->perfil->nome?> <?=$pedido->perfil->apelido?>
-                        <?= Html::a('<i class="fas fa-edit"></i>', ['pedidoproduto/update', 'id' => $pedido->id], ['class' => 'btn btn-dark btn-sm ml-2']) ?>
                     </h5>
                     <?php if ($pedido->perfil->cargo=='gerente'):?>
                         <h6 class="widget-user-desc"><span class="badge badge-dark"><b>Gerente</b></span></h6>

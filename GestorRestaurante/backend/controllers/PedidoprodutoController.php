@@ -3,11 +3,8 @@
 namespace backend\controllers;
 
 use common\models\CategoriaProduto;
-use common\models\Mesa;
-use common\models\MesaSearch;
 use common\models\Pedido;
 use common\models\PedidoprodutoSearch;
-use common\models\Produto;
 use common\models\ProdutoSearch;
 use Yii;
 use common\models\Pedidoproduto;
@@ -17,14 +14,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
- * PedidoprodutoController implements the CRUD actions for Pedidoproduto model.
- */
+
 class PedidoprodutoController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
+
     public function behaviors()
     {
         return [
@@ -47,10 +40,6 @@ class PedidoprodutoController extends Controller
         ];
     }
 
-    /**
-     * Lists all Pedidoproduto models.
-     * @return mixed
-     */
     public function actionIndex($id)
     {
         $pedido=Pedido::findOne($id);
@@ -70,12 +59,6 @@ class PedidoprodutoController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Pedidoproduto model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -83,11 +66,6 @@ class PedidoprodutoController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Pedidoproduto model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate($id)
     {
         $pedido=Pedido::findOne($id);
@@ -101,7 +79,6 @@ class PedidoprodutoController extends Controller
         $searchProduto->estado=0;
         $dataProvider = $searchProduto->search(Yii::$app->request->queryParams);
         $dataProvider->pagination = ['pageSize' => 6];
-
 
 
         if ($pedidoProduto->load(Yii::$app->request->post())) {
@@ -140,13 +117,6 @@ class PedidoprodutoController extends Controller
         ]);
     }
 
-    /**
-     * Updates an existing Pedidoproduto model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);

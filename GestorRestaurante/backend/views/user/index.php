@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
           </div>',['user/create']) ?>
     </div>
 
-    <div class="card card-yellow mr-5 ml-5">
+    <div class="card card-outline card-warning mr-5 ml-5">
         <div class="card-header">
             <h3 class="card-title text-gray-dark">
                 <i class="fas fa-users"></i>
@@ -84,27 +84,27 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?=$user->apelido?>
                             </td>
                             <td class="text-center">
-                                <?php if (Yii::$app->authManager->getAssignment('gerente',$user->id_user) != null):?>
+                                <?php if($user->cargo=='gerente'):?>
                                     Gerente
                                 <?php endif;?>
-                                <?php if (Yii::$app->authManager->getAssignment('cliente',$user->id_user) != null):?>
+                                <?php if($user->cargo=='cliente'):?>
                                     Cliente
                                 <?php endif;?>
-                                <?php if (Yii::$app->authManager->getAssignment('atendedorPedidos',$user->id_user) != null):?>
+                                <?php if($user->cargo=='atendedorPedidos'):?>
                                     Atendedor Pedidos
                                 <?php endif;?>
-                                <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$user->id_user) != null):?>
+                                <?php if($user->cargo=='empregadoMesa'):?>
                                     Empregado Mesa
                                 <?php endif;?>
-                                <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$user->id_user) != null):?>
+                                <?php if($user->cargo=='cozinheiro'):?>
                                     Cozinheiro
                                 <?php endif;?>
                             </td>
                             <td class="text-center">
                                 <?php if($user->user->status==9){?>
-                                    <button type="button" class="btn btn-block btn-warning btn-sm">INATIVO</button>
+                                    <span class="badge bg-danger">INATIVO</span>
                                 <?php }else{?>
-                                    <button type="button" class="btn btn-block btn-success btn-sm">ATIVO</button>
+                                    <span class="badge bg-success">ATIVO</span>
                                 <?php }?>
                             </td>
                             <td class="text-center">
@@ -112,32 +112,25 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?= Html::a('<i class="fas fa-eye"></i>', ['user/view', 'id' => $user->id_user], ['class' => 'btn btn-info btn-sm']) ?>
                                     <?= Html::a('<i class="far fa-edit color-white"></i>', ['user/update', 'id' => $user->id_user], ['class' => 'btn btn-warning btn-sm']) ?>
                                     <?php if ($user->user->status!=9):?>
-                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#apagarUser<?=$user->id_user?>">
-                                            <i class="far fa-trash-alt color-white"></i>
-                                        </button>
+                                        <?=Html::a('<i class="far fa-trash-alt color-white"></i>', ['user/delete', 'id' => $user->id_user], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#desativarUser'.$user->id_user]) ?>
                                     <?php else:?>
-                                        <?= Html::a('<i class="fas fa-trash-restore-alt"></i>', ['user/delete', 'id' => $user->id_user],[
-                                            'class' => 'btn btn-success btn-sm',
-                                            'data' => [
-                                                'method' => 'post',
-                                            ],
-                                        ]) ?>
+                                        <?=Html::a('<i class="fas fa-trash-restore-alt"></i>', ['user/delete', 'id' => $user->id_user], ['class' => 'btn btn-success btn-sm','data-toggle'=>'modal', 'data-target'=>'#ativarUser'.$user->id_user]) ?>
                                     <?php endif;?>
                                 <?php endIf?>
                             </td>
                         </tr>
-                        <div class="modal fade"  id="apagarUser<?=$user->id_user?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade"  id="desativarUser<?=$user->id_user?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content mt-2" >
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash"></i> Tem a certeza que quer apagar?</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash"></i> Tem a certeza que quer desativar?</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
-                                            Após apagar o utilizador selecionado não é possivel reverter.
+                                           Ao desativar este utilizador o utilizador passara a ficar inativo, não podendo fazer login.
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -152,7 +145,32 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                             </div>
                         </div>
-
+                        <div class="modal fade"  id="ativarUser<?=$user->id_user?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content mt-2" >
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash"></i> Tem a certeza que quer ativar?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            Ao ativar este utilizador o utilizador passara a ficar disponivel fazer login.
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <?= Html::a('<b>SIM</b>', ['delete', 'id' => $user->id_user], [
+                                            'class' => 'btn btn-outline-success',
+                                            'data' => [
+                                                'method' => 'post',
+                                            ],
+                                        ]) ?>
+                                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <?php endforeach;?>
                     </tbody>
                 </table>

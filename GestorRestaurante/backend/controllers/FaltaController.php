@@ -6,6 +6,7 @@ use common\models\Perfil;
 use common\models\PerfilSearch;
 use common\models\User;
 use common\models\UserSearch;
+use DateTime;
 use phpDocumentor\Reflection\Types\Integer;
 use Yii;
 use common\models\Falta;
@@ -31,7 +32,7 @@ class FaltaController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','update','delete','view','create'],
+                        'actions' => ['index','create','update','delete','view'],
                         'allow' => true,
                         'roles' => ['gerente'],
                     ],
@@ -46,19 +47,8 @@ class FaltaController extends Controller
         ];
     }
 
-    /**
-     * Lists all Falta models.
-     * @return mixed
-     */
     public function actionIndex()
     {
-        /*$searchModel = new FaltaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('index', [
-            'users' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);*/
         if (Yii::$app->user->can('consultarUtilizadores')) {
 
             $searchModel = new PerfilSearch();
@@ -77,100 +67,130 @@ class FaltaController extends Controller
         }
     }
 
-    /**
-     * Displays a single Falta model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
-        $falta = new Falta();
-        $searchFalta = new FaltaSearch();
-        $dataprovider = $searchFalta->search(Yii::$app->request->queryParams);
+        if (Yii::$app->user->can('consultarFaltas')) {
+            $searchFalta = new FaltaSearch();
+            $searchFalta->id_funcionario=$id;
+            $dataprovider = $searchFalta->search(Yii::$app->request->queryParams);
 
-        $falta->id_funcionario=$id;
-        $user=User::findOne($id);
+            $user=Perfil::findOne($id);
 
-        if ($falta->load(Yii::$app->request->post()) && $falta->save()) {
-            return $this->redirect(['view', 'id' => $user->id]);
+            return $this->render('view', [
+                'dataprovider' => $dataprovider,
+                'searchFalta' => $searchFalta,
+                'user'=> $user
+            ]);
+        }else{
+
+            return $this->render('site/error');
         }
-
-        return $this->render('view', [
-            'falta' => $falta,
-            'dataprovider' => $dataprovider,
-            'searchFalta' => $searchFalta,
-            'user'=>$user
-        ]);
     }
 
-    /**
-     * Creates a new Falta model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate($id)
     {
-        $falta = new Falta();
-        $searchFalta = new FaltaSearch();
-        $dataprovider = $searchFalta->search(Yii::$app->request->queryParams);
+        if (Yii::$app->user->can('criarFaltas') && Yii::$app->user->can('consultarFaltas')) {
 
-        $falta->id_funcionario=$id;
-        $user=User::findOne($id);
+            $falta = new Falta();
+            $searchFalta = new FaltaSearch();
+            $searchFalta->id_funcionario=$id;
+            $dataprovider = $searchFalta->search(Yii::$app->request->queryParams);
 
-        if ($falta->load(Yii::$app->request->post()) && $falta->save()) {
-            return $this->redirect(['view', 'id' => $user->id]);
+            $falta->id_funcionario=$id;
+            $falta->num_horas=0;
+            $user=Perfil::findOne($id);
+
+            if ($falta->load(Yii::$app->request->post())) {
+
+                if($falta->save()==true){
+                    Yii::$app->getSession()->setFlash('success', [
+                        'type' => 'success',
+                        'duration' => 5000,
+                        'icon' => 'fas fa-tags',
+                        'message' => 'Falta criada com sucesso',
+                        'title' => 'Sucesso',
+                        'positonX' => 'right',
+                        'positonY' => 'top'
+                    ]);
+                    return $this->redirect(['view', 'id' => $user->id_user]);
+                }
+            }
+
+            return $this->render('create', [
+                'falta' => $falta,
+                'dataprovider' => $dataprovider,
+                'searchFalta' => $searchFalta,
+                'user'=>$user
+            ]);
+        }else{
+
+            return $this->render('site/error');
         }
-
-        return $this->render('view', [
-            'falta' => $falta,
-            'dataprovider' => $dataprovider,
-            'searchFalta' => $searchFalta,
-            'user'=>$user
-        ]);
     }
 
-    /**
-     * Updates an existing Falta model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (Yii::$app->user->can('atualizarFaltas') && Yii::$app->user->can('consultarFaltas')) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $falta = $this->findModel($id);
+            $searchFalta = new FaltaSearch();
+            $searchFalta->id_funcionario=$id;
+            $dataprovider = $searchFalta->search(Yii::$app->request->queryParams);
+
+            if ($falta->load(Yii::$app->request->post()) && $falta->save()) {
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Falta atualizada com sucesso',
+                    'title' => 'Sucesso',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+                return $this->redirect(['view', 'id' => $falta->id]);
+            }
+
+            return $this->render('update', [
+                'falta' => $falta,
+                'dataprovider' => $dataprovider,
+                'searchFalta' => $searchFalta,
+            ]);
+
+        }else{
+
+            return $this->render('site/error');
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
-    /**
-     * Deletes an existing Falta model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (Yii::$app->user->can('apagarFaltas')&& Yii::$app->user->can('consultarFaltas')) {
 
-        return $this->redirect(['index']);
+            $falta=Falta::findOne($id);
+
+            $falta->delete();
+
+            if($falta->delete()==true){
+
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-check-circle',
+                    'message' => 'Horario atualizado com sucesso',
+                    'title' => 'Concluido',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+
+            }
+
+            return $this->redirect(['view','id'=>$falta->id_funcionario]);
+        }else{
+
+            return $this->render('site/error');
+        }
     }
 
-    /**
-     * Finds the Falta model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Falta the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Falta::findOne($id)) !== null) {

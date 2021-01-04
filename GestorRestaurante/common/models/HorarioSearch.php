@@ -17,8 +17,8 @@ class HorarioSearch extends Horario
     public function rules()
     {
         return [
-            [['id', 'id_funcionario'], 'integer'],
-            [['data', 'hora_inicio', 'hora_fim'], 'safe'],
+            [['id', 'ano', 'id_funcionario'], 'integer'],
+            [['mes', 'dia_semana', 'hora_inicio', 'hora_fim'], 'safe'],
         ];
     }
 
@@ -59,11 +59,14 @@ class HorarioSearch extends Horario
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'data' => $this->data,
-            'hora_inicio' => $this->hora_inicio,
-            'hora_fim' => $this->hora_fim,
+            'ano' => $this->ano,
             'id_funcionario' => $this->id_funcionario,
         ]);
+
+        $query->andFilterWhere(['like', 'mes', $this->mes])
+            ->andFilterWhere(['like', 'dia_semana', $this->dia_semana])
+            ->andFilterWhere(['like', 'hora_inicio', $this->hora_inicio])
+            ->andFilterWhere(['like', 'hora_fim', $this->hora_fim]);
 
         return $dataProvider;
     }

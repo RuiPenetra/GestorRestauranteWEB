@@ -9,6 +9,8 @@ use Yii;
  *
  * @property int $id
  * @property string $data
+ * @property string $hora_inicio
+ * @property string $hora_fim
  * @property int $num_horas
  * @property int $id_funcionario
  *
@@ -30,8 +32,8 @@ class Falta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['data', 'num_horas', 'id_funcionario'], 'required'],
-            [['data'], 'safe'],
+            [['data', 'hora_inicio', 'hora_fim', 'num_horas', 'id_funcionario'], 'required'],
+            [['data', 'hora_inicio', 'hora_fim'], 'safe'],
             [['num_horas', 'id_funcionario'], 'integer'],
             [['id_funcionario'], 'exist', 'skipOnError' => true, 'targetClass' => Perfil::className(), 'targetAttribute' => ['id_funcionario' => 'id_user']],
         ];
@@ -45,6 +47,8 @@ class Falta extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'data' => 'Data',
+            'hora_inicio' => 'Hora Inicio',
+            'hora_fim' => 'Hora Fim',
             'num_horas' => 'Num Horas',
             'id_funcionario' => 'Id Funcionario',
         ];

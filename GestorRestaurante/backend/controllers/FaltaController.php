@@ -72,12 +72,12 @@ class FaltaController extends Controller
         if (Yii::$app->user->can('consultarFaltas')) {
             $searchFalta = new FaltaSearch();
             $searchFalta->id_funcionario=$id;
-            $dataprovider = $searchFalta->search(Yii::$app->request->queryParams);
+            $dataproviderFalta = $searchFalta->search(Yii::$app->request->queryParams);
 
             $user=Perfil::findOne($id);
 
             return $this->render('view', [
-                'dataprovider' => $dataprovider,
+                'dataproviderFalta' => $dataproviderFalta,
                 'searchFalta' => $searchFalta,
                 'user'=> $user
             ]);
@@ -199,4 +199,6 @@ class FaltaController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 }

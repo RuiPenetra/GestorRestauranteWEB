@@ -1,18 +1,14 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Horario */
 
-$this->title = 'Atualizar Horario: ' . $horario->mes;
+$this->title = $user->nome.' '.$user->apelido;
+\yii\web\YiiAsset::register($this);
 ?>
-
-<?= $this->render('_form', [
-    'horario' => $horario,
-]) ?>
-
-
 <div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
     <div class="card-header">
         <h3 class="card-title">

@@ -11,23 +11,25 @@ use yii\widgets\ActiveForm;
 <div class="falta-search">
 
     <?php $form = ActiveForm::begin([
-        'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+    <div class="row d-flex justify-content-center">
 
-    <?= $form->field($model, 'data_inicio') ?>
+        <div class="col-md-4">
+            <div class="input-group mb-3">
+                <div class="input-group-append">
+                    <span class="input-group-text rounded-left"><i class="fas fa-calendar-alt"></i></span>
+                </div>
+                <?= $form->field($falta, 'data',['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'type' => 'date','autocomplete' => 'off'])->label(false) ?>
+            </div>
+        </div>
 
-    <?= $form->field($model, 'data_fim') ?>
 
-    <?= $form->field($model, 'num_horas') ?>
-
-    <?= $form->field($model, 'id_funcionario') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        <div class="form-group">
+            <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+            <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>

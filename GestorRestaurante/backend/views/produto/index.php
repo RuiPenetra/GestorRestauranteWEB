@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row col-md-12 d-flex justify-content-center">
     <?= Html::a('<div class="col-md-4">
                 <!-- small card -->
-                <div class="small-box bg-gradient-green p-3" style="width: 300px">
+                <div class="small-box bg-gradient-green p-3" style="width: 300px" id="btn_createProduto">
                     <div class="inner text-white">
                         <h4><b>Novo</b></h4>
                     </div>
@@ -28,9 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <i class="fas fa-cheese"></i>
                     </div>
                 </div>
-              </div>', ['produto/create']) ?>
+              </div>', ['produto/create'],['class'=>'novo-produto']) ?>
 </div>
-
 <div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
     <div class="card-header">
         <h3 class="card-title">
@@ -89,19 +88,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                                    <span class="badge badge-danger text-white">Indisponivel</span>
                                                <?php endif;?>
                                             </div>
-                                                    <div class="col-md-10 text-right">
-                                                    <a href="" type="button" class="btn btn-info btn-sm p-0" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?= $produto->id ?>">
+                                            <div class="col-12 text-right">
+                                                    <a href="" type="button" class="btn btn-info btn-sm" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?= $produto->id ?>">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                <a href="<?= Url::toRoute(['produto/update', 'id' => $produto->id]) ?>" type="button" class="btn btn-warning btn-sm p-0" style="width: 40px;">
+                                                <a href="<?= Url::toRoute(['produto/update', 'id' => $produto->id]) ?>" type="button" class="btn btn-warning btn-sm " style="width: 40px;">
                                                    <i class="far fa-edit color-white"></i>
                                                 </a>
                                                 <?php if ($produto->estado==0):?>
-                                                    <a href="" type="button" class="btn btn-danger btn-sm p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?= $produto->id ?>">
+                                                    <a href="" type="button" class="btn btn-danger btn-sm" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?= $produto->id ?>">
                                                         <i class="far fa-trash-alt color-white"></i>
                                                     </a>
                                                 <?php else:?>
-                                                    <a href="" type="button" class="btn btn-success btn-sm p-0" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?= $produto->id ?>">
+                                                    <a href="" type="button" class="btn btn-success btn-sm" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?= $produto->id ?>">
                                                         <i class="fas fa-trash-restore-alt"></i>
                                                     </a>
                                                 <?php endif;?>

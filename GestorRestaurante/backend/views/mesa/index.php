@@ -13,52 +13,10 @@ use yii\bootstrap4\ActiveForm;
 $this->title = 'Mesas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
-    <div class="card-header">
-        <h3 class="card-title">
-            <img src="https://img.icons8.com/fluent-systems-filled/24/000000/table.png"/>
-            Criar mesa
-        </h3>
-        <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-            </button>
-        </div>
-    </div>
-    <div class="card-body" style="display: block;">
-        <?php $form = ActiveForm::begin(); ?>
-        <div class="row">
-            <div class="row col-md-12 d-flex justify-content-center">
-                <div class="col-md-3 mt-0 ">
-                    <div class="box-body box-profile user-painel mt-3">
-                        <div class="text-center">
-                            <img class="img-responsive" src="https://img.icons8.com/color/100/000000/table.png"/>
-<!--                            <img class="img-responsive" width="100px" height="100px" src="img/soup.png" alt="imgPerfil">-->
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="input-group mb-3 col-md-8">
-                        <div class="input-group-append">
-                            <span class="input-group-text rounded-left"><i class="fas fa-user"></i></span>
-                        </div>
-                        <?= $form->field($model, 'id', ['options' => ['tag' => 'input',  'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Numero",  'type'=>'number', 'min'=>'0', 'autofocus' => true])->label(false) ?>
-                    </div>
-                    <div class="input-group mb-3 col-md-8">
-                        <div class="input-group-append">
-                            <span class="input-group-text rounded-left"><i class="fas fa-euro-sign"></i></span>
-                        </div>
-                        <?= $form->field($model, 'n_lugares', ['options' => ['tag' => 'input',  'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nº Lugares",  'type'=>'number', 'min'=>'0', 'autofocus' => true])->label(false) ?>
-                    </div>
-                        <div class="input-group mb-3 d-flex justify-content-end col-md-8">
-                            <?= Html::submitButton('Criar', ['class' => 'btn login_btn col-md-4', 'name' => 'login-button']) ?>
-                        </div>
-                </div>
-            </div>
-        </div>
-        <?php ActiveForm::end(); ?>
-    </div>
-    <!-- /.card-body -->
-</div>
+
+<?= $this->render('_form', [
+    'model' => $novaMesa,
+]) ?>
 
 <div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
     <div class="card-header">
@@ -102,9 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td class="project-actions text-center">
                             <?= Html::a('<i class="fas fa-eye"></i>', ['mesa/view', 'id' => $mesa->id], ['class' => 'btn btn-info btn-sm']) ?>
                             <?= Html::a('<i class="far fa-edit color-white"></i>', ['mesa/update', 'id' => $mesa->id], ['class' => 'btn btn-warning btn-sm']) ?>
-                            <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#apagarMesa<?=$mesa->id?>">
-                                <i class="far fa-trash-alt color-white"></i>
-                            </a>
+                            <?=Html::a('<i class="fas fa-trash"></i>', ['mesa/delete', 'id' => $mesa->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarMesa'.$mesa->id]) ?>
                         </td>
                     </tr>
                     <div class="modal fade"  id="apagarMesa<?=$mesa->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -122,7 +78,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" href="<?=Url::toRoute(['mesa/delete', 'id' => $mesa->id])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
+                                    <?= Html::a('<b>SIM</b>', ['delete', 'id' => $mesa->id], [
+                                        'class' => 'btn btn-outline-success',
+                                        'data' => [
+                                            'method' => 'post',
+                                        ],
+                                    ]) ?>
                                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
                                 </div>
                             </div>

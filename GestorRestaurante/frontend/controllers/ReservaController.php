@@ -23,12 +23,6 @@ class ReservaController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
             'access'=>[
                 'class'=> AccessControl::className(),
                 'rules'=>[
@@ -37,6 +31,12 @@ class ReservaController extends Controller
                         'allow'=>true,
                         'roles'=>['atendedorPedidos'],
                     ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
                 ],
             ],
         ];

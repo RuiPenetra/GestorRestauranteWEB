@@ -111,7 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                     <?= $form->field($model, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'],
                                         ['prompt'=>'Selecione...'],['maxlenght'=> true],
-                                        ['options'=> ['class' => 'rounded-right form-control input_user']])->label(false); ?>
+                                        ['options'=> ['class' => 'rounded-right form-control input_user','name'=>'genero']])->label(false); ?>
                                 </div>
                             </div>
                             <div class="col-6">
@@ -158,7 +158,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                         </div>
                         <div class="d-flex justify-content-center mt-3 login_container">
-                            <?= Html::submitButton('Criar', ['class' => 'btn login_btn', 'name' => 'login-button']) ?>
+                            <?= Html::submitButton('Criar', ['class' => 'btn login_btn', 'name' => 'create-button']) ?>
                         </div>
                         <?php ActiveForm::end(); ?>
                     </div>

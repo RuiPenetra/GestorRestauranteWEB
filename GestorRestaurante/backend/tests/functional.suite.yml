@@ -1,15 +1,17 @@
 suite_namespace: backend\tests\functional
 actor: FunctionalTester
 modules:
-    enabled:
-        - PhpBrowser:
-            url: http://localhost/GestorRestauranteWeb/GestorRestaurante/backend/
-        - Db:
-            dsn: "mysql:host=localhost;dbname=bdgestorrestaurante_tests"
-        - Yii2:
-              configFile: ../config/test-local.php
-              part: ORM
-        - Filesystem
+  enabled:
+    - Filesystem
+    - Yii2
+    - Db:
+      dsn: 'mysql:host=localhost;dbname=bdgestorrestaurante_tests'
+      user: 'root'
+      password: ''
+#      populate: true
+#      cleanup: false
+
+
 
 
 

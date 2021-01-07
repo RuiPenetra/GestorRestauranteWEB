@@ -417,8 +417,6 @@ class m201016_160137_rbac extends Migration
             $atendedorPedidos = $auth->createRole('atendedorPedidos');
             $auth->add($atendedorPedidos);
 
-
-
             //# PERFIS #
             $auth->addChild($atendedorPedidos, $consultarPerfis);
             $auth->addChild($atendedorPedidos, $atualizarPerfis);

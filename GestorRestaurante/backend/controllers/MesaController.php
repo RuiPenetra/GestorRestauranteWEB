@@ -2,9 +2,11 @@
 
 namespace backend\controllers;
 
+use common\models\PedidoSearch;
 use Yii;
 use common\models\Mesa;
 use common\models\MesaSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,13 +37,13 @@ class MesaController extends Controller
      */
     public function actionIndex()
     {
-        $model = new Mesa();
+        $novaMesa = new Mesa();
         $searchModel = new MesaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $model->estado=2;
+        $novaMesa->estado=2;
         $dataProvider->pagination = ['pageSize' => 5];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($novaMesa->load(Yii::$app->request->post()) && $novaMesa->save()) {
 
             Yii::$app->getSession()->setFlash('success', [
                 'type' => 'success',
@@ -59,7 +61,7 @@ class MesaController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'model' => $model
+            'novaMesa' => $novaMesa
         ]);
     }
 
@@ -71,8 +73,16 @@ class MesaController extends Controller
      */
     public function actionView($id)
     {
+        $mesa=$this->findModel($id);
+        $searchModel = new PedidoSearch();
+        $searchModel->id_mesa=$mesa->id;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 5];
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'mesa' => $mesa,
         ]);
     }
 
@@ -83,14 +93,14 @@ class MesaController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Mesa();
+        $novaMesa = new Mesa();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($novaMesa->load(Yii::$app->request->post()) && $novaMesa->save()) {
+            return $this->redirect(['view', 'id' => $novaMesa->id]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'novaMesa' => $novaMesa,
         ]);
     }
 
@@ -103,14 +113,19 @@ class MesaController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $mesa = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $searchModel = new MesaSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $mesa->estado=2;
+        $dataProvider->pagination = ['pageSize' => 5];
+
+        if ($mesa->load(Yii::$app->request->post()) && $mesa->save()) {
+            return $this->redirect(['view', 'id' => $mesa->id]);
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'mesa' => $mesa,
         ]);
     }
 

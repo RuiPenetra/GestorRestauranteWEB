@@ -10,23 +10,50 @@ use yii\widgets\ListView;
 $this->title = 'Faltas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="falta-index">
+<?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
+<div class="card card-outline card-blue mr-5 ml-5"><!--collapsed-card-->
+<?php endif?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Falta', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= ListView::widget([
-        'dataProvider' => $dataProvider,
-        'itemOptions' => ['class' => 'item'],
-        'itemView' => function ($model, $key, $index, $widget) {
-            return Html::a(Html::encode($model->id), ['view', 'id' => $model->id]);
-        },
-    ]) ?>
-
-
+<?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id) != null):?>
+    <div class="card card-outline card-indigo mr-5 ml-5"><!--collapsed-card-->
+<?php endif?>
+    <div class="card-header">
+        <h3 class="card-title">
+            <i class="fas fa-calendar-alt"></i>
+            Lista de faltas
+        </h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body" style="display: block;">
+        <?php echo $this->render('_search', ['falta' => $searchFalta]); ?>
+        <div class="row d-flex justify-content-center">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th style="width: 60px" class="text-center"></th>
+                    <th class="text-center">Data</th>
+                    <th class="text-center">Hora Inicio</th>
+                    <th class="text-center">Hora Fim</th>
+                    <th class="text-center">NºHoras</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($dataProviderFalta->models as $falta):?>
+                    <tr>
+                        <td class="text-center"><i class="fas fa-calendar-alt"></i></td>
+                        <td class="text-center"><?=$falta->data?></td>
+                        <td class="text-center"><?=date('H:i',strtotime($falta->hora_inicio))?></td>
+                        <td class="text-center"><?=date('H:i',strtotime($falta->hora_fim))?></td>
+                        <td class="text-center"><?=$falta->num_horas?></td>
+                    </tr>
+                <?php endforeach;?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.card-body -->
 </div>
+

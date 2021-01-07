@@ -3,6 +3,7 @@
 namespace backend\tests\functional;
 
 use backend\tests\FunctionalTester;
+use common\fixtures\PerfilFixture;
 use common\fixtures\UserFixture;
 
 /**
@@ -19,21 +20,22 @@ class LoginCest
      */
     public function _fixtures()
     {
-        return [
-            'user' => [
+/*        return [
+
+            'profiles' => [
                 'class' => UserFixture::className(),
+                // fixture data located in tests/_data/user.php
                 'dataFile' => codecept_data_dir() . 'login_data.php'
-            ]
-        ];
+            ],
+        ];*/
     }
-    
     /**
      * @param FunctionalTester $I
      */
     public function loginUser(FunctionalTester $I)
     {
         $I->wantTo('Login do utilizador');
-        $I->amOnPage('web/index.php?r=site%2Flogin');
+        $I->amOnPage('/');
         $I->fillField('LoginForm[username]', 'joana');
         $I->fillField('LoginForm[password]', '1234567');
         $I->click('login-button');

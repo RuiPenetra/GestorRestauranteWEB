@@ -1,5 +1,6 @@
 <?php
 
+use common\models\FaltaSearch;
 use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -25,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <i class="fas fa-user-plus"></i>
                 </div>
             </div>
-          </div>',['user/create']) ?>
+          </div>',['user/create'],['class'=>'createUser-button']) ?>
     </div>
 
     <div class="card card-outline card-warning mr-5 ml-5">
@@ -37,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         <!-- /.card-header -->
         <div class="card-body p-0">
-            <?php echo $this->render('//perfil/_search', ['model' => $searchModel]); ?>
+            <?php echo $this->render('//perfil/_search', ['model' => $searchUser]); ?>
             <div class="row">
                 <table class="table table-striped projects mr-2 ml-2">
                     <thead>
@@ -62,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($dataProvider->models as $user):?>
+                    <?php foreach ($dataProviderUser->models as $user):?>
                         <tr>
                             <td class="text-center">
                                 <ul class="list-inline">
@@ -176,7 +177,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </table>
                 <div class="row col-md-12 d-flex justify-content-center">
                     <?= LinkPager::widget([
-                        'pagination' => $dataProvider->getPagination(),
+                        'pagination' => $dataProviderUser->getPagination(),
                         'options' => [
                             'class' => 'page-item',
                         ],

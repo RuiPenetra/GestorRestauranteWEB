@@ -50,7 +50,8 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     <i class="fas fa-user-edit"></i>
                     Perfil
                 </a>
-            </li>   <li class="nav-item">
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#logout" role="button">
                     <i class="fas fa-sign-out-alt"></i>
                     Sair
@@ -106,7 +107,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     </li>
                     <!-- UTILIZADORES -->
                     <li class="nav-item">
-                        <a href="<?= Url::toRoute(['user/index']) ?>" class="nav-link">
+                        <a href="<?= Url::toRoute(['user/index']) ?>" class="nav-link user-nav">
                             <i class="fas fa-users"></i>
                             <p>
                                 Utilizadores
@@ -150,8 +151,8 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                         </a>
                     </li>
                     <!-- PRODUTOS -->
-                    <li class="nav-item">
-                        <a href="<?= Url::toRoute(['produto/index']) ?>" class="nav-link">
+                    <li class="nav-item" >
+                        <a href="<?= Url::toRoute(['produto/index']) ?>" class="nav-link produto-nav">
                             <i class="fas fa-utensils"></i>
                             <p>
                                 Produtos

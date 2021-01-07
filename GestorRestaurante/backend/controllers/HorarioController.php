@@ -27,7 +27,7 @@ class HorarioController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','update','delete','view','create'],
+                        'actions' => ['index','update','delete','view','viewall','create'],
                         'allow' => true,
                         'roles' => ['gerente'],
                     ],
@@ -80,11 +80,35 @@ class HorarioController extends Controller
             $user=Perfil::findOne($horario->id_funcionario);
             $searchHorario = new HorarioSearch();
             $searchHorario->id_funcionario=$horario->id_funcionario;
+            $searchHorario->ano=$horario->ano;
             $searchHorario->mes=$horario->mes;
 
             $dataProviderHorario = $searchHorario->search(Yii::$app->request->queryParams);
 
             return $this->render('view', [
+                'user'=>$user,
+                'dataProviderHorario' => $dataProviderHorario,
+                'searchHorario' => $searchHorario,
+            ]);
+        }else{
+
+            return $this->render('site/error');
+        }
+    }
+
+    public function actionViewall($id)
+    {
+        if(Yii::$app->user->can('consultarHorarios')){
+
+            $horario=Horario::findAll(['id_funcionario'=>$id]);
+            $user=Perfil::findOne($id);
+            $searchHorario = new HorarioSearch();
+            $searchHorario->id_funcionario=$user->id_user;
+            $searchHorario->mes="Janeiro";
+
+            $dataProviderHorario = $searchHorario->search(Yii::$app->request->queryParams);
+
+            return $this->render('viewAll', [
                 'user'=>$user,
                 'dataProviderHorario' => $dataProviderHorario,
                 'searchHorario' => $searchHorario,
@@ -172,7 +196,7 @@ class HorarioController extends Controller
 
     public function actionDelete($id)
     {
-        if(Yii::$app->user->can('apagarHorarios') && Yii::$app->user->can('consultarHorarios')){
+        if(Yii::$app->user->can('apagarHorarios')){
 
             $horario=Horario::findOne($id);
             $horario->delete();

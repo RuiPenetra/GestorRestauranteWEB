@@ -16,79 +16,84 @@ $id = Yii::$app->user->identity->id;
 ?>
 <div class="col-md-12 ml-5">
     <div class="row">
-        <?php if($pedido->perfil->cargo!='cliente'):?>
-        <div class="col-md-4">
-            <div class="card card-widget widget-user-2 p-0">
-                <!-- Add the bg color to the header using any of the bg-* classes -->
-
-                <div class="widget-user-header bg-warning">
-
-                    <div class="widget-user-image">
-                        <?php if($pedido->perfil->genero==0):?>
-                            <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'img-circle elevation-2']); ?>
-                        <?php else:?>
-                            <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'img-circle elevation-2']); ?>
-                        <?php endif?>
+        <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null || Yii::$app->authManager->getAssignment('cozinheiro',$id) != null):?>
+            <div class="col-md-4">
+                <div class="card card-widget widget-user-2 p-0">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
+                    <div class="widget-user-header bg-info">
+                <?php endif;?>
+                <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id) != null):?>
+                    <div class="widget-user-header bg-success">
+                <?php endif;?>
+                        <div class="widget-user-image">
+                            <?php if($pedido->perfil->genero==0):?>
+                                <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'img-circle elevation-2']); ?>
+                            <?php else:?>
+                                <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'img-circle elevation-2']); ?>
+                            <?php endif?>
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <h5 class="widget-user-username">
+                            <?=$pedido->perfil->nome?> <?=$pedido->perfil->apelido?>
+                        </h5>
+                        <h6 class="widget-user-desc">
+                            <h6 class="widget-user-desc">
+                                <span class="badge badge-dark">
+                                    <?php if ($pedido->perfil->cargo=='atendedorPedidos'):?>
+                                        <b>Atendedor Pedidos</b>
+                                    <?php endif;?>
+                                    <?php if ($pedido->perfil->cargo=='empregadoMesa'):?>
+                                        <b>Empregado Mesa</b>
+                                    <?php endif;?>
+                                    <?php if ($pedido->perfil->cargo=='cliente'):?>
+                                        <b>Cliente</b>
+                                    <?php endif;?>
+                                </span>
+                            </h6>
+                        </h6>
                     </div>
-                    <!-- /.widget-user-image -->
-                    <h5 class="widget-user-username">
-                        <?=$pedido->perfil->nome?> <?=$pedido->perfil->apelido?>
-
-                    </h5>
-                    <h6 class="widget-user-desc">
-                        <?php if ($pedido->perfil->cargo=='gerente'):?>
-                            <h6 class="widget-user-desc"><span class="badge badge-dark"><b>Gerente</b></span></h6>
-                        <?php elseif ($pedido->perfil->cargo=='empregadoMesa'):?>
-                            <h6 class="widget-user-desc"><span class="badge badge-dark"><b>Empregado Mesa</b></span></h6>
-                        <?php endif;?>
-                    </h6>
-                </div>
-                <div class="card-footer p-0">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                Estado:
-                                <?php if ($pedido->estado == 0): ?>
-                                    <span class="float-right badge badge-info"> Em Processo</span>
-                                <?php endif;
-                                if ($pedido->estado == 1):?>
-                                    <span class="float-right badge badge-warning text-white"> Em Preparação</span>
-                                <?php endif;
-                                if ($pedido->estado == 2):?>
-                                    <span class="float-right badge badge-success text-white"> Pronto</span>
-                                <?php endif;
-                                if ($pedido->estado == 3):?>
-                                    <span class="float-right badge badge-dark"> Entregue</span>
-                                <?php endif; ?>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                Data: <span class="float-right"><?=$pedido->data?></span>
-                            </a>
-                        </li>
-                        <?php if($pedido->tipo==0):?>
+                    <div class="card-footer p-0">
+                        <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    Mesa: <span class="float-right"><?=$pedido->id_mesa?></span>
+                                    Estado:
+                                    <?php if ($pedido->estado == 0): ?>
+                                        <span class="float-right badge badge-info"> Em Processo</span>
+                                    <?php endif;
+                                    if ($pedido->estado == 1):?>
+                                        <span class="float-right badge badge-warning text-white"> Em Preparação</span>
+                                    <?php endif;
+                                    if ($pedido->estado == 2):?>
+                                        <span class="float-right badge badge-success text-white"> Concluido</span>
+                                    <?php endif;?>
                                 </a>
                             </li>
-                        <?php else:?>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    Nome pedido: <span class="float-right"><?=$pedido->nome_pedido?></span>
+                                    Data: <span class="float-right"><?=$pedido->data?></span>
                                 </a>
                             </li>
-                        <?php endif;?>
+                            <?php if($pedido->tipo==0):?>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        Mesa: <span class="float-right"><?=$pedido->id_mesa?></span>
+                                    </a>
+                                </li>
+                            <?php else:?>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        Nome pedido: <span class="float-right"><?=$pedido->nome_pedido?></span>
+                                    </a>
+                                </li>
+                            <?php endif;?>
 
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
-
             </div>
-        </div>
         <?php endif?>
         <div class="col-md-8">
-
             <div class="row d-flex justify-content-center mt-5">
                 <div class="row col-md-12">
                     <div class="col-md-7">
@@ -210,13 +215,24 @@ $id = Yii::$app->user->identity->id;
                     </td>
                     <td>
                         <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id) != null):?>
-                            <?= Html::a('  <i class="fas fa-sync fa-spin"></i>', ['pedidoproduto/cozinhaupdate', 'id' => $itemPedido->id], ['class' => 'btn btn-info btn-sm']) ?>
+                            <?php if($itemPedido->pedido->estado!=2):?>
+                                <?= Html::a('  <i class="fas fa-sync fa-spin"></i>', ['pedidoproduto/cozinhaupdate', 'id' => $itemPedido->id], ['class' => 'btn btn-info btn-sm']) ?>
+                            <?php endif?>
                         <?php endif?>
                         <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
-                            <?= HTML::a('<i class="fas fa-check"></i>',['pedidoproduto/atendedorpedidosupdate','id'=>$itemPedido->id],['class'=>'btn btn-info btn-sm'])?>
-                            <?= Html::a('<i class="fas fa-plus"></i>', ['pedidoproduto/update', 'id' => $itemPedido->id], ['class' => 'btn btn-success btn-sm']) ?>
-
-                            <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>
+                            <?php if ($itemPedido->pedido->tipo==1):?>
+                                <?php if($itemPedido->pedido->estado!=2):?>
+                                    <?= Html::a('<i class="fas fa-check"></i>',['pedidoproduto/atendedorpedidosupdate','id'=>$itemPedido->id],['class'=>'btn btn-info btn-sm'])?>
+                                    <?= Html::a('<i class="fas fa-plus"></i>', ['pedidoproduto/update', 'id' => $itemPedido->id], ['class' => 'btn btn-success btn-sm']) ?>
+                                    <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>
+                                <?php else:?>
+                                    <?php if($itemPedido->pedido->estado!=2):?>
+                                        <?= Html::a('<i class="fas fa-check"></i>',['pedidoproduto/atendedorpedidosupdate','id'=>$itemPedido->id],['class'=>'btn btn-info btn-sm'])?>
+                                        <?= Html::a('<i class="fas fa-plus"></i>', ['pedidoproduto/update', 'id' => $itemPedido->id], ['class' => 'btn btn-success btn-sm']) ?>
+                                        <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>
+                                    <?php endif?>
+                                <?php endif?>
+                            <?php endif?>
                         <?php endif?>
                     </td>
                 </tr>

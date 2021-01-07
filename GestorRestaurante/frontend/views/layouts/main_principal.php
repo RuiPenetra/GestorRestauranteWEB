@@ -28,7 +28,7 @@ AppAsset::register($this);
 <body class="fundo">
 <?php $this->beginBody() ?>
 
-<div class="wrap">
+<div class="wrapper_login">
     <nav class="sticky-top navbar navbar-expand-lg navbar-dark info-color">
         <ul class="navbar-nav ml-auto nav-flex-icons">
             <li class="nav-item avatar">
@@ -51,8 +51,8 @@ AppAsset::register($this);
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= Url::toRoute(['site/signup']) ?>">
-                        Registar</a>
+                        <a class="nav-link" href="<?= Url::toRoute(['site/signup']) ?>" id="nav-registar">
+                            Registar</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= Url::toRoute(['site/menu']) ?>">
@@ -74,6 +74,10 @@ AppAsset::register($this);
         </div>
     </nav>
 
+</div>
+
+<div class="wrap">
+
     <div class="content">
 
         <?=$content?>
@@ -81,7 +85,6 @@ AppAsset::register($this);
     </div>
 
 </div>
-
 <?php $this->endBody() ?>
 </body>
 </html>

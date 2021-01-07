@@ -118,13 +118,9 @@ use yii\helpers\Url;
                                         <div class="input-group-append">
                                             <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
                                         </div>
-                                        <?php if($perfil->cargo=="gerente"):?>
-                                   <?= $form->field($perfil, 'cargo')->textInput(['class' => 'form-control input_user rounded-right','readonly'=>'true'])->label(false); ?>
-                                        <?php else:?>
                                             <?= $form->field($perfil, 'cargo')->dropDownList(['gerente' => 'Gerente', 'atendedorPedidos' => 'Atendedor Pedidos', 'empregadoMesa' => 'Empregado Mesa', 'cozinheiro' => 'Cozinheiro', 'cliente' => 'Cliente'],
                                                 ['prompt'=>'Selecione...'],['maxlenght'=> true],
                                                 ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
-                                        <?php endif;?>
                                     </div>
                                 </div>
                             </div>
@@ -151,12 +147,6 @@ use yii\helpers\Url;
                                             <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                         </div>
                                         <?= $form->field($user, 'email', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Email", 'type' => 'email'])->label(false) ?>
-                                    </div>
-                                   <div class="input-group mb-3">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-key"></i></i></span>
-                                        </div>
-<!--                                        --><?/*= $form->field($user, 'password_atual', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Password", 'type' => 'password'])->label(false) */?>
                                     </div>
                                 </div>
                             </div>

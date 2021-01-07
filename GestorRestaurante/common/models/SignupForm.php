@@ -65,6 +65,7 @@ class SignupForm extends Model
 
             ['telemovel', 'required'],
             ['telemovel', 'string', 'max' => 13],
+            ['telemovel', 'unique', 'targetClass' => '\common\models\Perfil', 'message' => 'Este nº telemovel ja existe.'],
 
             ['nacionalidade', 'required'],
             ['nacionalidade', 'string', 'max' => 50],

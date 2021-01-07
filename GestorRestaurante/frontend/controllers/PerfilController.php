@@ -97,14 +97,20 @@ class PerfilController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $user = User::findOne($id);
+        $perfil = $this->findModel($user->id);
+        $perfil->cargo = $this->actionGetcargo($user->id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_user]);
+
+        if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
+
+
+            return $this->redirect(['myperfil', 'id' => $user->id]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
+        return $this->render('perfil', [
+            'perfil' => $perfil,
+            'user' => $user
         ]);
     }
 
@@ -143,12 +149,7 @@ class PerfilController extends Controller
 
         $user = User::findOne($id);
         $perfil = $this->findModel($user->id);
-        $auth = Yii::$app->authManager;
-
         $perfil->cargo = $this->actionGetcargo($user->id);
-
-
-       // $user->password_atual = $user->password_hash;
 
 
         if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {

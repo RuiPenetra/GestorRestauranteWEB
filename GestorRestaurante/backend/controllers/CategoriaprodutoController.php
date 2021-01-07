@@ -42,10 +42,7 @@ class CategoriaprodutoController extends Controller
         ];
     }
 
-    /**
-     * Lists all CategoriaProduto models.
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         if (Yii::$app->user->can('consultarCategoriaProdutos')) {
@@ -87,83 +84,121 @@ class CategoriaprodutoController extends Controller
         }
     }
 
-    /**
-     * Displays a single CategoriaProduto model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
-        $categoria=$this->findModel($id);
-        $produtos =Produto::findAll(['id_categoria'=>$id]);
+        if (Yii::$app->user->can('consultarCategoriaProdutos')) {
+
+            $categoria=$this->findModel($id);
+            $produtos =Produto::findAll(['id_categoria'=>$id]);
 
 
-        return $this->render('view', [
-            'produtos' =>  $produtos,
-            'categoria' =>  $categoria
-        ]);
+            return $this->render('view', [
+                'produtos' =>  $produtos,
+                'categoria' =>  $categoria
+            ]);
+
+        }else{
+            return $this->render('site/error');
+
+        }
     }
 
-    /**
-     * Creates a new CategoriaProduto model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
-        $model = new CategoriaProduto();
+        if (Yii::$app->user->can('consultarCategoriaProdutos') && Yii::$app->user->can('criarCategoriaProdutos')) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $model = new CategoriaProduto();
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+
+        }else{
+            return $this->render('site/error');
+
         }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
     }
 
-    /**
-     * Updates an existing CategoriaProduto model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (Yii::$app->user->can('consultarCategoriaProdutos') && Yii::$app->user->can('atualizarCategoriaProdutos')) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $categoria = $this->findModel($id);
+            $produtos =Produto::findAll(['id_categoria'=>$categoria->id]);
+
+            if ($categoria->load(Yii::$app->request->post()) && $categoria->save()) {
+
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-check-circle',
+                    'message' => 'Categoria Produto atualizada com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+
+                return $this->redirect(['view', 'id' => $categoria->id]);
+            }
+
+            return $this->render('update', [
+                'categoria' => $categoria,
+                'produtos' => $produtos,
+            ]);
+        }else{
+            return $this->render('site/error');
+
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
-    /**
-     * Deletes an existing CategoriaProduto model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (Yii::$app->user->can('apagarCategoriaProdutos')) {
 
-        return $this->redirect(['index']);
+            $categoria=$this->findModel($id);
+
+            $produtosCategoria=Produto::findAll(['id_categoria'=>$categoria->id]);
+
+            if($produtosCategoria!=null){
+
+                Yii::$app->getSession()->setFlash('danger', [
+                    'type' => 'danger',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-check-circle',
+                    'message' => 'Impossivel apagar categorias com produtos associados',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+                return $this->redirect(['view','id'=>$categoria->id]);
+
+            }else{
+                $this->findModel($id)->delete();
+
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-check-circle',
+                    'message' => 'Categoria Produto apagada com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+
+                return $this->redirect(['index']);
+            }
+
+        }else{
+            return $this->render('site/error');
+
+        }
+
     }
 
-    /**
-     * Finds the CategoriaProduto model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return CategoriaProduto the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = CategoriaProduto::findOne($id)) !== null) {
@@ -172,4 +207,6 @@ class CategoriaprodutoController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
 }

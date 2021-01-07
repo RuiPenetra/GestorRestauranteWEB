@@ -3,17 +3,17 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\Falta;
-use common\models\FaltaSearch;
+use common\models\Horario;
+use common\models\HorarioSearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * FaltaController implements the CRUD actions for Falta model.
+ * HorarioController implements the CRUD actions for Horario model.
  */
-class FaltaController extends Controller
+class HorarioController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -27,9 +27,8 @@ class FaltaController extends Controller
                     [
                         'actions' => ['index','view'],
                         'allow' => true,
-                        'roles' => ['atendedorPedidos','cozinheiro','empregadoMesa'],
+                        'roles' => ['cozinheiro','atendedorPedidos'],
                     ],
-
                 ],
             ],
             'verbs' => [
@@ -43,19 +42,21 @@ class FaltaController extends Controller
 
     public function actionView($id)
     {
-        $searchFalta = new FaltaSearch();
-        $searchFalta->id_funcionario=$id;
-        $dataProviderFalta = $searchFalta->search(Yii::$app->request->queryParams);
+        $searchHorario = new HorarioSearch();
+        $searchHorario->id_funcionario=$id;
+        $searchHorario->mes='Janeiro';
+        $dataProviderHorario = $searchHorario->search(Yii::$app->request->queryParams);
 
         return $this->render('view', [
-            'searchFalta' => $searchFalta,
-            'dataProviderFalta' => $dataProviderFalta,
+            'searchHorario' => $searchHorario,
+            'dataProviderHorario' => $dataProviderHorario,
         ]);
     }
 
+
     protected function findModel($id)
     {
-        if (($model = Falta::findOne($id)) !== null) {
+        if (($model = Horario::findOne($id)) !== null) {
             return $model;
         }
 

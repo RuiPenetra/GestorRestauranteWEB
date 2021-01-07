@@ -1,6 +1,6 @@
 .wrap {
     height: 1000px;
-    background-color: #ff9b71;
+    background-color: #dee2e6;
     overflow: hidden;
 }
 
@@ -205,10 +205,7 @@ a.desc:after {
     padding-top:32px;
 }
 
-#botaosearchreserva{
 
-
-}
 /**
  * --------------------------------------------
  * Page SignUp

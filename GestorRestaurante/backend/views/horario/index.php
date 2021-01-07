@@ -119,7 +119,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td class="text-center">
                                 <?=Html::a('<i class="fas fa-plus-circle"></i>', ['horario/create', 'id' => $perfil->id_user], ['class' => 'btn btn-success btn-sm']) ?>
                                 <?=Html::a('<i class="fas fa-user"></i>', ['horario/create', 'id' => $perfil->id_user], ['class' => 'btn btn-info btn-sm','data-toggle'=>'modal', 'data-target'=>'#verUser'.$perfil->id_user]) ?>
-                                <?=Html::a('<i class="fas fa-calendar"></i>', ['horario/view', 'id' => $perfil->id_user], ['class' => 'btn btn-dark btn-sm']) ?>
+                                <?=Html::a('<i class="fas fa-calendar"></i>', ['horario/viewall', 'id' => $perfil->id_user], ['class' => 'btn btn-dark btn-sm']) ?>
                             </td>
                         </tr>
                         <div class="modal fade"  id="verUser<?=$perfil->id_user?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">

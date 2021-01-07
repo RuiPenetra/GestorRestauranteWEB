@@ -50,14 +50,14 @@ class UserController extends Controller
     {
         if (Yii::$app->user->can('consultarUtilizadores')) {
 
-            $searchModel = new PerfilSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            $searchUser = new PerfilSearch();
+            $dataProviderUser = $searchUser->search(Yii::$app->request->queryParams);
 
-            $dataProvider->pagination = ['pageSize' => 5];
+            $dataProviderUser->pagination = ['pageSize' => 5];
 
             return $this->render('index', [
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel
+                'dataProviderUser' => $dataProviderUser,
+                'searchUser' => $searchUser
             ]);
         }else{
 

@@ -1,6 +1,8 @@
 <?php
 namespace backend\tests;
 
+use Codeception\Actor;
+
 /**
  * Inherited Methods
  * @method void wantToTest($text)
@@ -16,11 +18,14 @@ namespace backend\tests;
  *
  * @SuppressWarnings(PHPMD)
 */
-class AcceptanceTester extends \Codeception\Actor
+class AcceptanceTester extends Actor
 {
     use _generated\AcceptanceTesterActions;
 
     /**
      * Define custom actions here
      */
+    public function seeResponseCodeIs($int)
+    {
+    }
 }

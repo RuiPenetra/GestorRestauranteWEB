@@ -20,7 +20,7 @@ use yii\helpers\Url; ?>
                     <i class="fas fa-users"></i>
                 </div>
                 <a href="<?= Url::toRoute(['user/index']) ?>" class="small-box-footer">
-                    Mais informação <i class="fas fa-arrow-circle-right"></i>
+                    Mais informação <i class="fas fa-arrow-circle-right btn_user"></i>
                 </a>
             </div>
         </div>
@@ -91,7 +91,7 @@ use yii\helpers\Url; ?>
                 <div class="icon">
                     <i class="fas fa-utensils"></i>
                 </div>
-                <a href="<?= Url::toRoute(['produto/index']) ?>" class="small-box-footer">
+                <a href="<?= Url::toRoute(['produto/index']) ?>" class="small-box-footer btn-produto">
                     Mais informação <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>

@@ -23,9 +23,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nome_da_reserva') ?>
 
-    <?= $form->field($model, 'tempo_reserva') ?>
-
-    <?php // echo $form->field($model, 'id_mesa') ?>
+    <?= $form->field($model, 'id_mesa') ?>
 
     <?php // echo $form->field($model, 'id_funcionario') ?>
 

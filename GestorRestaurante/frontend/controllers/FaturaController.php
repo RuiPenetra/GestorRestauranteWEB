@@ -27,14 +27,14 @@ class FaturaController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','view'],
+                        'actions' => ['view'],
                         'allow' => true,
-                        'roles' => ['cliente'],
+                        'roles' => ['cliente','cozinheiro'],
                     ],
                     [
-                        'actions' => ['index','create','view'],
+                        'actions' => ['create','update','view'],
                         'allow' => true,
-                        'roles' => ['atendedorPedidos'],
+                        'roles' => ['atendedorPedidos','empregadoMesa'],
                     ],
                 ],
             ],

@@ -2,9 +2,14 @@
 
 namespace backend\controllers;
 
+use common\models\Mesa;
+use common\models\MesaSearch;
+use common\models\Pedido;
+use common\models\PerfilSearch;
 use Yii;
 use common\models\Reserva;
 use common\models\ReservaSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,6 +25,17 @@ class ReservaController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index','update','delete','view','create'],
+                        'allow' => true,
+                        'roles' => ['gerente'],
+                    ],
+                ],
+            ],
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -64,14 +80,38 @@ class ReservaController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Reserva();
+        $reserva = new Reserva();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $searchMesa = new MesaSearch();
+        $searchMesa->estado=2;
+        $dataProviderMesa = $searchMesa->search(Yii::$app->request->queryParams);
+        $dataProviderMesa->pagination = ['pageSize' => 5];
+
+        $searchUser= new PerfilSearch();
+        $dataProviderUser = $searchUser->search(Yii::$app->request->queryParams);
+        $dataProviderUser->pagination = ['pageSize' => 5];
+
+        if ($reserva->load(Yii::$app->request->post()) && $reserva->save()) {
+
+            Yii::$app->getSession()->setFlash('success', [
+                'type' => 'success',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Reserva criada com sucesso',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+
+            return $this->redirect(['view', 'id' => $reserva->id]);
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'reserva'=>$reserva,
+            'searchMesa' => $searchMesa,
+            'dataProviderMesa' => $dataProviderMesa,
+            'searchUser' => $searchUser,
+            'dataProviderUser' => $dataProviderUser
         ]);
     }
 

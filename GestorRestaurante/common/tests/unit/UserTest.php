@@ -51,7 +51,7 @@ class UserTest extends \Codeception\Test\Unit
         $user->setEmail(null);
         $this->assertFalse($user->validate(['email']));
 
-        $user->setEmail('developeranything@gmail.com');
+        $user->setEmail('joana@gmail.com');
         $this->assertFalse($user->validate(['email']));
 
         $user->setEmail('ruijorge@gmail.com');
@@ -176,7 +176,7 @@ class UserTest extends \Codeception\Test\Unit
         hac libero suspendisse aliquet varius ut..');
         $this->assertFalse($perfil->validate(['telemovel']));
 
-        $perfil->setTelemovel('983782982');
+        $perfil->setTelemovel('9182938493');
         $this->assertFalse($perfil->validate(['telemovel']));
 
         $perfil->setTelemovel(null);
@@ -253,7 +253,7 @@ class UserTest extends \Codeception\Test\Unit
     public function testUpdate()
     {
         $user=$this->tester->grabRecord('common\models\User', array('username' => 'Rui','email' => 'ruijorge@gmail.com'));
-        $user->setUsername('Ruijorge');
+        $user->username='RuiJorge';
         $user->setEmail('ruipenetra@gmail.com');
         $user->save();
 

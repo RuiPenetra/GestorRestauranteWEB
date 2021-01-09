@@ -44,16 +44,16 @@ class PerfilController extends Controller
 
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->can('atualizarPerfis')) {
+        if (Yii::$app->user->can('atualizarPerfis') && Yii::$app->user->can('atualizarUtilizadores')) {
 
             $perfil=Perfil::findOne($id);
             $user=User::findOne($id);
 
             if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
 
-                $this->actionRemovecargo($perfil->id_user);
+                $this->Removecargo($perfil->id_user);
 
-                $this->actionUpdatecargo($perfil->cargo,$perfil->id_user);
+                $this->Updatecargo($perfil->cargo,$perfil->id_user);
 
                 return $this->redirect(['update', 'id' => $user->id]);
             }
@@ -77,7 +77,7 @@ class PerfilController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    protected function actionGetcargo($id_user){
+    protected function Getcargo($id_user){
 
             if(Yii::$app->authManager->getAssignment('gerente',$id_user) != null){
 
@@ -97,7 +97,7 @@ class PerfilController extends Controller
             }
     }
 
-    protected function actionUpdatecargo($cargo_novo,$id_user){
+    protected function Updatecargo($cargo_novo,$id_user){
 
         $auth = Yii::$app->authManager;
         $novoCargo = $auth->getRole($cargo_novo);
@@ -105,7 +105,7 @@ class PerfilController extends Controller
 
     }
 
-    protected function actionRemovecargo($id_user){
+    protected function Removecargo($id_user){
 
          Yii::$app->authManager->revokeAll($id_user);
     }

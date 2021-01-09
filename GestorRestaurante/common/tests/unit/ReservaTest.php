@@ -8,9 +8,16 @@ class ReservaTest extends \Codeception\Test\Unit
      * @var \common\tests\UnitTester
      */
     protected $tester;
-    
+    protected $ID_USER;
+    protected $ID_MESA;
+
     protected function _before()
     {
+        $user = $this->tester->grabRecord('common\models\User', array('username' => 'joana'));
+        $this->ID_USER=$user->id;
+
+        $mesa=$this->tester->grabRecord('common\models\Mesa', array('id' => '1'));
+        $this->ID_MESA=$mesa->id;
     }
 
     protected function _after()
@@ -73,7 +80,7 @@ class ReservaTest extends \Codeception\Test\Unit
         $reserva->id_mesa=null;
         $this->assertFalse($reserva->validate(['id_mesa']));
 
-        $reserva->id_mesa=3;
+        $reserva->id_mesa=$this->ID_MESA;
         $this->assertTrue($reserva->validate(['id_mesa']));
 
         //TODO: VALIDAR ----> ID_FUNCIONARIO [ INTEGER ]
@@ -89,7 +96,7 @@ class ReservaTest extends \Codeception\Test\Unit
         $reserva->id_funcionario=null;
         $this->assertFalse($reserva->validate(['id_funcionario']));
 
-        $reserva->id_funcionario=1;
+        $reserva->id_funcionario=$this->ID_USER;
         $this->assertTrue($reserva->validate(['id_funcionario']));
 
     }
@@ -102,36 +109,35 @@ class ReservaTest extends \Codeception\Test\Unit
         $reserva->n_pessoas=3;
         $reserva->data_hora='2020-04-05 18:30';
         $reserva->nome_da_reserva='Alberto Francisco';
-        $reserva->id_mesa=3;
-        $reserva->id_funcionario=1;
+        $reserva->id_mesa=$this->ID_MESA;
+        $reserva->id_funcionario=$this->ID_USER;
 
         $reserva->save();
 
-        $this->tester->seeInDatabase('reserva', ['n_pessoas' => 3, 'nome_da_reserva'=>'Alberto Francisco', 'id_mesa'=>3, 'id_funcionario'=>1]);
+        $this->tester->seeInDatabase('reserva', ['n_pessoas' => 3, 'nome_da_reserva'=>'Alberto Francisco', 'id_mesa'=>$this->ID_MESA, 'id_funcionario'=>$this->ID_USER]);
 
 
     }
 
     public function testUpdate()
     {
-        $reserva = $this->tester->grabRecord('common\models\Reserva', array('n_pessoas' => 3, 'nome_da_reserva'=>'Alberto Francisco', 'id_mesa'=>3, 'id_funcionario'=>1));
+        $reserva = $this->tester->grabRecord('common\models\Reserva', array('n_pessoas' => 3, 'nome_da_reserva'=>'Alberto Francisco', 'id_mesa'=>$this->ID_MESA, 'id_funcionario'=>$this->ID_USER));
 
         $reserva->n_pessoas=4;
         $reserva->data_hora='2020-04-05 20:30';
-        $reserva->nome_da_reserva='Alberto Manuel';
-        $reserva->id_mesa=4;
+        $reserva->nome_da_reserva='Alberto Manuel Antonio';
         $reserva->save();
 
-        $this->tester->seeInDatabase('reserva', ['n_pessoas' => 4, 'nome_da_reserva'=>'Alberto Manuel', 'id_mesa'=>4, 'id_funcionario'=>1]);
+        $this->tester->seeInDatabase('reserva', ['n_pessoas' => 4, 'nome_da_reserva'=>'Alberto Manuel Antonio', 'id_mesa'=>$this->ID_MESA, 'id_funcionario'=>$this->ID_USER]);
     }
 
     public function testDelete()
     {
-        $reserva = $this->tester->grabRecord('common\models\Reserva', array('n_pessoas' => 4, 'nome_da_reserva'=>'Alberto Manuel', 'id_mesa'=>4, 'id_funcionario'=>1));
+        $reserva = $this->tester->grabRecord('common\models\Reserva', array('n_pessoas' => 4, 'nome_da_reserva'=>'Alberto Manuel Antonio', 'id_mesa'=>$this->ID_MESA, 'id_funcionario'=>$this->ID_USER));
 
         $reserva->delete();
 
-        $this->tester->dontSeeRecord('common\models\Reserva', array('n_pessoas' => 4, 'nome_da_reserva'=>'Alberto Manuel', 'id_mesa'=>4, 'id_funcionario'=>1));
+        $this->tester->dontSeeRecord('common\models\Reserva', array('n_pessoas' => 4, 'nome_da_reserva'=>'Alberto Manuel Antonio', 'id_mesa'=>$this->ID_MESA, 'id_funcionario'=>$this->ID_USER));
 
     }
 }

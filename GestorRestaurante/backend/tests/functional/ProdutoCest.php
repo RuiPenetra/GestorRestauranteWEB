@@ -7,7 +7,7 @@ class ProdutoCest
     {
         $I->amOnPage('/');
         $I->fillField('LoginForm[username]', 'joana');
-        $I->fillField('LoginForm[password]', '1234567');
+        $I->fillField('LoginForm[password]', 'joana1234567');
         $I->click('login-button');
         $I->see('Painel');
 

@@ -1,28 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.9.2
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Tempo de geração: 09-Jan-2021 às 20:48
--- Versão do servidor: 10.4.10-MariaDB
--- versão do PHP: 7.1.33
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Banco de dados: `bdgestorrestaurante`
---
-
--- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `auth_assignment`
@@ -506,7 +481,7 @@ INSERT INTO `produto` (`id`, `nome`, `ingredientes`, `preco`, `id_categoria`, `e
 (1, 'Pão', '', '1.00', 1, 0),
 (2, 'Paté de atum', '', '1.00', 1, 0),
 (3, 'Bitoque', '', '4.50', 3, 0),
-(4, 'Bacalhau com natas', '', '6.50', 4, 0),
+(4, 'Bacalhau com natas', '', '5.50', 4, 0),
 (5, 'Mousse de chocolate', '', '2.50', 5, 0),
 (6, 'Coca-cola', '', '1.20', 6, 0),
 (7, 'Sopa da pedra', '', '2.50', 2, 0);
@@ -808,7 +783,3 @@ ALTER TABLE `reserva`
     ADD CONSTRAINT `PerfilReserva` FOREIGN KEY (`id_funcionario`) REFERENCES `perfil` (`id_user`),
     ADD CONSTRAINT `ReservaMesa` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`);
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -12,7 +12,7 @@ $this->title = 'Atualizar item';
 
 <div class="row col-12 d-flex justify-content-center">
     <div class="row col-4">
-        <div class="col-4 col-md-3 d-flex text-center">
+        <div class="col-4 col-md-3 text-center">
             <?php if ($itemPedido->produto->categoria->nome == 'Entrada'): ?>
                 <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image','width'=>'100px','height'=>'100px']); ?>
             <?php endif; ?>

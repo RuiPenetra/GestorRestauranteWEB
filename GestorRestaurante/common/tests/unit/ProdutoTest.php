@@ -9,13 +9,32 @@ class ProdutoTest extends \Codeception\Test\Unit
      * @var \common\tests\UnitTester
      */
     protected $tester;
-    
+    protected $ID_CATEGORIA;
+
     protected function _before()
     {
+        $categoria=$this->tester->grabRecord('common\models\CategoriaProduto', array('nome' => 'Carne'));
+
+        $this->ID_CATEGORIA=$categoria->id;
+
+        $produto= new Produto();
+
+        $produto->nome='Francesinha';
+        $produto->ingredientes='Bife, queijo';
+        $produto->preco=3.80;
+        $produto->estado=0;
+        $produto->id_categoria=$this->ID_CATEGORIA;
+        $produto->save();
+
+        $this->tester->seeInDatabase('produto', ['nome' => 'Francesinha', 'preco' => 3.80, 'estado' => '0']);
     }
 
     protected function _after()
     {
+        $produto=$this->tester->grabRecord('common\models\Produto', array('nome' => 'Francesinha','preco' => 3.80));
+        $produto->delete();
+
+        $this->tester-> dontSeeRecord('common\models\Produto', array('nome' => 'Francesinha','preco' => 3.80));
     }
 
     // tests
@@ -33,7 +52,7 @@ class ProdutoTest extends \Codeception\Test\Unit
         $this->assertFalse($produto->validate(['nome']));
 
         //Validar se já existe
-        $produto->nome='Bitoque'; //Já existe
+        $produto->nome='Francesinha'; //Já existe
         $this->assertFalse($produto->validate(['nome']));
 
         //Validar se passa do tamanho de 50x
@@ -120,8 +139,8 @@ class ProdutoTest extends \Codeception\Test\Unit
         $produto->id_categoria=null;
         $this->assertFalse($produto->validate(['id_categoria']));
 
-/*        $produto->id_categoria=4;
-        $this->assertTrue($produto->validate(['id_categoria']));*/
+        $produto->id_categoria=$this->ID_CATEGORIA;
+        $this->assertTrue($produto->validate(['id_categoria']));
 
     }
 
@@ -129,33 +148,33 @@ class ProdutoTest extends \Codeception\Test\Unit
 
         $produto= new Produto();
 
-        $produto->nome='Bacalhau à zé do pipo';
-        $produto->ingredientes='Bacalhau, batata';
+        $produto->nome='Mão de vaca';
+        $produto->ingredientes='carne vaca, batata';
         $produto->preco=17.89;
         $produto->estado=0;
-        $produto->id_categoria=4;
+        $produto->id_categoria=$this->ID_CATEGORIA;
         $produto->save();
 
-        $this->tester->seeInDatabase('produto', ['nome' => 'Bacalhau à zé do pipo', 'preco' => 17.89, 'estado' => '0']);
+        $this->tester->seeInDatabase('produto', ['nome' => 'Mão de vaca', 'preco' => 17.89, 'estado' => '0']);
 
     }
 
     public function testUpdate(){
 
-        $produto=$this->tester->grabRecord('common\models\Produto', array('nome' => 'Bacalhau à zé do pipo','preco' => 17.89));
-        $produto->nome='Bacalhau com natas';
+        $produto=$this->tester->grabRecord('common\models\Produto', array('nome' => 'Mão de vaca','preco' => 17.89));
+        $produto->nome='Lasanha de carne';
         $produto->preco=8.50;
         $produto->save();
 
-        $this->tester->seeInDatabase('produto', ['nome' => 'Bacalhau com natas', 'preco' => 8.50]);
+        $this->tester->seeInDatabase('produto', ['nome' => 'Lasanha de carne', 'preco' => 8.50]);
 
     }
 
     public function testDelete(){
 
-        $produto=$this->tester->grabRecord('common\models\Produto', array('nome' => 'Bacalhau com natas','preco' => 8.50));
+        $produto=$this->tester->grabRecord('common\models\Produto', array('nome' => 'Lasanha de carne','preco' => 8.50));
         $produto->delete();
 
-        $this->tester-> dontSeeRecord('common\models\Produto', array('nome' => 'Bacalhau com natas','preco' => 8.50));
+        $this->tester-> dontSeeRecord('common\models\Produto', array('nome' => 'Lasanha de carne','preco' => 8.50));
     }
 }

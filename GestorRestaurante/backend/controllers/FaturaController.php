@@ -142,7 +142,7 @@ class FaturaController extends Controller
 
     public function actionDelete($id)
     {
-        if (Yii::$app->user->can('atualizarFaturas')) {
+        if (Yii::$app->user->can('apagarFaturas')) {
 
            $fatura= $this->findModel($id);
 

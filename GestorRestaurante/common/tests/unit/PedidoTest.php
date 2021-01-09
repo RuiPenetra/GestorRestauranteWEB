@@ -9,9 +9,16 @@ class PedidoTest extends \Codeception\Test\Unit
      * @var \common\tests\UnitTester
      */
     protected $tester;
-    
+    protected $ID_USER;
+    protected $ID_MESA;
+
     protected function _before()
     {
+        $user = $this->tester->grabRecord('common\models\User', array('username' => 'joana'));
+        $this->ID_USER=$user->id;
+
+        $mesa=$this->tester->grabRecord('common\models\Mesa', array('id' => '1'));
+        $this->ID_MESA=$mesa->id;
     }
 
     protected function _after()
@@ -126,7 +133,7 @@ class PedidoTest extends \Codeception\Test\Unit
         $pedido->id_perfil=null;
         $this->assertFalse($pedido->validate(['id_perfil']));
 
-        $pedido->id_perfil=1;
+        $pedido->id_perfil=$this->ID_USER;
         $this->assertTrue($pedido->validate(['id_perfil']));
 
 
@@ -165,7 +172,7 @@ class PedidoTest extends \Codeception\Test\Unit
         $pedido->id_mesa=null;
         $this->assertFalse($pedido->validate(['id_mesa']));
 
-        $pedido->id_mesa=2;
+        $pedido->id_mesa=$this->ID_MESA;
         $this->assertTrue($pedido->validate(['id_mesa']));
 
 
@@ -184,7 +191,7 @@ class PedidoTest extends \Codeception\Test\Unit
         $pedido->tipo=1;
         $pedido->estado=0;
         $pedido->nome_pedido='Alberto Silva';
-        $pedido->id_perfil=1;
+        $pedido->id_perfil=$this->ID_USER;
         $pedido->nota='Bacalhau sem alface';
         $pedido->save();
 
@@ -224,33 +231,33 @@ class PedidoTest extends \Codeception\Test\Unit
         $pedido->data='20-01-2021 14:34';
         $pedido->tipo=0;
         $pedido->estado=0;
-        $pedido->id_mesa=2;
-        $pedido->id_perfil=1;
+        $pedido->id_mesa=$this->ID_MESA;
+        $pedido->id_perfil=$this->ID_USER;
         $pedido->nota='Bitoque sem alface';
         $pedido->save();
 
-        $this->tester->seeInDatabase('pedido', ['id_mesa' => 2, 'data' => '20-01-2021 14:34', 'estado' => 0, 'tipo' => 0]);
+        $this->tester->seeInDatabase('pedido', ['id_mesa' => $this->ID_MESA,'id_perfil' => $this->ID_USER ,'data' => '20-01-2021 14:34', 'estado' => 0, 'tipo' => 0]);
     }
 
     public function testUpdatePedidoRestaurante(){
 
-        $pedido = $this->tester->grabRecord('common\models\Pedido', array('id_mesa' => 2,'id_perfil' => 1,'estado' => 0, 'tipo' => 0 ));
+        $pedido = $this->tester->grabRecord('common\models\Pedido', array('id_mesa' => $this->ID_MESA,'id_perfil' => $this->ID_USER,'estado' => 0, 'tipo' => 0 ));
 
-        $pedido->id_mesa=3;
+        $pedido->nota='Bitoque sem cenoura e alho';
 
         $pedido->save();
 
-        $this->tester->seeInDatabase('pedido', ['id_mesa' => 3,'id_perfil' => 1,'estado' => 0, 'tipo' => 0]);
+        $this->tester->seeInDatabase('pedido', ['id_mesa' => $this->ID_MESA,'id_perfil' => $this->ID_USER,'nota' => 'Bitoque sem cenoura e alho', 'tipo' => 0]);
 
     }
 
     public function testDeletePedidoRestaurante(){
 
-        $pedido = $this->tester->grabRecord('common\models\Pedido', array('id_mesa' => 3,'id_perfil' => 1,'estado' => 0, 'tipo' => 0));
+        $pedido = $this->tester->grabRecord('common\models\Pedido', array('id_mesa' => $this->ID_MESA,'id_perfil' => $this->ID_USER,'nota' => 'Bitoque sem cenoura e alho', 'tipo' => 0));
 
         $pedido->delete();
 
-        $this->tester-> dontSeeRecord('common\models\Pedido', array('id_mesa' => 3,'id_perfil' => 1,'estado' => 0, 'tipo' => 0));
+        $this->tester-> dontSeeRecord('common\models\Pedido', array('id_mesa' => $this->ID_MESA,'id_perfil' => $this->ID_USER,'nota' => 'Bitoque sem cenoura e alho', 'tipo' => 0));
 
     }
 

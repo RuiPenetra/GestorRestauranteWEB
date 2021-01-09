@@ -37,7 +37,7 @@ class LoginCest
         $I->wantTo('Login do utilizador');
         $I->amOnPage('/');
         $I->fillField('LoginForm[username]', 'joana');
-        $I->fillField('LoginForm[password]', '1234567');
+        $I->fillField('LoginForm[password]', 'joana1234567');
         $I->click('login-button');
         //$I->amOnPage('web/index.php?r=user%index');
         $I->see('Painel');

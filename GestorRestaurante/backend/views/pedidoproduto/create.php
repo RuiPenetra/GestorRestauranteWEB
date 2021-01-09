@@ -116,7 +116,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 </div>
                                             </div>
                                             <div class="row col-md-12 d-flex justify-content-center">
-                                                <?= $form->field($pedido, 'nota')->textarea(['class'=>' form-control','value'=>$pedido->nota,'rows'=>5,'cols'=>60])->label(true) ?>
+                                                <?= $form->field($pedido, 'nota')->textarea(['class'=>' form-control','rows'=>5,'cols'=>60])->label(true) ?>
                                             </div>
                                         </div>
                                         <div class="modal-footer">

@@ -550,17 +550,13 @@ class m201016_160137_rbac extends Migration
             $auth->addChild($cliente, $apagarPedidoProduto);
 
             //# FATURAS #
-            $auth->addChild($cliente, $criarFaturas);
             $auth->addChild($cliente, $consultarFaturas);
-            $auth->addChild($cliente, $atualizarFaturas);
 
         //TODO: ATRUBUIR PREMISSÕES AO ADMIN ( GERENTE )
 
             $auth->assign($gerente, 1);
 
         //TODO: ASSINAR O PRIMEIRO UTILIZADOR INSERIDO NA BASE DE DADOS, ATRIBUINDO AS PREMISSÕES DE ADMIN (GERENTE)
-
-
     }
 
     /**

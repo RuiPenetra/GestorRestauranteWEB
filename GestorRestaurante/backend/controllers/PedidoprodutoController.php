@@ -25,7 +25,7 @@ class PedidoprodutoController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','create','update','cozinhaupdate','delete','view'],
+                        'actions' => ['index','create','update','cozinhaupdate','delete'],
                         'allow' => true,
                         'roles' => ['gerente'],
                     ],
@@ -42,186 +42,211 @@ class PedidoprodutoController extends Controller
 
     public function actionIndex($id)
     {
-        $pedido=Pedido::findOne($id);
-        $model = new Pedidoproduto();
+        if (Yii::$app->user->can('consultarPedidoProduto')) {
 
-        $model->id_pedido=$pedido->id;
+            $pedido=Pedido::findOne($id);
+            $model = new Pedidoproduto();
 
-        $searchModel = new PedidoprodutoSearch();
-        $searchModel->id_pedido=$pedido->id;
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            $model->id_pedido=$pedido->id;
 
-
-        return $this->render('index', [
-            'pedido'=>$pedido,
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    public function actionCreate($id)
-    {
-        $pedido=Pedido::findOne($id);
-        $pedidoProduto = new Pedidoproduto();
-        $pedidoProduto->id_pedido=$pedido->id;
-        $pedidoProduto->estado=0;
-        $pedidoProduto->quant_Preparacao=0;
-        $pedidoProduto->quant_Entregue=0;
-        $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
-        $searchProduto= new ProdutoSearch();
-        $searchProduto->estado=0;
-        $dataProvider = $searchProduto->search(Yii::$app->request->queryParams);
-        $dataProvider->pagination = ['pageSize' => 6];
+            $searchModel = new PedidoprodutoSearch();
+            $searchModel->id_pedido=$pedido->id;
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 
-        if ($pedidoProduto->load(Yii::$app->request->post())) {
-
-            $resultado=PedidoProduto::findOne(['id_pedido'=>$pedidoProduto->id_pedido ,'id_produto'=>$pedidoProduto->id_produto]);
-
-            if($resultado !=null){
-
-                $resultado->quant_Pedida= $resultado->quant_Pedida + $pedidoProduto->quant_Pedida;
-                $resultado->preco= $pedidoProduto->quant_Pedida*$pedidoProduto->produto->preco;
-
-                if($resultado->save()){
-
-                    $pedido->load(Yii::$app->request->post());
-
-                    $pedido->save();
-                    return $this->redirect(['index', 'id' => $pedidoProduto->id_pedido]);
-
-                }
-
-            }else{
-                $pedidoProduto->save();
-                return $this->redirect(['index', 'id' => $pedidoProduto->id_pedido]);
-
-            }
-
-        }
-
-        return $this->render('create', [
-            'pedidoProduto'=>$pedidoProduto,
-            'pedido'=>$pedido,
-            'categorias'=>$categorias,
-            'dataProvider'=>$dataProvider,
-            'searchProduto'=>$searchProduto,
-
-        ]);
-    }
-
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-        $pedido=Pedido::findOne($model->id_pedido);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $pedido->load(Yii::$app->request->post());
-
-            $pedido->save();
-
-            $this->ValidarEstadoPedido($model->id_pedido);
-
-            return $this->redirect(['index', 'id' => $model->id_pedido]);
-        }
-
-        return $this->render('update', [
-            'itemPedido' => $model,
-            'pedido' => $pedido,
-        ]);
-    }
-
-    public function actionCozinhaupdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post())) {
-
-            $resultado = $this->ValidarQuantidadeItemProduto($model);
-
-            if ($resultado != null) {
-
-                Yii::$app->getSession()->setFlash('danger', [
-                    'type' => 'danger',
-                    'duration' => 5000,
-                    'icon' => 'fas fa-tags',
-                    'message' => $resultado,
-                    'title' => 'ALERTA',
-                    'positonX' => 'right',
-                    'positonY' => 'top'
-                ]);
-
-            } else {
-
-                $model->save();
-
-                $this->ValidarEstadoItemProduto($model->id);
-
-                $this->ValidarEstadoPedido($model->id_pedido);
-
-                Yii::$app->getSession()->setFlash('success', [
-                    'type' => 'success',
-                    'duration' => 5000,
-                    'icon' => 'fas fa-tags',
-                    'message' => 'Produto pedido atualizado com sucesso',
-                    'title' => 'ALERTA',
-                    'positonX' => 'right',
-                    'positonY' => 'top'
-                ]);
-
-                return $this->redirect(['index', 'id' => $model->id_pedido]);
-
-            }
-        }
-        return $this->render('updatecozinha', [
-            'itemPedido' => $model,
-        ]);
-    }
-
-    public function actionDelete($id)
-    {
-
-        $itemPedido =$this->findModel($id);
-
-        if($itemPedido->estado!=0){
-            Yii::$app->getSession()->setFlash('danger', [
-                'type' => 'danger',
-                'duration' => 5000,
-                'icon' => 'fas fa-tags',
-                'message' => 'O produto/produtos que pretende apagar já se encontra em preparação',
-                'title' => 'ALERTA',
-                'positonX' => 'right',
-                'positonY' => 'top'
+            return $this->render('index', [
+                'pedido'=>$pedido,
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
             ]);
 
         }else{
 
-            $itemPedido->delete();
-
-            $this->ValidarEstadoPedido($itemPedido->id_pedido);
-            Yii::$app->getSession()->setFlash('success', [
-                'type' => 'success',
-                'duration' => 5000,
-                'icon' => 'fas fa-tags',
-                'message' => 'O produto/produtos foram apagados com sucesso',
-                'title' => 'ALERTA',
-                'positonX' => 'right',
-                'positonY' => 'top'
-            ]);
-
+            return $this->render('site/error');
         }
-
-        return $this->redirect(['index', 'id' => $itemPedido->id_pedido]);
     }
 
-    public function ValidarEstadoItemProduto($id)
+    public function actionCreate($id)
+    {
+        if (Yii::$app->user->can('criarPedidoProduto') && Yii::$app->user->can('consultarProdutos')) {
+
+            $pedido=Pedido::findOne($id);
+            $pedidoProduto = new Pedidoproduto();
+            $pedidoProduto->id_pedido=$pedido->id;
+            $pedidoProduto->estado=0;
+            $pedidoProduto->quant_Preparacao=0;
+            $pedidoProduto->quant_Entregue=0;
+            $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
+            $searchProduto= new ProdutoSearch();
+            $searchProduto->estado=0;
+            $dataProvider = $searchProduto->search(Yii::$app->request->queryParams);
+            $dataProvider->pagination = ['pageSize' => 6];
+
+
+            if ($pedidoProduto->load(Yii::$app->request->post())) {
+
+                $resultado=PedidoProduto::findOne(['id_pedido'=>$pedidoProduto->id_pedido ,'id_produto'=>$pedidoProduto->id_produto]);
+
+                if($resultado !=null){
+
+                    $resultado->quant_Pedida= $resultado->quant_Pedida + $pedidoProduto->quant_Pedida;
+                    $resultado->preco= $pedidoProduto->quant_Pedida*$pedidoProduto->produto->preco;
+
+                    if($resultado->save()){
+
+                        $pedido->load(Yii::$app->request->post());
+
+                        $pedido->save();
+                        return $this->redirect(['index', 'id' => $pedidoProduto->id_pedido]);
+
+                    }
+
+                }else{
+                    $pedidoProduto->save();
+                    return $this->redirect(['index', 'id' => $pedidoProduto->id_pedido]);
+
+                }
+
+            }
+
+            return $this->render('create', [
+                'pedidoProduto'=>$pedidoProduto,
+                'pedido'=>$pedido,
+                'categorias'=>$categorias,
+                'dataProvider'=>$dataProvider,
+                'searchProduto'=>$searchProduto,
+
+            ]);
+        }else{
+
+            return $this->render('site/error');
+        }
+    }
+
+    public function actionUpdate($id)
+    {
+        if (Yii::$app->user->can('atualizarPedidoProduto')) {
+
+            $model = $this->findModel($id);
+            $pedido=Pedido::findOne($model->id_pedido);
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                $pedido->load(Yii::$app->request->post());
+
+                $pedido->save();
+
+                $this->ValidarEstadoPedido($model->id_pedido);
+
+                return $this->redirect(['index', 'id' => $model->id_pedido]);
+            }
+
+            return $this->render('update', [
+                'itemPedido' => $model,
+                'pedido' => $pedido,
+            ]);
+
+        }else{
+
+            return $this->render('site/error');
+        }
+    }
+
+    public function actionCozinhaupdate($id)
+    {
+        if (Yii::$app->user->can('atualizarPedidoProduto')) {
+
+            $model = $this->findModel($id);
+
+            if ($model->load(Yii::$app->request->post())) {
+
+                $resultado = $this->ValidarQuantidadeItemProduto($model);
+
+                if ($resultado != null) {
+
+                    Yii::$app->getSession()->setFlash('danger', [
+                        'type' => 'danger',
+                        'duration' => 5000,
+                        'icon' => 'fas fa-tags',
+                        'message' => $resultado,
+                        'title' => 'ALERTA',
+                        'positonX' => 'right',
+                        'positonY' => 'top'
+                    ]);
+
+                } else {
+
+                    $model->save();
+
+                    $this->ValidarEstadoItemProduto($model->id);
+
+                    $this->ValidarEstadoPedido($model->id_pedido);
+
+                    Yii::$app->getSession()->setFlash('success', [
+                        'type' => 'success',
+                        'duration' => 5000,
+                        'icon' => 'fas fa-tags',
+                        'message' => 'Produto pedido atualizado com sucesso',
+                        'title' => 'ALERTA',
+                        'positonX' => 'right',
+                        'positonY' => 'top'
+                    ]);
+
+                    return $this->redirect(['index', 'id' => $model->id_pedido]);
+
+                }
+            }
+            return $this->render('updatecozinha', [
+                'itemPedido' => $model,
+            ]);
+
+        }else{
+
+            return $this->render('site/error');
+        }
+    }
+
+    public function actionDelete($id)
+    {
+        if (Yii::$app->user->can('apagarPedidoProduto')) {
+
+            $itemPedido =$this->findModel($id);
+
+            if($itemPedido->estado!=0){
+                Yii::$app->getSession()->setFlash('danger', [
+                    'type' => 'danger',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'O produto/produtos que pretende apagar já se encontra em preparação',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+
+            }else{
+
+                $itemPedido->delete();
+
+                $this->ValidarEstadoPedido($itemPedido->id_pedido);
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'O produto/produtos foram apagados com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+
+            }
+
+            return $this->redirect(['index', 'id' => $itemPedido->id_pedido]);
+        }else{
+
+            return $this->render('site/error');
+        }
+    }
+
+    protected function ValidarEstadoItemProduto($id)
     {
 
         $itemPedido=$this->findModel($id);
@@ -243,7 +268,7 @@ class PedidoprodutoController extends Controller
         $itemPedido->save();
     }
 
-    public function ValidarQuantidadeItemProduto($itemPedido){
+    protected function ValidarQuantidadeItemProduto($itemPedido){
 
         if($itemPedido->quant_Preparacao>$itemPedido->quant_Pedida && $itemPedido->quant_Entregue>$itemPedido->quant_Pedida){
 
@@ -273,7 +298,7 @@ class PedidoprodutoController extends Controller
         return $messagem;
     }
 
-    public function ValidarEstadoPedido($id_pedido)
+    protected function ValidarEstadoPedido($id_pedido)
     {
         //Pedido::find()->where(['id_perfil'=>$id_user])->andWhere(['estado'=>[0,1]])->all();
 

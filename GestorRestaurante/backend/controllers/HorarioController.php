@@ -27,7 +27,7 @@ class HorarioController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','update','delete','view','viewall','create'],
+                        'actions' => ['index','view','viewall','create','update','delete'],
                         'allow' => true,
                         'roles' => ['gerente'],
                     ],
@@ -42,10 +42,6 @@ class HorarioController extends Controller
         ];
     }
 
-    /**
-     * Lists all Horario models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         if(Yii::$app->user->can('consultarUtilizadores')){
@@ -66,12 +62,6 @@ class HorarioController extends Controller
         }
     }
 
-    /**
-     * Displays a single Horario model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
         if(Yii::$app->user->can('consultarHorarios')){
@@ -218,13 +208,6 @@ class HorarioController extends Controller
         }
     }
 
-    /**
-     * Finds the Horario model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Horario the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Horario::findOne($id)) !== null) {

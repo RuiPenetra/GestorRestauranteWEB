@@ -10,8 +10,6 @@ class ProdutoCest
         $I->fillField('LoginForm[password]', '1234567');
         $I->click('login-button');
         $I->see('Painel');
-        $I->see('Produtos','p');
-        $I->click(['class' => 'produto-nav']);
 
     }
 
@@ -19,7 +17,9 @@ class ProdutoCest
     public function PesquisaNomeTest(FunctionalTester $I)
     {
         $I->wantTo('Pesquisar produto por nome [ Bitoque ]');
-        $I->amOnPage('/index.php?r=produto%2Findex');
+        $I->see('Produtos','p');
+        $I->click(['class' => 'produto-nav']);
+        $I->amOnPage('?r=produto%2Findex');
         $I->see('Produtos');
         $I->fillField('ProdutoSearch[nome]','Bitoque');
         $I->click('Procurar');

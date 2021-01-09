@@ -30,7 +30,7 @@ class ProdutoController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','update','delete','view','create'],
+                        'actions' => ['index','view','create','update','delete'],
                         'allow' => true,
                         'roles' => ['gerente'],
                     ],
@@ -46,10 +46,6 @@ class ProdutoController extends Controller
         ];
     }
 
-    /**
-     * Lists all Produto models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         if (Yii::$app->user->can('consultarProdutos')) {
@@ -75,12 +71,6 @@ class ProdutoController extends Controller
 
     }
 
-    /**
-     * Displays a single Produto model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
         if (Yii::$app->user->can('consultarProdutos')) {
@@ -96,11 +86,6 @@ class ProdutoController extends Controller
         }
     }
 
-    /**
-     * Creates a new Produto model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         if (Yii::$app->user->can('criarProdutos')) {
@@ -176,38 +161,44 @@ class ProdutoController extends Controller
 
     public function actionDelete($id)
     {
+        if (Yii::$app->user->can('apagarProdutos')) {
 
-        $produto=$this->findModel($id);
+            $produto=$this->findModel($id);
 
-        if($produto->estado!=0){
-            $produto->estado=0;
-            $produto->save();
+            if($produto->estado!=0){
+                $produto->estado=0;
+                $produto->save();
 
-            Yii::$app->getSession()->setFlash('success', [
-                'type' => 'success',
-                'duration' => 5000,
-                'icon' => 'fas fa-tags',
-                'message' => 'Produto disponivel com sucesso',
-                'title' => 'ALERTA',
-                'positonX' => 'right',
-                'positonY' => 'top'
-            ]);
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Produto disponivel com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+            }else{
+                $produto->estado=1;
+                $produto->save();
+
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Produto indisponivel com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+            }
+
+            return $this->redirect(['index']);
+
         }else{
-            $produto->estado=1;
-            $produto->save();
 
-            Yii::$app->getSession()->setFlash('success', [
-                'type' => 'success',
-                'duration' => 5000,
-                'icon' => 'fas fa-tags',
-                'message' => 'Produto indisponivel com sucesso',
-                'title' => 'ALERTA',
-                'positonX' => 'right',
-                'positonY' => 'top'
-            ]);
+            return $this->render('site/error');
         }
-
-        return $this->redirect(['index']);
     }
 
     protected function findModel($id)

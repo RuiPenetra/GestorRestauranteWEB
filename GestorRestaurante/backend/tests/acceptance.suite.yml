@@ -7,8 +7,11 @@ modules:
               browser: chrome
               port: 9515
         - Db:
-              dsn: 'mysql:host=localhost;dbname=bdgestorrestaurante_tests'
-              user: 'root'
-              password: ''
+            dsn: 'mysql:host=localhost;dbname=bdgestorrestaurante_tests'
+            user: 'root'
+            password: ''
+            dump: 'tests/_data/dump.sql'
+            populate: true
+            cleanup: true
         - Yii2:
               part: init

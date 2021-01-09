@@ -12,25 +12,72 @@ $this->title = 'Preparação';
 <?php $form = ActiveForm::begin(['class'=>'','validateOnBlur'=>false])?>
 
 <div class="row d-flex justify-content-center">
-    <div class="col-md-3 d-felx justify-content-center">
-        <?php if ($itemPedido->produto->categoria->nome == 'Entrada'): ?>
-            <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-responsive', 'width'=>'100px']); ?>
-        <?php endif; ?>
-        <?php if ($itemPedido->produto->categoria->nome == 'Sopa'): ?>
-            <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
-        <?php endif; ?>
-        <?php if ($itemPedido->produto->categoria->nome == 'Carne'): ?>
-            <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
-        <?php endif; ?>
-        <?php if ($itemPedido->produto->categoria->nome == 'Peixe'): ?>
-            <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'150px']); ?>
-        <?php endif; ?>
-        <?php if ($itemPedido->produto->categoria->nome == 'Sobremesa'): ?>
-            <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
-        <?php endif; ?>
-        <?php if ($itemPedido->produto->categoria->nome == 'Bebida'): ?>
-            <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
-        <?php endif; ?>
+    <div class="row col-5">
+        <div class="col-4 col-md-3 d-flex text-center">
+            <?php if ($itemPedido->produto->categoria->nome == 'Entrada'): ?>
+                <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image','width'=>'100px','height'=>'100px']); ?>
+            <?php endif; ?>
+            <?php if ($itemPedido->produto->categoria->nome == 'Sopa'): ?>
+                <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-fluid','width'=>'100px']); ?>
+            <?php endif; ?>
+            <?php if ($itemPedido->produto->categoria->nome == 'Carne'): ?>
+                <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-fluid','width'=>'100px']); ?>
+            <?php endif; ?>
+            <?php if ($itemPedido->produto->categoria->nome == 'Peixe'): ?>
+                <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-fluid','width'=>'150px']); ?>
+            <?php endif; ?>
+            <?php if ($itemPedido->produto->categoria->nome == 'Sobremesa'): ?>
+                <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-fluid','width'=>'100px']); ?>
+            <?php endif; ?>
+            <?php if ($itemPedido->produto->categoria->nome == 'Bebida'): ?>
+                <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-fluid','width'=>'100px']); ?>
+            <?php endif; ?>
+        </div>
+        <div class="col-6">
+            <table class="table table-striped table-bordered detail-view">
+                <thead>
+                    <tr>
+                        <h3>Detalhes Produto</h3>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>REFº:</th><td><?=$itemPedido->id_produto?></td>
+                    </tr>
+                    <tr>
+                        <th>Nome:</th><td><?=$itemPedido->produto->nome?></td>
+                    </tr>
+                    <tr>
+                        <th>Categoria:</th>
+                        <td>
+                            <?php if ($itemPedido->produto->categoria->nome == 'Entrada'): ?>
+                                <span class="badge badge-warning text-black-50">
+                            <?php endif; ?>
+                            <?php if ($itemPedido->produto->categoria->nome == 'Sopa'): ?>
+                                <span class="badge badge-success text-black-50">
+                            <?php endif; ?>
+                            <?php if ($itemPedido->produto->categoria->nome== 'Carne'): ?>
+                                <span class="badge badge-danger text-black-50">
+                            <?php endif; ?>
+                            <?php if ($itemPedido->produto->categoria->nome == 'Peixe'): ?>
+                                <span class="badge badge-blue-light text-black-50">
+                            <?php endif; ?>
+                            <?php if ($itemPedido->produto->categoria->nome == 'Sobremesa'): ?>
+                                <span class="badge badge-info text-black-50">
+                            <?php endif; ?>
+                            <?php if ($itemPedido->produto->categoria->nome == 'Bebida'): ?>
+                                <span class="badge badge-orange text-black-50">
+                            <?php endif; ?>
+                            <?php if ($itemPedido->produto->categoria->nome != 'Entrada' && $itemPedido->produto->categoria->nome != 'Sopa' && $itemPedido->produto->categoria->nome != 'Carne'
+                                    && $itemPedido->produto->categoria->nome != 'Peixe' && $itemPedido->produto->categoria->nome != 'Sobremesa'&& $itemPedido->produto->categoria->nome != 'Bebida'): ?>
+                                <span class="badge badge-dark">
+                            <?php endif; ?>
+                                <?=$itemPedido->produto->categoria->nome?>
+                            </span>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="col-md-4 text-center d-inline-block">
         <table class="table table-bordered">
@@ -75,7 +122,7 @@ $this->title = 'Preparação';
             <tr>
                 <td>
                     <div class="row d-flex justify-content-center">
-                        <?= $form->field($itemPedido, 'quant_Pedida')->textInput(['type'=>'text','class'=>'form-control rounded text-center','style'=>'width:80px', 'readonly'=>'true'])->label(false) ?>
+                        <?= $form->field($itemPedido, 'quant_Pedida')->textInput(['type'=>'text','class'=>'form-control rounded text-center','style'=>'width:80px','id'=>'inputQuantPedida'.$itemPedido->id, 'readonly'=>'true'])->label(false) ?>
                     </div>
                 </td>
                 <td>
@@ -94,7 +141,7 @@ $this->title = 'Preparação';
                 <td>
                     <div class="row">
                         <div class="col-md-3">
-                            <i class="fas fa-minus-circle fa-2x" style="color: #ff7e6a" onclick="QuantEntregueDeincrement(<?=$itemPedido->id?>);"></i>
+                            <i id="butaoMenos" class="fas fa-minus-circle fa-2x" style="color: #ff7e6a" onclick="QuantEntregueDeincrement(<?=$itemPedido->id?>);"></i>
                         </div>
                         <div class="col-md-6">
                             <?= $form->field($itemPedido, 'quant_Entregue')->textInput(['type'=>'text','class'=>'form-control rounded text-center','style'=>'width:70px','id'=>'inputQuantEntregue'.$itemPedido->id, 'readonly'=>'true', 'placeholder'=>'0'])->label(false) ?>

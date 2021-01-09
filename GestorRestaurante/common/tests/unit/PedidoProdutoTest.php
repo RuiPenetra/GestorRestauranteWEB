@@ -10,13 +10,35 @@ class PedidoProdutoTest extends \Codeception\Test\Unit
      * @var \common\tests\UnitTester
      */
     protected $tester;
+    protected $ID_PEDIDO;
     
     protected function _before()
     {
+        $pedido = new Pedido();
+        $pedido->id_perfil=1;
+        $pedido->estado=0;
+        $pedido->scenario='scenariorestaurante';
+        $pedido->nota='Cozido a portuguesa sem batata';
+        $pedido->tipo=0;
+        $pedido->data='2021-01-09 06:36:00';
+        $pedido->id_mesa=1;
+        $pedido->save();
+
+        $this->tester->seeInDatabase('pedido', ['id_perfil' => 1, 'nota'=>'Cozido a portuguesa sem batata', 'tipo'=>0, 'id_mesa'=>1]);
+
+        $pedido_guardado = $this->tester->grabRecord('common\models\Pedido', array('id_perfil' => 1, 'nota'=>'Cozido a portuguesa sem batata', 'tipo'=>0, 'id_mesa'=>1));
+
+        $this->ID_PEDIDO=$pedido_guardado->id;
     }
 
     protected function _after()
     {
+        $pedido_guardado = $this->tester->grabRecord('common\models\Pedido', array('id' => $this->ID_PEDIDO));
+
+        $pedido_guardado->delete();
+
+        $this->tester->dontSeeRecord('common\models\Pedido', array('id_perfil' => $this->ID_PEDIDO));
+
     }
 
     // tests
@@ -38,7 +60,7 @@ class PedidoProdutoTest extends \Codeception\Test\Unit
         $pedidoProduto->id_pedido=22;
         $this->assertFalse($pedidoProduto->validate(['id_pedido']));
 
-        $pedidoProduto->id_pedido=1;
+        $pedidoProduto->id_pedido=$this->ID_PEDIDO;
         $this->assertTrue($pedidoProduto->validate(['id_pedido']));
 
         //TODO: VALIDAR ----> ID_PRODUTO [ INTEGER ]

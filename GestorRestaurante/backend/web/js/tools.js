@@ -51,13 +51,24 @@ function quantDeincrement(id,preco) {
 }
 
 function QuantEntregueIncrement(id) {
+    
 
-    document.getElementById('inputQuantEntregue'+id).value ++;
+    if ( document.getElementById('inputQuantEntregue'+id).value<document.getElementById('inputQuantPedida'+id).value && document.getElementById('inputQuantPreparacao'+id).value>0){
+        document.getElementById('inputQuantEntregue'+id).value ++;
+        document.getElementById('inputQuantPreparacao'+id).value --;
+    }
+
+
+
+
+
 }
 function QuantEntregueDeincrement(id) {
 
-    if(document.getElementById('inputQuantEntregue'+id).value>=1 ){
-        document.getElementById('inputQuantEntregue'+id).value= document.getElementById('inputQuantEntregue'+id).value-1;
+
+    if(document.getElementById('inputQuantEntregue'+id).value>0 ){
+        document.getElementById('inputQuantEntregue'+id).value--;
+        document.getElementById('inputQuantPreparacao'+id).value ++;
 
     }else{
         document.getElementById('inputQuantEntregue'+id).value="0";
@@ -66,7 +77,12 @@ function QuantEntregueDeincrement(id) {
 
 function QuantPreparacaoIncrement(id) {
 
-    document.getElementById('inputQuantPreparacao'+id).value ++;
+
+    if ( document.getElementById('inputQuantPreparacao'+id).value<document.getElementById('inputQuantPedida'+id).value-document.getElementById('inputQuantEntregue'+id).value  ){
+        document.getElementById('inputQuantPreparacao'+id).value ++;
+    }
+
+
 }
 function QuantPreparacaoDeincrement(id) {
 

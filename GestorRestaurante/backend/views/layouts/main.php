@@ -143,10 +143,10 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     </li>
                     <!-- MESA -->
                     <li class="nav-item">
-                        <a href="<?= Url::toRoute(['mesa/index']) ?>" class="nav-link">
+                        <a href="<?= Url::toRoute(['mesa/index']) ?>" class="nav-link mesa-nav">
                             <i class="fas fa-table"></i>
                             <p>
-                                Mesa
+                                Mesas
                             </p>
                         </a>
                     </li>

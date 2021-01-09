@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -42,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($dataprovider->models as $falta):?>
+                <?php foreach ($dataProviderFalta->models as $falta):?>
                         <tr>
                             <td class="text-center"><i class="fas fa-calendar-alt"></i></td>
                             <td class="text-center"><?=$falta->data?></td>
@@ -84,6 +85,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php endforeach;?>
                 </tbody>
             </table>
+            <div class="row col-md-12 d-flex justify-content-center">
+                <?= LinkPager::widget([
+                    'pagination' => $dataProviderFalta->getPagination(),
+                    'options' => [
+                        'class' => 'page-item',
+                    ],
+                ]);?>
+            </div>
         </div>
     </div>
     <!-- /.card-body -->

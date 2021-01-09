@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php foreach ($dataProvider->models as $mesa):?>
                     <tr>
                         <td class="text-center"><img src="https://img.icons8.com/fluent-systems-filled/24/000000/table.png"/></td>
-                        <td class="text-center"><?=$mesa->id?></td>
+                        <td class="text-center"><span class="mesa-id"><?=$mesa->id?></span></td>
                         <td class="text-center"><?=$mesa->n_lugares?></td>
                         <?php if($mesa->estado==0):?>
                             <td class="text-center"><span class="badge bg-dark">Reservada</span></td>
@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php endif;?>
                         <td class="project-actions text-center">
                             <?= Html::a('<i class="fas fa-eye"></i>', ['mesa/view', 'id' => $mesa->id], ['class' => 'btn btn-info btn-sm']) ?>
-                            <?= Html::a('<i class="far fa-edit color-white"></i>', ['mesa/update', 'id' => $mesa->id], ['class' => 'btn btn-warning btn-sm']) ?>
+                            <?= Html::a('<i class="far fa-edit color-white"></i>', ['mesa/update', 'id' => $mesa->id], ['class' => 'btn btn-warning btn-sm btn-mesa-edit','name'=>'mesaEdit-button'.$mesa->id]) ?>
                             <?=Html::a('<i class="fas fa-trash"></i>', ['mesa/delete', 'id' => $mesa->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarMesa'.$mesa->id]) ?>
                         </td>
                     </tr>

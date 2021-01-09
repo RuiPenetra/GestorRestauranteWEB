@@ -1,6 +1,7 @@
 <?php
 
 use kartik\datetime\DateTimePicker;
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
@@ -40,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($dataprovider->models as $falta):?>
+                <?php foreach ($dataProviderFalta->models as $falta):?>
                     <tr>
                         <td class="text-center"><i class="fas fa-calendar-alt"></i></td>
                         <td class="text-center"><?=$falta->data?></td>
@@ -49,8 +50,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td class="text-center"><?=$falta->num_horas?></td>
 
                         <td class="text-center">
-                            <?=Html::a('<i class="far fa-edit color-white"></i>', ['falta/update', 'id' => $falta->id_funcionario], ['class' => 'btn btn-warning btn-sm']) ?>
-                            <?=Html::a('<i class="far fa-trash-alt color-white"></i>', ['falta/delete', 'id' => $falta->id_funcionario], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarFalta'.$falta->id]) ?>
+                            <?=Html::a('<i class="far fa-edit color-white"></i>', ['falta/update', 'id' => $falta->id], ['class' => 'btn btn-warning btn-sm']) ?>
+                            <?=Html::a('<i class="far fa-trash-alt color-white"></i>', ['falta/delete', 'id' => $falta->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarFalta'.$falta->id]) ?>
                         </td>
                     </tr>
                     <div class="modal fade"  id="apagarFalta<?=$falta->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -82,6 +83,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php endforeach;?>
                 </tbody>
             </table>
+            <div class="row col-md-12 d-flex justify-content-center">
+                <?= LinkPager::widget([
+                    'pagination' => $dataProviderFalta->getPagination(),
+                    'options' => [
+                        'class' => 'page-item',
+                    ],
+                ]);?>
+            </div>
         </div>
     </div>
     <!-- /.card-body -->

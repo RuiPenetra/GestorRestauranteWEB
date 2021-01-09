@@ -1,11 +1,12 @@
 <?php
 
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Falta */
 
-$this->title = 'Atualizar Falta: ' . $falta->id;
+$this->title = 'Atualizar Falta: ' . $falta->data;
 
 ?>
 
@@ -39,7 +40,7 @@ $this->title = 'Atualizar Falta: ' . $falta->id;
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($dataprovider->models as $falta):?>
+                <?php foreach ($dataProviderFalta->models as $falta):?>
                     <tr>
                         <td class="text-center"><i class="fas fa-calendar-alt"></i></td>
                         <td class="text-center"><?=$falta->data?></td>
@@ -81,6 +82,14 @@ $this->title = 'Atualizar Falta: ' . $falta->id;
                 <?php endforeach;?>
                 </tbody>
             </table>
+            <div class="row col-md-12 d-flex justify-content-center">
+                <?= LinkPager::widget([
+                    'pagination' => $dataProviderFalta->getPagination(),
+                    'options' => [
+                        'class' => 'page-item',
+                    ],
+                ]);?>
+            </div>
         </div>
     </div>
     <!-- /.card-body -->

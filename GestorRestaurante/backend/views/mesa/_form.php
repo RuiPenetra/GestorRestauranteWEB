@@ -45,7 +45,7 @@ use yii\widgets\ActiveForm;
                         <?= $form->field($model, 'n_lugares', ['options' => ['tag' => 'input',  'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nº Lugares",  'type'=>'number', 'min'=>'0', 'autofocus' => true])->label(false) ?>
                     </div>
                     <div class="input-group mb-3 d-flex justify-content-end col-md-8">
-                        <?= Html::submitButton('Guardar', ['class' => 'btn login_btn col-md-4', 'name' => 'login-button']) ?>
+                        <?= Html::submitButton('Guardar', ['class' => 'btn login_btn col-md-4', 'name' => 'mesa-button']) ?>
                     </div>
                 </div>
             </div>

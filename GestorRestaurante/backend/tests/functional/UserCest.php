@@ -1,6 +1,5 @@
 <?php namespace backend\tests\functional;
 use backend\tests\FunctionalTester;
-use common\fixtures\PerfilFixture;
 
 class UserCest
 {
@@ -14,17 +13,6 @@ class UserCest
         $I->see('Painel');
     }
 
-    public function _fixtures()
-    {
-        /*return [
-
-            'profiles' => [
-                'class' => PerfilFixture::className(),
-                // fixture data located in tests/_data/user.php
-                'dataFile' => codecept_data_dir() . 'user_data.php'
-            ],
-        ];*/
-    }
     // tests
     public function CreateUserTest(FunctionalTester $I)
     {

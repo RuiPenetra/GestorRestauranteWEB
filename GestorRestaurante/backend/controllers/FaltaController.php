@@ -51,14 +51,14 @@ class FaltaController extends Controller
     {
         if (Yii::$app->user->can('consultarUtilizadores')) {
 
-            $searchModel = new PerfilSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            $searchFalta = new PerfilSearch();
+            $dataProviderFalta = $searchFalta->search(Yii::$app->request->queryParams);
 
-            $dataProvider->pagination = ['pageSize' => 5];
+            $dataProviderFalta->pagination = ['pageSize' => 5];
 
             return $this->render('index', [
-                'dataProvider' => $dataProvider,
-                'searchModel' => $searchModel
+                'dataProviderFalta' => $dataProviderFalta,
+                'searchFalta' => $searchFalta
             ]);
 
         }else{
@@ -72,12 +72,14 @@ class FaltaController extends Controller
         if (Yii::$app->user->can('consultarFaltas')) {
             $searchFalta = new FaltaSearch();
             $searchFalta->id_funcionario=$id;
-            $dataproviderFalta = $searchFalta->search(Yii::$app->request->queryParams);
+            $dataProviderFalta = $searchFalta->search(Yii::$app->request->queryParams);
+
+            $dataProviderFalta->pagination = ['pageSize' => 5];
 
             $user=Perfil::findOne($id);
 
             return $this->render('view', [
-                'dataproviderFalta' => $dataproviderFalta,
+                'dataProviderFalta' => $dataProviderFalta,
                 'searchFalta' => $searchFalta,
                 'user'=> $user
             ]);
@@ -94,7 +96,9 @@ class FaltaController extends Controller
             $falta = new Falta();
             $searchFalta = new FaltaSearch();
             $searchFalta->id_funcionario=$id;
-            $dataprovider = $searchFalta->search(Yii::$app->request->queryParams);
+            $dataProviderFalta = $searchFalta->search(Yii::$app->request->queryParams);
+
+            $dataProviderFalta->pagination = ['pageSize' => 5];
 
             $falta->id_funcionario=$id;
             $falta->num_horas=0;
@@ -118,7 +122,7 @@ class FaltaController extends Controller
 
             return $this->render('create', [
                 'falta' => $falta,
-                'dataprovider' => $dataprovider,
+                'dataProviderFalta' => $dataProviderFalta,
                 'searchFalta' => $searchFalta,
                 'user'=>$user
             ]);
@@ -130,12 +134,14 @@ class FaltaController extends Controller
 
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->can('atualizarFaltas') && Yii::$app->user->can('consultarFaltas')) {
+        if (Yii::$app->user->can('criarFaltas') && Yii::$app->user->can('consultarFaltas')) {
 
             $falta = $this->findModel($id);
             $searchFalta = new FaltaSearch();
-            $searchFalta->id_funcionario=$id;
-            $dataprovider = $searchFalta->search(Yii::$app->request->queryParams);
+            $searchFalta->id_funcionario=$falta->id_funcionario;
+            $dataProviderFalta = $searchFalta->search(Yii::$app->request->queryParams);
+
+            $dataProviderFalta->pagination = ['pageSize' => 5];
 
             if ($falta->load(Yii::$app->request->post()) && $falta->save()) {
                 Yii::$app->getSession()->setFlash('success', [
@@ -152,14 +158,14 @@ class FaltaController extends Controller
 
             return $this->render('update', [
                 'falta' => $falta,
-                'dataprovider' => $dataprovider,
+                'dataProviderFalta' => $dataProviderFalta,
                 'searchFalta' => $searchFalta,
             ]);
-
         }else{
 
             return $this->render('site/error');
         }
+
     }
 
     public function actionDelete($id)

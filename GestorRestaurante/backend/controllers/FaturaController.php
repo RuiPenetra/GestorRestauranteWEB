@@ -27,7 +27,7 @@ class FaturaController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','create','update','delete','view'],
+                        'actions' => ['view','create','update','delete'],
                         'allow' => true,
                         'roles' => ['gerente'],
                     ],
@@ -42,170 +42,136 @@ class FaturaController extends Controller
         ];
     }
 
-    /**
-     * Lists all Fatura models.
-     * @return mixed
-     */
-    public function actionIndex($id)
-    {
-        $pedido=Pedido::findOne($id);
-
-        $items_pedido=PedidoProduto::findAll(['id_pedido'=>$pedido->id]);
-        $model=new Fatura();
-        $model->id_pedido=$pedido->id;
-        $model->valor=PedidoProduto::find()->where(['id_pedido'=>$id])->sum('preco');
-
-
-        $fatura=Fatura::findOne($pedido->id);
-
-
-        if ($model->load(Yii::$app->request->post())) {
-
-            if($fatura!=null){
-                $this->findModel($fatura->id)->delete();
-            }
-            if($model->save()){
-
-                return $this->redirect(['index', 'id' => $model->id_pedido]);
-
-            }
-        }
-
-        return $this->render('index', [
-            'model' => $model,
-            'fatura' => $fatura,
-            'items_pedido' => $items_pedido,
-        ]);
-    }
-
-    /**
-     * Displays a single Fatura model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
-        $fatura=Fatura::findOne(['id_pedido'=>$id]);
-        $items_pedido=PedidoProduto::findAll(['id_pedido'=>$fatura->id_pedido]);
+        if (Yii::$app->user->can('consultarFaturas')) {
 
-        return $this->render('view', [
-            'fatura' => $fatura,
-            'items_pedido' => $items_pedido,
-        ]);
+            $fatura=Fatura::findOne(['id_pedido'=>$id]);
+            $items_pedido=PedidoProduto::findAll(['id_pedido'=>$fatura->id_pedido]);
+
+            return $this->render('view', [
+                'fatura' => $fatura,
+                'items_pedido' => $items_pedido,
+            ]);
+        }else{
+
+            return $this->render('site/error');
+        }
     }
 
-    /**
-     * Creates a new Fatura model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate($id)
     {
+        if (Yii::$app->user->can('criarFaturas')) {
 
-        $erro=$this->ValidarPedido($id);
+            $erro=$this->ValidarPedido($id);
 
-        $fatura=Fatura::findOne(['id_pedido'=>$id]);
+            $fatura=Fatura::findOne(['id_pedido'=>$id]);
 
-        if($fatura!=null){
+            if($fatura!=null){
 
-            return $this->redirect(['view', 'id' => $fatura->id_pedido]);
-        }
+                return $this->redirect(['view', 'id' => $fatura->id_pedido]);
+            }
 
-        if($erro!=null){
+            if($erro!=null){
 
-            Yii::$app->getSession()->setFlash('danger', [
-                'type' => 'danger',
-                'duration' => 5000,
-                'icon' => 'fas fa-tags',
-                'message' => $erro,
-                'title' => 'ALERTA',
-                'positonX' => 'right',
-                'positonY' => 'top'
-            ]);
-
-            return $this->redirect(['/pedidoproduto/index','id'=>$id]);
-
-        }
-
-            $fatura = new Fatura();
-            $fatura->id_pedido=$id;
-            $fatura->valor=PedidoProduto::find()->where(['id_pedido'=>$id])->sum('preco');
-
-            if ($fatura->load(Yii::$app->request->post()) && $fatura->save()) {
-
-                $pedido=Pedido::findOne($fatura->id_pedido);
-
-                $pedido->estado=2;
-                $pedido->save();
-
-                Yii::$app->getSession()->setFlash('success', [
-                    'type' => 'success',
+                Yii::$app->getSession()->setFlash('danger', [
+                    'type' => 'danger',
                     'duration' => 5000,
                     'icon' => 'fas fa-tags',
-                    'message' => 'Fatura criada com sucesso',
+                    'message' => $erro,
                     'title' => 'ALERTA',
                     'positonX' => 'right',
                     'positonY' => 'top'
                 ]);
 
+                return $this->redirect(['/pedidoproduto/index','id'=>$id]);
+
+            }
+
+                $fatura = new Fatura();
+                $fatura->id_pedido=$id;
+                $fatura->valor=PedidoProduto::find()->where(['id_pedido'=>$id])->sum('preco');
+
+                if ($fatura->load(Yii::$app->request->post()) && $fatura->save()) {
+
+                    $pedido=Pedido::findOne($fatura->id_pedido);
+
+                    $pedido->estado=2;
+                    $pedido->save();
+
+                    Yii::$app->getSession()->setFlash('success', [
+                        'type' => 'success',
+                        'duration' => 5000,
+                        'icon' => 'fas fa-tags',
+                        'message' => 'Fatura criada com sucesso',
+                        'title' => 'ALERTA',
+                        'positonX' => 'right',
+                        'positonY' => 'top'
+                    ]);
+
+                    return $this->redirect(['view', 'id' => $fatura->id_pedido]);
+                }
+
+                return $this->render('create', [
+                    'fatura' => $fatura,
+                ]);
+        }else{
+
+            return $this->render('site/error');
+        }
+    }
+
+    public function actionUpdate($id)
+    {
+        if (Yii::$app->user->can('atualizarFaturas')) {
+
+            $fatura = $this->findModel($id);
+
+            if ($fatura->load(Yii::$app->request->post()) && $fatura->save()) {
                 return $this->redirect(['view', 'id' => $fatura->id_pedido]);
             }
 
-            return $this->render('create', [
+            return $this->render('update', [
                 'fatura' => $fatura,
             ]);
+        }else{
 
-    }
-
-    /**
-     * Updates an existing Fatura model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $fatura = $this->findModel($id);
-
-        if ($fatura->load(Yii::$app->request->post()) && $fatura->save()) {
-            return $this->redirect(['view', 'id' => $fatura->id_pedido]);
+            return $this->render('site/error');
         }
-
-        return $this->render('update', [
-            'fatura' => $fatura,
-        ]);
     }
-
 
     public function actionDelete($id)
     {
+        if (Yii::$app->user->can('atualizarFaturas')) {
 
-       $fatura= $this->findModel($id);
+           $fatura= $this->findModel($id);
 
-       $pedido=Pedido::findOne($fatura->id_pedido);
+           $pedido=Pedido::findOne($fatura->id_pedido);
 
-       $pedido->estado=1;
+           $pedido->estado=1;
 
-       $pedido->save();
+           $pedido->save();
 
-       $fatura->delete();
+           $fatura->delete();
 
-        Yii::$app->getSession()->setFlash('success', [
-            'type' => 'success',
-            'duration' => 5000,
-            'icon' => 'fas fa-tags',
-            'message' => 'Fatura apagada com sucesso',
-            'title' => 'ALERTA',
-            'positonX' => 'right',
-            'positonY' => 'top'
-        ]);
+            Yii::$app->getSession()->setFlash('success', [
+                'type' => 'success',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Fatura apagada com sucesso',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
 
-        return $this->redirect(['/pedidoproduto/index','id'=>$pedido->id]);
+            return $this->redirect(['/pedidoproduto/index','id'=>$pedido->id]);
+        }else{
+
+            return $this->render('site/error');
+        }
     }
 
-    public function ValidarPedido($id){
+    protected function ValidarPedido($id){
 
         $itemsNaoConcluidos=PedidoProduto::findAll(['id_pedido'=>$id , 'estado'=>[0,1]]);
         $todosItems=PedidoProduto::findAll(['id_pedido'=>$id]);

@@ -283,28 +283,6 @@ class m201016_160137_rbac extends Migration
             $apagarPedidoProduto->description='Apagar Pedido Produto';
             $auth->add($apagarPedidoProduto);
 
-        /**PRODUTO-CATEGORIA-PRODUTO**/
-
-            //# CRIAR #
-            $criarProdutoCategoriaProduto = $auth->createPermission('criarProdutoCategoriaProduto');
-            $criarProdutoCategoriaProduto->description = 'Criar Produto Categoria Produto';
-            $auth->add($criarProdutoCategoriaProduto);
-
-            //# CONSULTAR #
-            $consultarProdutoCategoriaProduto= $auth->createPermission('consultarProdutoCategoriaProduto');
-            $consultarProdutoCategoriaProduto->description = 'Consultar Produto Categoria Produto';
-            $auth->add($consultarProdutoCategoriaProduto);
-
-            //# ATUALIZAR #
-            $atualizarProdutoCategoriaProduto= $auth->createPermission('atualizarProdutoCategoriaProduto');
-            $atualizarProdutoCategoriaProduto->description = 'Atualizar Produto Categoria Produto';
-            $auth->add($atualizarProdutoCategoriaProduto);
-
-            //# APAGAR #
-            $apagarProdutoCategoriaProduto = $auth->createPermission('apagarProdutoCategoriaProduto');
-            $apagarProdutoCategoriaProduto->description = 'Apagar Produto Categoria Produto';
-            $auth->add($apagarProdutoCategoriaProduto);
-
             /**TAKEAWAY **/
             //# CRIAR #
             $criarTakeaway = $auth->createPermission('criarTakeaway');
@@ -331,7 +309,6 @@ class m201016_160137_rbac extends Migration
         /**ROLE -> ADMIN__________________________________________________________________________**/
         $gerente = $auth->createRole('gerente');
         $auth->add($gerente);
-
 
 
             //# UTILIZADORES #
@@ -400,29 +377,30 @@ class m201016_160137_rbac extends Migration
             $auth->addChild($gerente, $atualizarPedidoProduto);
             $auth->addChild($gerente, $apagarPedidoProduto);
 
-            //# PRODUTO-CATEGORIA-PRODUTO #
-            $auth->addChild($gerente, $criarProdutoCategoriaProduto);
-            $auth->addChild($gerente, $consultarProdutoCategoriaProduto);
-            $auth->addChild($gerente, $atualizarProdutoCategoriaProduto);
-            $auth->addChild($gerente, $apagarProdutoCategoriaProduto);
-
-            //# TAKEAWAY #
-            $auth->addChild($gerente, $criarTakeaway);
-            $auth->addchild($gerente, $consultarTakeaway);
-            $auth->addChild($gerente, $atualizarTakeaway);
-            $auth->addchild($gerente, $apagarTakeaway);
+            //# RESERVAS #
+            $auth->addChild($gerente, $criarReservas);
+            $auth->addChild($gerente, $consultarReservas);
+            $auth->addChild($gerente, $atualizarReservas);
+            $auth->addChild($gerente, $apagarReservas);
 
         /** ROLE -> ATENDEDOR DE PEDIDOS ________________________________________________________________________**/
 
             $atendedorPedidos = $auth->createRole('atendedorPedidos');
             $auth->add($atendedorPedidos);
 
+            //# UTILIZADORES #
+            $auth->addChild($atendedorPedidos, $atualizarUtilizadores);
+
+
             //# PERFIS #
-            $auth->addChild($atendedorPedidos, $consultarPerfis);
+            //$auth->addChild($atendedorPedidos, $consultarPerfis);
             $auth->addChild($atendedorPedidos, $atualizarPerfis);
 
             //# PRODUTOS #
             $auth->addChild($atendedorPedidos, $consultarProdutos);
+
+            //# CATEGORIA-PRODUTOS #
+            $auth->addChild($atendedorPedidos, $consultarCategoriaProdutos);
 
             //# HORARIOS #
             $auth->addChild($atendedorPedidos, $consultarHorarios);
@@ -464,16 +442,20 @@ class m201016_160137_rbac extends Migration
             $empregadoMesa = $auth->createRole('empregadoMesa');
             $auth->add($empregadoMesa);
 
-
+            //# UTILIZADORES #
+            $auth->addChild($empregadoMesa, $atualizarUtilizadores);
 
             //# Perfil #
-            $auth->addChild($empregadoMesa, $consultarPerfis);
+            //$auth->addChild($empregadoMesa, $consultarPerfis);
             $auth->addChild($empregadoMesa, $atualizarPerfis);
 
             //# PRODUTOS #
             $auth->addChild($empregadoMesa, $consultarProdutos);
 
-            //# FALTAS #
+            //# CATEGORIA-PRODUTOS #
+            $auth->addChild($empregadoMesa, $consultarCategoriaProdutos);
+
+        //# FALTAS #
             $auth->addChild($empregadoMesa, $consultarFaltas);
 
             //# MESAS #
@@ -495,10 +477,7 @@ class m201016_160137_rbac extends Migration
             $auth->addChild($empregadoMesa, $apagarPedidoProduto);
 
             //# RESERVAS #
-            $auth->addChild($empregadoMesa, $criarReservas);
             $auth->addChild($empregadoMesa, $consultarReservas);
-            $auth->addChild($empregadoMesa, $atualizarReservas);
-            $auth->addChild($empregadoMesa, $apagarReservas);
 
             //# FATURAS #
             $auth->addChild($empregadoMesa, $criarFaturas);
@@ -512,9 +491,10 @@ class m201016_160137_rbac extends Migration
             $cozinheiro = $auth->createRole('cozinheiro');
             $auth->add($cozinheiro);
 
+            //# UTILIZADORES #
+            $auth->addChild($cozinheiro, $atualizarUtilizadores);
 
-        //# Perfil #
-            $auth->addChild($cozinheiro, $consultarPerfis);
+            //# Perfil #
             $auth->addChild($cozinheiro, $atualizarPerfis);
 
             //# PRODUTOS #
@@ -530,16 +510,7 @@ class m201016_160137_rbac extends Migration
             $auth->addChild($cozinheiro, $consultarFaltas);
 
             //# CATEGORIA DE PRODUTOS #
-            $auth->addChild($cozinheiro, $criarCategoriaProdutos);
             $auth->addChild($cozinheiro, $consultarCategoriaProdutos);
-            $auth->addChild($cozinheiro, $atualizarCategoriaProdutos);
-            $auth->addChild($cozinheiro, $apagarCategoriaProdutos);
-
-            //# PRODUTO-CATEGORIA-PRODUTO #
-            $auth->addChild($cozinheiro, $criarProdutoCategoriaProduto);
-            $auth->addChild($cozinheiro, $consultarProdutoCategoriaProduto);
-            $auth->addChild($cozinheiro, $atualizarProdutoCategoriaProduto);
-            $auth->addChild($cozinheiro, $apagarProdutoCategoriaProduto);
 
             //# PEDIDOS #
           $auth->addChild($cozinheiro, $consultarPedidos);
@@ -554,20 +525,34 @@ class m201016_160137_rbac extends Migration
             $cliente = $auth->createRole('cliente');
             $auth->add($cliente);
 
+            //# UTILIZADORES #
+            $auth->addChild($cliente, $atualizarUtilizadores);
 
-        //# Perfil #
-            $auth->addChild($cliente, $consultarPerfis);
+            //# Perfil #
             $auth->addChild($cliente, $atualizarPerfis);
 
             //# PRODUTOS #
             $auth->addChild($cliente, $consultarProdutos);
+
+            //# CATEGORIA DE PRODUTOS #
+            $auth->addChild($cliente, $consultarCategoriaProdutos);
 
             //#TAKEAWAY #
             $auth->addChild($cliente, $criarTakeaway);
             $auth->addChild($cliente, $consultarTakeaway);
             $auth->addchild($cliente, $atualizarTakeaway);
             $auth->addchild($cliente, $apagarTakeaway);
-            
+
+            //# PEDIDO-PRODUTO #
+            $auth->addChild($cliente, $criarPedidoProduto);
+            $auth->addChild($cliente, $consultarPedidoProduto);
+            $auth->addChild($cliente, $atualizarPedidoProduto);
+            $auth->addChild($cliente, $apagarPedidoProduto);
+
+            //# FATURAS #
+            $auth->addChild($cliente, $criarFaturas);
+            $auth->addChild($cliente, $consultarFaturas);
+            $auth->addChild($cliente, $atualizarFaturas);
 
         //TODO: ATRUBUIR PREMISSÕES AO ADMIN ( GERENTE )
 

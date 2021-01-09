@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <!-- /.card-header -->
     <div class="card-body p-0">
-        <?php echo $this->render('//perfil/_search', ['model' => $searchModel]); ?>
+        <?php echo $this->render('//perfil/_search', ['model' => $searchFalta]); ?>
         <div class="row">
             <table class="table table-striped projects mr-2 ml-2">
                 <thead>
@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($dataProvider->models as $perfil):?>
+                <?php foreach ($dataProviderFalta->models as $perfil):?>
                     <?php if($perfil->cargo!='cliente'):?>
                         <tr>
                             <td class="text-center">
@@ -127,7 +127,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content mt-2 p-0" >
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash"></i> Tem a certeza que quer apagar?</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -292,7 +291,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </table>
             <div class="row col-md-12 d-flex justify-content-center">
                 <?= LinkPager::widget([
-                    'pagination' => $dataProvider->getPagination(),
+                    'pagination' => $dataProviderFalta->getPagination(),
                     'options' => [
                         'class' => 'page-item',
                     ],

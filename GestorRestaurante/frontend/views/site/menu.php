@@ -62,29 +62,29 @@ $this->title = 'Gestor Restaurante';
                         </div>
                         <div class="col text-right">
                             <?php if ($produto->categoria->nome == 'Entrada'): ?>
-                            <span class="badge badge-warning text-gray">
-                                    <?php endif; ?>
-                                <?php if ($produto->categoria->nome == 'Sopa'): ?>
-                                        <span class="badge badge-success">
-                                    <?php endif; ?>
-                                            <?php if ($produto->categoria->nome == 'Carne'): ?>
-                                        <span class="badge badge-danger text-white">
-                                    <?php endif; ?>
-                                            <?php if ($produto->categoria->nome == 'Peixe'): ?>
-                                        <span class="badge badge-blue-light">
-                                    <?php endif; ?>
-                                            <?php if ($produto->categoria->nome == 'Sobremesa'): ?>
-                                        <span class="badge badge-info">
-                                    <?php endif; ?>
-                                            <?php if ($produto->categoria->nome == 'Bebida'): ?>
-                                        <span class="badge badge-orange">
-                                    <?php endif; ?>
-                                            <?php if ($produto->categoria->nome != 'Entrada' && $produto->categoria->nome != 'Sopa' && $produto->categoria->nome != 'Carne'
-                                            && $produto->categoria->nome != 'Peixe' && $produto->categoria->nome != 'Sobremesa'&& $produto->categoria->nome != 'Bebida'): ?>
-                                        <span class="badge badge-dark">
-                                    <?php endif; ?>
-                                    <?=$produto->categoria->nome?>
-                                        </span>
+                                <span class="badge badge-warning text-gray">
+                            <?php endif; ?>
+                            <?php if ($produto->categoria->nome == 'Sopa'): ?>
+                                <span class="badge badge-success">
+                            <?php endif; ?>
+                                    <?php if ($produto->categoria->nome == 'Carne'): ?>
+                                <span class="badge badge-danger text-white">
+                            <?php endif; ?>
+                                    <?php if ($produto->categoria->nome == 'Peixe'): ?>
+                                <span class="badge badge-blue-light">
+                            <?php endif; ?>
+                                    <?php if ($produto->categoria->nome == 'Sobremesa'): ?>
+                                <span class="badge badge-info">
+                            <?php endif; ?>
+                                    <?php if ($produto->categoria->nome == 'Bebida'): ?>
+                                <span class="badge badge-orange">
+                            <?php endif; ?>
+                                    <?php if ($produto->categoria->nome != 'Entrada' && $produto->categoria->nome != 'Sopa' && $produto->categoria->nome != 'Carne'
+                                    && $produto->categoria->nome != 'Peixe' && $produto->categoria->nome != 'Sobremesa'&& $produto->categoria->nome != 'Bebida'): ?>
+                                <span class="badge badge-dark">
+                            <?php endif; ?>
+                            <?=$produto->categoria->nome?>
+                                </span>
                         </div>
                     </div>
                     <div class="row ml-3 mr-3 mb-5">

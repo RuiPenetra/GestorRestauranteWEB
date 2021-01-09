@@ -102,11 +102,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php endif;?>
                             </td>
                             <td class="text-center">
-                                <?php if($user->user->status==9){?>
+                                <?php if($user->user->status==9):?>
                                     <span class="badge bg-danger">INATIVO</span>
-                                <?php }else{?>
+                                <?php else:?>
                                     <span class="badge bg-success">ATIVO</span>
-                                <?php }?>
+                                <?php endif;?>
                             </td>
                             <td class="text-center">
                                 <?php if($user->id_user!=$id_userLogado):?>

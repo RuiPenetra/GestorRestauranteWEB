@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <th>Nome:</th><td><?=$categoria->nome?></td>
                             </tr>
                             <tr>
-                                <th>Estado:</th>
+                                <th>Editavel:</th>
                                 <?php if($categoria->editavel==0):?>
                                     <td class="text-center"><span class="badge bg-danger">Não</span></td>
                                 <?php endif;?>

@@ -22,7 +22,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login'],
+                        'actions' => ['login','error'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -61,8 +61,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->can('apagarUtilizadores')) {
 
-        return $this->render('painel');
+            return $this->render('painel');
+
+        }else{
+            return $this->render('site/error');
+
+        }
     }
 
     /**

@@ -6,6 +6,7 @@ use yii\helpers\Url;
 /* @var $this yii\web\View */
 
 $this->title = 'Gestor Restaurante';
+
 ?>
 
 <div class="row d-flex justify-content-center mt-4">
@@ -29,7 +30,7 @@ $this->title = 'Gestor Restaurante';
         <div class="col">
             <div class="row">
                 <?php foreach ($dataProvider->models as $produto): ?>
-
+                <?php if($produto->estado==0):?>
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="card ">
                         <div class="row d-flex justify-content-center">
@@ -88,9 +89,10 @@ $this->title = 'Gestor Restaurante';
                         </div>
                     </div>
                     <div class="row ml-3 mr-3 mb-5">
-                        <a href="#" class="btn btn-info btn-block">Saber mais...</a>
+                        <a href="<?=Url::toRoute(['produto/view','id'=>$produto->id])?>" class="btn btn-info btn-block">Saber mais...</a>
                     </div>
                 </div>
+                <?php endif?>
                 <?php endforeach;?>
             </div>
         </div>

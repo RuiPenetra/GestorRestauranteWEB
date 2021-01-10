@@ -12,8 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' 
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="pedido-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5 mb-2'])?>
 
     <?php $form = ActiveForm::begin();?>
     <div class="row d-flex justify-content-center"

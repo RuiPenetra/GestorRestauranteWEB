@@ -56,8 +56,9 @@ $id = Yii::$app->user->identity->id;
             <div class="row mt-3 ml-3">
                 <div class="col-12">
                     <div class="row">
-                        <?php foreach ($dataProvider->models as $produto): ?>
 
+                        <?php foreach ($dataProvider->models as $produto): ?>
+                            <?php if ($produto->estado==0):?>
                             <div class="col-3 col-md-3 col-lg-2 col-xl-2 col-sm-3 mr-3">
                                 <div class="card">
                                     <div class="row d-flex justify-content-center">
@@ -113,12 +114,14 @@ $id = Yii::$app->user->identity->id;
                                         <?php endif; ?>
                                         <?=$produto->categoria->nome?>
                                             </span>
+
                                     </div>
                                 </div>
                                 <div class="row ml-3 mr-3 mb-5">
-                                    <a href="#" class="btn btn-info btn-block">Saber mais...</a>
+                                    <a href="<?= Url::toRoute(['produto/view','id'=>$produto->id]) ?>" class="btn btn-info btn-block">Saber mais...</a>
                                 </div>
                             </div>
+                            <?php endif?>
                         <?php endforeach;?>
                     </div>
                 </div>

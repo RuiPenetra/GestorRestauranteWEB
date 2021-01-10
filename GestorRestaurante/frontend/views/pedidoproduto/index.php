@@ -14,6 +14,7 @@ use yii\widgets\ListView;
 $this->params['breadcrumbs'][] = $this->title;
 $id = Yii::$app->user->identity->id;
 ?>
+<?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5 mb-2'])?>
 <div class="col-md-12 ml-5">
     <div class="row">
         <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null || Yii::$app->authManager->getAssignment('cozinheiro',$id) != null):?>
@@ -98,7 +99,9 @@ $id = Yii::$app->user->identity->id;
                 <div class="row col-md-12">
                     <div class="col-md-7">
                         <div class="row col-md-12">
+
                             <?php if($pedido->estado!=2):?>
+                            <?php if ($pedido->perfil->cargo=='atendedorPedidos'||$pedido->perfil->cargo == 'cliente'): ?>
                                 <?= Html::a('<div class="col-md-2">
         <!-- small card -->
         
@@ -111,6 +114,7 @@ $id = Yii::$app->user->identity->id;
             </div>
         </div>
       </div>',['pedidoproduto/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
+                                <?endif?>
                                 <?= Html::a('<div class="col-md-1">
                                     <!-- small card -->
                                     <div class="small-box bg-gradient-success p-3" style="width: 250px">
@@ -123,6 +127,7 @@ $id = Yii::$app->user->identity->id;
                                     </div>
                                   </div>',['fatura/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
                             <?php else:?>
+
                                 <?= Html::a('<div class="col-md-1">
                                     <!-- small card -->
                                     <div class="small-box bg-gradient-success p-3" style="width: 250px">
@@ -134,6 +139,7 @@ $id = Yii::$app->user->identity->id;
                                         </div>
                                     </div>
                                   </div>',['fatura/view', 'id' => $pedido->id], [ 'class'=>'']) ?>
+                            <?php endif;?>
                             <?php endif;?>
                         </div>
                     </div>

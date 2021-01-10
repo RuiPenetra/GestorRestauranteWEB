@@ -6,6 +6,7 @@ use common\models\CategoriaProduto;
 use Yii;
 use common\models\Produto;
 use common\models\ProdutoSearch;
+use backend\models\mesa;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
@@ -29,12 +30,17 @@ class ProdutoController extends Controller
                     [
                         'actions' => ['index','view'],
                         'allow' => true,
-                        'roles' =>['@'],
+                        'roles' =>['empregadoMesa','atendedorPedidos','cliente'],
                     ],
                     [
                         'actions' => ['index','view','create','update','delete'],
                         'allow' => true,
                         'roles' =>['cozinheiro'],
+                    ],
+                    [
+                        'actions' => ['view'],
+                        'allow' => true,
+                        'roles' =>['?'],
                     ],
                 ],
             ],
@@ -74,10 +80,22 @@ class ProdutoController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
+        if (\Yii::$app->user->can('consultarProdutos')||Yii::$app->user->isGuest) {
+            $categorias = ArrayHelper::map(CategoriaProduto::find()->all(), 'id', 'nome');
+            if (Yii::$app->user->isGuest) {
+                $this->layout = 'main_principal';
+            }
+            return $this->render('view', [
+                'produto' => $this->findModel($id),
+                'categorias' => $categorias
 
-        ]);
+            ]);
+        }
+        else{
+            return $this->render('/site/error',[
+                'name'=>'name'
+            ]);
+        }
     }
 
     /**
@@ -87,17 +105,24 @@ class ProdutoController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Produto();
-        $model->estado=0;
-        $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+        if (\Yii::$app->user->can('criarProdutos')) {
+            $model = new Produto();
+            $model->estado = 0;
+            $categorias = ArrayHelper::map(CategoriaProduto::find()->all(), 'id', 'nome');
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
 
-        return $this->render('create', [
-            'model' => $model,
-            'categorias'=>$categorias
-        ]);
+            return $this->render('create', [
+                'model' => $model,
+                'categorias' => $categorias
+            ]);
+        }
+        else{
+            return $this->render('/site/error',[
+                'name'=>'name'
+            ]);
+        }
     }
 
     /**
@@ -109,17 +134,24 @@ class ProdutoController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
-        $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
+        if (\Yii::$app->user->can('atualizarProdutos')) {
+            $model = $this->findModel($id);
+            $categorias = ArrayHelper::map(CategoriaProduto::find()->all(), 'id', 'nome');
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+                'categorias' => $categorias
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-            'categorias'=>$categorias
-        ]);
+        else{
+            return $this->render('/site/error',[
+                'name'=>'name'
+            ]);
+        }
     }
 
     /**
@@ -131,11 +163,16 @@ class ProdutoController extends Controller
      */
     public function actionDelete($id)
     {
-        $model=$this->findModel($id);
-        $model->estado=1;
-         $model->save();
+        if (\Yii::$app->user->can('apagarProdutos')) {
+            $model = $this->findModel($id);
+            $model->estado = 1;
+            $model->save();
             return $this->redirect(['index']);
-
+        }else{
+            return $this->render('/site/error',[
+                'name'=>'name'
+            ]);
+        }
     }
 
     /**

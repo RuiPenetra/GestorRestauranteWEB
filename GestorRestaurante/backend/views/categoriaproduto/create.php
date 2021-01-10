@@ -9,6 +9,8 @@ $this->title = 'Create Categoria Produto';
 $this->params['breadcrumbs'][] = ['label' => 'Categoria Produtos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5'])?>
+
 <div class="categoria-produto-create">
 
     <h1><?= Html::encode($this->title) ?></h1>

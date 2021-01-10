@@ -116,7 +116,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     </li>
                     <!-- FALTAS -->
                     <li class="nav-item">
-                        <a href="<?= Url::toRoute(['falta/index']) ?>" class="nav-link">
+                        <a href="<?= Url::toRoute(['falta/index']) ?>" class="nav-link categoria-nav">
                             <i class="fas fa-user-alt-slash"></i>
                             <p>
                                 Faltas

@@ -75,6 +75,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <?php if ($produto->categoria->nome == 'Bebida'): ?>
                                             <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive']); ?>
                                         <?php endif; ?>
+                                        <?php if ($produto->categoria->editavel== 1): ?>
+                                            <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="product-info">
                                         <a href="javascript:void(0)" class="product-title"><?= $produto->nome ?>
@@ -122,8 +125,27 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6 d-flex justify-content-center">
-                        <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-fluid','width'=>'200px']); ?>
-
+                        <?php if ($produto->categoria->nome == 'Entrada'): ?>
+                            <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-responsive']); ?>
+                        <?php endif; ?>
+                        <?php if ($produto->categoria->nome == 'Sopa'): ?>
+                            <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-responsive']); ?>
+                        <?php endif; ?>
+                        <?php if ($produto->categoria->nome == 'Carne'): ?>
+                            <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-responsive']); ?>
+                        <?php endif; ?>
+                        <?php if ($produto->categoria->nome == 'Peixe'): ?>
+                            <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-responsive']); ?>
+                        <?php endif; ?>
+                        <?php if ($produto->categoria->nome == 'Sobremesa'): ?>
+                            <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-responsive']); ?>
+                        <?php endif; ?>
+                        <?php if ($produto->categoria->nome == 'Bebida'): ?>
+                            <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive']); ?>
+                        <?php endif; ?>
+                        <?php if ($produto->categoria->editavel == 1): ?>
+                            <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
+                        <?php endif; ?>
                     </div>
                     <div class="col-md-6">
                         <div class="card card-outline card-warning" style="height: 150px">

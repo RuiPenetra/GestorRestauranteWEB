@@ -12,6 +12,7 @@ use yii\bootstrap4\ActiveForm;
 $this->params['breadcrumbs'][] = ['label' => 'Pedidoprodutos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5 mb-2'])?>
 
 <div class="card card-outline mr-5 ml-5 mt-3"> <!--collapsed-card-->
     <div class="card-body" style="display: block;">
@@ -39,6 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php endif; ?>
                                 <?php if ($produto->categoria->nome == 'Bebida'): ?>
                                     <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'70px', 'height'=>'70px']); ?>
+                                <?php endif; ?>
+                                <?php if ($produto->categoria->editavel == 1): ?>
+                                    <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'70px', 'height'=>'70px']); ?>
                                 <?php endif; ?>
                             </div>
                             <div class="col-md-9">
@@ -91,6 +95,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     <?php endif; ?>
                                                     <?php if ($produto->categoria->nome == 'Bebida'): ?>
                                                         <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
+                                                    <?php endif; ?>
+                                                    <?php if ($produto->categoria->editavel == 1): ?>
+                                                        <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
                                                     <?php endif; ?>
                                                 </div>
                                                 <div class="row col-md-9">

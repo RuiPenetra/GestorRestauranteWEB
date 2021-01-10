@@ -12,6 +12,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Categoria Produtos', 'url' => ['in
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
+<?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5 mb-2'])?>
+
 <div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
     <div class="card-header">
         <h3 class="card-title">
@@ -120,13 +122,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php foreach ($produtos as $produto):?>
                     <tr>
                         <td class="text-center">
-                            <ul class="list-inline">
-
-                                <li class="list-inline-item">
-                                    <?= Html::img('img/tag_icon.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']);?>
-                                </li>
-
-                            </ul>
+                            <?php if ($produto->categoria->nome == 'Entrada'): ?>
+                                <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-responsive', 'width'=>'70px', 'height'=>'70px' ]); ?>
+                            <?php endif; ?>
+                            <?php if ($produto->categoria->nome == 'Sopa'): ?>
+                                <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'70px', 'height'=>'70px']); ?>
+                            <?php endif; ?>
+                            <?php if ($produto->categoria->nome == 'Carne'): ?>
+                                <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-responsive' ,'width'=>'70px', 'height'=>'70px']); ?>
+                            <?php endif; ?>
+                            <?php if ($produto->categoria->nome == 'Peixe'): ?>
+                                <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'70px', 'height'=>'70px']); ?>
+                            <?php endif; ?>
+                            <?php if ($produto->categoria->nome == 'Sobremesa'): ?>
+                                <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'70px', 'height'=>'70px']); ?>
+                            <?php endif; ?>
+                            <?php if ($produto->categoria->nome == 'Bebida'): ?>
+                                <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'70px', 'height'=>'70px']); ?>
+                            <?php endif; ?>
+                            <?php if ($produto->categoria->editavel == 1): ?>
+                                <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'70px', 'height'=>'70px']); ?>
+                            <?php endif; ?>
                         </td>
                         <td class="text-center">
                             <?=$produto->nome?>

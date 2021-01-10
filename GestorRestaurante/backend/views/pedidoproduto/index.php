@@ -225,9 +225,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <td class="text-right">
                         <?php if($pedido->estado!=2):?>
                             <?= Html::a('  <i class="fas fa-sync fa-spin"></i>', ['pedidoproduto/cozinhaupdate', 'id' => $itemPedido->id], ['class' => 'btn btn-info btn-sm']) ?>
-                            <?php if($itemPedido->estado!=2):?>
                                 <?= Html::a('<i class="fas fa-plus"></i>', ['pedidoproduto/update', 'id' => $itemPedido->id], ['class' => 'btn btn-success btn-sm']) ?>
-                            <?php endif;?>
                             <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>
                         <?php endif;?>
                     </td>

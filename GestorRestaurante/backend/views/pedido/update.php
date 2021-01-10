@@ -14,6 +14,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Pedidos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $pedido->id, 'url' => ['view', 'id' => $pedido->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
+<?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5'])?>
+
 <div class="card card-outline card-yellow mr-5 ml-5 mt-3"> <!--collapsed-card-->
     <div class="card-header">
         <h3 class="card-title text-gray-dark">

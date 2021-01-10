@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'apelido')->textInput(['class'=>'form-control rounded', 'placeholder'=>'Apelido'])->label(false) ?>
     </div>
     <div class="col-md-3">
-        <?= $form->field($model, 'cargo')->dropDownList(['gerente' => 'Gerente', 'atendedorPedidos' => 'Atendedor Pedidos', 'empregadoMesa' => 'Empregado Mesa', 'cozinheiro' => 'Cozinheiro', 'cliente' => 'Cliente'],['prompt' => '-- Selecione --','class'=>'form-control rounded'])->label(false) ?>
+        <?= $form->field($model, 'cargo')->dropDownList(['gerente' => 'Gerente', 'atendedorPedidos' => 'Atendedor Pedidos', 'empregadoMesa' => 'Empregado Mesa', 'cozinheiro' => 'Cozinheiro', 'cliente' => 'Cliente'],['prompt' => '-- Cargo --','class'=>'form-control rounded'])->label(false) ?>
     </div>
     <div class="col-md-3">
         <?= Html::submitButton('<i class="fas fa-search"></i>', ['class' => 'btn btn-primary']) ?>

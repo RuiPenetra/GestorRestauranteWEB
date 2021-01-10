@@ -12,6 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => $perfil->id_user, 'url' => ['view',
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <?php $id_user = Yii::$app->user->identity->id;?>
+
 <div class="utilizador-update">
     <div class="row d-flex justify-content-center">
         <div class="col-md-3">

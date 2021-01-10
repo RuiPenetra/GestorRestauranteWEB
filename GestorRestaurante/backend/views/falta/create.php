@@ -11,6 +11,7 @@ $this->title = 'Criar Falta';
 $this->params['breadcrumbs'][] = ['label' => 'Faltas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5 mb-2'])?>
 
 
 <?= $this->render('_form', [

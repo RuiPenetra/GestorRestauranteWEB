@@ -10,6 +10,8 @@ use yii\widgets\DetailView;
 
 \yii\web\YiiAsset::register($this);
 ?>
+<?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5 mb-2'])?>
+
 <div class="utilizador-view">
         <div class="row d-flex justify-content-center">
             <div class="col-10">

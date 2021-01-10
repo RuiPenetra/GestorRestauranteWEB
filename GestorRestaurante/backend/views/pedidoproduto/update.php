@@ -8,6 +8,8 @@ use yii\helpers\Html;
 
 $this->title = 'Atualizar item';
 ?>
+<?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5 mb-2'])?>
+
 <?php $form = ActiveForm::begin(['class'=>'','validateOnBlur'=>false])?>
 
 <div class="row col-12 d-flex justify-content-center">
@@ -30,6 +32,9 @@ $this->title = 'Atualizar item';
             <?php endif; ?>
             <?php if ($itemPedido->produto->categoria->nome == 'Bebida'): ?>
                 <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-fluid','width'=>'100px']); ?>
+            <?php endif; ?>
+            <?php if ($itemPedido->produto->categoria->editavel == 1): ?>
+                <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
             <?php endif; ?>
         </div>
         <div class="col-6">

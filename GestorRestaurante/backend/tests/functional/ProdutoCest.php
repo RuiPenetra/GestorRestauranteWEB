@@ -17,14 +17,10 @@ class ProdutoCest
     public function PesquisaNomeTest(FunctionalTester $I)
     {
         $I->wantTo('Pesquisar produto por nome [ Bitoque ]');
-        $I->see('Produtos','p');
-        $I->click(['class' => 'produto-nav']);
-        $I->amOnPage('?r=produto%2Findex');
-        $I->see('Produtos');
-        $I->fillField('ProdutoSearch[nome]','Bitoque');
-        $I->click('Procurar');
-        $I->see('Bitoque','.product-title');
-
+        $I->amOnPage('?r=site%2Findex');
+        $I->see('Categorias Produtos','div');
+        $I->click(['class' => 'categoria-nav']);
+        $I->amOnPage('?r=categoriaproduto%2Findex');
     }
 
     public function PesquisaPrecoTest(FunctionalTester $I)

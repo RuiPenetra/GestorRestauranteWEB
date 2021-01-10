@@ -4,10 +4,12 @@ namespace frontend\controllers;
 
 use common\models\Mesa;
 use common\models\MesaSearch;
+use common\models\PerfilSearch;
 use Yii;
 use common\models\Reserva;
 use common\models\ReservaSearch;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -27,9 +29,14 @@ class ReservaController extends Controller
                 'class'=> AccessControl::className(),
                 'rules'=>[
                     [
-                        'actions'=>['index','view','create','update','delete','create2'],
+                        'actions'=>['index','view','create','update','delete'],
                         'allow'=>true,
                         'roles'=>['atendedorPedidos'],
+                    ],
+                    [
+                        'actions'=>['index'],
+                        'allow'=>true,
+                        'roles'=>['empregadoMesa'],
                     ],
                 ],
             ],
@@ -48,13 +55,24 @@ class ReservaController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ReservaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (Yii::$app->user->can('consultarReservas')) {
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            $searchReserva = new ReservaSearch();
+            $dataProviderReserva = $searchReserva->search(Yii::$app->request->queryParams);
+
+            $dataProviderReserva->pagination = ['pageSize' => 5];
+            $mesas = ArrayHelper::map(Mesa::find()->all(),'id','id');
+
+            return $this->render('index', [
+                'searchReserva' => $searchReserva,
+                'dataProviderReserva' => $dataProviderReserva,
+                'mesas' => $mesas,
+            ]);
+
+        }else{
+
+            return $this->render('site/error');
+        }
     }
 
     /**
@@ -77,55 +95,70 @@ class ReservaController extends Controller
      */
     public function actionCreate()
     {
+        $id_user = Yii::$app->user->identity->id;
+        if (Yii::$app->user->can('criarReservas')) {
 
-        $model = new Reserva();
-        $searchModel = new MesaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            $reserva = new Reserva();
+            $searchMesa = new MesaSearch();
+            $dataProviderMesa = $searchMesa->search(Yii::$app->request->queryParams);
+            $dataProviderMesa->pagination = ['pageSize' => 5];
 
-        $id_user = Yii::$app->user->identity->getId();
+            $reserva->id_funcionario=$id_user;
 
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            if ($model->mesa!=null) {
+            if ($reserva->load(Yii::$app->request->post()) && $reserva->save()) {
 
-                $mesa=Mesa::findOne($model->id_mesa);
-                $mesa->estado = 1;
-                $mesa->save();
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Reserva criada com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+
+                return $this->redirect(['index']);
 
             }
-            return $this->redirect(['/reserva/create2', 'id' => $model->id]);
+
+            return $this->render('create', [
+                'reserva'=>$reserva,
+                'searchMesa' => $searchMesa,
+                'dataProviderMesa' => $dataProviderMesa,
+
+            ]);
+        }else{
+
+            return $this->render('/site/error');
         }
-
-        return $this->render('create', [
-            'model' => $model,
-            'searchModel' => $searchModel,
-            'dataProvider'=> $dataProvider
-        ]);
     }
 
-    public function actionCreate2()
-    {
-        return $this->render('create2');
-    }
-    /**
-     * Updates an existing Reserva model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (Yii::$app->user->can('atualizarReservas')) {
+            $id_user = Yii::$app->user->identity->id;
+            $reserva = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->id]);
+            $searchMesa = new MesaSearch();
+            $dataProviderMesa = $searchMesa->search(Yii::$app->request->queryParams);
+            $dataProviderMesa->pagination = ['pageSize' => 5];
+
+            $reserva->id_funcionario = $id_user;
+
+            if ($reserva->load(Yii::$app->request->post()) && $reserva->save()) {
+                return $this->redirect(['index', 'id' => $reserva->id]);
+            }
+
+            return $this->render('update', [
+                'reserva' => $reserva,
+                'searchMesa' => $searchMesa,
+                'dataProviderMesa' => $dataProviderMesa
+            ]);
+        }else{
+            return $this->render('/site/error');
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -137,7 +170,23 @@ class ReservaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (Yii::$app->user->can('apagarReservas')) {
+
+            $this->findModel($id)->delete();
+            Yii::$app->getSession()->setFlash('success', [
+                'type' => 'success',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Reserva apagada com sucesso',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+        }
+        else{
+            return $this->render('/site/error');
+        }
+
 
         return $this->redirect(['index']);
     }

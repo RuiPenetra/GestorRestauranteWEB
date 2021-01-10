@@ -18,12 +18,12 @@ use yii\widgets\ActiveForm;
 
     </div>
     <div class="col-md-2">
-        <?= $form->field($model, 'tipo')->dropDownList(['0' => 'Restaurante', '1' => 'Takeaway'],['prompt'=>'Selecione...', 'maxlenght'=> true,'class' => 'form-control rounded'])->label(false); ?>    </div>
+        <?= $form->field($model, 'tipo')->dropDownList(['0' => 'Restaurante', '1' => 'Takeaway'],['prompt'=>'-- Tipo --', 'maxlenght'=> true,'class' => 'form-control rounded'])->label(false); ?>    </div>
     <div class="col-md-2">
-        <?= $form->field($model, 'estado')->dropDownList(['0' => 'Em Processo', '1' => 'Em Progresso', '2' => 'Concluido'],['prompt'=>'Selecione...', 'maxlenght'=> true,'class' => 'form-control rounded'])->label(false); ?>
+        <?= $form->field($model, 'estado')->dropDownList(['0' => 'Em Processo', '1' => 'Em Progresso', '2' => 'Concluido'],['prompt'=>'-- Estado --', 'maxlenght'=> true,'class' => 'form-control rounded'])->label(false); ?>
     </div>
     <div class="col-md-3">
-        <?= $form->field($model, 'id_mesa')->dropDownList($mesas,['prompt'=>'Selecione...', 'maxlenght'=> true,'class' => 'form-control rounded'])->label(false); ?>
+        <?= $form->field($model, 'id_mesa')->dropDownList($mesas,['prompt'=>'-- Mesa --', 'maxlenght'=> true,'class' => 'form-control rounded'])->label(false); ?>
     </div>
     <div class="col-md-3">
         <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>

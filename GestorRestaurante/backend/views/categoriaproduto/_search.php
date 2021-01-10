@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="col-md-4">
         <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Limpar', ['class' => 'btn btn-outline-secondary']) ?>
+        <?= Html::resetButton('Limpar', ['class' => 'btn btn-outline-secondary','name'=>'searchCategoria-button']) ?>
     </div>
 </div>
 <?php ActiveForm::end(); ?>

@@ -13,43 +13,28 @@ class CategoriaProdutoCest
     }
 
     // tests
-    public function CreateCategoriaProdutoTest(FunctionalTester $I)
+    public function CriarCategoriaProdutoTest(FunctionalTester $I)
     {
-/*        $I->amOnPage('/index?r=site%2Fpainel');
-        $I->see('Utilizadores','div');
-        $I->click('btn-user');
-        $I->see('Procurar Produtos');
-        $I->click('btn-create-user');
-        $I->see('Utilizadores','h1');
-        $I->see('Novo','div');
-        $I->click('createUser-button');
-        $I->fillField('SignupForm[nome]', 'joana');
-        $I->fillField('SignupForm[apelido]', 'joana');
-        $I->fillField('SignupForm[morada]', 'joana');
-        $I->fillField('User[codigopostal]', 'joana');
-        $I->fillField('User[datanascimento]', 'joana');
-        $I->fillField('User[username]', 'joana');*/
 
-
-        /*  $I->amOnPage('produto/create');
-          $I->wantTo('Insert a product');
-          $I->fillField('Produto[nome]','Bacalhau com natas');
-          $I->fillField('Produto[preco]','5.00');
-          $I->selectOption('Produto[id_categoria]','Peixe');
-          $I->fillField('Produto[ingredientes]','Bacalhau,natas,batatas');
-          $I->click('login-button');*/
-
+        $I->wantTo('Criar categoria produto [ Vegetariana ]');
+        $I->see('Categorias Produtos','p');
+        $I->click(['class' => 'produto-nav']);
+        $I->amOnPage('?r=categoriaproduto%2Findex');
+        $I->see('Nova categoria');
+        $I->fillField('CategoriaProduto[nome]','Vegetariana');
+        $I->click('createCategoria-button');
 
     }
 
     public function PesquisarNomeTest(FunctionalTester $I){
 
+        $I->wantTo('Pesquisar categoria produto [ Vegetariana ]');
+        $I->amOnPage('?r=categoriaproduto%2Findex');
+        $I->see('Todas as categorias');
+        $I->fillField('CategoriaProdutoSearch[nome]','Vegetariana');
+        $I->click('searchCategoria-button');
 
-    }
+   }
 
-    public function VerProdutoAssociadoCategoriaTest(FunctionalTester $I){
-
-
-    }
 
 }

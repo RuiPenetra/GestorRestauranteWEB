@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body p-0">
             <?php echo $this->render('_search', ['model' => $searchModel]); ?>
             <div class="row justify-content-center">
-                <table class="table table-striped projects mr-2 ml-2">
+                <table class="table table-striped projects mr-2 ml-2 categoria-table">
                     <thead>
                     <tr>
                         <th class="text-center"  style="width: 10px">
@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </ul>
                             </td>
                             <td class="text-center">
-                                <?=$categoria->nome?>
+                                <span class="categoria-nome"><?=$categoria->nome?></span>
                             </td >
                             <td class="text-center">
                                 <?=Html::a('<i class="far fa-eye"></i>', ['categoriaproduto/view', 'id' => $categoria->id], ['class' => 'btn btn-dark btn-sm']) ?>

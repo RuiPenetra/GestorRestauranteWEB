@@ -8,10 +8,11 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Reserva */
 
-$this->title = 'Create Reserva';
+$this->title = 'Criar Reserva';
 $this->params['breadcrumbs'][] = ['label' => 'Reservas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5 mb-2'])?>
 <div class="card card-outline card-yellow mr-5 ml-5 mt-3"> <!--collapsed-card-->
     <div class="card-header">
         <h3 class="card-title text-gray-dark">
@@ -64,11 +65,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <td class="text-center"><span class="badge bg-success">Livre</span></td>
                                             <?php endif;?>
                                             <td>
-                                                <?php if($mesa->estado==2):?>
-                                                    <div style="height: 15px">
-                                                        <?= $form->field($reserva, 'id_mesa')->radio(['class'=>'','uncheck'=>null,'value' => $mesa->id,'label'=>'Selecionar'])?>
-                                                    </div>
-                                                <?php endIf?>
+                                                <div style="height: 15px">
+                                                    <?= $form->field($reserva, 'id_mesa')->radio(['class'=>'','uncheck'=>null,'value' => $mesa->id,'label'=>'Selecionar'])?>
+                                                </div>
                                             </td>
                                         </tr>
                                     <?php endforeach;?>
@@ -169,7 +168,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-12 text-center">
             <div class="card card-outline card-yellow col-md-12 ml-2">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-calendar"></i> Selecionar data e hora do pedido</h3>
+                    <h3 class="card-title"><i class="fas fa-marker"></i> Digite...</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body p-0">
@@ -180,6 +179,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'size'=>'md',
                             'readonly' => true,
                             'pluginOptions' => [
+                                'pickerPosition' => 'top-right',
                                 'todayBtn' => true,
                                 'autoclose' => true,
                                 'language'=>'pt-PT',

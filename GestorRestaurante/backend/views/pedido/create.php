@@ -12,6 +12,7 @@ use yii\helpers\Url;
 $this->title = 'Criar Pedido';
 
 ?>
+<?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5'])?>
 
 <!--<div class="col-md-12">
     <div class="row d-flex justify-content-center">
@@ -225,6 +226,7 @@ $this->title = 'Criar Pedido';
                             'size'=>'md',
                             'readonly' => true,
                             'pluginOptions' => [
+                                'pickerPosition' => 'top-right',
                                 'todayBtn' => true,
                                 'autoclose' => true,
                                 'language'=>'pt-PT',

@@ -23,7 +23,7 @@ use yii\bootstrap4\ActiveForm;
                 <?= $form->field($model, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
             </div>
             <div class="d-flex justify-content-end">
-                <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton('Guardar', ['class' => 'btn btn-success','name'=>'createCategoria-button']) ?>
             </div>
         </div>
     </div>

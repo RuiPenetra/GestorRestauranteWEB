@@ -93,7 +93,7 @@ class ReservaController extends Controller
                     'positonY' => 'top'
                 ]);
 
-                return $this->redirect(['view', 'id' => $reserva->id]);
+                return $this->redirect(['index']);
             }
 
             return $this->render('create', [

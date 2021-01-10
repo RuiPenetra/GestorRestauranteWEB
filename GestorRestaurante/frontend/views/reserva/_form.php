@@ -12,15 +12,11 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
-
     <?= $form->field($model, 'n_pessoas')->textInput() ?>
 
     <?= $form->field($model, 'data_hora')->textInput() ?>
 
     <?= $form->field($model, 'nome_da_reserva')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tempo_reserva')->textInput() ?>
 
     <?= $form->field($model, 'id_mesa')->textInput() ?>
 

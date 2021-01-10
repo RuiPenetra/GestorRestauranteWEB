@@ -154,6 +154,16 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                         </a>
                     </li>
                 <?php endif?>
+                 <?php if (Yii::$app->user->can('consultarReservas')):?>
+                    <!-- Reservas -->
+                    <li class="nav-item">
+                        <a href="<?=URL::toRoute(['reserva/index'])?>" class="nav-link">
+                            <i class="fas fa-pen-alt"></i>
+                            <p>Reservas</p>
+                        </a>
+                    </li>
+                 <?php endif?>
+
                 <!-- TAKEAWAY -->
                     <li class="nav-item">
                         <a href="<?=URL::toRoute(['pedido/index'])?>" class="nav-link">
@@ -167,6 +177,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                             </p>
                         </a>
                     </li>
+
                 <!-- EMENTA -->
                 <li class="nav-item">
                     <a href="<?=Url::toRoute(['produto/index'])?>" class="nav-link">

@@ -133,11 +133,40 @@ class PedidoprodutoController extends Controller
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 $pedido->load(Yii::$app->request->post());
 
-                $pedido->save();
+                $resultado = $this->ValidarQuantidadeItemProduto($model);
 
-                $this->ValidarEstadoPedido($model->id_pedido);
+                if ($resultado != null) {
 
-                return $this->redirect(['index', 'id' => $model->id_pedido]);
+                    Yii::$app->getSession()->setFlash('danger', [
+                        'type' => 'danger',
+                        'duration' => 5000,
+                        'icon' => 'fas fa-tags',
+                        'message' => $resultado,
+                        'title' => 'ALERTA',
+                        'positonX' => 'right',
+                        'positonY' => 'top'
+                    ]);
+
+                } else {
+                    $model->save();
+                    $pedido->save();
+
+                    $this->ValidarEstadoItemProduto($model->id);
+
+                    $this->ValidarEstadoPedido($model->id_pedido);
+
+                    Yii::$app->getSession()->setFlash('success', [
+                        'type' => 'success',
+                        'duration' => 5000,
+                        'icon' => 'fas fa-tags',
+                        'message' => 'Produto pedido atualizado com sucesso',
+                        'title' => 'ALERTA',
+                        'positonX' => 'right',
+                        'positonY' => 'top'
+                    ]);
+
+                    return $this->redirect(['index', 'id' => $model->id_pedido]);
+                }
             }
 
             return $this->render('update', [
@@ -270,29 +299,16 @@ class PedidoprodutoController extends Controller
 
     protected function ValidarQuantidadeItemProduto($itemPedido){
 
-        if($itemPedido->quant_Preparacao>$itemPedido->quant_Pedida && $itemPedido->quant_Entregue>$itemPedido->quant_Pedida){
-
-            $messagem="Quantidade Entregue e em Preparação não podem ser maiores que a quantidade pedida";
-
-        }elseif($itemPedido->quant_Preparacao>$itemPedido->quant_Pedida){
+        if($itemPedido->quant_Preparacao>$itemPedido->quant_Pedida){
 
             $messagem="Quantidade em Preparação não pode ser maior que a quantidade pedida";
 
         }elseif ($itemPedido->quant_Entregue>$itemPedido->quant_Pedida){
 
-            $messagem="Quantidade Entregue não podem ser maior que a quantidade pedida";
+            $messagem="Quantidade pedida não pode ser menor que a quantidade entregue";
 
         }else{
-            $quantidade=$itemPedido->quant_Preparacao+$itemPedido->quant_Entregue;
-
-            if($quantidade>$itemPedido->quant_Pedida){
-
-                $messagem="A quantidade entregue e a quantidade preparada não pode exceder a quantidade pedida";
-
-            }else{
-                $messagem=null;
-
-            }
+            $messagem=null;
         }
 
         return $messagem;

@@ -40,6 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php if ($produto->categoria->nome == 'Bebida'): ?>
                                     <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'70px', 'height'=>'70px']); ?>
                                 <?php endif; ?>
+                                <?php if ($produto->categoria->editavel== 1): ?>
+                                    <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'70px']); ?>
+                                <?php endif; ?>
                             </div>
                             <div class="col-md-9">
                                 <div class="row">

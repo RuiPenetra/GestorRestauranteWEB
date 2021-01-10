@@ -30,6 +30,9 @@ $this->title = 'Atualizar item';
         <?php if ($itemPedido->produto->categoria->nome == 'Bebida'): ?>
             <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
         <?php endif; ?>
+        <?php if ($itemPedido->produto->categoria->editavel== 1): ?>
+            <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
+        <?php endif; ?>
     </div>
     <div class="row col-md-9">
         <div class="row col-md-6 d-flex justify-content-center">

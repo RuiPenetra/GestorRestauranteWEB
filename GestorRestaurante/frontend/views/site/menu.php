@@ -52,6 +52,9 @@ $this->title = 'Gestor Restaurante';
                             <?php if ($produto->categoria->nome == 'Bebida'): ?>
                                 <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-fluid m-2','style'=>'width:130px;']); ?>
                             <?php endif; ?>
+                            <?php if ($produto->categoria->editavel== 1): ?>
+                                <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-fluid m-2','style'=>'width:130px;']); ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                     <div class="row ml-2 mr-2">

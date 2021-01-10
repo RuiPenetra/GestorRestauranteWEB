@@ -38,12 +38,12 @@ class PedidoprodutoController extends Controller
                         'roles' => ['cliente'],
                     ],
                     [
-                        'actions' => ['index','create','update','atendedorpedidosupdate','delete','view'],
+                        'actions' => ['index','create','update','updatepreparacao','delete','view'],
                         'allow' => true,
                         'roles' => ['atendedorPedidos'],
                     ],
                     [
-                        'actions' => ['index','cozinhaupdate','view'],
+                        'actions' => ['index','updatepreparacao','view'],
                         'allow' => true,
                         'roles' => ['cozinheiro'],
                     ],
@@ -173,16 +173,48 @@ class PedidoprodutoController extends Controller
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 $pedido->load(Yii::$app->request->post());
 
-                $pedido->save();
-                $this->ValidarEstadoPedido($model->id_pedido);
+                $resultado = $this->ValidarQuantidadeItemProduto($model);
 
-                return $this->redirect(['index', 'id' => $model->id_pedido]);
+                if ($resultado != null) {
+
+                    Yii::$app->getSession()->setFlash('danger', [
+                        'type' => 'danger',
+                        'duration' => 5000,
+                        'icon' => 'fas fa-tags',
+                        'message' => $resultado,
+                        'title' => 'ALERTA',
+                        'positonX' => 'right',
+                        'positonY' => 'top'
+                    ]);
+
+                } else {
+                    $model->save();
+                    $pedido->save();
+
+                    $this->ValidarEstadoItemProduto($model->id);
+
+                    $this->ValidarEstadoPedido($model->id_pedido);
+
+                    Yii::$app->getSession()->setFlash('success', [
+                        'type' => 'success',
+                        'duration' => 5000,
+                        'icon' => 'fas fa-tags',
+                        'message' => 'Produto pedido atualizado com sucesso',
+                        'title' => 'ALERTA',
+                        'positonX' => 'right',
+                        'positonY' => 'top'
+                    ]);
+
+                    return $this->redirect(['index', 'id' => $model->id_pedido]);
+
+                }
             }
 
             return $this->render('update', [
                 'itemPedido' => $model,
                 'pedido' => $pedido,
             ]);
+
         }else{
             return $this->render('/site/error',[
                 'name'=>'name'
@@ -190,68 +222,8 @@ class PedidoprodutoController extends Controller
         }
     }
 
-    public function actionCozinhaupdate($id)
-    {
-        if (\Yii::$app->user->can('atualizarPedidoProduto')) {
-            $model = $this->findModel($id);
 
-            if ($model->load(Yii::$app->request->post())) {
-
-                $resultado = $this->ValidarQuantidadeItemProduto($model);
-
-                if ($resultado != null) {
-
-                    Yii::$app->getSession()->setFlash('danger', [
-                        'type' => 'danger',
-                        'duration' => 5000,
-                        'icon' => 'fas fa-tags',
-                        'message' => $resultado,
-                        'title' => 'ALERTA',
-                        'positonX' => 'right',
-                        'positonY' => 'top'
-                    ]);
-
-                } else {
-
-                    $model->save();
-
-                    $this->ValidarEstadoItemProduto($model->id);
-
-                    $this->ValidarEstadoPedido($model->id_pedido);
-
-                    Yii::$app->getSession()->setFlash('success', [
-                        'type' => 'success',
-                        'duration' => 5000,
-                        'icon' => 'fas fa-tags',
-                        'message' => 'Produto pedido atualizado com sucesso',
-                        'title' => 'ALERTA',
-                        'positonX' => 'right',
-                        'positonY' => 'top'
-                    ]);
-
-                    return $this->redirect(['index', 'id' => $model->id_pedido]);
-
-                }
-            }
-            return $this->render('updatecozinha', [
-                'itemPedido' => $model,
-            ]);
-        }
-        else{
-            return $this->render('/site/error',[
-                'name'=>'name'
-            ]);
-        }
-    }
-    /**
-     * Deletes an existing Pedidoproduto model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-
-    public function actionAtendedorpedidosupdate($id){
+    public function actionUpdatepreparacao($id){
         if (\Yii::$app->user->can('atualizarPedidoProduto')) {
             $model = $this->findModel($id);
 
@@ -293,7 +265,7 @@ class PedidoprodutoController extends Controller
                 }
             }
 
-            return $this->render("updateatendedorpedidos", [
+            return $this->render('updatePreparacao', [
                 'itemPedido' => $model,
             ]);
         }
@@ -343,13 +315,7 @@ class PedidoprodutoController extends Controller
         }
     }
 
-    /**
-     * Finds the Pedidoproduto model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Pedidoproduto the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     public function ValidarEstadoItemProduto($id)
     {
 
@@ -364,27 +330,26 @@ class PedidoprodutoController extends Controller
 
             $itemPedido->estado=1; //Preparação
         }
+
         if($itemPedido->quant_Entregue == $itemPedido->quant_Pedida){
 
             $itemPedido->estado=2; //Entregue
-            $itemPedido->quant_Preparacao=0;
+        }else{
+            $itemPedido->estado=1; //Preparação
+
         }
         $itemPedido->save();
     }
 
     public function ValidarQuantidadeItemProduto($itemPedido){
 
-        if($itemPedido->quant_Preparacao>$itemPedido->quant_Pedida && $itemPedido->quant_Entregue>$itemPedido->quant_Pedida){
-
-            $messagem="Quantidade Entregue e em Preparação não podem ser maiores que a quantidade pedida";
-
-        }elseif($itemPedido->quant_Preparacao>$itemPedido->quant_Pedida){
+        if($itemPedido->quant_Preparacao>$itemPedido->quant_Pedida){
 
             $messagem="Quantidade em Preparação não pode ser maior que a quantidade pedida";
 
         }elseif ($itemPedido->quant_Entregue>$itemPedido->quant_Pedida){
 
-            $messagem="Quantidade Entregue não podem ser maior que a quantidade pedida";
+            $messagem="Quantidade pedida não pode ser menor que a quantidade entregue";
 
         }else{
                 $messagem=null;

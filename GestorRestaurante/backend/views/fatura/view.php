@@ -11,6 +11,7 @@ $this->title = 'Refe:'.$fatura->id;
 /*$this->params['breadcrumbs'][] = ['label' => 'Faturas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;*/
 \yii\web\YiiAsset::register($this);
+
 ?>
     <div class="invoice p-3 mb-3 mr-5 ml-5">
         <!-- title row -->
@@ -108,34 +109,34 @@ $this->params['breadcrumbs'][] = $this->title;*/
         <!-- this row will not appear when printing -->
         <div class="row no-print">
             <div class="col-12">
-                <?= Html::a('<i class="fas fa-trash"></i> Apagar', ['delete', 'id' => $fatura->id], ['class' => 'btn btn-danger float-right','data-toggle'=>'modal',' data-target'=>'#apagarFatura']) ?>
-                <div class="modal fade"  id="apagarFatura" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content mt-2" >
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash"></i> Tem a certeza que quer apagar?</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    Após apagar a fatura selecionado não é possivel reverter.
+                    <?= Html::a('<i class="fas fa-trash"></i> Apagar', ['delete', 'id' => $fatura->id], ['class' => 'btn btn-danger float-right','data-toggle'=>'modal',' data-target'=>'#apagarFatura']) ?>
+                    <div class="modal fade"  id="apagarFatura" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content mt-2" >
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash"></i> Tem a certeza que quer apagar?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <?= Html::a('<b>SIM</b>', ['delete', 'id' => $fatura->id], [
-                                    'class' => 'btn btn-outline-success',
-                                    'data' => [
-                                        'method' => 'post',
-                                    ],
-                                ]) ?>
-                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        Após apagar a fatura selecionado não é possivel reverter.
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <?= Html::a('<b>SIM</b>', ['delete', 'id' => $fatura->id], [
+                                        'class' => 'btn btn-outline-success',
+                                        'data' => [
+                                            'method' => 'post',
+                                        ],
+                                    ]) ?>
+                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <?= Html::a('<i class="fas fa-edit"></i> Update', ['update', 'id' => $fatura->id], ['class' => 'btn btn-info float-right mr-3']) ?>
+                    <?= Html::a('<i class="fas fa-edit"></i> Update', ['update', 'id' => $fatura->id], ['class' => 'btn btn-info float-right mr-3']) ?>
             </div>
         </div>
     </div>

@@ -99,47 +99,61 @@ $id = Yii::$app->user->identity->id;
                 <div class="row col-md-12">
                     <div class="col-md-7">
                         <div class="row col-md-12">
-
                             <?php if($pedido->estado!=2):?>
-                            <?php if ($pedido->perfil->cargo=='atendedorPedidos'||$pedido->perfil->cargo == 'cliente'): ?>
-                                <?= Html::a('<div class="col-md-2">
-        <!-- small card -->
-        
-        <div class="small-box bg-gradient-info p-3" style="width: 200px">
-            <div class="inner">
-                <h4><b>Novo</b></h4>
-            </div>
-            <div class="icon">
-                <i class="fas fa-cart-plus"></i>
-            </div>
-        </div>
-      </div>',['pedidoproduto/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
-                                <?endif?>
-                                <?= Html::a('<div class="col-md-1">
-                                    <!-- small card -->
-                                    <div class="small-box bg-gradient-success p-3" style="width: 250px">
-                                        <div class="inner">
-                                            <h4><b>Terminar</b></h4>
-                                        </div>
-                                        <div class="icon">
-                                            <i class="fas fa-check"></i>
-                                        </div>
-                                    </div>
-                                  </div>',['fatura/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
-                            <?php else:?>
-
-                                <?= Html::a('<div class="col-md-1">
-                                    <!-- small card -->
-                                    <div class="small-box bg-gradient-success p-3" style="width: 250px">
-                                        <div class="inner">
-                                            <h4><b>Fatura</b></h4>
-                                        </div>
-                                        <div class="icon">
-                                            <i class="fas fa-check"></i>
-                                        </div>
-                                    </div>
-                                  </div>',['fatura/view', 'id' => $pedido->id], [ 'class'=>'']) ?>
-                            <?php endif;?>
+                                <?php if (Yii::$app->user->can('criarPedidoProduto') && Yii::$app->user->can('criarFaturas')):?>
+                                    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
+                                        <?php if($pedido->tipo==1):?>
+                                            <?= Html::a('<div class="col-md-2">
+                                                    <!-- small card -->
+                                                    
+                                                    <div class="small-box bg-gradient-info p-3" style="width: 200px">
+                                                        <div class="inner">
+                                                            <h4><b>Novo</b></h4>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="fas fa-cart-plus"></i>
+                                                        </div>
+                                                    </div>
+                                                  </div>',['pedidoproduto/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
+                                            <?= Html::a('<div class="col-md-1">
+                                                    <!-- small card -->
+                                                    <div class="small-box bg-gradient-success p-3" style="width: 250px">
+                                                        <div class="inner">
+                                                            <h4><b>Terminar</b></h4>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="fas fa-check"></i>
+                                                        </div>
+                                                    </div>
+                                                  </div>',['fatura/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
+                                        <?php endif?>
+                                    <?php endif?>
+                                <?php elseif(Yii::$app->user->can('criarPedidoProduto')):?>
+                                    <?= Html::a('<div class="col-md-2">
+                                                <!-- small card -->
+                                                
+                                                <div class="small-box bg-gradient-info p-3" style="width: 200px">
+                                                    <div class="inner">
+                                                        <h4><b>Novo</b></h4>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fas fa-cart-plus"></i>
+                                                    </div>
+                                                </div>
+                                              </div>',['pedidoproduto/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
+                                <?php endif?>
+                            <?php elseif(Yii::$app->user->can('consultarFaturas')):?>
+                                    <?= Html::a('<div class="col-md-1">
+                                            <!-- small card -->
+                                            <div class="small-box bg-gradient-success p-3" style="width: 250px">
+                                                <div class="inner">
+                                                    <h4><b>Fatura</b></h4>
+                                                </div>
+                                                <div class="icon">
+                                                    <i class="fas fa-check"></i>
+                                                </div>
+                                            </div>
+                                          </div>',['fatura/view', 'id' => $pedido->id], [ 'class'=>'']) ?>
                             <?php endif;?>
                         </div>
                     </div>
@@ -202,6 +216,9 @@ $id = Yii::$app->user->identity->id;
                         <?php if ($itemPedido->produto->categoria->nome == 'Bebida'): ?>
                             <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-fluid']); ?>
                         <?php endif; ?>
+                        <?php if ($itemPedido->produto->categoria->editavel== 1): ?>
+                            <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-img-fluid']); ?>
+                        <?php endif; ?>
                     </td>
                     <td class="text-center"><?=$itemPedido->produto->nome?></td>
                     <td class="text-center"><i class="fas fa-shopping-basket text-blue"></i>  <?=$itemPedido->quant_Pedida?></td>
@@ -220,23 +237,18 @@ $id = Yii::$app->user->identity->id;
                         <?php endif; ?>
                     </td>
                     <td>
-                        <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id) != null):?>
-                            <?php if($itemPedido->pedido->estado!=2):?>
-                                <?= Html::a('  <i class="fas fa-sync fa-spin"></i>', ['pedidoproduto/cozinhaupdate', 'id' => $itemPedido->id], ['class' => 'btn btn-info btn-sm']) ?>
+                        <?php if($itemPedido->pedido->estado!=2):?>
+                            <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id) != null):?>
+                                <?= Html::a('  <i class="fas fa-sync fa-spin"></i>', ['pedidoproduto/updatepreparacao', 'id' => $itemPedido->id], ['class' => 'btn btn-info btn-sm']) ?>
                             <?php endif?>
-                        <?php endif?>
-                        <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
-                            <?php if ($itemPedido->pedido->tipo==1):?>
-                                <?php if($itemPedido->pedido->estado!=2):?>
-                                    <?= Html::a('<i class="fas fa-check"></i>',['pedidoproduto/atendedorpedidosupdate','id'=>$itemPedido->id],['class'=>'btn btn-info btn-sm'])?>
-                                    <?= Html::a('<i class="fas fa-plus"></i>', ['pedidoproduto/update', 'id' => $itemPedido->id], ['class' => 'btn btn-success btn-sm']) ?>
-                                    <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>
-                                <?php else:?>
-                                    <?php if($itemPedido->pedido->estado!=2):?>
-                                        <?= Html::a('<i class="fas fa-check"></i>',['pedidoproduto/atendedorpedidosupdate','id'=>$itemPedido->id],['class'=>'btn btn-info btn-sm'])?>
+
+                            <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
+                                <?php if ($itemPedido->pedido->tipo==1):?>
+                                        <?= Html::a('<i class="fas fa-check"></i>',['pedidoproduto/updatepreparacao','id'=>$itemPedido->id],['class'=>'btn btn-info btn-sm'])?>
                                         <?= Html::a('<i class="fas fa-plus"></i>', ['pedidoproduto/update', 'id' => $itemPedido->id], ['class' => 'btn btn-success btn-sm']) ?>
                                         <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>
-                                    <?php endif?>
+                                <?php else:?>
+                                    <?= Html::a('<i class="fas fa-check"></i>',['pedidoproduto/updatepreparacao','id'=>$itemPedido->id],['class'=>'btn btn-info btn-sm'])?>
                                 <?php endif?>
                             <?php endif?>
                         <?php endif?>

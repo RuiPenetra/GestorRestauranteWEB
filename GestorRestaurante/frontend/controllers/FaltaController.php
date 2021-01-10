@@ -25,7 +25,7 @@ class FaltaController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','view'],
+                        'actions' => ['view'],
                         'allow' => true,
                         'roles' => ['atendedorPedidos','cozinheiro','empregadoMesa'],
                     ],

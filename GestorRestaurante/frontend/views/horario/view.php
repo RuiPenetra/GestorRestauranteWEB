@@ -69,10 +69,6 @@ $id = Yii::$app->user->identity->id;
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Inicio</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_inicio));?></h7></div>
                                         </div>
-                                        <div class="w-100" style="margin-bottom: 70px">
-                                            <?=Html::a('<i class="fas fa-edit"></i>', ['horario/update', 'id' => $horario->id], ['class' => 'btn btn-info btn-sm']) ?>
-                                            <?=Html::a('<i class="fas fa-trash"></i>', ['horario/delete', 'id' => $horario->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarHorario'.$horario->id]) ?>
-                                        </div>
                                         <div class="modal fade"  id="apagarHorario<?=$horario->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content mt-2" >
@@ -116,10 +112,6 @@ $id = Yii::$app->user->identity->id;
                                         <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 150px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Inicio</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_inicio));?></h7></div>
-                                        </div>
-                                        <div class="w-100" style="margin-bottom: 70px">
-                                            <?=Html::a('<i class="fas fa-edit"></i>', ['horario/update', 'id' => $horario->id], ['class' => 'btn btn-info btn-sm']) ?>
-                                            <?=Html::a('<i class="fas fa-trash"></i>', ['horario/delete', 'id' => $horario->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarHorario'.$horario->id]) ?>
                                         </div>
                                         <div class="modal fade"  id="apagarHorario<?=$horario->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -165,10 +157,6 @@ $id = Yii::$app->user->identity->id;
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Inicio</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_inicio));?></h7></div>
                                         </div>
-                                        <div class="w-100" style="margin-bottom: 70px">
-                                            <?=Html::a('<i class="fas fa-edit"></i>', ['horario/update', 'id' => $horario->id], ['class' => 'btn btn-info btn-sm']) ?>
-                                            <?=Html::a('<i class="fas fa-trash"></i>', ['horario/delete', 'id' => $horario->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarHorario'.$horario->id]) ?>
-                                        </div>
                                         <div class="modal fade"  id="apagarHorario<?=$horario->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content mt-2" >
@@ -212,10 +200,6 @@ $id = Yii::$app->user->identity->id;
                                         <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 150px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Inicio</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_inicio));?></h7></div>
-                                        </div>
-                                        <div class="w-100" style="margin-bottom: 70px">
-                                            <?=Html::a('<i class="fas fa-edit"></i>', ['horario/update', 'id' => $horario->id], ['class' => 'btn btn-info btn-sm']) ?>
-                                            <?=Html::a('<i class="fas fa-trash"></i>', ['horario/delete', 'id' => $horario->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarHorario'.$horario->id]) ?>
                                         </div>
                                         <div class="modal fade"  id="apagarHorario<?=$horario->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -261,10 +245,6 @@ $id = Yii::$app->user->identity->id;
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Inicio</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_inicio));?></h7></div>
                                         </div>
-                                        <div class="w-100" style="margin-bottom: 70px">
-                                            <?=Html::a('<i class="fas fa-edit"></i>', ['horario/update', 'id' => $horario->id], ['class' => 'btn btn-info btn-sm']) ?>
-                                            <?=Html::a('<i class="fas fa-trash"></i>', ['horario/delete', 'id' => $horario->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarHorario'.$horario->id]) ?>
-                                        </div>
                                         <div class="modal fade"  id="apagarHorario<?=$horario->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content mt-2" >
@@ -308,10 +288,6 @@ $id = Yii::$app->user->identity->id;
                                         <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 150px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Inicio</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_inicio));?></h7></div>
-                                        </div>
-                                        <div class="w-100" style="margin-bottom: 70px">
-                                            <?=Html::a('<i class="fas fa-edit"></i>', ['horario/update', 'id' => $horario->id], ['class' => 'btn btn-info btn-sm']) ?>
-                                            <?=Html::a('<i class="fas fa-trash"></i>', ['horario/delete', 'id' => $horario->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarHorario'.$horario->id]) ?>
                                         </div>
                                         <div class="modal fade"  id="apagarHorario<?=$horario->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">

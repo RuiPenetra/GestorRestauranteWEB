@@ -25,7 +25,7 @@ class UserCest
         $I->fillField('SignupForm[apelido]', 'Manuel');
         $I->fillField('SignupForm[morada]', 'Rua do Tascao');
         $I->fillField('SignupForm[codigopostal]', '2569-499');
-        $I->fillField('SignupForm[datanascimento]', '08/12/2020');
+        $I->fillField('SignupForm[datanascimento]', '2020-12-08');
         $I->fillField('SignupForm[nacionalidade]', 'Portuguesa');
         $I->fillField('SignupForm[telemovel]', '9199999');
         $I->selectOption('SignupForm[genero]', 'Masculino');

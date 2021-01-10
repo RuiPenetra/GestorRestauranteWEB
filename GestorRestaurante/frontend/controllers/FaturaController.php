@@ -29,10 +29,10 @@ class FaturaController extends Controller
                     [
                         'actions' => ['view'],
                         'allow' => true,
-                        'roles' => ['cliente','cozinheiro'],
+                        'roles' => ['cliente'],
                     ],
                     [
-                        'actions' => ['create','update','view'],
+                        'actions' => ['create','update','view','delete'],
                         'allow' => true,
                         'roles' => ['atendedorPedidos','empregadoMesa'],
                     ],
@@ -51,37 +51,6 @@ class FaturaController extends Controller
      * Lists all Fatura models.
      * @return mixed
      */
-    public function actionIndex($id)
-    {
-        $pedido=Pedido::findOne($id);
-
-        $items_pedido=PedidoProduto::findAll(['id_pedido'=>$pedido->id]);
-        $model=new Fatura();
-        $model->id_pedido=$pedido->id;
-        $model->valor=PedidoProduto::find()->where(['id_pedido'=>$id])->sum('preco');
-
-
-        $fatura=Fatura::findOne($pedido->id);
-
-
-        if ($model->load(Yii::$app->request->post())) {
-
-            if($fatura!=null){
-                $this->findModel($fatura->id)->delete();
-            }
-            if($model->save()){
-
-                return $this->redirect(['index', 'id' => $model->id_pedido]);
-
-            }
-        }
-
-        return $this->render('index', [
-            'model' => $model,
-            'fatura' => $fatura,
-            'items_pedido' => $items_pedido,
-        ]);
-    }
 
     /**
      * Displays a single Fatura model.
@@ -91,9 +60,20 @@ class FaturaController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        if(\Yii::$app->user->can('consultarFaturas')) {
+            $fatura = Fatura::findOne(['id_pedido' => $id]);
+            $items_pedido = PedidoProduto::findAll(['id_pedido' => $fatura->id_pedido]);
+
+            return $this->render('view', [
+                'fatura' => $fatura,
+                'items_pedido' => $items_pedido,
+            ]);
+        }
+        else{
+            return $this->render('/site/error',[
+                'name'=>'name'
+            ]);
+        }
     }
 
     /**
@@ -103,18 +83,63 @@ class FaturaController extends Controller
      */
     public function actionCreate($id)
     {
-        $pedido=Pedido::findOne($id);
+        if (\Yii::$app->user->can('criarFaturas')) {
+            $erro = $this->ValidarPedido($id);
+
+            $fatura = Fatura::findOne(['id_pedido' => $id]);
+
+            if ($fatura != null) {
+
+                return $this->redirect(['view', 'id' => $fatura->id_pedido]);
+            }
+
+            if ($erro != null) {
+
+                Yii::$app->getSession()->setFlash('danger', [
+                    'type' => 'danger',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => $erro,
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+
+                return $this->redirect(['/pedidoproduto/index', 'id' => $id]);
+            }
+
 
         $fatura = new Fatura();
+        $fatura->id_pedido = $id;
+        $fatura->valor = PedidoProduto::find()->where(['id_pedido' => $id])->sum('preco');
 
-        $fatura->id_pedido=$pedido->id;
+        if ($fatura->load(Yii::$app->request->post()) && $fatura->save()) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            $pedido = Pedido::findOne($fatura->id_pedido);
+
+            $pedido->estado = 2;
+            $pedido->save();
+
+            Yii::$app->getSession()->setFlash('success', [
+                'type' => 'success',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Fatura criada com sucesso',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+
+            return $this->redirect(['view', 'id' => $fatura->id_pedido]);
         }
 
+    } else{
+            return $this->render('/site/error',[
+                'name'=>'name'
+            ]);
+        }
         return $this->render('create', [
-            'model' => $model,
+            'fatura' => $fatura,
         ]);
     }
 
@@ -127,15 +152,22 @@ class FaturaController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (\Yii::$app->user->can('atualizarFaturas')) {
+            $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        else{
+            return $this->render('/site/error',[
+                'name'=>'name'
+            ]);
+        }
     }
 
     /**
@@ -147,11 +179,58 @@ class FaturaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (Yii::$app->user->can('apagarFaturas')) {
 
-        return $this->redirect(['index']);
+            $fatura= $this->findModel($id);
+
+            $pedido=Pedido::findOne($fatura->id_pedido);
+
+            $pedido->estado=1;
+
+            $pedido->save();
+
+            $fatura->delete();
+
+            Yii::$app->getSession()->setFlash('success', [
+                'type' => 'success',
+                'duration' => 5000,
+                'icon' => 'fas fa-tags',
+                'message' => 'Fatura apagada com sucesso',
+                'title' => 'ALERTA',
+                'positonX' => 'right',
+                'positonY' => 'top'
+            ]);
+
+            return $this->redirect(['/pedidoproduto/index','id'=>$pedido->id]);
+        }else{
+
+            return $this->render('site/error');
+        }
     }
 
+
+    public function ValidarPedido($id){
+
+        $itemsNaoConcluidos=PedidoProduto::findAll(['id_pedido'=>$id , 'estado'=>[0,1]]);
+        $todosItems=PedidoProduto::findAll(['id_pedido'=>$id]);
+
+        if($todosItems!=null){
+
+            if($itemsNaoConcluidos!=null){
+
+                $erro="Não é possivel concluir o pedido e processar a respeticva fatura, com produtos em processo ou em preparação";
+
+            }else{
+                $erro=null;
+            }
+
+        }else{
+
+            $erro="O pedido encontrase vazio";
+        }
+
+        return $erro;
+    }
     /**
      * Finds the Fatura model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

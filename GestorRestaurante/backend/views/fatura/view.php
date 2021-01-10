@@ -85,15 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;*/
         <div class="row">
             <!-- accepted payments column -->
             <div class="col-6">
-                <p class="lead">Métodos de Pagamento:</p>
-                <?= Html::img('@web/img/pagamento/visa.png', ['alt' => 'Visa']); ?>
-                <?= Html::img('@web/img/pagamento/mastercard.png', ['alt' => 'Mastercard']); ?>
-                <?= Html::img('@web/img/pagamento/american-express.png', ['alt' => 'American Express']); ?>
-                <?= Html::img('@web/img/pagamento/paypal2.png', ['alt' => 'Paypal']); ?>
 
-                <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-                    Não se encontra disponivel
-                </p>
             </div>
             <!-- /.col -->
             <div class="col-6">

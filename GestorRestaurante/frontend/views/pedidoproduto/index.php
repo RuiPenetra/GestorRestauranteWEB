@@ -112,16 +112,16 @@ $id = Yii::$app->user->identity->id;
         </div>
       </div>',['pedidoproduto/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
                                 <?= Html::a('<div class="col-md-1">
-        <!-- small card -->
-        <div class="small-box bg-gradient-success p-3" style="width: 250px">
-            <div class="inner">
-                <h4><b>Terminar</b></h4>
-            </div>
-            <div class="icon">
-                <i class="fas fa-check"></i>
-            </div>
-        </div>
-      </div>',['fatura/index', 'id' => $pedido->id], [ 'class'=>'']) ?>
+                                    <!-- small card -->
+                                    <div class="small-box bg-gradient-success p-3" style="width: 250px">
+                                        <div class="inner">
+                                            <h4><b>Terminar</b></h4>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="fas fa-check"></i>
+                                        </div>
+                                    </div>
+                                  </div>',['fatura/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
                             <?php else:?>
                                 <?= Html::a('<div class="col-md-1">
                                     <!-- small card -->

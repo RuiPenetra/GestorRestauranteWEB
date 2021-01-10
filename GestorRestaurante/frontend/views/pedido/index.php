@@ -66,7 +66,7 @@ $id = Yii::$app->user->identity->id;
                 <thead>
                 <tr>
                     <th style="width: 20%">
-                        ID Cliente
+                        Pedido
                     </th>
                     <th style="width: 30%">
                         Tipo
@@ -86,7 +86,7 @@ $id = Yii::$app->user->identity->id;
                     <tr>
                         <td>
                             <a>
-                                <?= $pedido->id_perfil ?>
+                                Ref: <?= $pedido->id ?>
                             </a>
                             <br>
                             <small>
@@ -196,7 +196,7 @@ $id = Yii::$app->user->identity->id;
                                             </div>
                                         <?php elseif($pedido->estado==1):?>
                                             <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
-                                            <?= Html::a('<i class="fas fa-cart-plus"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-success btn-sm']) ?>
+
                                         <?php else:?>
                                             <?= Html::a('<i class="fas fa-eye"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-info btn-sm']) ?>
                                         <?php endif;?>

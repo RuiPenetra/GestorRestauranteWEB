@@ -33,7 +33,7 @@ class PedidoController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','create','delete'],
+                        'actions' => ['index','create','delete','update'],
                         'allow' => true,
                         'roles' => ['cliente'],
                     ],
@@ -46,13 +46,9 @@ class PedidoController extends Controller
                     [
                         'actions' => ['index','view'],
                         'allow' => true,
-                        'roles' => ['cozinheiro'],
+                        'roles' => ['cozinheiro','empregadoMesa'],
                     ],
-                    [
-                        'actions' => ['index','view'],
-                        'allow' => true,
-                        'roles' => ['empregadoMesa'],
-                    ],
+
                 ],
             ],
             'verbs' => [
@@ -119,23 +115,26 @@ class PedidoController extends Controller
      */
     public function actionCreate($tipo)
     {
-        $id_user = Yii::$app->user->identity->getId();
-        $perfil = Perfil::findOne($id_user);
+        if (\Yii::$app->user->can('criarTakeaway') || \Yii::$app->user->can('criarPedidos')){
 
-        $checkpedido = Pedido::find()->where(['id_perfil'=>$id_user])->andWhere(['estado'=>[0,1]])->all();
-        if ($perfil->cargo == 'cliente' && $checkpedido!=null) {
+            $id_user = Yii::$app->user->identity->getId();
+            $perfil = Perfil::findOne($id_user);
 
-            Yii::$app->getSession()->setFlash('danger', [
-                'type' => 'danger',
-                'duration' => 5000,
-                'icon' => 'fas fa-tags',
-                'message' => 'Não é possivel criar novo pedido com 1 pedido enquanto existir pedidos a decorrer',
-                'title' => 'ALERTA',
-                'positonX' => 'right',
-                'positonY' => 'top'
-            ]);
-            return $this->redirect(['index']);
-        }else{
+            $checkpedido = Pedido::find()->where(['id_perfil' => $id_user])->andWhere(['estado' => [0, 1]])->all();
+            if ($perfil->cargo == 'cliente' && $checkpedido != null) {
+
+                Yii::$app->getSession()->setFlash('danger', [
+                    'type' => 'danger',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Não é possivel criar novo pedido com 1 pedido enquanto existir pedidos a decorrer',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+                return $this->redirect(['index']);
+
+            } else {
 
                 $searchMesa = new MesaSearch();
                 $searchMesa->estado = 2;
@@ -184,6 +183,14 @@ class PedidoController extends Controller
                     'dataProviderUser' => $dataProviderUser
                 ]);
             }
+        }
+        else{
+                return $this->render('/site/error',[
+                    'name'=>'name'
+                ]);
+            }
+
+
     }
 
 
@@ -197,15 +204,22 @@ class PedidoController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (\Yii::$app->user->can('atualizarTakeaway') || \Yii::$app->user->can('atualizarPedidos')) {
+            $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->id]);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['index', 'id' => $model->id]);
+            }
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        else{
+            return $this->render('/site/error',[
+                'name'=>'name'
+            ]);
+        }
     }
 
     /**
@@ -217,34 +231,40 @@ class PedidoController extends Controller
      */
     public function actionDelete($id)
     {
+        if (\Yii::$app->user->can('apagarTakeaway') || \Yii::$app->user->can('apagarPedidos')) {
+            $pedido = Pedido::findOne($id);
+            if ($pedido->estado == 0) {
 
-        $pedido=Pedido::findOne($id);
-        if($pedido->estado==0) {
 
+                PedidoProduto::deleteAll(['id_pedido' => $id]);
 
-            PedidoProduto::deleteAll(['id_pedido' => $id]);
-
-            $pedido->delete();
-            Yii::$app->getSession()->setFlash('success', [
-                'type' => 'success',
-                'duration' => 5000,
-                'icon' => 'fas fa-tags',
-                'message' => 'Pedido apagado com sucesso',
-                'title' => 'ALERTA',
-                'positonX' => 'right',
-                'positonY' => 'top'
-            ]);
+                $pedido->delete();
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Pedido apagado com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+            } else {
+                Yii::$app->getSession()->setFlash('danger', [
+                    'type' => 'danger',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Não é possivel apagar o pedido pois encontra-se em preparação/concluido',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+            }
         }else{
-            Yii::$app->getSession()->setFlash('danger', [
-                'type' => 'danger',
-                'duration' => 5000,
-                'icon' => 'fas fa-tags',
-                'message' => 'Não é possivel apagar o pedido pois encontra-se em preparação/concluido',
-                'title' => 'ALERTA',
-                'positonX' => 'right',
-                'positonY' => 'top'
+            return $this->render('/site/error',[
+                'name'=>'name'
             ]);
-        }
+            }
+
 
 
         return $this->redirect(['index']);

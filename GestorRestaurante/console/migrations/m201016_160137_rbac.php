@@ -551,6 +551,10 @@ class m201016_160137_rbac extends Migration
 
             //# FATURAS #
             $auth->addChild($cliente, $consultarFaturas);
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
         //TODO: ATRUBUIR PREMISSÕES AO ADMIN ( GERENTE )
 

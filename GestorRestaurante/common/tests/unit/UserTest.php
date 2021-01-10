@@ -109,7 +109,7 @@ class UserTest extends \Codeception\Test\Unit
         $perfil->setDatanascimento(null);
         $this->assertFalse($perfil->validate(['datanascimento']));
 
-        $perfil->setDatanascimento('02-07-2000');
+        $perfil->setDatanascimento('2000-07-02');
         $this->assertTrue($perfil->validate(['datanascimento']));
 
         //TODO: VALIDAR ----> MORADA [ STRING ]
@@ -238,7 +238,7 @@ class UserTest extends \Codeception\Test\Unit
         $perfil->setApelido('Jorge');
         $perfil->setMorada('Rua do tasco nº2 Leiria');
         $perfil->setNacionalidade('Portuguesa');
-        $perfil->setDatanascimento(Yii::$app->formatter->asDate('02-07-2000'));
+        $perfil->setDatanascimento('2000-07-02');
         $perfil->setCodigopostal('2340-430');
         $perfil->setTelemovel('+351939295049');
         $perfil->setGenero(0);

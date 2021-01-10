@@ -148,14 +148,14 @@ class ProdutoTest extends \Codeception\Test\Unit
 
         $produto= new Produto();
 
-        $produto->nome='Mão de vaca';
+        $produto->nome='Mao de vaca';
         $produto->ingredientes='carne vaca, batata';
         $produto->preco=17.89;
         $produto->estado=0;
         $produto->id_categoria=$this->ID_CATEGORIA;
         $produto->save();
 
-        $this->tester->seeInDatabase('produto', ['nome' => 'Mão de vaca', 'preco' => 17.89, 'estado' => '0']);
+        $this->tester->seeInDatabase('produto', ['nome' => 'Mao de vaca', 'preco' => 17.89, 'estado' => '0']);
 
     }
 

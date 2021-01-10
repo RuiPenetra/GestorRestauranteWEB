@@ -187,7 +187,7 @@ class PedidoTest extends \Codeception\Test\Unit
         $pedido=new Pedido();
 
         $pedido->scenario='scenariotakeaway';
-        $pedido->data='20-01-2021 14:34';
+        $pedido->data='2021-01-20 14:34';
         $pedido->tipo=1;
         $pedido->estado=0;
         $pedido->nome_pedido='Alberto Silva';
@@ -195,7 +195,7 @@ class PedidoTest extends \Codeception\Test\Unit
         $pedido->nota='Bacalhau sem alface';
         $pedido->save();
 
-        $this->tester->seeInDatabase('pedido', ['nome_pedido' => 'Alberto Silva', 'data' => '20-01-2021 14:34', 'estado' => 0, 'tipo' => 1]);
+        $this->tester->seeInDatabase('pedido', ['nome_pedido' => 'Alberto Silva', 'data' => '2021-01-20 14:34', 'estado' => 0, 'tipo' => 1]);
 
     }
 
@@ -228,7 +228,7 @@ class PedidoTest extends \Codeception\Test\Unit
         $pedido=new Pedido();
 
         $pedido->scenario='scenariorestaurante';
-        $pedido->data='20-01-2021 14:34';
+        $pedido->data='2021-01-20 14:34';
         $pedido->tipo=0;
         $pedido->estado=0;
         $pedido->id_mesa=$this->ID_MESA;
@@ -236,7 +236,7 @@ class PedidoTest extends \Codeception\Test\Unit
         $pedido->nota='Bitoque sem alface';
         $pedido->save();
 
-        $this->tester->seeInDatabase('pedido', ['id_mesa' => $this->ID_MESA,'id_perfil' => $this->ID_USER ,'data' => '20-01-2021 14:34', 'estado' => 0, 'tipo' => 0]);
+        $this->tester->seeInDatabase('pedido', ['id_mesa' => $this->ID_MESA,'id_perfil' => $this->ID_USER ,'data' => '2021-01-20 14:34', 'estado' => 0, 'tipo' => 0]);
     }
 
     public function testUpdatePedidoRestaurante(){

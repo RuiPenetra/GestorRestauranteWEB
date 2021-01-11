@@ -148,6 +148,15 @@ class ReservaController extends Controller
             $reserva->id_funcionario = $id_user;
 
             if ($reserva->load(Yii::$app->request->post()) && $reserva->save()) {
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Reserva atualizada com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
                 return $this->redirect(['index', 'id' => $reserva->id]);
             }
 

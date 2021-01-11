@@ -200,6 +200,7 @@ class SiteController extends Controller
         $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
         $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = ['pageSize' => 8];
         if (Yii::$app->user->isGuest) {
             $this->layout = 'main_principal';
             return $this->render('menu', [
@@ -227,10 +228,33 @@ class SiteController extends Controller
         $model = new SignupForm();
         $model->cargo='cliente';
 
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+        if ($model->load(Yii::$app->request->post()) ) {
+            if($model->signup()) {
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Registo feito com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+                return $this->goHome();
+            }
+            else{
+
+                Yii::$app->getSession()->setFlash('danger', [
+                    'type' => 'danger',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Erro no Registo',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+            }
         }
+
 
         $this->layout = "main_principal";
         return $this->render('signup', [

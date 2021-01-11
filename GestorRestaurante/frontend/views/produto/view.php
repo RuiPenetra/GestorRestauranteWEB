@@ -97,6 +97,17 @@ $this->title ="Produto: ".$produto->nome;
                                     <th>Ingredientes</th><td><?=$produto->ingredientes?></td>
 
                                 </tr>
+                                <tr>
+                                    <th>Estado</th>
+                                <td>
+                                    <?php if ($produto->estado==0):?>
+                                        <span class="badge badge-success text-white">Disponivel</span>
+                                    <?php else:?>
+                                        <span class="badge badge-danger text-white">Indisponivel</span>
+                                    <?php endif;?>
+                                </td>
+
+                                </tr>
                             </tbody>
                         </table>
 
@@ -105,7 +116,11 @@ $this->title ="Produto: ".$produto->nome;
                             <?=Html::a('<i class="fas fa-edit"></i> Atualizar', ['produto/update', 'id' => $produto->id], ['class' => 'btn btn-warning btn-sm']) ?>
                             <?php endif?>
                             <?php if (\Yii::$app->user->can('apagarProdutos')):?>
-                            <?=Html::a('<i class="fas fa-trash"></i> Apagar', ['produto/delete', 'id' => $produto->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarMesa'.$produto->id]) ?>
+                            <?php if($produto->estado==0):?>
+                            <?=Html::a('<i class="fas fa-trash"></i> Desativar', ['produto/delete', 'id' => $produto->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarMesa'.$produto->id]) ?>
+                                <?php else:?>
+                            <?=Html::a('<i class="fas fa-trash-restore-alt"></i> Ativar', ['produto/delete', 'id' => $produto->id], ['class' => 'btn btn-success btn-sm','data' => ['method' => 'post']]) ?>
+                            <?php endif?>
                             <?php endif?>
                         <div class="modal fade"  id="apagarMesa<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">

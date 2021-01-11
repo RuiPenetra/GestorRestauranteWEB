@@ -62,7 +62,7 @@ class ProdutoController extends Controller
         $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
         $searchModel = new ProdutoSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->pagination = ['pageSize' => 10];
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -106,15 +106,25 @@ class ProdutoController extends Controller
     public function actionCreate()
     {
         if (\Yii::$app->user->can('criarProdutos')) {
-            $model = new Produto();
-            $model->estado = 0;
+            $produto = new Produto();
+            $produto->estado = 0;
             $categorias = ArrayHelper::map(CategoriaProduto::find()->all(), 'id', 'nome');
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+
+            if ($produto->load(Yii::$app->request->post()) && $produto->save()) {
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Produto criado com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+                return $this->redirect(['view', 'id' => $produto->id]);
             }
 
             return $this->render('create', [
-                'model' => $model,
+                'produto' => $produto,
                 'categorias' => $categorias
             ]);
         }
@@ -135,15 +145,24 @@ class ProdutoController extends Controller
     public function actionUpdate($id)
     {
         if (\Yii::$app->user->can('atualizarProdutos')) {
-            $model = $this->findModel($id);
+            $produto = $this->findModel($id);
             $categorias = ArrayHelper::map(CategoriaProduto::find()->all(), 'id', 'nome');
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($produto->load(Yii::$app->request->post()) && $produto->save()) {
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Produto Atualizado com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+                return $this->redirect(['view', 'id' => $produto->id]);
             }
 
             return $this->render('update', [
-                'model' => $model,
+                'produto' => $produto,
                 'categorias' => $categorias
             ]);
         }
@@ -165,9 +184,33 @@ class ProdutoController extends Controller
     {
         if (\Yii::$app->user->can('apagarProdutos')) {
             $model = $this->findModel($id);
-            $model->estado = 1;
+            if($model->estado==0){
+                $model->estado=1;
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Produto indisponivel com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+            }
+            else{
+                $model->estado=0;
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Produto disponivel com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+            }
             $model->save();
-            return $this->redirect(['index']);
+
+            return $this->redirect(['view','id'=>$model->id]);
         }else{
             return $this->render('/site/error',[
                 'name'=>'name'

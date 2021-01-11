@@ -153,14 +153,14 @@ class FaturaController extends Controller
     public function actionUpdate($id)
     {
         if (\Yii::$app->user->can('atualizarFaturas')) {
-            $model = $this->findModel($id);
+            $fatura = $this->findModel($id);
 
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($fatura->load(Yii::$app->request->post()) && $fatura->save()) {
+                return $this->redirect(['view', 'id' => $fatura->id_pedido]);
             }
 
             return $this->render('update', [
-                'model' => $model,
+                'fatura' => $fatura,
             ]);
         }
         else{

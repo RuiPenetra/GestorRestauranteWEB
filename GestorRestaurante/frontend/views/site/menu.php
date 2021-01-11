@@ -98,6 +98,14 @@ $this->title = 'Gestor Restaurante';
                 <?php endif?>
                 <?php endforeach;?>
             </div>
+            <div class="d-flex justify-content-center">
+            <?= LinkPager::widget([
+                'pagination' => $dataProvider->getPagination(),
+                'options' => [
+                    'class' => 'page-item',
+                ],
+            ]);?>
+            </div>
         </div>
 
     </div>

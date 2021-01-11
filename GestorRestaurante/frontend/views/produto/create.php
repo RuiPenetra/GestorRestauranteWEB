@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Produto */
 
-$this->title = 'Create Produto';
+$this->title = 'Criar Produto';
 $this->params['breadcrumbs'][] = ['label' => 'Produtos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -35,27 +35,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="col-md-5">
                     <div class="input-group mb-3 col-md-8">
-                        <div class="input-group-append rounded-left">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
                         </div>
-                        <?= $form->field($model, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
+                        <?= $form->field($produto, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
                     </div>
                     <div class="input-group mb-3 col-md-8">
-                        <?= $form->field($model, 'preco', ['options' => ['tag' => 'input',  'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Preço",  'type'=>'number', 'step' => '0.01', 'autofocus' => true])->label(false) ?>
+                        <?= $form->field($produto, 'preco', ['options' => ['tag' => 'input',  'style' => 'display: none; ']])->textInput(['class'=>'form-control rounded-left' ,'min'=>0, 'placeholder' => "Preço",  'type'=>'number', 'step' => '0.01', 'autofocus' => true])->label(false) ?>
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
+                            <span class="input-group-text rounded-right"><i class="fas fa-euro-sign"></i></span>
                         </div>
                     </div>
                     <div class="input-group mb-3 col-md-8">
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <span class="input-group-text rounded-left"><i class="fas fa-tag"></i></span>
                         </div>
-                        <?=$form->field($model,'id_categoria')->dropDownList($categorias)->label(false);?>
+                        <?=$form->field($produto,'id_categoria')->dropDownList($categorias)->label(false);?>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="input-group mb-3">
-                        <?= $form->field($model, 'ingredientes')->textArea([ 'class'=>'col-12','maxlength' => 300, 'rows' => 3 , 'cols' => 40,'placeholder'=>'Ingredientes'])->label(false)?>
+                        <?= $form->field($produto, 'ingredientes')->textArea([ 'class'=>'col-12','maxlength' => 300, 'rows' => 3 , 'cols' => 40,'placeholder'=>'Ingredientes'])->label(false)?>
                     </div>
                     <div class="input-group mb-3">
                         <?= Html::submitButton('Criar', ['class' => 'btn login_btn col-md-4', 'name' => 'login-button']) ?>

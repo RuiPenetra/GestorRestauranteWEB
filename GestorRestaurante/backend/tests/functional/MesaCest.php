@@ -37,15 +37,5 @@ class MesaCest
     }
 
 
-/*    public function EditarMesaTest(FunctionalTester $I)
-    {
-        $I->wantTo('Create a table');
-        $I->see('.mesa-id');
-        $I->click('btn-mesa-edit','.a');
-        $I->amOnPage('?r=mesa%2Fupdate&id=50');
-        $I->fillField('Mesa[n_lugares]','8');
-        $I->click('mesa-button');
-    }*/
-
 
 }

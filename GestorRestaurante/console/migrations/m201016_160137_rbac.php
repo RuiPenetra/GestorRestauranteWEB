@@ -324,10 +324,10 @@ class m201016_160137_rbac extends Migration
             $auth->addChild($gerente, $apagarPerfis);
 
             //# CARGOS #
-            $auth->addChild($gerente, $criarCargos); //[ AINDA A VER SE IRA CRIAR]
+            $auth->addChild($gerente, $criarCargos);
             $auth->addChild($gerente, $consultarCargos);
             $auth->addChild($gerente, $atualizarCargos);
-            $auth->addChild($gerente, $apagarCargos); //[ AINDA A VER SE IRA CRIAR]
+            $auth->addChild($gerente, $apagarCargos);
 
             //# PEDIDOS #
             $auth->addChild($gerente, $criarPedidos);

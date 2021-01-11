@@ -13,7 +13,7 @@ $this->title = 'Atualizar item';
 <?php $form = ActiveForm::begin(['class'=>'','validateOnBlur'=>false])?>
 
 <div class="row col-12 d-flex justify-content-center">
-    <div class="row col-4">
+    <div class="row col-6">
         <div class="col-4 col-md-3 text-center">
             <?php if ($itemPedido->produto->categoria->nome == 'Entrada'): ?>
                 <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image','width'=>'100px','height'=>'100px']); ?>
@@ -83,19 +83,19 @@ $this->title = 'Atualizar item';
             </table>
         </div>
     </div>
-    <div class="row col-4">
-        <div class="row col-md-6 d-flex justify-content-center">
+    <div class="row col-6">
+        <div class="row d-flex justify-content-center">
             <div class="row col-md-12 d-flex justify-content-center">
                 <label>Quantidade:</label>
             </div>
             <div class="row col-md-12 d-flex justify-content-center">
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <i class="fas fa-minus-circle fa-2x" style="color: red" onclick="quantDeincrement(<?=$itemPedido->id?>,<?=$itemPedido->produto->preco?>);"></i>
                 </div>
                 <div class="col-md-5 d-flex justify-content-center">
                     <?= $form->field($itemPedido, 'quant_Pedida')->textInput(['type'=>'text','value'=>$itemPedido->quant_Pedida,'class'=>' form-control w-75 rounded','id'=>'inputQuantidade'.$itemPedido->id, 'readonly'=>'true','oninput'=>'calcularPreco('.$itemPedido->id.','.$itemPedido->produto->preco.')', 'placeholder'=>'0'])->label(false) ?>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <i class="fas fa-plus-circle fa-2x" style="color: limegreen" onclick="quantIncrement(<?=$itemPedido->id?>,<?=$itemPedido->produto->preco?>);"></i>
                 </div>
             </div>

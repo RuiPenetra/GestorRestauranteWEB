@@ -107,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>-->
             <div class="row d-flex justify-content-center mt-5">
                 <div class="row col-md-12">
-                    <div class="col-md-7">
+                    <div class="col-md-5">
                         <div class="row col-md-12">
                             <?php if($pedido->estado!=2):?>
                                 <?= Html::a('<div class="col-md-2">
@@ -147,7 +147,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php endif;?>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-5">
                         <div class="row d-flex justify-content-end m-4">
                             <h1 id="val" class="mr-3">0,00</h1>
                             <i class="fas fa-euro-sign fa-3x" style="color: orange"></i>
@@ -174,11 +174,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <table class="table" id="table-item-pedido">
             <thead>
             <tr>
-                <th style="width: 60px" class="text-center"></th>
+                <th style="width: 50px" class="text-center"></th>
                 <th class="text-center">Nome Produto</th>
-                <th class="text-center">Quant Pedida</th>
-                <th class="text-center">Quant Preparação</th>
-                <th class="text-center">Quant Entregue</th>
+                <th class="text-center"  style="width: 50px">Quant Pedida</th>
+                <th class="text-center" style="width: 70px">Quant Preparação</th>
+                <th class="text-center" style="width: 70px">Quant Entregue</th>
                 <th class="text-center">Preço</th>
                 <th class="text-center">Estado</th>
                 <th class="text-center"></th>
@@ -189,7 +189,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <tr>
                     <td class="text-center">
                         <?php if ($itemPedido->produto->categoria->nome == 'Entrada'): ?>
-                            <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-fluid']); ?>
+                            <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-fluid', 'width'=>'50px']); ?>
                         <?php endif; ?>
                         <?php if ($itemPedido->produto->categoria->nome == 'Sopa'): ?>
                             <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-fluid']); ?>

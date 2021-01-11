@@ -1,37 +1,12 @@
--- phpMyAdmin SQL Dump
--- version 4.9.2
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Tempo de geração: 09-Jan-2021 às 20:48
--- Versão do servidor: 10.4.10-MariaDB
--- versão do PHP: 7.1.33
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Banco de dados: `bdgestorrestaurante`
---
-
--- --------------------------------------------------------
 
 --
 -- Estrutura da tabela `auth_assignment`
 --
 
 CREATE TABLE `auth_assignment` (
-                                   `item_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-                                   `user_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-                                   `created_at` int(11) DEFAULT NULL
+`item_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+`user_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+`created_at` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -52,13 +27,13 @@ INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 --
 
 CREATE TABLE `auth_item` (
-                             `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-                             `type` smallint(6) NOT NULL,
-                             `description` text COLLATE utf8_unicode_ci DEFAULT NULL,
-                             `rule_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
-                             `data` blob DEFAULT NULL,
-                             `created_at` int(11) DEFAULT NULL,
-                             `updated_at` int(11) DEFAULT NULL
+`name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+`type` smallint(6) NOT NULL,
+`description` text COLLATE utf8_unicode_ci DEFAULT NULL,
+`rule_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+`data` blob DEFAULT NULL,
+`created_at` int(11) DEFAULT NULL,
+`updated_at` int(11) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -66,63 +41,63 @@ CREATE TABLE `auth_item` (
 --
 
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
-('apagarCargos', 2, 'Apagar cargos', NULL, NULL, 1610217520, 1610217520),
-('apagarCategoriaProdutos', 2, 'Apagar Categoria Produtos', NULL, NULL, 1610217520, 1610217520),
-('apagarFaltas', 2, 'Apagar faltas', NULL, NULL, 1610217520, 1610217520),
-('apagarFaturas', 2, 'Apagar faturas', NULL, NULL, 1610217520, 1610217520),
-('apagarHorarios', 2, 'Apagar horarios', NULL, NULL, 1610217520, 1610217520),
-('apagarMesas', 2, 'Apagar Mesas', NULL, NULL, 1610217520, 1610217520),
-('apagarPedidoProduto', 2, 'Apagar Pedido Produto', NULL, NULL, 1610217520, 1610217520),
-('apagarPedidos', 2, 'Apagar pedidos', NULL, NULL, 1610217520, 1610217520),
-('apagarPerfis', 2, 'Apagar perfis', NULL, NULL, 1610217520, 1610217520),
-('apagarProdutos', 2, 'Apagar Produtos', NULL, NULL, 1610217520, 1610217520),
-('apagarReservas', 2, 'Apagar Reservas', NULL, NULL, 1610217520, 1610217520),
-('apagarTakeaway', 2, 'Apagar Takeaway', NULL, NULL, 1610217520, 1610217520),
-('apagarUtilizadores', 2, 'Apagar utilizadores', NULL, NULL, 1610217520, 1610217520),
-('atendedorPedidos', 1, NULL, NULL, NULL, 1610217520, 1610217520),
-('atualizarCargos', 2, 'Atualizar cargos', NULL, NULL, 1610217520, 1610217520),
-('atualizarCategoriaProdutos', 2, 'Atualizar Categoria Produtos', NULL, NULL, 1610217520, 1610217520),
-('atualizarFaltas', 2, 'Atualizar faltas', NULL, NULL, 1610217520, 1610217520),
-('atualizarFaturas', 2, 'Atualizar faturas', NULL, NULL, 1610217520, 1610217520),
-('atualizarHorarios', 2, 'Atualizar horarios', NULL, NULL, 1610217520, 1610217520),
-('atualizarMesas', 2, 'Atualizar Mesas', NULL, NULL, 1610217520, 1610217520),
-('atualizarPedidoProduto', 2, 'Atualizar Pedido Produto', NULL, NULL, 1610217520, 1610217520),
-('atualizarPedidos', 2, 'Atualizar pedidos', NULL, NULL, 1610217520, 1610217520),
-('atualizarPerfis', 2, 'Atualizar perfis', NULL, NULL, 1610217520, 1610217520),
-('atualizarProdutos', 2, 'Atualizar Produtos', NULL, NULL, 1610217520, 1610217520),
-('atualizarReservas', 2, 'Atualizar Reservas', NULL, NULL, 1610217520, 1610217520),
-('atualizarTakeaway', 2, 'Atualizar Takeaway', NULL, NULL, 1610217520, 1610217520),
-('atualizarUtilizadores', 2, 'Atualizar utilizadores', NULL, NULL, 1610217520, 1610217520),
-('cliente', 1, NULL, NULL, NULL, 1610217520, 1610217520),
-('consultarCargos', 2, 'Consultar cargos', NULL, NULL, 1610217520, 1610217520),
-('consultarCategoriaProdutos', 2, 'Consultar Categoria Produtos', NULL, NULL, 1610217520, 1610217520),
-('consultarFaltas', 2, 'Consultar faltas', NULL, NULL, 1610217520, 1610217520),
-('consultarFaturas', 2, 'Consultar Faturas', NULL, NULL, 1610217520, 1610217520),
-('consultarHorarios', 2, 'Consultar horarios', NULL, NULL, 1610217520, 1610217520),
-('consultarMesas', 2, 'Consultar Mesas', NULL, NULL, 1610217520, 1610217520),
-('consultarPedidoProduto', 2, 'Consultar Pedido Produto', NULL, NULL, 1610217520, 1610217520),
-('consultarPedidos', 2, 'Consultar pedidos', NULL, NULL, 1610217520, 1610217520),
-('consultarPerfis', 2, 'Consultar perfis', NULL, NULL, 1610217520, 1610217520),
-('consultarProdutos', 2, 'Consultar Produtos', NULL, NULL, 1610217520, 1610217520),
-('consultarReservas', 2, 'Consultar Reservas', NULL, NULL, 1610217520, 1610217520),
-('consultarTakeaway', 2, 'Consultar Takeaway', NULL, NULL, 1610217520, 1610217520),
-('consultarUtilizadores', 2, 'Consultar utilizadores', NULL, NULL, 1610217520, 1610217520),
-('cozinheiro', 1, NULL, NULL, NULL, 1610217520, 1610217520),
-('criarCargos', 2, 'Criar cargos', NULL, NULL, 1610217520, 1610217520),
-('criarCategoriaProdutos', 2, 'Criar Categoria Produtos', NULL, NULL, 1610217520, 1610217520),
-('criarFaltas', 2, 'Criar faltas', NULL, NULL, 1610217520, 1610217520),
-('criarFaturas', 2, 'Criar faturas', NULL, NULL, 1610217520, 1610217520),
-('criarHorarios', 2, 'Criar horarios', NULL, NULL, 1610217520, 1610217520),
-('criarMesas', 2, 'Criar Mesas', NULL, NULL, 1610217520, 1610217520),
-('criarPedidoProduto', 2, 'Criar Pedido Produto', NULL, NULL, 1610217520, 1610217520),
-('criarPedidos', 2, 'Criar pedidos', NULL, NULL, 1610217520, 1610217520),
-('criarPerfis', 2, 'Criar perfis', NULL, NULL, 1610217520, 1610217520),
-('criarProdutos', 2, 'Criar Produtos', NULL, NULL, 1610217520, 1610217520),
-('criarReservas', 2, 'Criar Reservas', NULL, NULL, 1610217520, 1610217520),
-('criarTakeaway', 2, 'Criar Takeaway', NULL, NULL, 1610217520, 1610217520),
-('criarUtilizadores', 2, 'Criar utilizadores', NULL, NULL, 1610217520, 1610217520),
-('empregadoMesa', 1, NULL, NULL, NULL, 1610217520, 1610217520),
-('gerente', 1, NULL, NULL, NULL, 1610217520, 1610217520);
+('apagarCargos', 2, 'Apagar cargos', NULL, NULL, 1610215839, 1610215839),
+('apagarCategoriaProdutos', 2, 'Apagar Categoria Produtos', NULL, NULL, 1610215839, 1610215839),
+('apagarFaltas', 2, 'Apagar faltas', NULL, NULL, 1610215839, 1610215839),
+('apagarFaturas', 2, 'Apagar faturas', NULL, NULL, 1610215839, 1610215839),
+('apagarHorarios', 2, 'Apagar horarios', NULL, NULL, 1610215839, 1610215839),
+('apagarMesas', 2, 'Apagar Mesas', NULL, NULL, 1610215839, 1610215839),
+('apagarPedidoProduto', 2, 'Apagar Pedido Produto', NULL, NULL, 1610215839, 1610215839),
+('apagarPedidos', 2, 'Apagar pedidos', NULL, NULL, 1610215839, 1610215839),
+('apagarPerfis', 2, 'Apagar perfis', NULL, NULL, 1610215839, 1610215839),
+('apagarProdutos', 2, 'Apagar Produtos', NULL, NULL, 1610215839, 1610215839),
+('apagarReservas', 2, 'Apagar Reservas', NULL, NULL, 1610215839, 1610215839),
+('apagarTakeaway', 2, 'Apagar Takeaway', NULL, NULL, 1610215839, 1610215839),
+('apagarUtilizadores', 2, 'Apagar utilizadores', NULL, NULL, 1610215839, 1610215839),
+('atendedorPedidos', 1, NULL, NULL, NULL, 1610215839, 1610215839),
+('atualizarCargos', 2, 'Atualizar cargos', NULL, NULL, 1610215839, 1610215839),
+('atualizarCategoriaProdutos', 2, 'Atualizar Categoria Produtos', NULL, NULL, 1610215839, 1610215839),
+('atualizarFaltas', 2, 'Atualizar faltas', NULL, NULL, 1610215839, 1610215839),
+('atualizarFaturas', 2, 'Atualizar faturas', NULL, NULL, 1610215839, 1610215839),
+('atualizarHorarios', 2, 'Atualizar horarios', NULL, NULL, 1610215839, 1610215839),
+('atualizarMesas', 2, 'Atualizar Mesas', NULL, NULL, 1610215839, 1610215839),
+('atualizarPedidoProduto', 2, 'Atualizar Pedido Produto', NULL, NULL, 1610215839, 1610215839),
+('atualizarPedidos', 2, 'Atualizar pedidos', NULL, NULL, 1610215839, 1610215839),
+('atualizarPerfis', 2, 'Atualizar perfis', NULL, NULL, 1610215839, 1610215839),
+('atualizarProdutos', 2, 'Atualizar Produtos', NULL, NULL, 1610215839, 1610215839),
+('atualizarReservas', 2, 'Atualizar Reservas', NULL, NULL, 1610215839, 1610215839),
+('atualizarTakeaway', 2, 'Atualizar Takeaway', NULL, NULL, 1610215839, 1610215839),
+('atualizarUtilizadores', 2, 'Atualizar utilizadores', NULL, NULL, 1610215839, 1610215839),
+('cliente', 1, NULL, NULL, NULL, 1610215839, 1610215839),
+('consultarCargos', 2, 'Consultar cargos', NULL, NULL, 1610215839, 1610215839),
+('consultarCategoriaProdutos', 2, 'Consultar Categoria Produtos', NULL, NULL, 1610215839, 1610215839),
+('consultarFaltas', 2, 'Consultar faltas', NULL, NULL, 1610215839, 1610215839),
+('consultarFaturas', 2, 'Consultar Faturas', NULL, NULL, 1610215839, 1610215839),
+('consultarHorarios', 2, 'Consultar horarios', NULL, NULL, 1610215839, 1610215839),
+('consultarMesas', 2, 'Consultar Mesas', NULL, NULL, 1610215839, 1610215839),
+('consultarPedidoProduto', 2, 'Consultar Pedido Produto', NULL, NULL, 1610215839, 1610215839),
+('consultarPedidos', 2, 'Consultar pedidos', NULL, NULL, 1610215839, 1610215839),
+('consultarPerfis', 2, 'Consultar perfis', NULL, NULL, 1610215839, 1610215839),
+('consultarProdutos', 2, 'Consultar Produtos', NULL, NULL, 1610215839, 1610215839),
+('consultarReservas', 2, 'Consultar Reservas', NULL, NULL, 1610215839, 1610215839),
+('consultarTakeaway', 2, 'Consultar Takeaway', NULL, NULL, 1610215839, 1610215839),
+('consultarUtilizadores', 2, 'Consultar utilizadores', NULL, NULL, 1610215839, 1610215839),
+('cozinheiro', 1, NULL, NULL, NULL, 1610215839, 1610215839),
+('criarCargos', 2, 'Criar cargos', NULL, NULL, 1610215839, 1610215839),
+('criarCategoriaProdutos', 2, 'Criar Categoria Produtos', NULL, NULL, 1610215839, 1610215839),
+('criarFaltas', 2, 'Criar faltas', NULL, NULL, 1610215839, 1610215839),
+('criarFaturas', 2, 'Criar faturas', NULL, NULL, 1610215839, 1610215839),
+('criarHorarios', 2, 'Criar horarios', NULL, NULL, 1610215839, 1610215839),
+('criarMesas', 2, 'Criar Mesas', NULL, NULL, 1610215839, 1610215839),
+('criarPedidoProduto', 2, 'Criar Pedido Produto', NULL, NULL, 1610215839, 1610215839),
+('criarPedidos', 2, 'Criar pedidos', NULL, NULL, 1610215839, 1610215839),
+('criarPerfis', 2, 'Criar perfis', NULL, NULL, 1610215839, 1610215839),
+('criarProdutos', 2, 'Criar Produtos', NULL, NULL, 1610215839, 1610215839),
+('criarReservas', 2, 'Criar Reservas', NULL, NULL, 1610215839, 1610215839),
+('criarTakeaway', 2, 'Criar Takeaway', NULL, NULL, 1610215839, 1610215839),
+('criarUtilizadores', 2, 'Criar utilizadores', NULL, NULL, 1610215839, 1610215839),
+('empregadoMesa', 1, NULL, NULL, NULL, 1610215839, 1610215839),
+('gerente', 1, NULL, NULL, NULL, 1610215839, 1610215839);
 
 -- --------------------------------------------------------
 
@@ -165,6 +140,7 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('atendedorPedidos', 'criarReservas'),
 ('cliente', 'apagarPedidoProduto'),
 ('cliente', 'apagarTakeaway'),
+('cliente', 'atualizarFaturas'),
 ('cliente', 'atualizarPedidoProduto'),
 ('cliente', 'atualizarPerfis'),
 ('cliente', 'atualizarTakeaway'),
@@ -174,6 +150,7 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('cliente', 'consultarPedidoProduto'),
 ('cliente', 'consultarProdutos'),
 ('cliente', 'consultarTakeaway'),
+('cliente', 'criarFaturas'),
 ('cliente', 'criarPedidoProduto'),
 ('cliente', 'criarTakeaway'),
 ('cozinheiro', 'apagarProdutos'),
@@ -401,7 +378,7 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m170907_052038_rbac_add_index_on_auth_assignment_user_id', 1604180500),
 ('m180523_151638_rbac_updates_indexes_without_prefix', 1604180500),
 ('m200409_110543_rbac_update_mssql_trigger', 1604180500),
-('m201016_160137_rbac', 1610217520);
+('m201016_160137_rbac', 1610215839);
 
 -- --------------------------------------------------------
 
@@ -425,7 +402,7 @@ CREATE TABLE `pedido` (
 --
 
 INSERT INTO `pedido` (`id`, `data`, `tipo`, `nome_pedido`, `nota`, `estado`, `id_mesa`, `id_perfil`) VALUES
-(1, '2021-01-13 13:05:00', 0, NULL, 'Pão sem trigo, Bitoque sem alface e cenoura', 0, 1, 2);
+(1, '2021-01-13 13:05:00', 0, NULL, NULL, 0, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -449,9 +426,7 @@ CREATE TABLE `pedido_produto` (
 --
 
 INSERT INTO `pedido_produto` (`id`, `id_pedido`, `id_produto`, `estado`, `quant_Pedida`, `quant_Entregue`, `quant_Preparacao`, `preco`) VALUES
-(1, 1, 1, 0, 4, 0, 0, '2.00'),
-(2, 1, 3, 0, 2, 0, 0, '9.00'),
-(3, 1, 4, 0, 1, 0, 0, '5.50');
+(1, 1, 1, 0, 2, 0, 0, '2.00');
 
 -- --------------------------------------------------------
 
@@ -506,7 +481,7 @@ INSERT INTO `produto` (`id`, `nome`, `ingredientes`, `preco`, `id_categoria`, `e
 (1, 'Pão', '', '1.00', 1, 0),
 (2, 'Paté de atum', '', '1.00', 1, 0),
 (3, 'Bitoque', '', '4.50', 3, 0),
-(4, 'Bacalhau com natas', '', '6.50', 4, 0),
+(4, 'Bacalhau com natas', '', '5.50', 4, 0),
 (5, 'Mousse de chocolate', '', '2.50', 5, 0),
 (6, 'Coca-cola', '', '1.20', 6, 0),
 (7, 'Sopa da pedra', '', '2.50', 2, 0);
@@ -714,7 +689,7 @@ ALTER TABLE `pedido`
 -- AUTO_INCREMENT de tabela `pedido_produto`
 --
 ALTER TABLE `pedido_produto`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `produto`
@@ -733,82 +708,4 @@ ALTER TABLE `reserva`
 --
 ALTER TABLE `user`
     MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- Restrições para despejos de tabelas
---
-
---
--- Limitadores para a tabela `auth_assignment`
---
-ALTER TABLE `auth_assignment`
-    ADD CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `auth_item`
---
-ALTER TABLE `auth_item`
-    ADD CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `auth_item_child`
---
-ALTER TABLE `auth_item_child`
-    ADD CONSTRAINT `auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
-    ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `falta`
---
-ALTER TABLE `falta`
-    ADD CONSTRAINT `FaltaPerfil` FOREIGN KEY (`id_funcionario`) REFERENCES `perfil` (`id_user`);
-
---
--- Limitadores para a tabela `fatura`
---
-ALTER TABLE `fatura`
-    ADD CONSTRAINT `FK_114` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id`);
-
---
--- Limitadores para a tabela `horario`
---
-ALTER TABLE `horario`
-    ADD CONSTRAINT `PerfilHorario` FOREIGN KEY (`id_funcionario`) REFERENCES `perfil` (`id_user`);
-
---
--- Limitadores para a tabela `pedido`
---
-ALTER TABLE `pedido`
-    ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id_user`),
-    ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`);
-
---
--- Limitadores para a tabela `pedido_produto`
---
-ALTER TABLE `pedido_produto`
-    ADD CONSTRAINT `pedido_produto_ibfk_1` FOREIGN KEY (`id_produto`) REFERENCES `produto` (`id`),
-    ADD CONSTRAINT `pedido_produto_ibfk_2` FOREIGN KEY (`id_pedido`) REFERENCES `pedido` (`id`);
-
---
--- Limitadores para a tabela `perfil`
---
-ALTER TABLE `perfil`
-    ADD CONSTRAINT `perfil_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
-
---
--- Limitadores para a tabela `produto`
---
-ALTER TABLE `produto`
-    ADD CONSTRAINT `produto_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_produto` (`id`);
-
---
--- Limitadores para a tabela `reserva`
---
-ALTER TABLE `reserva`
-    ADD CONSTRAINT `PerfilReserva` FOREIGN KEY (`id_funcionario`) REFERENCES `perfil` (`id_user`),
-    ADD CONSTRAINT `ReservaMesa` FOREIGN KEY (`id_mesa`) REFERENCES `mesa` (`id`);
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

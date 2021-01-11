@@ -149,8 +149,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </td>
                                         <td class="text-center">
                                             <?php if($user->user->status!=9){?>
+                                                <?php if($user->cargo=='atendedorPedidos' ||$user->cargo=='gerente'):?>
                                                 <?= $form->field($reserva, 'id_funcionario')->radio(['class'=>'','uncheck'=>null,'value' => $user->id_user,'label'=>'Selecionar'])?>
-                                            <?php }?>
+                                                <?php endif?>
+                                                    <?php }?>
                                         </td>
                                     </tr>
                                 <?php endforeach;?>

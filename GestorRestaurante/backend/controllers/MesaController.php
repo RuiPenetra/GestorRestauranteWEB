@@ -135,12 +135,44 @@ class MesaController extends Controller
             $mesa = Mesa::findOne($id);
             $reserva = Reserva::findOne(['id_mesa'=>$mesa->id]);
 
-            if ($mesa->estado != 2 || $reserva != null) {
+            if ($mesa->estado == 1 || $reserva != null) {
                 Yii::$app->getSession()->setFlash('danger', [
                     'type' => 'danger',
                     'duration' => 5000,
                     'icon' => 'fas fa-times',
-                    'message' => 'Impossivel excluir a mesa, encontra se Reservada ou Ocupada',
+                    'message' => 'Impossivel excluir a mesa, encontra-se ocupada ou tem uma reserva associada',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+                return $this->redirect(['index']);
+
+
+            }
+            if ($mesa->estado == 2 ) {
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-check',
+                    'message' => 'Mesa inativada com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+
+                $mesa->estado=3;
+                $mesa->save();
+
+                return $this->redirect(['index']);
+
+            }else{
+                $mesa->estado=2;
+                $mesa->save();
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-check',
+                    'message' => 'Mesa ativada com sucesso',
                     'title' => 'ALERTA',
                     'positonX' => 'right',
                     'positonY' => 'top'
@@ -149,18 +181,6 @@ class MesaController extends Controller
 
             }
 
-            Yii::$app->getSession()->setFlash('success', [
-                'type' => 'success',
-                'duration' => 5000,
-                'icon' => 'fas fa-check',
-                'message' => 'Mesa excluida com sucesso',
-                'title' => 'ALERTA',
-                'positonX' => 'right',
-                'positonY' => 'top'
-            ]);
-            $mesa->delete();
-
-            return $this->redirect(['index']);
 
         }else{
 

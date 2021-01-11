@@ -24,7 +24,8 @@ use yii\widgets\ActiveForm;
         <?=$form->field($model,'id_categoria')->dropDownList($categorias,['class'=>'form-control rounded','prompt' => '---Categoria---'])->label(false);?>
     </div>
     <div class="col-md-3">
-        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('<i class="fas fa-search"></i>', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('<i class="fas fa-trash-alt"></i>', ['class' => 'btn btn-dark']) ?>
     </div>
 </div>
 <?php ActiveForm::end(); ?>

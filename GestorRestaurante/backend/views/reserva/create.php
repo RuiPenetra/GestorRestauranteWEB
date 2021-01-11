@@ -64,10 +64,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <?php if($mesa->estado==2):?>
                                                 <td class="text-center"><span class="badge bg-success">Livre</span></td>
                                             <?php endif;?>
+                                            <?php if($mesa->estado==3):?>
+                                                <td class="text-center"><span class="badge bg-danger">Inativa</span></td>
+                                            <?php endif;?>
                                             <td>
+                                                <?php if($mesa->estado!=3):?>
                                                 <div style="height: 15px">
                                                     <?= $form->field($reserva, 'id_mesa')->radio(['class'=>'','uncheck'=>null,'value' => $mesa->id,'label'=>'Selecionar'])?>
                                                 </div>
+                                                <?php endif;?>
                                             </td>
                                         </tr>
                                     <?php endforeach;?>

@@ -17,8 +17,8 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'nome')->textInput(['class'=>'form-control rounded', 'placeholder'=>'Nome'])->label(false) ?>
     </div>
     <div class="col-md-4">
-        <?= Html::submitButton('Procurar', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Limpar', ['class' => 'btn btn-outline-secondary','name'=>'searchCategoria-button']) ?>
+        <?= Html::submitButton('<i class="fas fa-search"></i>', ['class' => 'btn btn-primary','name'=>'searchCategoria-button']) ?>
+        <?= Html::resetButton('<i class="fas fa-trash-alt"></i>', ['class' => 'btn btn-dark']) ?>
     </div>
 </div>
 <?php ActiveForm::end(); ?>

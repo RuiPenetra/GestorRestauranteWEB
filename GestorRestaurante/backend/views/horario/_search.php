@@ -33,8 +33,8 @@ use yii\widgets\ActiveForm;
         </div>
         </div>
         <div class="col-md-3">
-                <?= Html::submitButton('<i class="fas fa-search"></i>', ['class' => 'btn btn-primary']) ?>
-                <?= Html::resetButton('<i class="fas fa-trash"></i>', ['class' => 'btn btn-outline-secondary']) ?>
+            <?= Html::submitButton('<i class="fas fa-search"></i>', ['class' => 'btn btn-primary']) ?>
+            <?= Html::resetButton('<i class="fas fa-trash-alt"></i>', ['class' => 'btn btn-dark']) ?>
         </div>
 
     </div>

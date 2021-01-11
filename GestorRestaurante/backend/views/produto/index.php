@@ -92,23 +92,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                <?php endif;?>
                                             </div>
                                             <div class="col-12 text-right">
-                                                    <a href="" type="button" class="btn btn-info btn-sm" style="width: 40px;" data-toggle="modal" data-target="#viewProduto<?= $produto->id ?>">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                                <a href="<?= Url::toRoute(['produto/update', 'id' => $produto->id]) ?>" type="button" class="btn btn-warning btn-sm " style="width: 40px;">
-                                                   <i class="far fa-edit color-white"></i>
-                                                </a>
+                                                <?=Html::a('<i class="fas fa-eye"></i>', ['view'], ['class' => 'btn btn-info btn-sm','data-toggle'=>'modal', 'data-target'=>'#viewProduto'.$produto->id]) ?>
+                                                <?=Html::a('<i class="far fa-edit color-white"></i>', ['produto/update', 'id' => $produto->id], ['class' => 'btn btn-warning btn-sm']) ?>
                                                 <?php if ($produto->estado==0):?>
-                                                    <a href="" type="button" class="btn btn-danger btn-sm" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?= $produto->id ?>">
-                                                        <i class="far fa-trash-alt color-white"></i>
-                                                    </a>
+                                                    <?=Html::a('<i class="far fa-trash-alt color-white"></i>', ['delete'], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarProduto'.$produto->id]) ?>
                                                 <?php else:?>
-                                                    <a href="" type="button" class="btn btn-success btn-sm" style="width: 40px;" data-toggle="modal" data-target="#apagarProduto<?= $produto->id ?>">
-                                                        <i class="fas fa-trash-restore-alt"></i>
-                                                    </a>
+                                                    <?=Html::a('<i class="fas fa-trash-restore-alt"></i>', ['delete'], ['class' => 'btn btn-success btn-sm','data-toggle'=>'modal', 'data-target'=>'#reativarProduto'.$produto->id]) ?>
                                                 <?php endif;?>
                                             </div>
-
                                         </div>
                                     </div>
                                 </li>
@@ -224,18 +215,49 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="modal-dialog">
                                         <div class="modal-content mt-2" >
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash"></i> Tem a certeza que quer apagar?</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash"></i>Tem a certeza que quer indisponibilizar o produto selecionado?</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="row">
-                                                    Após apagar o produto selecionado não é possivel reverter.
+                                                    Após indisponibilizar o produto selecionado o produto passará a estar indisponivel para ser usado.
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" href="<?=Url::toRoute(['produto/delete', 'id' => $produto->id])?>" data-method="POST" class="btn btn-outline-success" data-dismiss="modal"><b>SIM</b></button>
+                                                <?= Html::a('<b>SIM</b>', ['delete', 'id' => $produto->id], [
+                                                    'class' => 'btn btn-outline-success',
+                                                    'data' => [
+                                                        'method' => 'post',
+                                                    ],
+                                                ]) ?>
+                                                <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal fade"  id="reativarProduto<?=$produto->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content mt-2" >
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-trash"></i> Tem a certeza que quer disponibilizar o produto selecionado?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    Após disponibilizar o produto selecionado o produto passará a estar disponivel para ser usado.
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <?= Html::a('<b>SIM</b>', ['delete', 'id' => $produto->id], [
+                                                    'class' => 'btn btn-outline-success',
+                                                    'data' => [
+                                                        'method' => 'post',
+                                                    ],
+                                                ]) ?>
                                                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal"><b>NÃO</b></button>
                                             </div>
                                         </div>

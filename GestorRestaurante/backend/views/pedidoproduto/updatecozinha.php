@@ -13,9 +13,9 @@ $this->title = 'Preparação';
 
 <?php $form = ActiveForm::begin(['class'=>'','validateOnBlur'=>false])?>
 
-<div class="row d-flex justify-content-center">
-    <div class="row col-5">
-        <div class="col-4 col-md-3 d-flex text-center">
+<div class="row col-12 d-flex justify-content-center">
+    <div class=" row col-6">
+        <div class="col-4 d-flex justify-content-center">
             <?php if ($itemPedido->produto->categoria->nome == 'Entrada'): ?>
                 <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image','width'=>'100px','height'=>'100px']); ?>
             <?php endif; ?>
@@ -38,7 +38,7 @@ $this->title = 'Preparação';
                 <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
             <?php endif; ?>
         </div>
-        <div class="col-6">
+        <div class="col-5">
             <table class="table table-striped table-bordered detail-view">
                 <thead>
                     <tr>
@@ -84,7 +84,7 @@ $this->title = 'Preparação';
             </table>
         </div>
     </div>
-    <div class="col-md-4 text-center d-inline-block">
+    <div class="col-md-6 text-center d-inline-block">
         <table class="table table-bordered">
             <thead>
             <tr>

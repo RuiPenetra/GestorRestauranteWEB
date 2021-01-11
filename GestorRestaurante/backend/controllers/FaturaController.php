@@ -99,9 +99,12 @@ class FaturaController extends Controller
                     $pedido->estado=2;
                     $pedido->save();
 
-                    $mesa=Mesa::findOne($pedido->id_mesa);
-                    $mesa->estado=1;
-                    $mesa->save();
+                    if($pedido->tipo!=1){
+
+                        $mesa=Mesa::findOne($pedido->id_mesa);
+                        $mesa->estado=1;
+                        $mesa->save();
+                    }
 
 
 
@@ -136,9 +139,12 @@ class FaturaController extends Controller
             if ($fatura->load(Yii::$app->request->post()) && $fatura->save()) {
 
                 $pedido=Pedido::findOne($fatura->id_pedido);
-                $mesa=Mesa::findOne($pedido->id_mesa);
-                $mesa->estado=2;
-                $mesa->save();
+                if($pedido->tipo!=1){
+
+                    $mesa=Mesa::findOne($pedido->id_mesa);
+                    $mesa->estado=1;
+                    $mesa->save();
+                }
 
                 return $this->redirect(['view', 'id' => $fatura->id_pedido]);
             }
@@ -160,9 +166,12 @@ class FaturaController extends Controller
 
            $pedido=Pedido::findOne($fatura->id_pedido);
 
-           $mesa=Mesa::findOne($pedido->id_mesa);
-           $mesa->estado=1;
-           $mesa->save();
+           if($pedido->tipo!=1){
+
+               $mesa=Mesa::findOne($pedido->id_mesa);
+               $mesa->estado=1;
+               $mesa->save();
+           }
 
            $pedido->estado=1;
 

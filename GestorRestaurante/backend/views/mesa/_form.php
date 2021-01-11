@@ -40,7 +40,7 @@ use yii\widgets\ActiveForm;
                     </div>
                     <div class="input-group mb-3 col-md-8">
                         <div class="input-group-append">
-                            <span class="input-group-text rounded-left"><i class="fas fa-euro-sign"></i></span>
+                            <span class="input-group-text rounded-left"><i class="fas fa-users"></i></span>
                         </div>
                         <?= $form->field($model, 'n_lugares', ['options' => ['tag' => 'input',  'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nº Lugares",  'type'=>'number', 'min'=>'0', 'autofocus' => true])->label(false) ?>
                     </div>

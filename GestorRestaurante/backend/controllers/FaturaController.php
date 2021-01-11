@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\Mesa;
 use common\models\Pedido;
 use common\models\PedidoProduto;
 use Yii;
@@ -95,9 +96,14 @@ class FaturaController extends Controller
                 if ($fatura->load(Yii::$app->request->post()) && $fatura->save()) {
 
                     $pedido=Pedido::findOne($fatura->id_pedido);
-
                     $pedido->estado=2;
                     $pedido->save();
+
+                    $mesa=Mesa::findOne($pedido->id_mesa);
+                    $mesa->estado=1;
+                    $mesa->save();
+
+
 
                     Yii::$app->getSession()->setFlash('success', [
                         'type' => 'success',
@@ -128,6 +134,12 @@ class FaturaController extends Controller
             $fatura = $this->findModel($id);
 
             if ($fatura->load(Yii::$app->request->post()) && $fatura->save()) {
+
+                $pedido=Pedido::findOne($fatura->id_pedido);
+                $mesa=Mesa::findOne($pedido->id_mesa);
+                $mesa->estado=2;
+                $mesa->save();
+
                 return $this->redirect(['view', 'id' => $fatura->id_pedido]);
             }
 
@@ -147,6 +159,10 @@ class FaturaController extends Controller
            $fatura= $this->findModel($id);
 
            $pedido=Pedido::findOne($fatura->id_pedido);
+
+           $mesa=Mesa::findOne($pedido->id_mesa);
+           $mesa->estado=1;
+           $mesa->save();
 
            $pedido->estado=1;
 

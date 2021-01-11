@@ -2,8 +2,12 @@ actor: AcceptanceTester
 modules:
   enabled:
     - WebDriver:
-        url: http://localhost/GestorRestauranteWEB/GestorRestaurante/frontend/web
+        url: http://localhost/GestorRestauranteWEB/GestorRestaurante/frontend/web/index-test.php
         browser: chrome
         port: 9515
+    - Db:
+        dsn: 'mysql:host=localhost;dbname=bdgestorrestaurante_tests'
+        user: 'root'
+        password: ''
     - Yii2:
         part: init

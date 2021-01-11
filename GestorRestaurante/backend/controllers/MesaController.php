@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\Reserva;
 
 /**
  * MesaController implements the CRUD actions for Mesa model.
@@ -131,9 +132,10 @@ class MesaController extends Controller
     {
         if (Yii::$app->user->can('apagarMesas')) {
 
-            $mesa=Mesa::findOne($id);
+            $mesa = Mesa::findOne($id);
+            $reserva = Reserva::findOne(['id_mesa'=>$mesa->id]);
 
-            if($mesa->estado!=2){
+            if ($mesa->estado != 2 || $reserva != null) {
                 Yii::$app->getSession()->setFlash('danger', [
                     'type' => 'danger',
                     'duration' => 5000,
@@ -159,6 +161,7 @@ class MesaController extends Controller
             $mesa->delete();
 
             return $this->redirect(['index']);
+
         }else{
 
             return $this->render('site/error');

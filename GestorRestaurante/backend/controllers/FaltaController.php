@@ -153,7 +153,7 @@ class FaltaController extends Controller
                     'positonX' => 'right',
                     'positonY' => 'top'
                 ]);
-                return $this->redirect(['view', 'id' => $falta->id]);
+                return $this->redirect(['view', 'id' => $falta->id_funcionario]);
             }
 
             return $this->render('update', [
@@ -174,7 +174,6 @@ class FaltaController extends Controller
 
             $falta=Falta::findOne($id);
 
-            $falta->delete();
 
             if($falta->delete()==true){
 
@@ -182,7 +181,7 @@ class FaltaController extends Controller
                     'type' => 'success',
                     'duration' => 5000,
                     'icon' => 'fas fa-check-circle',
-                    'message' => 'Horario atualizado com sucesso',
+                    'message' => 'Falta apagada com sucesso',
                     'title' => 'Concluido',
                     'positonX' => 'right',
                     'positonY' => 'top'

@@ -482,7 +482,7 @@ INSERT INTO `produto` (`id`, `nome`, `ingredientes`, `preco`, `id_categoria`, `e
 (2, 'Paté de atum', '', '1.00', 1, 0),
 (3, 'Bitoque', '', '4.50', 3, 0),
 (4, 'Bacalhau com natas', '', '5.50', 4, 0),
-(5, 'Mousse de chocolate', '', '2.50', 5, 0),
+(5, 'Mousse de chocolate', '', '6.50', 5, 0),
 (6, 'Coca-cola', '', '1.20', 6, 0),
 (7, 'Sopa da pedra', '', '2.50', 2, 0);
 

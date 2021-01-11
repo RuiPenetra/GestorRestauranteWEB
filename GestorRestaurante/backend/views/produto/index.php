@@ -95,9 +95,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <?=Html::a('<i class="fas fa-eye"></i>', ['view'], ['class' => 'btn btn-info btn-sm','data-toggle'=>'modal', 'data-target'=>'#viewProduto'.$produto->id]) ?>
                                                 <?=Html::a('<i class="far fa-edit color-white"></i>', ['produto/update', 'id' => $produto->id], ['class' => 'btn btn-warning btn-sm']) ?>
                                                 <?php if ($produto->estado==0):?>
-                                                    <?=Html::a('<i class="far fa-trash-alt color-white"></i>', ['delete'], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarProduto'.$produto->id]) ?>
+                                                    <a href="" type="button" class="btn btn-danger btn-sm" style="width: 40px" data-toggle="modal" data-target="#apagarProduto<?=$produto->id?>">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </a>
                                                 <?php else:?>
-                                                    <?=Html::a('<i class="fas fa-trash-restore-alt"></i>', ['delete'], ['class' => 'btn btn-success btn-sm','data-toggle'=>'modal', 'data-target'=>'#reativarProduto'.$produto->id]) ?>
+                                                    <?=Html::a('<i class="fas fa-trash-restore-alt"></i>', ['produto/delete','id' => $produto->id], ['class' => 'btn btn-success btn-sm','data' => ['method' => 'post']]) ?>
                                                 <?php endif;?>
                                             </div>
                                         </div>

@@ -26,7 +26,7 @@ class ProdutoCest
     public function PesquisaPrecoTest(FunctionalTester $I)
     {
         $I->wantTo('Pesquisar produto por preco [ 6.50 ]');
-        $I->amOnPage('/index.php?r=produto%2Findex');
+        $I->amOnPage('?r=produto%2Findex');
         $I->see('Produtos');
         $I->fillField('ProdutoSearch[preco]','6.50');
         $I->click('Procurar');
@@ -36,13 +36,13 @@ class ProdutoCest
     public function DesativarProdutoTest(FunctionalTester $I)
     {
         $I->wantTo('Desativar produto [ Mousse de chocolate ]');
-        $I->amOnPage('/index.php?r=produto%2Findex');
+        $I->amOnPage('?r=produto%2Findex');
         $I->see('Produtos');
         $I->fillField('ProdutoSearch[nome]','Mousse de chocolate');
         $I->click('Procurar');
         $I->click(['class' => 'btn-danger']);
         $I->seeElement('.modal');
-        $I->see('Tem a certeza que quer apagar?');
+        $I->see('Tem a certeza que quer indisponibilizar o produto selecionado?');
         $I->click(['class' => 'btn-outline-success']);
     }
 }

@@ -20,22 +20,22 @@ $this->title = 'Preparação';
                 <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image','width'=>'100px','height'=>'100px']); ?>
             <?php endif; ?>
             <?php if ($itemPedido->produto->categoria->nome == 'Sopa'): ?>
-                <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-fluid','width'=>'100px']); ?>
+                <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'width'=>'100px','height'=>'100px']); ?>
             <?php endif; ?>
             <?php if ($itemPedido->produto->categoria->nome == 'Carne'): ?>
-                <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-fluid','width'=>'100px']); ?>
+                <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image','width'=>'100px','height'=>'100px']); ?>
             <?php endif; ?>
             <?php if ($itemPedido->produto->categoria->nome == 'Peixe'): ?>
-                <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-fluid','width'=>'150px']); ?>
+                <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'width'=>'100px','height'=>'100px']); ?>
             <?php endif; ?>
             <?php if ($itemPedido->produto->categoria->nome == 'Sobremesa'): ?>
-                <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-fluid','width'=>'100px']); ?>
+                <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image','width'=>'100px','height'=>'100px']); ?>
             <?php endif; ?>
             <?php if ($itemPedido->produto->categoria->nome == 'Bebida'): ?>
-                <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-fluid','width'=>'100px']); ?>
+                <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image','width'=>'100px','height'=>'100px']); ?>
             <?php endif; ?>
             <?php if ($itemPedido->produto->categoria->editavel == 1): ?>
-                <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
+                <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image','width'=>'100px','height'=>'100px']); ?>
             <?php endif; ?>
         </div>
         <div class="col-5">

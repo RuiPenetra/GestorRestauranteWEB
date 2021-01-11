@@ -21,25 +21,26 @@ $id = Yii::$app->user->identity->id;
             <div class="col-md-4">
                 <div class="card card-widget widget-user-2 p-0">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
-                <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
+                    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
                     <div class="widget-user-header bg-info">
-                <?php endif;?>
-                <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id) != null):?>
-                    <div class="widget-user-header bg-success">
-                <?php endif;?>
-                        <div class="widget-user-image">
-                            <?php if($pedido->perfil->genero==0):?>
-                                <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'img-circle elevation-2']); ?>
-                            <?php else:?>
-                                <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'img-circle elevation-2']); ?>
-                            <?php endif?>
+                        <?php endif;?>
+                        <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id) != null):?>
+                        <div class="widget-user-header bg-success">
+                            <?php endif;?>
+                            <div class="widget-user-image">
+                                <?php if($pedido->perfil->genero==0):?>
+                                    <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'img-circle elevation-2']); ?>
+                                <?php else:?>
+                                    <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'img-circle elevation-2']); ?>
+                                <?php endif?>
+                                
                         </div>
                         <!-- /.widget-user-image -->
                         <h5 class="widget-user-username">
                             <?=$pedido->perfil->nome?> <?=$pedido->perfil->apelido?>
                         </h5>
-                        <h6 class="widget-user-desc">
-                            <h6 class="widget-user-desc">
+                        <div class="widget-user-desc">
+
                                 <span class="badge badge-dark">
                                     <?php if ($pedido->perfil->cargo=='atendedorPedidos'):?>
                                         <b>Atendedor Pedidos</b>
@@ -51,8 +52,8 @@ $id = Yii::$app->user->identity->id;
                                         <b>Cliente</b>
                                     <?php endif;?>
                                 </span>
-                            </h6>
-                        </h6>
+
+                        </div>
                     </div>
                     <div class="card-footer p-0">
                         <ul class="nav flex-column">
@@ -129,6 +130,7 @@ $id = Yii::$app->user->identity->id;
                                         <?php endif?>
                                     <?php endif?>
                                 <?php elseif(Yii::$app->user->can('criarPedidoProduto')):?>
+                                <?php if ($pedido->estado==0):?>
                                     <?= Html::a('<div class="col-md-2">
                                                 <!-- small card -->
                                                 
@@ -142,6 +144,7 @@ $id = Yii::$app->user->identity->id;
                                                 </div>
                                               </div>',['pedidoproduto/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
                                 <?php endif?>
+                            <?php endif?>
                             <?php elseif(Yii::$app->user->can('consultarFaturas')):?>
                                     <?= Html::a('<div class="col-md-1">
                                             <!-- small card -->
@@ -251,6 +254,12 @@ $id = Yii::$app->user->identity->id;
                                     <?= Html::a('<i class="fas fa-check"></i>',['pedidoproduto/updatepreparacao','id'=>$itemPedido->id],['class'=>'btn btn-info btn-sm'])?>
                                 <?php endif?>
                             <?php endif?>
+
+                        <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
+                            <?php if ($itemPedido->pedido->estado==0):?>
+                            <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>
+                        <?php endif?>
+                        <?php endif?>
                         <?php endif?>
                     </td>
                 </tr>

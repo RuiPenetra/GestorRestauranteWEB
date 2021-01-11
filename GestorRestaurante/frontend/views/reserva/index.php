@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="row col-md-12 d-flex justify-content-center">
+    <?php  if (\Yii::$app->user->can('criarReservas')):?>
     <?= Html::a('<div class="col-md-4">
                 <!-- small card -->
                 <div class="small-box bg-teal p-3" style="width: 300px">
@@ -24,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
               </div>',['reserva/create']) ?>
+    <?php endif?>
 </div>
 <div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
     <div class="card-header">
@@ -103,8 +105,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <i class="fas fa-users mr-2"></i><?= $reserva->n_pessoas ?>
                             </td>
                             <td class="project-actions text-right">
+                                <?php  if (\Yii::$app->user->can('atualizarReservas')&& \Yii::$app->user->can('apagarReservas')):?>
                                 <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $reserva->id], ['class' => 'btn btn-warning btn-sm']) ?>
                                 <?= Html::a('<i class="fas fa-trash"></i>', ['delete', 'id' => $reserva->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarReserva'.$reserva->id,]) ?>
+                                <?php endif?>
                             </td>
                         </tr>
                         <div class="modal fade"  id="apagarReserva<?=$reserva->id?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">

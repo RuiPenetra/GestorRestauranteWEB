@@ -164,6 +164,7 @@ $id = Yii::$app->user->identity->id;
                             <?php else:?>
                                 <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
                                     <?php if($pedido->tipo==1):?>
+                                        <?= Html::a('<i class="fas fa-eye"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-info btn-sm']) ?>
                                         <?php if($pedido->estado==0):?>
                                             <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
                                             <?= Html::a('<i class="fas fa-cart-plus"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-success btn-sm']) ?>
@@ -197,8 +198,7 @@ $id = Yii::$app->user->identity->id;
                                         <?php elseif($pedido->estado==1):?>
                                             <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
 
-                                        <?php else:?>
-                                            <?= Html::a('<i class="fas fa-eye"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-info btn-sm']) ?>
+
                                         <?php endif;?>
                                     <?php endif;?>
                                 <?php else:?>

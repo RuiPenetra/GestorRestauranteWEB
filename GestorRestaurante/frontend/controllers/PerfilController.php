@@ -61,9 +61,17 @@ class PerfilController extends Controller
 
 
             if ($user->load(Yii::$app->request->post()) && $user->save() && $perfil->load(Yii::$app->request->post()) && $perfil->save()) {
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Perfil Atualizado com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
 
-
-                return $this->redirect(['myperfil', 'id' => $user->id]);
+                return $this->redirect(['update', 'id' => $user->id]);
             }
 
             return $this->render('perfil', [

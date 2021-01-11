@@ -55,6 +55,16 @@ class PerfilController extends Controller
 
                 $this->Updatecargo($perfil->cargo,$perfil->id_user);
 
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Perfil atualizado com sucesso',
+                    'title' => 'Sucesso',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+
                 return $this->redirect(['update', 'id' => $user->id]);
             }
 

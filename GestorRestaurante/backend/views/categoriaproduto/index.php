@@ -60,7 +60,27 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <ul class="list-inline">
 
                                     <li class="list-inline-item">
-                                        <?= Html::img('img/tag_icon.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']);?>
+                                        <?php if ($categoria->nome == 'Entrada'): ?>
+                                            <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'50px','height'=>'50px']); ?>
+                                        <?php endif; ?>
+                                        <?php if ($categoria->nome == 'Sopa'): ?>
+                                            <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'50px','height'=>'50px']); ?>
+                                        <?php endif; ?>
+                                        <?php if ($categoria->nome == 'Carne'): ?>
+                                            <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'50px','height'=>'50px']); ?>
+                                        <?php endif; ?>
+                                        <?php if ($categoria->nome == 'Peixe'): ?>
+                                            <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'50px','height'=>'50px']); ?>
+                                        <?php endif; ?>
+                                        <?php if ($categoria->nome == 'Sobremesa'): ?>
+                                            <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'50px','height'=>'50px']); ?>
+                                        <?php endif; ?>
+                                        <?php if ($categoria->nome == 'Bebida'): ?>
+                                            <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'50px','height'=>'50px']); ?>
+                                        <?php endif; ?>
+                                        <?php if ($categoria->editavel== 1): ?>
+                                            <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'50px','height'=>'50px']); ?>
+                                        <?php endif; ?>
                                     </li>
 
                                 </ul>

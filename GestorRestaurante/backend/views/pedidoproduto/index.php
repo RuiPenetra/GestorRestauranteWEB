@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap4\LinkPager;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -260,6 +261,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php endforeach;?>
             </tbody>
         </table>
+        <div class="row col-md-12 d-flex justify-content-center">
+            <?= LinkPager::widget([
+                'pagination' => $dataProvider->getPagination(),
+                'options' => [
+                    'class' => 'page-item',
+                ],
+            ]);?>
+        </div>
     </div>
     <!-- /.card-body -->
 </div>

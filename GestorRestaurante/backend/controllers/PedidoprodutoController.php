@@ -53,6 +53,7 @@ class PedidoprodutoController extends Controller
             $searchModel->id_pedido=$pedido->id;
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+            $dataProvider->pagination = ['pageSize' => 5];
 
             return $this->render('index', [
                 'pedido'=>$pedido,
@@ -285,15 +286,15 @@ class PedidoprodutoController extends Controller
             $itemPedido->estado=0; //Processo
         }
 
-        if($itemPedido->quant_Preparacao !=0){
+        if($itemPedido->quant_Preparacao !=0 || $itemPedido->quant_Pedida> $itemPedido->quant_Entregue){
 
             $itemPedido->estado=1; //Preparação
         }
         if($itemPedido->quant_Entregue == $itemPedido->quant_Pedida){
 
             $itemPedido->estado=2; //Entregue
-            $itemPedido->quant_Preparacao=0;
         }
+
         $itemPedido->save();
     }
 

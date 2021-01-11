@@ -334,10 +334,9 @@ class PedidoprodutoController extends Controller
         if($itemPedido->quant_Entregue == $itemPedido->quant_Pedida){
 
             $itemPedido->estado=2; //Entregue
-        }else{
-            $itemPedido->estado=1; //Preparação
-
+            $itemPedido->quant_Preparacao=0;
         }
+
         $itemPedido->save();
     }
 

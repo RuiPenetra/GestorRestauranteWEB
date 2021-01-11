@@ -29,26 +29,46 @@ $this->title = 'Atualizar Produto';
                 <div class="col-md-3 mt-0 ">
                     <div class="box-body box-profile user-painel mt-3">
                         <div class="text-center">
-                            <img class="img-responsive" width="100px" height="100px" src="img/soup.png" alt="imgPerfil">
+                            <?php if ($produto->categoria->nome == 'Entrada'): ?>
+                                <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'125px','height'=>'125px']); ?>
+                            <?php endif; ?>
+                            <?php if ($produto->categoria->nome == 'Sopa'): ?>
+                                <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'125px','height'=>'125px']); ?>
+                            <?php endif; ?>
+                            <?php if ($produto->categoria->nome == 'Carne'): ?>
+                                <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'125px','height'=>'125px']); ?>
+                            <?php endif; ?>
+                            <?php if ($produto->categoria->nome == 'Peixe'): ?>
+                                <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'125px','height'=>'125px']); ?>
+                            <?php endif; ?>
+                            <?php if ($produto->categoria->nome == 'Sobremesa'): ?>
+                                <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'125px','height'=>'125px']); ?>
+                            <?php endif; ?>
+                            <?php if ($produto->categoria->nome == 'Bebida'): ?>
+                                <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'125px','height'=>'125px']); ?>
+                            <?php endif; ?>
+                            <?php if ($produto->categoria->editavel == 1): ?>
+                                <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'125px','height'=>'125px']); ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="input-group mb-3 col-md-8">
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
                         </div>
-                        <?= $form->field($produto, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
+                        <?= $form->field($produto, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
                     </div>
                     <div class="input-group mb-3 col-md-8">
-                        <?= $form->field($produto, 'preco', ['options' => ['tag' => 'input',  'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Preço",  'type'=>'number', 'step' => '0.01', 'autofocus' => true])->label(false) ?>
+                        <?= $form->field($produto, 'preco', ['options' => ['tag' => 'input',  'style' => 'display: none; ']])->textInput(['class'=>'form-control rounded-left' , 'placeholder' => "Preço",  'type'=>'number', 'step' => '0.01','min' => '0', 'autofocus' => true])->label(false) ?>
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
+                            <span class="input-group-text rounded-right"><i class="fas fa-euro-sign"></i></span>
                         </div>
                     </div>
                     <div class="input-group mb-3 col-md-8">
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <span class="input-group-text rounded-left"><i class="fas fa-tag"></i></span>
                         </div>
                         <?=$form->field($produto,'id_categoria')->dropDownList($categorias)->label(false);?>
                     </div>

@@ -135,7 +135,7 @@ class HorarioController extends Controller
                     'positonY' => 'top'
                 ]);
 
-                return $this->redirect(['view','id'=>$novoHorario->id]);
+                return $this->redirect(['viewall','id'=>$novoHorario->id_funcionario]);
                 //return $this->redirect(['view', 'id' => $model->id]);
             }
 
@@ -201,7 +201,7 @@ class HorarioController extends Controller
                 'positonY' => 'top'
             ]);
 
-            return $this->redirect(['view','id'=>$horario->id_funcionario]);
+            return $this->redirect(['viewall','id'=>$horario->id_funcionario]);
         }else{
 
             return $this->render('site/error');

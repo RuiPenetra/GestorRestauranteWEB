@@ -126,37 +126,41 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="row">
                     <div class="col-md-6 d-flex justify-content-center">
                         <?php if ($produto->categoria->nome == 'Entrada'): ?>
-                            <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-responsive']); ?>
+                            <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'150px','height'=>'150px']); ?>
                         <?php endif; ?>
                         <?php if ($produto->categoria->nome == 'Sopa'): ?>
-                            <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-responsive']); ?>
+                            <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'150px','height'=>'150px']); ?>
                         <?php endif; ?>
                         <?php if ($produto->categoria->nome == 'Carne'): ?>
-                            <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-responsive']); ?>
+                            <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'150px','height'=>'150px']); ?>
                         <?php endif; ?>
                         <?php if ($produto->categoria->nome == 'Peixe'): ?>
-                            <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-responsive']); ?>
+                            <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'150px','height'=>'150px']); ?>
                         <?php endif; ?>
                         <?php if ($produto->categoria->nome == 'Sobremesa'): ?>
-                            <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-responsive']); ?>
+                            <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'150px','height'=>'150px']); ?>
                         <?php endif; ?>
                         <?php if ($produto->categoria->nome == 'Bebida'): ?>
-                            <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive']); ?>
+                            <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'150px','height'=>'150px']); ?>
                         <?php endif; ?>
                         <?php if ($produto->categoria->editavel == 1): ?>
-                            <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
+                            <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'150px','height'=>'150px']); ?>
                         <?php endif; ?>
                     </div>
                     <div class="col-md-6">
-                        <div class="card card-outline card-warning" style="height: 150px">
+                        <div class="card" style="height: 150px">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <?= Html::img('@web/img/ingredientes.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'30px','height'=>'30px']); ?>
                                     Ingredientes
                                 </h3>
                             </div>
                             <div class="card-body">
-                                <?=$produto->ingredientes?>
+                                <?php if ($produto->ingredientes != null): ?>
+                                    <?=$produto->ingredientes?>
+                                <?php else: ?>
+                                    <h7>Não existe informação....</h7>
+                                <?php endif; ?>
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -164,7 +168,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="bg-gradient-warning py-2 px-3 mt-5 rounded text-center">
+                        <div class="bg-gradient-warning py-2 px-3 mt-4 rounded text-center">
                             <h2 class="mb-0">
                                 <?=$produto->preco?> €
                             </h2>
@@ -174,14 +178,35 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="card card-outline card-warning">
                             <div class="card-header">
                                 <h3 class="card-title">
-                                    <i class="fas fa-exclamation-triangle"></i>
-                                    Categorias
+                                    <?= Html::img('@web/img/tag_icon.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'25px','height'=>'25px']); ?>
+                                    Categoria
                                 </h3>
                             </div>
                             <div class="card-body">
-                                <?php if($produto->id_categoria== 1):?>
-                                      <span class="badge badge-purple"><?=$produto->categoria->nome?>
-                                <?php endif;?>
+                                <?php if ($produto->categoria->nome == 'Entrada'): ?>
+                                <span class="badge badge-warning text-gray">
+                                        <?php endif; ?>
+                                    <?php if ($produto->categoria->nome == 'Sopa'): ?>
+                                            <span class="badge badge-success">
+                                        <?php endif; ?>
+                                                <?php if ($produto->categoria->nome == 'Carne'): ?>
+                                            <span class="badge badge-danger text-white">
+                                        <?php endif; ?>
+                                                <?php if ($produto->categoria->nome == 'Peixe'): ?>
+                                            <span class="badge badge-blue-light">
+                                        <?php endif; ?>
+                                                <?php if ($produto->categoria->nome == 'Sobremesa'): ?>
+                                            <span class="badge badge-info">
+                                        <?php endif; ?>
+                                                <?php if ($produto->categoria->nome == 'Bebida'): ?>
+                                            <span class="badge badge-orange">
+                                        <?php endif; ?>
+                                                <?php if ($produto->categoria->nome != 'Entrada' && $produto->categoria->nome != 'Sopa' && $produto->categoria->nome != 'Carne'
+                                                && $produto->categoria->nome != 'Peixe' && $produto->categoria->nome != 'Sobremesa'&& $produto->categoria->nome != 'Bebida'): ?>
+                                            <span class="badge badge-dark">
+                                        <?php endif; ?>
+                                        <?=$produto->categoria->nome?>
+                                            </span>
                             </div>
                             <!-- /.card-body -->
                         </div>

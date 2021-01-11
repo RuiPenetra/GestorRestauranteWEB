@@ -27,7 +27,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout', 'index','error'],
+                        'actions' => ['logout', 'index','error','contactos'],
                         'allow' => true,
                         'roles' => ['gerente'],
                     ],
@@ -71,6 +71,18 @@ class SiteController extends Controller
         }
     }
 
+    public function actionContactos()
+    {
+        if (Yii::$app->user->can('apagarUtilizadores')) {
+
+            return $this->render('contactos');
+
+        }else{
+            return $this->render('site/error');
+
+        }
+    }
+
     /**
      * Login action.
      *
@@ -84,16 +96,6 @@ class SiteController extends Controller
 
             if (Yii::$app->user->can('apagarUtilizadores')) {
 //                Yii::$app->session->setFlash('danger', 'Utilizador não tem premissão para aceder');
-
-                Yii::$app->getSession()->setFlash('success', [
-                    'type' => 'success',
-                    'duration' => 5000,
-                    'icon' => 'fas fa-tags',
-                    'message' => 'Login feito com sucesso',
-                    'title' => 'ALERTA',
-                    'positonX' => 'right',
-                    'positonY' => 'top'
-                ]);
 
                 return $this->goBack();
             }else{

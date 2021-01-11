@@ -91,7 +91,6 @@ class CategoriaprodutoController extends Controller
             $categoria=$this->findModel($id);
             $produtos =Produto::findAll(['id_categoria'=>$id]);
 
-
             return $this->render('view', [
                 'produtos' =>  $produtos,
                 'categoria' =>  $categoria

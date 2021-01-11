@@ -179,7 +179,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                     </li>
                     <!-- CONTACTOS -->
                     <li class="nav-item">
-                        <a href="<?= Url::toRoute(['pedido/index']) ?>" class="nav-link">
+                        <a href="<?= Url::toRoute(['site/contactos']) ?>" class="nav-link">
                             <i class="fas fa-phone"></i>
                             <p>
                                 Contactos

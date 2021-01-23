@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= $form->field($produto, 'ingredientes')->textArea([ 'class'=>'col-12','maxlength' => 300, 'rows' => 3 , 'cols' => 40,'placeholder'=>'Ingredientes'])->label(false)?>
                     </div>
                     <div class="input-group mb-3">
-                        <?= Html::submitButton('Atualizar', ['class' => 'btn login_btn col-md-4', 'name' => 'login-button']) ?>
+                        <?= Html::submitButton('Atualizar', ['class' => 'btn login_btn col-md-4', 'name' => 'create-button']) ?>
                     </div>
                 </div>
             </div>

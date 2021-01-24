@@ -33,7 +33,7 @@ class PedidoprodutoController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index','create'],
+                        'actions' => ['index','create','update','delete'],
                         'allow' => true,
                         'roles' => ['cliente'],
                     ],
@@ -335,13 +335,9 @@ class PedidoprodutoController extends Controller
 
             $itemPedido->estado=2; //Entregue
         }
-        if($itemPedido->quant_Pedida>$itemPedido->quant_Entregue){
+        if($itemPedido->quant_Pedida > $itemPedido->quant_Entregue && $itemPedido->quant_Entregue!=0){
             $itemPedido->estado=1;
         }
-
-
-
-
 
         $itemPedido->save();
     }

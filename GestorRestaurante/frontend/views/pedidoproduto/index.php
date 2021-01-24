@@ -102,7 +102,7 @@ $id = Yii::$app->user->identity->id;
                         <div class="row col-md-12">
                             <?php if($pedido->estado!=2):?>
                                 <?php if (Yii::$app->user->can('criarPedidoProduto') && Yii::$app->user->can('criarFaturas')):?>
-                                    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
+                                    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null || Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
                                         <?php if($pedido->tipo==1):?>
                                             <?= Html::a('<div class="col-md-2">
                                                     <!-- small card -->
@@ -257,7 +257,9 @@ $id = Yii::$app->user->identity->id;
 
                         <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
                             <?php if ($itemPedido->pedido->estado==0):?>
-                            <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>
+                                    <?= Html::a('<i class="fas fa-plus"></i>', ['pedidoproduto/update', 'id' => $itemPedido->id], ['class' => 'btn btn-success btn-sm']) ?>
+
+                                    <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>
                         <?php endif?>
                         <?php endif?>
                         <?php endif?>

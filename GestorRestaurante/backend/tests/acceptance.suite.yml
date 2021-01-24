@@ -5,6 +5,7 @@ modules:
         - WebDriver:
               url: http://localhost/GestorRestauranteWEB/GestorRestaurante/backend/web/index-test.php
               browser: chrome
+              window_size: 'maximize'
               port: 9515
         - Db:
             dsn: 'mysql:host=localhost;dbname=bdgestorrestaurante_tests'

@@ -102,8 +102,8 @@ $id = Yii::$app->user->identity->id;
                         <div class="row col-md-12">
                             <?php if($pedido->estado!=2):?>
                                 <?php if (Yii::$app->user->can('criarPedidoProduto') && Yii::$app->user->can('criarFaturas')):?>
-                                    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null || Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
-                                        <?php if($pedido->tipo==1):?>
+                                    <?php if($pedido->tipo==1):?>
+                                        <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
                                             <?= Html::a('<div class="col-md-2">
                                                     <!-- small card -->
                                                     
@@ -127,7 +127,23 @@ $id = Yii::$app->user->identity->id;
                                                         </div>
                                                     </div>
                                                   </div>',['fatura/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
-                                        <?php endif?>
+                                        <?php endif;?>
+                                        <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
+                                            <?php if($pedido->estado==0):?>
+                                                <?= Html::a('<div class="col-md-2">
+                                                        <!-- small card -->
+                                                        
+                                                        <div class="small-box bg-gradient-info p-3" style="width: 200px">
+                                                            <div class="inner">
+                                                                <h4><b>Novo</b></h4>
+                                                            </div>
+                                                            <div class="icon">
+                                                                <i class="fas fa-cart-plus"></i>
+                                                            </div>
+                                                        </div>
+                                                      </div>',['pedidoproduto/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
+                                            <?php endif;?>
+                                        <?php endif;?>
                                     <?php endif?>
                                 <?php elseif(Yii::$app->user->can('criarPedidoProduto')):?>
                                 <?php if ($pedido->estado==0):?>

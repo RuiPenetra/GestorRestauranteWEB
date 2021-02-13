@@ -112,3 +112,10 @@ $(function mostrarInput() {
         text.style.display = "none";
     }
 });
+
+
+function genPdf() {
+
+    html2canvas
+
+}

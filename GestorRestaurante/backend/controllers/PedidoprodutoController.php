@@ -246,7 +246,7 @@ class PedidoprodutoController extends Controller
                     'type' => 'danger',
                     'duration' => 5000,
                     'icon' => 'fas fa-tags',
-                    'message' => 'O produto/produtos que pretende apagar já se encontra em preparação',
+                    'message' => 'O produto/produtos que pretende apagar já se encontra em preparação/entregues',
                     'title' => 'ALERTA',
                     'positonX' => 'right',
                     'positonY' => 'top'
@@ -286,7 +286,7 @@ class PedidoprodutoController extends Controller
             $itemPedido->estado=0; //Processo
         }
 
-        if($itemPedido->quant_Preparacao !=0 || $itemPedido->quant_Pedida> $itemPedido->quant_Entregue){
+        if($itemPedido->quant_Preparacao !=0 || $itemPedido->quant_Entregue !=0){
 
             $itemPedido->estado=1; //Preparação
         }

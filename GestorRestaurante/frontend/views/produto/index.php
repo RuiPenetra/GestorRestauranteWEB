@@ -97,13 +97,13 @@ $id = Yii::$app->user->identity->id;
                                         <span class="badge badge-warning text-gray">
                                         <?php endif; ?>
                                             <?php if ($produto->categoria->nome == 'Sopa'): ?>
-                                            <span class="badge badge-success">
+                                            <span class="badge badge-success text-white">
                                         <?php endif; ?>
                                                 <?php if ($produto->categoria->nome == 'Carne'): ?>
                                             <span class="badge badge-danger text-white">
                                         <?php endif; ?>
                                                 <?php if ($produto->categoria->nome == 'Peixe'): ?>
-                                            <span class="badge badge-blue-light">
+                                            <span class="badge badge-primary text-white">
                                         <?php endif; ?>
                                                 <?php if ($produto->categoria->nome == 'Sobremesa'): ?>
                                             <span class="badge badge-info">
@@ -121,7 +121,7 @@ $id = Yii::$app->user->identity->id;
                                     </div>
                                 </div>
                                 <div class="row ml-3 mr-3 mb-5">
-                                    <a href="<?= Url::toRoute(['produto/view','id'=>$produto->id]) ?>" class="btn btn-info btn-block">Saber mais...</a>
+                                    <a href="<?= Url::toRoute(['produto/view','id'=>$produto->id]) ?>" class="btn btn-dark btn-block">Saber mais...</a>
                                 </div>
                             </div>
                         <?php endforeach;?>

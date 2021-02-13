@@ -24,13 +24,15 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            ['username', 'required', 'message' => 'Username deve ser preenchido.'],
+            ['password', 'required', 'message' => 'Password deve ser preenchida.'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
         ];
     }
+
 
     /**
      * Validates the password.
@@ -41,10 +43,12 @@ class LoginForm extends Model
      */
     public function validatePassword($attribute, $params)
     {
+
         if (!$this->hasErrors()) {
             $user = $this->getUser();
+
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Username ou Password Incorreta.');
+                $this->addError($attribute, 'Username ou Password incorreta.');
             }
         }
     }

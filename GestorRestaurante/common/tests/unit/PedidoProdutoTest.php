@@ -61,58 +61,72 @@ class PedidoProdutoTest extends \Codeception\Test\Unit
 
         $pedidoProduto=new PedidoProduto();
 
-        //TODO: VALIDAR ----> ID_PEDIDO [ INTEGER ]
-        //TODO: VALIDAR ----> ID_PEDIDO [ NULL ]
-        //TODO: VALIDAR ----> ID_PEDIDO [ EXIST ]
 
+        //ID_PEDIDO [ TEXTO ]
         $pedidoProduto->id_pedido='dwdwdwddwd';
         $this->assertFalse($pedidoProduto->validate(['id_pedido']));
 
+        //ID_PEDIDO [ NULL ]
         $pedidoProduto->id_pedido=null;
         $this->assertFalse($pedidoProduto->validate(['id_pedido']));
 
+        //ID_PEDIDO [ INTEIRO ]
         $pedidoProduto->id_pedido=99999;
         $this->assertFalse($pedidoProduto->validate(['id_pedido']));
 
+        //ID_PEDIDO [ EXISTE ]
         $pedidoProduto->id_pedido=$this->ID_PEDIDO;
         $this->assertTrue($pedidoProduto->validate(['id_pedido']));
 
-        //TODO: VALIDAR ----> ID_PRODUTO [ INTEGER ]
-        //TODO: VALIDAR ----> ID_PRODUTO [ NULL ]
-        //TODO: VALIDAR ----> ID_PRODUTO [ EXIST ]
+
+        //------------------------------------
+
+        //ID_PRODUTO [ TEXTO ]
         $pedidoProduto->id_produto='fefefefe';
         $this->assertFalse($pedidoProduto->validate(['id_produto']));
 
+        //ID_PRODUTO [ NULL ]
         $pedidoProduto->id_produto=null;
         $this->assertFalse($pedidoProduto->validate(['id_produto']));
 
+        //ID_PRODUTO [ INTEIRO ]
         $pedidoProduto->id_produto=2223232;
         $this->assertFalse($pedidoProduto->validate(['id_produto']));
 
+        //ID_PRODUTO [ EXISTE ]
         $pedidoProduto->id_produto=$this->ID_PRODUTO;
         $this->assertTrue($pedidoProduto->validate(['id_produto']));
 
-        //TODO: VALIDAR ----> ESTADO [ INTEGER ]
-        //TODO: VALIDAR ----> ESTADO [ NULL ]
+        //------------------------------------
+
+
+        //ESTADO [ TEXTO ]
         $pedidoProduto->estado='processo';
         $this->assertFalse($pedidoProduto->validate(['estado']));
 
+        //ESTADO [ NULL ]
         $pedidoProduto->estado=null;
         $this->assertFalse($pedidoProduto->validate(['estado']));
 
+        //ESTADO [ INTEIRO ]
         $pedidoProduto->estado=1;
         $this->assertTrue($pedidoProduto->validate(['estado']));
 
         //TODO: VALIDAR ----> quant_Pedida [ INTEGER ]
         //TODO: VALIDAR ----> quant_Pedida [ NULL ]
+
+        //quant_Pedida [ TEXTO ]
         $pedidoProduto->quant_Pedida='testeeeee';
         $this->assertFalse($pedidoProduto->validate(['quant_Pedida']));
 
+        //quant_Pedida [ NULL ]
         $pedidoProduto->quant_Pedida=null;
         $this->assertFalse($pedidoProduto->validate(['quant_Pedida']));
 
+        //quant_Pedida [ INTEIRO ]
         $pedidoProduto->quant_Pedida=4;
         $this->assertTrue($pedidoProduto->validate(['quant_Pedida']));
+
 
         //TODO: VALIDAR ----> quant_Preparacao [ INTEGER ]
         //TODO: VALIDAR ----> quant_Preparacao [ NULL ]

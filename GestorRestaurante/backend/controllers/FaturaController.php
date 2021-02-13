@@ -5,6 +5,11 @@ namespace backend\controllers;
 use common\models\Mesa;
 use common\models\Pedido;
 use common\models\PedidoProduto;
+use function Composer\Autoload\includeFile;
+use Dompdf\Dompdf;
+use kartik\mpdf\Pdf;
+use Mpdf\Mpdf;
+use setasign\Fpdi\FpdfTpl;
 use Yii;
 use common\models\Fatura;
 use common\models\FaturaSearch;
@@ -28,7 +33,7 @@ class FaturaController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['view','create','update','delete'],
+                        'actions' => ['teste','create','update','delete','export'],
                         'allow' => true,
                         'roles' => ['gerente'],
                     ],
@@ -54,6 +59,7 @@ class FaturaController extends Controller
                 'fatura' => $fatura,
                 'items_pedido' => $items_pedido,
             ]);
+
         }else{
 
             return $this->render('site/error');
@@ -194,6 +200,26 @@ class FaturaController extends Controller
 
             return $this->render('site/error');
         }
+    }
+
+    public function actionExport(){
+
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+
+
+        $dompdf->loadHtml(include('GestorRestauranteWeb/GestorRestaurante/backend/web/index.php?r=fatura%2Findex'));
+
+// (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'portatil');
+
+// Render the HTML as PDF
+        $dompdf->render();
+
+// Output the generated PDF to Browser
+        $dompdf->stream();
+        exit;
+
     }
 
     protected function ValidarPedido($id){

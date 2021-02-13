@@ -13,38 +13,31 @@ use yii\helpers\Url;
 <div class="container h-100 align-middle">
     <div class="d-flex justify-content-center h-100">
         <div class="user_card_login">
-            <div class="d-flex justify-content-center">
-                <img src="img/logo.png" class="brand_logo" alt="Logo">
+            <div class="row d-flex justify-content-center mb-3">
+                <h3>Login</h3>
             </div>
-            <div class="d-flex justify-content-center form_container">
-                <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
-                <div class="input-group mb-3">
-                    <div class="input-group-append">
-                        <span class="input-group-text"><i class="far fa-user"></i></span>
+            <div class="row d-flex justify-content-center mb-3">
+                <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-default img-fluid img-circle']); ?>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <?php $form = ActiveForm::begin(['id' => 'login-form','enableClientValidation'=> false]); ?>
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="far fa-user"></i></span>
+                        </div>
+                        <?= $form->field($model, 'username', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Username", 'type' => 'text' , 'autofocus' => true])->label(false) ?>
                     </div>
-                    <?= $form->field($model, 'username', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Username", 'type' => 'text' , 'autofocus' => true])->label(false) ?>
-                </div>
-                <div class="input-group mb-2">
-                    <div class="input-group-append">
-                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    <div class="input-group mb-2">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        <?= $form->field($model, 'password', ['options' => ['tag' => 'input', 'style' => 'display: none;']])->textInput(['class'=> 'form-control input_pass rounded-right', 'placeholder' => "Password", 'type' => 'password' , 'autofocus' => true])->label(false) ?>
                     </div>
-                    <?= $form->field($model, 'password', ['options' => ['tag' => 'input', 'style' => 'display: none;']])->textInput(['class'=> 'form-control input_pass rounded-right', 'placeholder' => "Password", 'type' => 'password' , 'autofocus' => true])->label(false) ?>
-
-                </div>
-                <div class=" custom-checkbox">
-                    <?= $form->field($model, 'rememberMe')->textInput(['class' => 'custom-control-input'])->checkbox() ?>
-                    Esqueceu-se da sua password? <?= Html::a('reset it', ['site/request-password-reset']) ?>.
-                    <br>
-                    <!--//Need new verification email? --><?/*= Html::a('Resend', ['site/resend-verification-email']) */?>
-                </div>
-                <div class="d-flex justify-content-center mt-3 login_container">
-                    <?= Html::submitButton('Login', ['class' => 'btn login_btn', 'name' => 'login-button']) ?>
-                </div>
-
+                    <div class="d-flex justify-content-center mt-3">
+                        <?= Html::submitButton('Login', ['class' => 'btn login_btn', 'name' => 'login-button']) ?>
+                    </div>
                 <?php ActiveForm::end(); ?>
-                
-
-        </div>
+            </div>
             <div class="mt-4">
                 <div class="d-flex justify-content-center links">
                     Não tem conta?? <a href="<?=URL::toRoute(['site/signup'])?>" class="ml-2">Registar-me</a>

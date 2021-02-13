@@ -24,18 +24,10 @@ AppAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body class="fundo">
+<body class="hold-transition login-page">
 <?php $this->beginBody() ?>
 
-<div class="wrap">
-
-    <div class="content">
-
         <?=$content?>
-
-    </div>
-
-</div>
 
 <?php $this->endBody() ?>
 </body>

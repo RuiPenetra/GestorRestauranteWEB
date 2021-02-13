@@ -14,7 +14,7 @@ $this->title = 'Gestor Restaurante';
 </div>
 <br>
 <div class="container pb-4">
-    <div class="card card-outline card-blue">
+    <div class="card card-outline card-dark">
         <div class="card-header">
             <h3 class="card-title">
                 <i class="fas fa-utensils"></i>

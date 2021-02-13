@@ -23,7 +23,9 @@
         "kartik-v/yii2-widget-growl": "dev-master",
         "kartik-v/yii2-widget-datetimepicker": "dev-master",
         "kartik-v/yii2-widget-datepicker": "dev-master",
-        "2amigos/yii2-date-time-picker-widget": "~1.0"
+        "2amigos/yii2-date-time-picker-widget": "~1.0",
+        "kartik-v/yii2-mpdf": "dev-master",
+        "dompdf/dompdf": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

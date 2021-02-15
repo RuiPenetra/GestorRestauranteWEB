@@ -48,18 +48,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 Estado:
-                                <?php if ($pedido->estado == 0): ?>
+                                <?php if ($pedido->estado == 1): ?>
                                     <span class="float-right badge badge-info"> Em Processo</span>
                                 <?php endif;
-                                if ($pedido->estado == 1):?>
+                                if ($pedido->estado == 2):?>
                                     <span class="float-right badge badge-warning text-white"> Em Preparação</span>
                                 <?php endif;
-                                if ($pedido->estado == 2):?>
-                                    <span class="float-right badge badge-success text-white"> Pronto</span>
-                                <?php endif;
                                 if ($pedido->estado == 3):?>
-                                    <span class="float-right badge badge-dark"> Entregue</span>
-                                <?php endif; ?>
+                                    <span class="float-right badge badge-success text-white"> Concluido</span>
+                                <?php endif;?>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -109,7 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="row col-md-12">
                     <div class="col-md-5">
                         <div class="row col-md-12">
-                            <?php if($pedido->estado!=2):?>
+                            <?php if($pedido->estado!=3):?>
                                 <?= Html::a('<div class="col-md-2">
                                         <!-- small card -->
                                         <div class="small-box bg-gradient-info p-3" style="width: 200px">
@@ -189,22 +186,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 <tr>
                     <td class="text-center">
                         <?php if ($itemPedido->produto->categoria->nome == 'Entrada'): ?>
-                            <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-fluid', 'width'=>'50px']); ?>
+                            <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-responsive', 'width'=>'50px']); ?>
                         <?php endif; ?>
                         <?php if ($itemPedido->produto->categoria->nome == 'Sopa'): ?>
-                            <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-fluid']); ?>
+                            <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-responsive', 'width'=>'50px']); ?>
                         <?php endif; ?>
                         <?php if ($itemPedido->produto->categoria->nome == 'Carne'): ?>
-                            <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-fluid']); ?>
+                            <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-responsive', 'width'=>'50px']); ?>
                         <?php endif; ?>
                         <?php if ($itemPedido->produto->categoria->nome == 'Peixe'): ?>
-                            <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-fluid']); ?>
+                            <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-responsive', 'width'=>'50px']); ?>
                         <?php endif; ?>
                         <?php if ($itemPedido->produto->categoria->nome == 'Sobremesa'): ?>
-                            <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-fluid']); ?>
+                            <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-responsive', 'width'=>'50px']); ?>
                         <?php endif; ?>
                         <?php if ($itemPedido->produto->categoria->nome == 'Bebida'): ?>
-                            <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-fluid']); ?>
+                            <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive', 'width'=>'50px']); ?>
                         <?php endif; ?>
                     </td>
                     <td class="text-center"><?=$itemPedido->produto->nome?></td>
@@ -224,7 +221,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php endif;?>
                     </td>
                     <td class="text-right">
-                        <?php if($pedido->estado!=2):?>
+                        <?php if($pedido->estado!=3):?>
                             <?= Html::a('  <i class="fas fa-sync fa-spin"></i>', ['pedidoproduto/cozinhaupdate', 'id' => $itemPedido->id], ['class' => 'btn btn-info btn-sm']) ?>
                                 <?= Html::a('<i class="fas fa-plus"></i>', ['pedidoproduto/update', 'id' => $itemPedido->id], ['class' => 'btn btn-success btn-sm']) ?>
                             <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>

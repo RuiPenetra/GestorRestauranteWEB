@@ -37,7 +37,7 @@ class Pedido extends \yii\db\ActiveRecord
     public function getCustomScenarios()
     {
         return[
-            self::SCENARIO_RESTAURANTE => [['estado','tipo','id_mesa','id_perfil','data'],'required'],
+            self::SCENARIO_RESTAURANTE => [[['estado','tipo','id_mesa','id_perfil'],'required'],['data','require','message'=>'Deve ser preenchida']],
             self::SCENARIO_TAKEAWAY => [['estado','tipo','nome_pedido','id_perfil','data'],'required']
         ];
     }

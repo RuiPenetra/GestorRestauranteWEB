@@ -29,8 +29,7 @@ class ReservaTest extends \Codeception\Test\Unit
     {
         $reserva= new Reserva();
 
-        //TODO: VALIDAR ----> N_PESSOAS [ INTEGER ]
-        //TODO: VALIDAR ----> N_PESSOAS [ REQUIRED ]
+
         $reserva->n_pessoas='3 pessoas';
         $this->assertFalse($reserva->validate(['n_pessoas']));
 
@@ -40,18 +39,12 @@ class ReservaTest extends \Codeception\Test\Unit
         $reserva->n_pessoas=3;
         $this->assertTrue($reserva->validate(['n_pessoas']));
 
-        //TODO: VALIDAR ----> DATA_HORA [ SAFE ]
-        //TODO: VALIDAR ----> DATA_HORA [ REQUIRED ]
 
         $reserva->data_hora=null;
         $this->assertFalse($reserva->validate(['data_hora']));
 
         $reserva->data_hora='2020-04-05 18:30';
         $this->assertTrue($reserva->validate(['data_hora']));
-
-        //TODO: VALIDAR ----> NOME_DA_RESERVA [ STRING ]
-        //TODO: VALIDAR ----> NOME_DA_RESERVA [ REQUIRED ]
-        //TODO: VALIDAR ----> NOME_DA_RESERVA [ MAX-50 ]
 
         $reserva->nome_da_reserva=669590;
         $this->assertFalse($reserva->validate(['nome_da_reserva']));
@@ -67,10 +60,6 @@ class ReservaTest extends \Codeception\Test\Unit
         $reserva->nome_da_reserva='Alberto Francisco';
         $this->assertTrue($reserva->validate(['nome_da_reserva']));
 
-        //TODO: VALIDAR ----> ID_MESA [ INTEGER ]
-        //TODO: VALIDAR ----> ID_MESA [ REQUIRED ]
-        //TODO: VALIDAR ----> ID_MESA [ EXIST ]
-
         $reserva->id_mesa='três';
         $this->assertFalse($reserva->validate(['id_mesa']));
 
@@ -82,10 +71,6 @@ class ReservaTest extends \Codeception\Test\Unit
 
         $reserva->id_mesa=$this->ID_MESA;
         $this->assertTrue($reserva->validate(['id_mesa']));
-
-        //TODO: VALIDAR ----> ID_FUNCIONARIO [ INTEGER ]
-        //TODO: VALIDAR ----> ID_FUNCIONARIO [ REQUIRED ]
-        //TODO: VALIDAR ----> ID_FUNCIONARIO [ EXIST ]
 
         $reserva->id_funcionario='teste 123';
         $this->assertFalse($reserva->validate(['id_funcionario']));

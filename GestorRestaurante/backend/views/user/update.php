@@ -18,21 +18,69 @@ use yii\helpers\Url;
                 <div class="card p-5">
                     <div class="card-body">
                         <div class="align-center">
-                            <?php $form = ActiveForm::begin(); ?>
+                            <?php $form = ActiveForm::begin(['enableClientValidation'=> false]); ?>
                             <div class="mb-4">
                                 <h6 class="text-uppercase">Dados Pessoais</h6>
                                 <!-- Solid divider -->
                                 <hr class="solid">
                             </div>
-                            <div class="row">
-                                <div class="container">
-                                    <div class="picture-container">
-                                        <div class="picture">
-                                            <img src="img/perfil.png" class="picture-src" id="wizardPicturePreview" title="">
-                                            <input type="file" id="wizard-picture" class="">
-                                        </div>
-                                        <h6 class="">Escolher imagem</h6>
+                            <div class="row d-flex justify-content-center mb-3">
+                                <div class="col-6">
+                                    <div class="box-body box-profile user-painel mt-3">
+                                        <div class="profile-username text-center">
+                                            <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$perfil->id_user) !=null):
+                                                if ($perfil->genero==0):?>
+                                                    <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-fluid img-circle']); ?>
+                                                <?php else:?>
+                                                    <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-fluid img-circle']); ?>
+                                                <?php endif; endif;?>
 
+                                            <?php if(Yii::$app->authManager->getAssignment('cliente',$perfil->id_user) != null):
+                                                if ($perfil->genero==0):?>
+                                                    <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-fluid img-circle']); ?>
+                                                <?php else:?>
+                                                    <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-fluid img-circle']); ?>
+                                                <?php endif; endif;?>
+
+                                            <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$perfil->id_user) != null):
+                                                if ($perfil->genero==0):?>
+                                                    <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-fluid img-circle']); ?>
+                                                <?php else:?>
+                                                    <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-fluid img-circle']); ?>
+                                                <?php endif; endif;?>
+                                            <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$perfil->id_user) != null):
+                                                if ($perfil->genero==0):?>
+                                                    <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive img-circle']); ?>
+                                                <?php else:?>
+                                                    <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive img-circle']); ?>
+                                                <?php endif; endif;?>
+                                            <?php if(Yii::$app->authManager->getAssignment('gerente',$perfil->id_user) != null):
+                                                if ($perfil->genero==0):?>
+                                                    <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive img-circle']); ?>
+                                                <?php else:?>
+                                                    <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive img-circle']); ?>
+                                                <?php endif; endif;?>
+                                            <div class="info center">
+                                                <div style="text-align: center;">
+                                                    <?php if (Yii::$app->authManager->getAssignment('gerente',$perfil->id_user) != null):?>
+                                                        <span class="center badge badge-warning text-white"><h8>Gerente</h8></span>
+                                                    <?php endif;?>
+                                                    <?php if (Yii::$app->authManager->getAssignment('cliente',$perfil->id_user) != null):?>
+                                                        <span class="center badge badge-danger text-white"><h8>Cliente</h8></span>
+                                                    <?php endif;?>
+                                                    <?php if (Yii::$app->authManager->getAssignment('atendedorPedidos',$perfil->id_user) != null):?>
+                                                        <span class="center badge badge-primary text-white"><h8>Atendedor Pedidos</h8></span>
+                                                    <?php endif;?>
+                                                    <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$perfil->id_user) != null
+                                                    ):?>
+                                                        <span class="center badge badge-indigo-light"><h8>Empregado Mesa</h8></span>
+                                                    <?php endif;?>
+                                                    <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$perfil->id_user) != null):?>
+                                                        <span class="center badge badge-success text-white"><h8>Cozinheiro</h8></span>
+                                                    <?php endif;?>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -152,7 +200,7 @@ use yii\helpers\Url;
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center mt-3 login_container">
-                                <?= Html::submitButton('Atualizar', ['class' => 'btn login_btn', 'name' => 'login-button']) ?>
+                                <?= Html::submitButton('Atualizar', ['class' => 'btn btn-custom-1 col-md-4', 'name' => 'login-button']) ?>
                             </div>
                             <?php ActiveForm::end(); ?>
                         </div>

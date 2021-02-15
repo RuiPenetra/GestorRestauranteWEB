@@ -8,6 +8,12 @@
     box-shadow: none;
 }
 
+.btn-custom-1 {
+    width: 100%;
+    background: #222222 !important;
+    color: white !important;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #007bff;
@@ -583,9 +589,14 @@
                     PROFILE
 =====================================================*/
 
+.profile-user-img-color-generic {
+    border: 3px solid #222222 !important;
+}
+
 .profile-user-img-color-default {
     border: 3px solid #EE6C4D !important;
 }
+
 
 .profile-user-img-color-gerente {
     border: 3px solid #ffc107 !important;

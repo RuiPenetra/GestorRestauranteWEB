@@ -2,7 +2,7 @@
 
 use kartik\datetime\DateTimePicker;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Falta */
@@ -20,18 +20,18 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
     <div class="card-body" style="display: block;">
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin(['enableClientValidation'=> false]); ?>
         <div class="row">
             <div class="row col-md-12 d-flex justify-content-center">
                 <div class="col-md-3 mt-0 ">
                     <div class="box-body box-profile user-painel mt-3">
                         <div class="text-center">
-                            <img class="img-responsive" width="100px" height="100px" src="img/calendario.png" alt="imgPerfil">
+                            <?= Html::img('@web/img/calendario.png', ['alt' => 'imgPerfil', 'class' => 'img-responsive', 'width'=>'100px', 'height'=>'100px']); ?>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="row col-md-8">
+                <div class="col-6">
+                    <div class="row col-7">
                         <div class="input-group mb-3">
                             <div class="input-group-append">
                                 <span class="input-group-text rounded-left"><i class="fas fa-calendar-alt"></i></span>
@@ -59,7 +59,7 @@ use yii\widgets\ActiveForm;
 
                     </div>
                     <div class="input-group mb-3">
-                        <?= Html::submitButton('Criar', ['class' => 'btn login_btn col-md-4', 'name' => 'login-button']) ?>
+                        <?= Html::submitButton('Criar', ['class' => 'btn btn-custom-1 col-md-4', 'name' => 'login-button']) ?>
                     </div>
                 </div>
             </div>

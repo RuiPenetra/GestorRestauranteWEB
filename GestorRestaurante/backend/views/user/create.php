@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card p-5">
                 <div class="card-body">
                     <div class="align-center">
-                        <?php $form = ActiveForm::begin(['id' => 'sign-form']); ?>
+                        <?php $form = ActiveForm::begin(['id' => 'sign-form','enableClientValidation'=> false]); ?>
                         <div class="mb-4">
                             <h6 class="text-uppercase">Dados Pessoais</h6>
                             <!-- Solid divider -->
@@ -29,13 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="row">
                             <div class="container">
-                                <div class="picture-container">
-                                    <div class="picture">
-                                        <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'id'=>'wizardPicturePreview', 'class' => 'profile-user-img img-fluid img-circle']); ?>
-                                        <input type="file" id="wizard-picture" class="">
-                                    </div>
-                                    <h6 class="">Escolher imagem</h6>
-
+                                <div class="picture-container d-flex justify-content-center mb-3">
+                                    <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-generic img-fluid img-circle']); ?>
                                 </div>
                             </div>
                         </div>
@@ -160,7 +155,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                         </div>
                         <div class="d-flex justify-content-center mt-3 login_container">
-                            <?= Html::submitButton('Criar', ['class' => 'btn login_btn', 'name' => 'create-button']) ?>
+                            <?= Html::submitButton('Criar', ['class' => 'btn btn-custom-1 col-md-4', 'name' => 'create-button']) ?>
                         </div>
                         <?php ActiveForm::end(); ?>
                     </div>

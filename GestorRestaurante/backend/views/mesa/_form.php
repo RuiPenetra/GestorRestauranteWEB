@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Mesa */
@@ -20,14 +20,13 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
     <div class="card-body" style="display: block;">
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin(['enableClientValidation'=> false]); ?>
         <div class="row">
             <div class="row col-md-12 d-flex justify-content-center">
                 <div class="col-md-3 mt-0 ">
                     <div class="box-body box-profile user-painel mt-3">
                         <div class="text-center">
-                            <img class="img-responsive" src="https://img.icons8.com/color/100/000000/table.png"/>
-                            <!--                            <img class="img-responsive" width="100px" height="100px" src="img/soup.png" alt="imgPerfil">-->
+                            <?= Html::img('@web/img/table.png', ['alt' => 'imgTable', 'class' => 'img-responsive', 'width'=>'100px', 'height'=>'100px']); ?>
                         </div>
                     </div>
                 </div>
@@ -45,7 +44,7 @@ use yii\widgets\ActiveForm;
                         <?= $form->field($model, 'n_lugares', ['options' => ['tag' => 'input',  'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nº Lugares",  'type'=>'number', 'min'=>'0', 'autofocus' => true])->label(false) ?>
                     </div>
                     <div class="input-group mb-3 d-flex justify-content-end col-md-8">
-                        <?= Html::submitButton('Guardar', ['class' => 'btn login_btn col-md-4', 'name' => 'mesa-button']) ?>
+                        <?= Html::submitButton('Guardar', ['class' => 'btn btn-custom-1 col-md-4', 'name' => 'mesa-button']) ?>
                     </div>
                 </div>
             </div>

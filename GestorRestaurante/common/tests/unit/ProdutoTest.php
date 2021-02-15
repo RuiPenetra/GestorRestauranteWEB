@@ -43,9 +43,6 @@ class ProdutoTest extends \Codeception\Test\Unit
 
         $produto= new Produto();
 
-        //TODO: VALIDAR ---->NOME [ STRING ]
-        //TODO: VALIDAR ---->NOME [ REQUIRED ]
-        //TODO: VALIDAR ---->NOME [ UNIQUE ]
 
         //Validar se o nome aceita numeros
         $produto->nome=1234567;
@@ -68,9 +65,6 @@ class ProdutoTest extends \Codeception\Test\Unit
         $this->assertTrue($produto->validate(['nome']));
 
 
-        //TODO: VALIDAR ---->PRECO [ NUMBER ]
-        //TODO: VALIDAR ---->PRECO [ REQUIRED ]
-
         $produto->preco='teste123';
         $this->assertFalse($produto->validate(['preco']));
 
@@ -84,10 +78,6 @@ class ProdutoTest extends \Codeception\Test\Unit
         $this->assertTrue($produto->validate(['preco']));
 
 
-
-        //TODO: VALIDAR ---->ESTADO [ INTEGER ]
-        //TODO: VALIDAR ---->ESTADO [ REQUIRED ]
-
         $produto->estado='teste43533';
         $this->assertFalse($produto->validate(['estado']));
 
@@ -100,8 +90,6 @@ class ProdutoTest extends \Codeception\Test\Unit
         $produto->estado=17;
         $this->assertTrue($produto->validate(['estado']));
 
-        //TODO: VALIDAR ---->INGREDIENTES [ STRING ]
-        //TODO: VALIDAR ---->INGREDIENTES [ MAX-500 ]
 
         $produto->ingredientes=565656565656;
         $this->assertFalse($produto->validate(['ingredientes']));
@@ -122,10 +110,6 @@ class ProdutoTest extends \Codeception\Test\Unit
         fermentum rutrum quisque imperdiet praesent.';
         $this->assertTrue($produto->validate(['ingredientes']));
 
-
-        //TODO: VALIDAR ---->ID_CATEGORIA [ INTEGER ]
-        //TODO: VALIDAR ---->ID_CATEGORIA [ EXIST ]
-        //TODO: VALIDAR ---->ID_CATEGORIA [ REQUIRED ]
 
         $produto->id_categoria='teste4fwfw3';
         $this->assertFalse($produto->validate(['id_categoria']));

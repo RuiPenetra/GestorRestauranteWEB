@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Produto */
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <div class="card-body" style="display: block;">
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin(['enableClientValidation'=> false]); ?>
         <div class="row">
             <div class="row col-md-12">
                 <div class="col-md-3 mt-0 ">
@@ -37,12 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-md-5">
                     <div class="input-group mb-3 col-md-8">
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-pen-alt"></i></span>
+                            <span class="input-group-text rounded-left"><i class="fas fa-pen-alt"></i></span>
                         </div>
                         <?= $form->field($produto, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
                     </div>
                     <div class="input-group mb-3 col-md-8">
-                        <?= $form->field($produto, 'preco', ['options' => ['tag' => 'input',  'style' => 'display: none; ']])->textInput(['class'=>'form-control rounded-left' , 'placeholder' => "Preço",  'type'=>'number', 'step' => '0.01','min' => '0', 'autofocus' => true])->label(false) ?>
+                        <?= $form->field($produto, 'preco')->textInput(['class'=>'form-control rounded-left' , 'placeholder' => "Preço",  'type'=>'number', 'step' => '0.01','min' => '0', 'autofocus' => true])->label(false) ?>
                         <div class="input-group-append">
                             <span class="input-group-text rounded-right"><i class="fas fa-euro-sign"></i></span>
                         </div>
@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= $form->field($produto, 'ingredientes')->textArea([ 'class'=>'col-12','maxlength' => 300, 'rows' => 3 , 'cols' => 40,'placeholder'=>'Ingredientes'])->label(false)?>
                     </div>
                     <div class="input-group mb-3">
-                        <?= Html::submitButton('Atualizar', ['class' => 'btn login_btn col-md-4', 'name' => 'create-button']) ?>
+                        <?= Html::submitButton('Atualizar', ['class' => 'btn btn-custom-1 col-md-4', 'name' => 'create-button']) ?>
                     </div>
                 </div>
             </div>

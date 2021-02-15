@@ -29,7 +29,8 @@ class CategoriaProduto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'editavel'], 'required'],
+            ['editavel', 'required'],
+            ['nome', 'required','message'=>'Nome deve de ser preenchido'],
             [['editavel'], 'integer'],
             [['nome'], 'string', 'max' => 255],
             [['nome'], 'unique'],

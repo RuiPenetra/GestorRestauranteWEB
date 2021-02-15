@@ -211,7 +211,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <!-- /.card-body -->
             </div>
 
-            <?= Html::submitButton('Criar', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton('Criar', ['class' => 'btn btn-custom-1 col-md-3']) ?>
 
             <?php ActiveForm::end(); ?>
         </div>

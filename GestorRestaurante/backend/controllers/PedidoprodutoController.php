@@ -325,9 +325,9 @@ class PedidoprodutoController extends Controller
 
         if($itemsPedido!=null){
 
-            $pedido->estado=1;
+            $pedido->estado=2;
         }else{
-            $pedido->estado=0;
+            $pedido->estado=1;
         }
 
         $pedido->save();

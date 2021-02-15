@@ -29,16 +29,8 @@ class PedidoTest extends \Codeception\Test\Unit
     public function testValidation()
     {
 
-        //TODO: ********** ERRO: A validação do campo nota so é possivel validar antes de
-        //                       validar os campos associados a SCENARIOS
-
-        //TODO: ********** DUVIDA: A validação do campo data aceita letras e numeros sem estarem relacionados ao formato data;
-
-
         $pedido=new Pedido();
 
-        // VALIDAR ---->NOTA [ STRING ]
-        // VALIDAR ---->NOTA [ MAX-255 ]
 
         $pedido->nota=456454545454545454545454545;
         $this->assertFalse($pedido->validate(['nota']));
@@ -61,14 +53,6 @@ class PedidoTest extends \Codeception\Test\Unit
 
         /* ########### CAMPOS ASSOCIADOS A SCENARIOS ########### */
 
-        //TODO: ********** DUVIDA: A validação do campo data aceita letras e numeros sem estarem relacionados ao formato data;
-
-        // VALIDAR ---->DATA [ SAFE ]
-        // VALIDAR ---->DATA [ REQUIRED ]
-
-//        $pedido->data=1212121;
-//        $this->assertFalse($pedido->validate(['data']));
-
         $pedido->scenario='scenariorestaurante';
         $pedido->data=null;
         $this->assertFalse($pedido->validate(['data']));
@@ -77,14 +61,9 @@ class PedidoTest extends \Codeception\Test\Unit
         $pedido->data=null;
         $this->assertFalse($pedido->validate(['data']));
 
-//        $pedido->data=0;
-//        $this->assertFalse($pedido->validate(['data']));
-
         $pedido->data = date('Y-m-d H:i:s');
         $this->assertTrue($pedido->validate(['data']));
 
-        // VALIDAR ---->ESTADO [ INTEGER ]
-        // VALIDAR ---->ESTADO [ REQUIRED ]
         $pedido->estado='gjjgjty';
         $this->assertFalse($pedido->validate(['estado']));
 
@@ -99,9 +78,6 @@ class PedidoTest extends \Codeception\Test\Unit
         $pedido->estado=0;
         $this->assertTrue($pedido->validate(['estado']));
 
-
-        // VALIDAR ---->TIPO [ INTEGER ]
-        // VALIDAR ---->TIPO [ REQUIRED ]
 
         $pedido->tipo='grgrgrg';
         $this->assertFalse($pedido->validate(['tipo']));
@@ -118,10 +94,6 @@ class PedidoTest extends \Codeception\Test\Unit
         $this->assertTrue($pedido->validate(['tipo']));
 
 
-        // VALIDAR ---->ID_PERFIL [ INTEGER ]
-        // VALIDAR ---->ID_PERFIL [ REQUIRED ]-->scenario= Takeaway / Restaurante
-        // VALIDAR ---->ID_PERFIL [ EXIST ]
-
         $pedido->id_perfil='grgrgrg';
         $this->assertFalse($pedido->validate(['id_perfil']));
 
@@ -137,13 +109,6 @@ class PedidoTest extends \Codeception\Test\Unit
         $this->assertTrue($pedido->validate(['id_perfil']));
 
 
-        //TODO: Não testei com o scenario restaurante porque o NOME PEDIDO apenas e
-        //      required no scenerio takeaway
-
-        // VALIDAR ---->NOME_PEDIDO [ STRING ]
-        // VALIDAR ---->NOME_PEDIDO [ REQUIRED ]-->scenario= Takeaway
-        // VALIDAR ---->NOME_PEDIDO [ MAX-50 ]
-
         $pedido->nome_pedido=767676767;
         $this->assertFalse($pedido->validate(['nome_pedido']));
 
@@ -156,14 +121,6 @@ class PedidoTest extends \Codeception\Test\Unit
 
         $pedido->nome_pedido='João Antonio';
         $this->assertTrue($pedido->validate(['nome_pedido']));
-
-
-        //TODO: Não testei com o scenario takeaway porque o ID_MESA apenas é
-        //      required no scenario restaurante
-
-        // VALIDAR ---->ID_MESA [ INTEGER ]
-        // VALIDAR ---->ID_MESA [ REQUIRED ]-->scenario= Restaurante
-        // VALIDAR ---->ID_MESA [ EXIST ]
 
         $pedido->id_mesa='gegegegeg';
         $this->assertFalse($pedido->validate(['id_mesa']));

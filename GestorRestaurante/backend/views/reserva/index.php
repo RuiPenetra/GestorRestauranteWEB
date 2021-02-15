@@ -72,29 +72,48 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?=Html::img('@web/img/notes.png', ['alt' => 'imgTable', 'class' => 'img-fluid', 'width'=>'50px']); ?>
                             </td>
                             <td class="text-center">
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <?php if($reserva->funcionario->genero==0):?>
-                                                    <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
-                                                    <?= $reserva->funcionario->nome ?>
-                                                <?php endif?>
-                                                <?php if($reserva->funcionario->genero==1):?>
-                                                    <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
-                                                    <?= $reserva->funcionario->nome ?>
-                                                <?php endif?>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                                <div class="profile-username text-center">
+                                    <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$reserva->funcionario->id_user) !=null):
+                                        if ($reserva->funcionario->genero==0):?>
+                                            <?= \yii\helpers\Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img-color-cozinheiro img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= \yii\bootstrap4\Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
+
+                                    <?php if(Yii::$app->authManager->getAssignment('cliente',$reserva->funcionario->id_user) != null):
+                                        if ($reserva->funcionario->genero==0):?>
+                                            <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
+
+                                    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$reserva->funcionario->id_user) != null):
+                                        if ($reserva->funcionario->genero==0):?>
+                                            <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
+                                    <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$reserva->funcionario->id_user) != null):
+                                        if ($reserva->funcionario->genero==0):?>
+                                            <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
+                                    <?php if(Yii::$app->authManager->getAssignment('gerente',$reserva->funcionario->id_user) != null):
+                                        if ($reserva->funcionario->genero==0):?>
+                                            <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
+                                </div>
+                                <?= $reserva->funcionario->nome ?> <?= $reserva->funcionario->apelido ?>
                             </td>
                             <td class="text-center">
                                 <?= $reserva->data_hora ?>
                             </td>
                             <td class="text-center">
                                 <?=Html::img('@web/img/table.png', ['alt' => 'imgTable', 'class' => 'img-fluid mr-2', 'width'=>'30px']); ?>
-                                 <?= $reserva->id_mesa ?>
+                                 Nº <?= $reserva->id_mesa ?>
                             </td>
                             <td class="text-center">
                                 <i class="fas fa-user mr-2"></i><?= $reserva->nome_da_reserva ?>

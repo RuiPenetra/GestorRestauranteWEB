@@ -30,9 +30,11 @@ class Mesa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'n_lugares', 'estado'], 'required'],
+            ['estado', 'required'],
+            ['id', 'required', 'message' => "Nº mesa deve ser preenchido"],
+            ['n_lugares', 'required', 'message' => "Nº Lugares deve ser preenchido"],
             [['id', 'n_lugares', 'estado'], 'integer'],
-            [['id'], 'unique'],
+            [['id'], 'unique', 'message' => "Nº mesa já existe"],
         ];
     }
 

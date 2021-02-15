@@ -75,21 +75,23 @@ class PedidoController extends Controller
             $dataProviderMesa->pagination = ['pageSize' => 5];
 
             $pedido = new Pedido();
-            $pedido->estado = 0;
+            $pedido->estado = 1;
             $pedido->tipo=$tipo;
 
             $searchUser= new PerfilSearch();
-            $dataProviderUser = $searchUser->search(Yii::$app->request->queryParams);
-            $dataProviderUser->pagination = ['pageSize' => 5];
+
 
             if ($pedido->tipo==0) {
 
                 $pedido->scenario = 'scenariorestaurante';
+                $searchUser->cargo="empreagadoMesa";
             }else{
 
                 $pedido->scenario = 'scenariotakeaway';
-
+                $searchUser->cargo="cliente";
             }
+            $dataProviderUser = $searchUser->search(Yii::$app->request->queryParams);
+            $dataProviderUser->pagination = ['pageSize' => 5];
 
             if ($pedido->load(Yii::$app->request->post()) && $pedido->save()) {
 
@@ -98,6 +100,16 @@ class PedidoController extends Controller
                         $mesa->estado = 1;
                         $mesa->save();
                     }
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Pedido criado com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+
                     return $this->redirect(['/pedidoproduto/index','id'=>$pedido->id]);
 
             }
@@ -146,6 +158,16 @@ class PedidoController extends Controller
 
                 }
 
+                Yii::$app->getSession()->setFlash('success', [
+                    'type' => 'success',
+                    'duration' => 5000,
+                    'icon' => 'fas fa-tags',
+                    'message' => 'Pedido atualizado com sucesso',
+                    'title' => 'ALERTA',
+                    'positonX' => 'right',
+                    'positonY' => 'top'
+                ]);
+
                 return $this->redirect(['/pedidoproduto/index','id'=>$pedido->id]);
 
             }
@@ -169,7 +191,7 @@ class PedidoController extends Controller
 
             $pedido=$this->findModel($id);
 
-            if($pedido->estado==0){
+            if($pedido->estado==1){
 
                 if($pedido->tipo==0) {
                     $mesa = Mesa::findOne($pedido->id_mesa);
@@ -194,7 +216,7 @@ class PedidoController extends Controller
                     'type' => 'danger',
                     'duration' => 5000,
                     'icon' => 'fas fa-tags',
-                    'message' => 'Não é possivel eliminar o pedido, porque se encontra em processo/concluido',
+                    'message' => 'Não é possivel eliminar o pedido, porque se encontra em preparação/concluido',
                     'title' => 'ALERTA',
                     'positonX' => 'right',
                     'positonY' => 'top'

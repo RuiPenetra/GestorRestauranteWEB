@@ -33,7 +33,7 @@ class FaturaController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['teste','create','update','delete','export'],
+                        'actions' => ['view','create','update','delete','export'],
                         'allow' => true,
                         'roles' => ['gerente'],
                     ],
@@ -102,13 +102,13 @@ class FaturaController extends Controller
                 if ($fatura->load(Yii::$app->request->post()) && $fatura->save()) {
 
                     $pedido=Pedido::findOne($fatura->id_pedido);
-                    $pedido->estado=2;
+                    $pedido->estado=3;
                     $pedido->save();
 
                     if($pedido->tipo!=1){
 
                         $mesa=Mesa::findOne($pedido->id_mesa);
-                        $mesa->estado=1;
+                        $mesa->estado=2;
                         $mesa->save();
                     }
 
@@ -148,7 +148,7 @@ class FaturaController extends Controller
                 if($pedido->tipo!=1){
 
                     $mesa=Mesa::findOne($pedido->id_mesa);
-                    $mesa->estado=1;
+                    $mesa->estado=2;
                     $mesa->save();
                 }
 
@@ -179,7 +179,7 @@ class FaturaController extends Controller
                $mesa->save();
            }
 
-           $pedido->estado=1;
+           $pedido->estado=2;
 
            $pedido->save();
 

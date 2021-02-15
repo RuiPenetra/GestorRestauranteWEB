@@ -90,7 +90,6 @@ class HorarioController extends Controller
     {
         if(Yii::$app->user->can('consultarHorarios')){
 
-            $horario=Horario::findAll(['id_funcionario'=>$id]);
             $user=Perfil::findOne($id);
             $searchHorario = new HorarioSearch();
             $searchHorario->id_funcionario=$user->id_user;

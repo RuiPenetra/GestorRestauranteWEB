@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <table class="table">
                 <thead>
                 <tr>
-                    <th style="width: 60px" class="text-center"></th>
+                    <th class="text-center"></th>
                     <th class="text-center">Nº</th>
                     <th class="text-center">Lugares</th>
                     <th class="text-center">Estado</th>
@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td class="text-center"><span class="badge bg-dark">Reservada</span></td>
                         <?php endif;?>
                         <?php if($mesa->estado==1):?>
-                            <td class="text-center"><span class="badge bg-warning">Ocupada</span></td>
+                            <td class="text-center"><span class="badge bg-warning text-white">Ocupada</span></td>
                         <?php endif;?>
                         <?php if($mesa->estado==2):?>
                             <td class="text-center"><span class="badge bg-success">Livre</span></td>

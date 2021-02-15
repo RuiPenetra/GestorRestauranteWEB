@@ -102,11 +102,19 @@ class FaltaController extends Controller
 
             $falta->id_funcionario=$id;
             $falta->num_horas=0;
+
             $user=Perfil::findOne($id);
 
             if ($falta->load(Yii::$app->request->post())) {
 
+                $ts1 = strtotime(str_replace('/', '-', '00/00/0000 '.$falta->hora_inicio));
+                $ts2 = strtotime(str_replace('/', '-', '00/00/0000 '.$falta->hora_fim));
+                $diff = abs($ts2 - $ts1) / 3600;
+
+                $falta->num_horas=round($diff, 0);
+
                 if($falta->save()==true){
+
                     Yii::$app->getSession()->setFlash('success', [
                         'type' => 'success',
                         'duration' => 5000,
@@ -144,18 +152,27 @@ class FaltaController extends Controller
             $dataProviderFalta->pagination = ['pageSize' => 5];
 
             if ($falta->load(Yii::$app->request->post()) && $falta->save()) {
-                Yii::$app->getSession()->setFlash('success', [
-                    'type' => 'success',
-                    'duration' => 5000,
-                    'icon' => 'fas fa-tags',
-                    'message' => 'Falta atualizada com sucesso',
-                    'title' => 'Sucesso',
-                    'positonX' => 'right',
-                    'positonY' => 'top'
-                ]);
-                return $this->redirect(['view', 'id' => $falta->id_funcionario]);
-            }
 
+                $ts1 = strtotime(str_replace('/', '-', '00/00/0000 '.$falta->hora_inicio));
+                $ts2 = strtotime(str_replace('/', '-', '00/00/0000 '.$falta->hora_fim));
+                $diff = abs($ts2 - $ts1) / 3600;
+
+                $falta->num_horas=round($diff, 0);
+
+                if($falta->save()==true) {
+                    Yii::$app->getSession()->setFlash('success', [
+                        'type' => 'success',
+                        'duration' => 5000,
+                        'icon' => 'fas fa-tags',
+                        'message' => 'Falta atualizada com sucesso',
+                        'title' => 'Sucesso',
+                        'positonX' => 'right',
+                        'positonY' => 'top'
+                    ]);
+                    return $this->redirect(['view', 'id' => $falta->id_funcionario]);
+
+                }
+            }
             return $this->render('update', [
                 'falta' => $falta,
                 'dataProviderFalta' => $dataProviderFalta,

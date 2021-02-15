@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 <div class="falta-search">
 
     <?php $form = ActiveForm::begin([
-        'method' => 'get',
+        'method' => 'get','enableClientValidation'=> false
     ]); ?>
 
     <div class="row d-flex justify-content-center">

@@ -33,12 +33,15 @@ class Produto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nome', 'preco', 'id_categoria', 'estado'], 'required'],
+            ['estado', 'required'],
+            ['nome', 'required','message' => 'Nome deve ser preenchido'],
+            ['preco', 'required','message' => 'Preço deve ser preenchido'],
+            ['id_categoria', 'required','message' => 'Selecione uma categoria'],
             [['preco'], 'number'],
             [['id_categoria', 'estado'], 'integer'],
             [['nome'], 'string', 'max' => 50],
             [['ingredientes'], 'string', 'max' => 500],
-            [['nome'], 'unique'],
+            [['nome'], 'unique','message' => 'Nome já existe'],
             [['id_categoria'], 'exist', 'skipOnError' => true, 'targetClass' => CategoriaProduto::className(), 'targetAttribute' => ['id_categoria' => 'id']],
         ];
     }

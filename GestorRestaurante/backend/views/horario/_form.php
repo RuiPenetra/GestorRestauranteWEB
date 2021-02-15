@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Horario */
@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
         <div class="card-header">
             <h3 class="card-title">
                 <i class="fas fa-calendar-alt"></i>
-                Criar falta
+                Novo Horário
             </h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
@@ -23,13 +23,13 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
         <div class="card-body" style="display: block;">
-            <?php $form = ActiveForm::begin(); ?>
+            <?php $form = ActiveForm::begin(['enableClientValidation'=> false]); ?>
             <div class="row">
                 <div class="row col-md-12">
                     <div class="col-md-3 mt-0 ">
                         <div class="box-body box-profile user-painel mt-3">
                             <div class="text-center">
-                                <img class="img-responsive" width="100px" height="100px" src="img/calendario.png" alt="imgPerfil">
+                                <?= Html::img('@web/img/calendario.png', ['alt' => 'imgPerfil', 'class' => 'img-responsive', 'width'=>'100px', 'height'=>'100px']); ?>
                             </div>
                         </div>
                     </div>
@@ -73,7 +73,7 @@ use yii\widgets\ActiveForm;
                             <?= $form->field($horario, 'hora_fim')->textInput(['type'=>'time','class'=>'form-control rounded-right','maxlength' => true])->label(false) ?>
                         </div>
                         <div class="form-group">
-                            <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
+                            <?= Html::submitButton('Guardar', ['class' => 'btn btn-dark']) ?>
                         </div>
                     </div>
                 </div>

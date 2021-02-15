@@ -47,11 +47,11 @@ $this->title = 'Atualizar Horario: ' . $horario->mes;
                             <?php if($horario->dia_semana=="segunda"):?>
                                 <div class="row col-md-12 d-flex justify-content-center mt-2">
                                     <div class="row col-md-12" style="width:120px; background-color: #fff59c;border-radius: 25px; display: block;;">
-                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 150px">
+                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 30px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Inicio</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_inicio));?></h7></div>
                                         </div>
-                                        <div class="w-100" style="margin-bottom: 70px">
+                                        <div class="w-100">
                                             <?=Html::a('<i class="fas fa-edit"></i>', ['horario/update', 'id' => $horario->id], ['class' => 'btn btn-info btn-sm']) ?>
                                             <?=Html::a('<i class="fas fa-trash"></i>', ['horario/delete', 'id' => $horario->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarHorario'.$horario->id]) ?>
                                         </div>
@@ -81,7 +81,7 @@ $this->title = 'Atualizar Horario: ' . $horario->mes;
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-top: 150px">
+                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-top: 30px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Fim</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_fim));?></h7></div>
                                         </div>
@@ -95,11 +95,11 @@ $this->title = 'Atualizar Horario: ' . $horario->mes;
                             <?php if($horario->dia_semana=="terça"):?>
                                 <div class="row col-md-12 d-flex justify-content-center mt-2">
                                     <div class="row col-md-12" style="width:120px; background-color: #fff59c;border-radius: 25px; display: block;;">
-                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 150px">
+                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 30px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Inicio</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_inicio));?></h7></div>
                                         </div>
-                                        <div class="w-100" style="margin-bottom: 70px">
+                                        <div class="w-100">
                                             <?=Html::a('<i class="fas fa-edit"></i>', ['horario/update', 'id' => $horario->id], ['class' => 'btn btn-info btn-sm']) ?>
                                             <?=Html::a('<i class="fas fa-trash"></i>', ['horario/delete', 'id' => $horario->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarHorario'.$horario->id]) ?>
                                         </div>
@@ -129,7 +129,7 @@ $this->title = 'Atualizar Horario: ' . $horario->mes;
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-top: 150px">
+                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-top: 30px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Fim</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_fim));?></h7></div>
                                         </div>
@@ -143,11 +143,11 @@ $this->title = 'Atualizar Horario: ' . $horario->mes;
                             <?php if($horario->dia_semana=="quarta"):?>
                                 <div class="row col-md-12 d-flex justify-content-center mt-2">
                                     <div class="row col-md-12" style="width:120px; background-color: #fff59c;border-radius: 25px; display: block;;">
-                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 150px">
+                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 30px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Inicio</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_inicio));?></h7></div>
                                         </div>
-                                        <div class="w-100" style="margin-bottom: 70px">
+                                        <div class="w-100">
                                             <?=Html::a('<i class="fas fa-edit"></i>', ['horario/update', 'id' => $horario->id], ['class' => 'btn btn-info btn-sm']) ?>
                                             <?=Html::a('<i class="fas fa-trash"></i>', ['horario/delete', 'id' => $horario->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarHorario'.$horario->id]) ?>
                                         </div>
@@ -191,11 +191,11 @@ $this->title = 'Atualizar Horario: ' . $horario->mes;
                             <?php if($horario->dia_semana=="quinta"):?>
                                 <div class="row col-md-12 d-flex justify-content-center mt-2">
                                     <div class="row col-md-12" style="width:120px; background-color: #fff59c;border-radius: 25px; display: block;;">
-                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 150px">
+                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 30px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Inicio</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_inicio));?></h7></div>
                                         </div>
-                                        <div class="w-100" style="margin-bottom: 70px">
+                                        <div class="w-100">
                                             <?=Html::a('<i class="fas fa-edit"></i>', ['horario/update', 'id' => $horario->id], ['class' => 'btn btn-info btn-sm']) ?>
                                             <?=Html::a('<i class="fas fa-trash"></i>', ['horario/delete', 'id' => $horario->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarHorario'.$horario->id]) ?>
                                         </div>
@@ -225,7 +225,7 @@ $this->title = 'Atualizar Horario: ' . $horario->mes;
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-top: 150px">
+                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-top: 30px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Fim</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_fim));?></h7></div>
                                         </div>
@@ -239,11 +239,11 @@ $this->title = 'Atualizar Horario: ' . $horario->mes;
                             <?php if($horario->dia_semana=="sexta"):?>
                                 <div class="row col-md-12 d-flex justify-content-center mt-2">
                                     <div class="row col-md-12" style="width:120px; background-color: #fff59c;border-radius: 25px; display: block;;">
-                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 150px">
+                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 30px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Inicio</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_inicio));?></h7></div>
                                         </div>
-                                        <div class="w-100" style="margin-bottom: 70px">
+                                        <div class="w-100">
                                             <?=Html::a('<i class="fas fa-edit"></i>', ['horario/update', 'id' => $horario->id], ['class' => 'btn btn-info btn-sm']) ?>
                                             <?=Html::a('<i class="fas fa-trash"></i>', ['horario/delete', 'id' => $horario->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarHorario'.$horario->id]) ?>
                                         </div>
@@ -273,7 +273,7 @@ $this->title = 'Atualizar Horario: ' . $horario->mes;
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-top: 150px">
+                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-top: 30px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Fim</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_fim));?></h7></div>
                                         </div>
@@ -287,11 +287,11 @@ $this->title = 'Atualizar Horario: ' . $horario->mes;
                             <?php if($horario->dia_semana=="sabado"):?>
                                 <div class="row col-md-12 d-flex justify-content-center mt-2">
                                     <div class="row col-md-12" style="width:120px; background-color: #fff59c;border-radius: 25px; display: block;;">
-                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 150px">
+                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 30px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Inicio</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_inicio));?></h7></div>
                                         </div>
-                                        <div class="w-100" style="margin-bottom: 70px">
+                                        <div class="w-100">
                                             <?=Html::a('<i class="fas fa-edit"></i>', ['horario/update', 'id' => $horario->id], ['class' => 'btn btn-info btn-sm']) ?>
                                             <?=Html::a('<i class="fas fa-trash"></i>', ['horario/delete', 'id' => $horario->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarHorario'.$horario->id]) ?>
                                         </div>
@@ -321,7 +321,7 @@ $this->title = 'Atualizar Horario: ' . $horario->mes;
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-top: 150px">
+                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-top: 30px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Fim</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_fim));?></h7></div>
                                         </div>
@@ -335,11 +335,11 @@ $this->title = 'Atualizar Horario: ' . $horario->mes;
                             <?php if($horario->dia_semana=="domingo"):?>
                                 <div class="row col-md-12 d-flex justify-content-center mt-2">
                                     <div class="row col-md-12" style="width:120px; background-color: #fff59c;border-radius: 25px; display: block;;">
-                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 150px">
+                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-bottom: 30px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Inicio</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_inicio));?></h7></div>
                                         </div>
-                                        <div class="w-100" style="margin-bottom: 70px">
+                                        <div class="w-100">
                                             <?=Html::a('<i class="fas fa-edit"></i>', ['horario/update', 'id' => $horario->id], ['class' => 'btn btn-info btn-sm']) ?>
                                             <?=Html::a('<i class="fas fa-trash"></i>', ['horario/delete', 'id' => $horario->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#apagarHorario'.$horario->id]) ?>
                                         </div>
@@ -369,7 +369,7 @@ $this->title = 'Atualizar Horario: ' . $horario->mes;
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-top: 150px">
+                                        <div class="w-100" style="background-color: #ffd752;border-radius:30px; margin-top: 30px">
                                             <div class="row d-flex justify-content-center"><h7 class="mt-2"><b><i class="far fa-clock"></i> Hora Fim</b></h7></div>
                                             <div class="row d-flex justify-content-center"><h7><?=date('H:i',strtotime($horario->hora_fim));?></h7></div>
                                         </div>

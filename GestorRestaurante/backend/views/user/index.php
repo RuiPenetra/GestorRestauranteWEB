@@ -63,64 +63,87 @@ $this->params['breadcrumbs'][] = $this->title;
                         </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($dataProviderUser->models as $user):?>
+                    <?php foreach ($dataProviderUser->models as $perfil):?>
                         <tr>
                             <td class="text-center">
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <?php if($user->genero==0):?>
-                                            <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
-                                        <?php endif?>
-                                        <?php if($user->genero==1):?>
-                                            <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
-                                        <?php endif?>
-                                    </li>
+                                <div class="profile-username text-center">
+                                    <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$perfil->id_user) !=null):
+                                        if ($perfil->genero==0):?>
+                                            <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
 
-                                </ul>
+                                    <?php if(Yii::$app->authManager->getAssignment('cliente',$perfil->id_user) != null):
+                                        if ($perfil->genero==0):?>
+                                            <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
+
+                                    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$perfil->id_user) != null):
+                                        if ($perfil->genero==0):?>
+                                            <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
+                                    <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$perfil->id_user) != null):
+                                        if ($perfil->genero==0):?>
+                                            <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
+                                    <?php if(Yii::$app->authManager->getAssignment('gerente',$perfil->id_user) != null):
+                                        if ($perfil->genero==0):?>
+                                            <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
+                                </div>
                             </td>
                             <td class="text-center">
-                                <?=$user->nome?>
+                                <?=$perfil->nome?>
                             </td >
                             <td class="text-center">
-                                <?=$user->apelido?>
+                                <?=$perfil->apelido?>
                             </td>
                             <td class="text-center">
-                                <?php if($user->cargo=='gerente'):?>
+                                <?php if($perfil->cargo=='gerente'):?>
                                     Gerente
                                 <?php endif;?>
-                                <?php if($user->cargo=='cliente'):?>
+                                <?php if($perfil->cargo=='cliente'):?>
                                     Cliente
                                 <?php endif;?>
-                                <?php if($user->cargo=='atendedorPedidos'):?>
+                                <?php if($perfil->cargo=='atendedorPedidos'):?>
                                     Atendedor Pedidos
                                 <?php endif;?>
-                                <?php if($user->cargo=='empregadoMesa'):?>
+                                <?php if($perfil->cargo=='empregadoMesa'):?>
                                     Empregado Mesa
                                 <?php endif;?>
-                                <?php if($user->cargo=='cozinheiro'):?>
+                                <?php if($perfil->cargo=='cozinheiro'):?>
                                     Cozinheiro
                                 <?php endif;?>
                             </td>
                             <td class="text-center">
-                                <?php if($user->user->status==9):?>
-                                    <span class="badge bg-danger">INATIVO</span>
+                                <?php if($perfil->user->status==9):?>
+                                    <span class="badge bg-danger">Inativo</span>
                                 <?php else:?>
-                                    <span class="badge bg-success">ATIVO</span>
+                                    <span class="badge bg-success">Ativo</span>
                                 <?php endif;?>
                             </td>
                             <td class="text-center">
-                                <?php if($user->id_user!=$id_userLogado):?>
-                                    <?= Html::a('<i class="fas fa-eye"></i>', ['user/view', 'id' => $user->id_user], ['class' => 'btn btn-info btn-sm']) ?>
-                                    <?= Html::a('<i class="far fa-edit color-white"></i>', ['user/update', 'id' => $user->id_user], ['class' => 'btn btn-warning btn-sm']) ?>
-                                    <?php if ($user->user->status!=9):?>
-                                        <?=Html::a('<i class="far fa-trash-alt color-white"></i>', ['user/delete', 'id' => $user->id_user], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#desativarUser'.$user->id_user]) ?>
+                                <?php if($perfil->id_user!=$id_userLogado):?>
+                                    <?= Html::a('<i class="fas fa-eye"></i>', ['user/view', 'id' => $perfil->id_user], ['class' => 'btn btn-info btn-sm']) ?>
+                                    <?= Html::a('<i class="far fa-edit color-white"></i>', ['user/update', 'id' => $perfil->id_user], ['class' => 'btn btn-warning btn-sm']) ?>
+                                    <?php if ($perfil->user->status!=9):?>
+                                        <?=Html::a('<i class="far fa-trash-alt color-white"></i>', ['user/delete', 'id' => $perfil->id_user], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal', 'data-target'=>'#desativarUser'.$perfil->id_user]) ?>
                                     <?php else:?>
-                                        <?=Html::a('<i class="fas fa-trash-restore-alt"></i>', ['user/delete', 'id' => $user->id_user], ['class' => 'btn btn-success btn-sm','data-toggle'=>'modal', 'data-target'=>'#ativarUser'.$user->id_user]) ?>
+                                        <?=Html::a('<i class="fas fa-trash-restore-alt"></i>', ['user/delete', 'id' => $perfil->id_user], ['class' => 'btn btn-success btn-sm','data-toggle'=>'modal', 'data-target'=>'#ativarUser'.$perfil->id_user]) ?>
                                     <?php endif;?>
                                 <?php endIf?>
                             </td>
                         </tr>
-                        <div class="modal fade"  id="desativarUser<?=$user->id_user?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade"  id="desativarUser<?=$perfil->id_user?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content mt-2" >
                                     <div class="modal-header">
@@ -135,7 +158,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <?= Html::a('<b>SIM</b>', ['delete', 'id' => $user->id_user], [
+                                        <?= Html::a('<b>SIM</b>', ['delete', 'id' => $perfil->id_user], [
                                             'class' => 'btn btn-outline-success',
                                             'data' => [
                                                 'method' => 'post',
@@ -146,7 +169,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                             </div>
                         </div>
-                        <div class="modal fade"  id="ativarUser<?=$user->id_user?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade"  id="ativarUser<?=$perfil->id_user?>" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content mt-2" >
                                     <div class="modal-header">
@@ -161,7 +184,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <?= Html::a('<b>SIM</b>', ['delete', 'id' => $user->id_user], [
+                                        <?= Html::a('<b>SIM</b>', ['delete', 'id' => $perfil->id_user], [
                                             'class' => 'btn btn-outline-success',
                                             'data' => [
                                                 'method' => 'post',

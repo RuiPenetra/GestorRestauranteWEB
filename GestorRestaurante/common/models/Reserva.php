@@ -33,7 +33,11 @@ class Reserva extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['n_pessoas', 'data_hora', 'nome_da_reserva', 'id_mesa', 'id_funcionario'], 'required'],
+            ['id_mesa', 'required','message'=>'Selecione uma mesa'],
+            ['id_funcionario', 'required','message'=>'Selecione uma funcionário'],
+            ['n_pessoas', 'required','message'=>'NºPessoas deve ser preenchido'],
+            ['data_hora', 'required','message'=>'Data e Hora devem ser preenchidas'],
+            ['nome_da_reserva', 'required','message'=>'Nome da reserva deve ser preenchido'],
             [['n_pessoas', 'id_mesa', 'id_funcionario'], 'integer'],
             [['data_hora'], 'safe'],
             [['nome_da_reserva'], 'string', 'max' => 50],

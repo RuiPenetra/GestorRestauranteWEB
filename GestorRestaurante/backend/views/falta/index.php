@@ -20,14 +20,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
     <span style="font-size: small"><b>Legenda : </b></span>
-        <button type="button" class="btn btn-outline-dark">
-            <i class="fas fa-user"></i>
-        </button>
-        Consultar utilizador
         <button type="button" class="btn btn-outline-success ml-3">
             <i class="fas fa-plus-circle"></i>
         </button>
-        Selecionar utilizador
+        Criar Falta
+        <button type="button" class="btn btn-outline-info ml-3">
+            <i class="fas fa-user"></i>
+        </button>
+        Detalhes Utilizador
+        <button type="button" class="btn btn-outline-dark ml-3">
+            <i class="fas fa-calendar"></i>
+        </button>
+        Todas as faltas
+    </p>
     </p>
 </div>
 <div class="card card-outline card-warning mr-5 ml-5">
@@ -71,18 +76,40 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php if($perfil->cargo!='cliente'):?>
                         <tr>
                             <td class="text-center">
-                                <ul class="list-inline">
+                                <div class="profile-username text-center">
+                                    <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$perfil->id_user) !=null):
+                                        if ($perfil->genero==0):?>
+                                            <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
 
-                                    <li class="list-inline-item">
-                                        <?php if($perfil->genero==0):?>
-                                            <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
-                                        <?php endif?>
-                                        <?php if($perfil->genero==1):?>
-                                            <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
-                                        <?php endif?>
-                                    </li>
+                                    <?php if(Yii::$app->authManager->getAssignment('cliente',$perfil->id_user) != null):
+                                        if ($perfil->genero==0):?>
+                                            <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
 
-                                </ul>
+                                    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$perfil->id_user) != null):
+                                        if ($perfil->genero==0):?>
+                                            <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
+                                    <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$perfil->id_user) != null):
+                                        if ($perfil->genero==0):?>
+                                            <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
+                                    <?php if(Yii::$app->authManager->getAssignment('gerente',$perfil->id_user) != null):
+                                        if ($perfil->genero==0):?>
+                                            <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive table-avatar']); ?>
+                                        <?php else:?>
+                                            <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive table-avatar']); ?>
+                                        <?php endif; endif;?>
+                                </div>
                             </td>
                             <td class="text-center">
                                 <?=$perfil->nome?>
@@ -112,9 +139,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             </td>
                             <td class="text-center">
                                 <?php if($perfil->user->status==9){?>
-                                    <span class="badge bg-danger">INATIVO</span>
+                                    <span class="badge bg-danger">Inativo</span>
                                 <?php }else{?>
-                                    <span class="badge bg-success">ATIVO</span>
+                                    <span class="badge bg-success">Ativo</span>
                                 <?php }?>
                             </td>
                             <td class="text-center">
@@ -134,151 +161,170 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="modal-body">
                                         <div class="row d-flex justify-content-center">
                                             <div class="col-10">
-                                                <div class="card p-5">
-                                                    <div class="card-body">
-                                                        <div class="align-center">
-                                                            <?php $form = ActiveForm::begin(); ?>
-                                                            <div class="mb-4">
-                                                                <h6 class="text-uppercase">Dados Pessoais</h6>
-                                                                <!-- Solid divider -->
-                                                                <hr class="solid">
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <div class="box-body box-profile user-painel mt-3">
-                                                                        <div class="profile-username text-center">
-                                                                            <?php if($perfil->genero==0):?>
-                                                                                <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
-                                                                            <?php endif?>
-                                                                            <?php if($perfil->genero==1):?>
-                                                                                <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
-                                                                            <?php endif?>
-                                                                            <div class="info center">
-                                                                                <div style="text-align: center;">
-                                                                                    <?php if (Yii::$app->authManager->getAssignment('gerente',$perfil->id_user) != null):?>
-                                                                                        <span class="center badge badge-warning">Gerente</span>
-                                                                                    <?php endif;?>
-                                                                                    <?php if (Yii::$app->authManager->getAssignment('cliente',$perfil->id_user) != null):?>
-                                                                                        <span class="center badge badge-danger">Cliente</span>
-                                                                                    <?php endif;?>
-                                                                                    <?php if (Yii::$app->authManager->getAssignment('atendedorPedidos',$perfil->id_user) != null):?>
-                                                                                        <span class="center badge badge-primary">Atendedor Pedidos</span>
-                                                                                    <?php endif;?>
-                                                                                    <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$perfil->id_user) != null
-                                                                                    ):?>
-                                                                                        <span class="center badge badge-indigo-light">Empregado Mesa</span>
-                                                                                    <?php endif;?>
-                                                                                    <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$perfil->id_user) != null):?>
-                                                                                        <span class="center badge badge-success">Cozinheiro</span>
-                                                                                    <?php endif;?>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="input-group mb-3 rounded-left">
-                                                                        <div class="input-group-append">
-                                                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                                                        </div>
-                                                                        <?= $form->field($perfil, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome"])->label(false) ?>
-                                                                    </div>
-                                                                    <div class="input-group mb-3">
-                                                                        <div class="input-group-append">
-                                                                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                                                        </div>
-                                                                        <?= $form->field($perfil, 'apelido', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Apelido"])->label(false) ?>
-                                                                    </div>
-                                                                    <div class="input-group mb-3">
-                                                                        <div class="input-group-append">
-                                                                            <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
-                                                                        </div>
-                                                                        <?= $form->field($perfil, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'], ['disabled' => 'disabled'],
-                                                                            ['prompt'=>'Selecione...'],['maxlenght'=> true],
-                                                                            ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="input-group mb-3">
-                                                                        <div class="input-group-append">
-                                                                            <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                                                                        </div>
-                                                                        <?= $form->field($perfil, 'morada', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Morada"])->label(false) ?>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <div class="input-group mb-3">
-                                                                        <div class="input-group-append">
-                                                                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                                                        </div>
-                                                                        <?= $form->field($perfil, 'codigopostal', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Codigo-Postal"])->label(false) ?>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="input-group mb-3">
-                                                                        <div class="input-group-append">
-                                                                            <span class="input-group-text"><i class="fas fa-globe-asia"></i></span>
-                                                                        </div>
-                                                                        <?= $form->field($perfil, 'datanascimento',['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'type' => 'date','autocomplete' => 'off'])->label(false) ?>
+                                                <div class="align-center">
+                                                    <?php $form = ActiveForm::begin(); ?>
+                                                    <div class="mb-4">
+                                                        <h6 class="text-uppercase">Dados Pessoais</h6>
+                                                        <!-- Solid divider -->
+                                                        <hr class="solid">
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="profile-username text-center">
+                                                                <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$perfil->id_user) !=null):
+                                                                    if ($perfil->genero==0):?>
+                                                                        <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-fluid img-circle']); ?>
+                                                                    <?php else:?>
+                                                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-fluid img-circle']); ?>
+                                                                    <?php endif; endif;?>
 
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <div class="input-group mb-3">
-                                                                        <div class="input-group-append">
-                                                                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                                                        </div>
-                                                                        <?= $form->field($perfil, 'nacionalidade', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Nacionalidade"])->label(false) ?>
+                                                                <?php if(Yii::$app->authManager->getAssignment('cliente',$perfil->id_user) != null):
+                                                                    if ($perfil->genero==0):?>
+                                                                        <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-fluid img-circle']); ?>
+                                                                    <?php else:?>
+                                                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-fluid img-circle']); ?>
+                                                                    <?php endif; endif;?>
 
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="input-group mb-3">
-                                                                        <div class="input-group-append">
-                                                                            <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-                                                                        </div>
-                                                                        <?= $form->field($perfil, 'telemovel', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Telemovel"])->label(false) ?>
-
+                                                                <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$perfil->id_user) != null):
+                                                                    if ($perfil->genero==0):?>
+                                                                        <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-fluid img-circle']); ?>
+                                                                    <?php else:?>
+                                                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-fluid img-circle']); ?>
+                                                                    <?php endif; endif;?>
+                                                                <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$perfil->id_user) != null):
+                                                                    if ($perfil->genero==0):?>
+                                                                        <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive img-circle']); ?>
+                                                                    <?php else:?>
+                                                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive img-circle']); ?>
+                                                                    <?php endif; endif;?>
+                                                                <?php if(Yii::$app->authManager->getAssignment('gerente',$perfil->id_user) != null):
+                                                                    if ($perfil->genero==0):?>
+                                                                        <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive img-circle']); ?>
+                                                                    <?php else:?>
+                                                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive img-circle']); ?>
+                                                                    <?php endif; endif;?>
+                                                                <div class="info center">
+                                                                    <div style="text-align: center;">
+                                                                        <?php if (Yii::$app->authManager->getAssignment('gerente',$perfil->id_user) != null):?>
+                                                                            <span class="center badge badge-warning text-white"><h8>Gerente</h8></span>
+                                                                        <?php endif;?>
+                                                                        <?php if (Yii::$app->authManager->getAssignment('cliente',$perfil->id_user) != null):?>
+                                                                            <span class="center badge badge-danger text-white"><h8>Cliente</h8></span>
+                                                                        <?php endif;?>
+                                                                        <?php if (Yii::$app->authManager->getAssignment('atendedorPedidos',$perfil->id_user) != null):?>
+                                                                            <span class="center badge badge-primary text-white"><h8>Atendedor Pedidos</h8></span>
+                                                                        <?php endif;?>
+                                                                        <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$perfil->id_user) != null
+                                                                        ):?>
+                                                                            <span class="center badge badge-indigo-light"><h8>Empregado Mesa</h8></span>
+                                                                        <?php endif;?>
+                                                                        <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$perfil->id_user) != null):?>
+                                                                            <span class="center badge badge-success text-white"><h8>Cozinheiro</h8></span>
+                                                                        <?php endif;?>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row">
-                                                            </div>
-                                                            <div class="mb-4 mt-4">
-                                                                <h6 class="text-uppercase">Dados Acesso</h6>
-                                                                <!-- Solid divider -->
-                                                                <hr class="solid">
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-6">
-                                                                    <div class="input-group mb-3">
-                                                                        <div class="input-group-append">
-                                                                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                                                        </div>
-                                                                        <?= $form->field($perfil->user, 'username', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Username"])->label(false) ?>
-
-                                                                    </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="input-group mb-3 rounded-left">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                                 </div>
-                                                                <div class="col-6">
-                                                                    <div class="input-group mb-3">
-                                                                        <div class="input-group-append">
-                                                                            <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-                                                                        </div>
-                                                                        <?= $form->field($perfil->user, 'email', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Email", 'type' => 'email'])->label(false) ?>
-                                                                    </div>
-                                                                </div>
+                                                                <?= $form->field($perfil, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome"])->label(false) ?>
                                                             </div>
-                                                            <?php ActiveForm::end(); ?>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                                </div>
+                                                                <?= $form->field($perfil, 'apelido', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Apelido"])->label(false) ?>
+                                                            </div>
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
+                                                                </div>
+                                                                <?= $form->field($perfil, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'], ['disabled' => 'disabled'],
+                                                                    ['prompt'=>'Selecione...'],['maxlenght'=> true],
+                                                                    ['options'=> ['class' => 'form-control input_user rounded-right']])->label(false); ?>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <!-- /.tab-content -->
-                                                </div><!-- /.card-body -->
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                                                </div>
+                                                                <?= $form->field($perfil, 'morada', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Morada"])->label(false) ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                                                </div>
+                                                                <?= $form->field($perfil, 'codigopostal', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Codigo-Postal"])->label(false) ?>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                                                </div>
+                                                                <?= $form->field($perfil, 'datanascimento',['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'type' => 'date','autocomplete' => 'off'])->label(false) ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text"><i class="fas fa-globe-asia"></i></span>
+                                                                </div>
+                                                                <?= $form->field($perfil, 'nacionalidade', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Nacionalidade"])->label(false) ?>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                                                                </div>
+                                                                <?= $form->field($perfil, 'telemovel', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Telemovel"])->label(false) ?>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                    </div>
+                                                    <div class="mb-4 mt-4">
+                                                        <h6 class="text-uppercase">Dados Acesso</h6>
+                                                        <!-- Solid divider -->
+                                                        <hr class="solid">
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                                </div>
+                                                                <?= $form->field($perfil->user, 'username', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Username"])->label(false) ?>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <div class="input-group mb-3">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                                                                </div>
+                                                                <?= $form->field($perfil->user, 'email', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput([ 'readonly' => true,'class'=>'form-control input_user rounded-right' , 'placeholder' => "Email", 'type' => 'email'])->label(false) ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php ActiveForm::end(); ?>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

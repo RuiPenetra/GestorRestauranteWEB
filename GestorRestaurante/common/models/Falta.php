@@ -32,7 +32,10 @@ class Falta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['data', 'hora_inicio', 'hora_fim', 'num_horas', 'id_funcionario'], 'required'],
+            [['num_horas', 'id_funcionario'], 'required'],
+            ['data', 'required','message'=>'Data deve ser preenchida'],
+            ['hora_inicio','required','message'=>'Hora Inicio deve ser preenchida'],
+            ['hora_fim', 'required','message'=>'Hora Fim deve ser preenchida'],
             [['data', 'hora_inicio', 'hora_fim'], 'safe'],
             [['num_horas', 'id_funcionario'], 'integer'],
             [['id_funcionario'], 'exist', 'skipOnError' => true, 'targetClass' => Perfil::className(), 'targetAttribute' => ['id_funcionario' => 'id_user']],

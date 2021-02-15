@@ -29,9 +29,9 @@ $this->params['breadcrumbs'][] = 'Update';
                     </div>
 
                     <h3 class="profile-username text-center"><?=$perfil->nome?> <?=$perfil->apelido?></h3>
-
-                    <p class="text-muted text-center">Gerente</p>
-
+                    <div class="text-center">
+                    <span class="center badge badge-warning text-white"><h8>Gerente</h8></span>
+                    </div>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = 'Update';
                     <strong><i class="fas fa-calendar-alt mr-1"></i>Data Nascimento </strong>
                     <p class="text-muted"><?=$perfil->datanascimento?></p>
                     <hr>
-                    <strong><i class="fas fa-map-marker-alt mr-1"></i> Genero</strong>
+                    <strong><i class="fas fa-venus-mars"></i> Genero</strong>
                     <p class="text-muted">
                         <?php
                         if($perfil->genero == 0):?>
@@ -75,20 +75,14 @@ $this->params['breadcrumbs'][] = 'Update';
                             <!-- Solid divider -->
                             <hr class="solid">
                         </div>
-                        <div class="row">
-                            <div class="container">
-                                <div class="picture-container">
-                                    <div class="picture">
-                                        <?php if($perfil->genero==0):?>
-                                            <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img img-fluid img-circle']); ?>
-                                        <?php endif?>
-                                        <?php if($perfil->genero==1):?>
-                                            <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img img-fluid img-circle']); ?>
-                                        <?php endif?>
-                                        <input type="file" id="wizard-picture" class="">
-                                    </div>
-                                    <h6 class="">Escolher imagem</h6>
-
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-6 d-flex justify-content-center">
+                                <div class="box-body box-profile user-painel mt-2 mb-3">
+                                    <?php if ($perfil->genero==0):?>
+                                        <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive img-circle']); ?>
+                                    <?php else:?>
+                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive img-circle']); ?>
+                                    <?php endif;?>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +90,7 @@ $this->params['breadcrumbs'][] = 'Update';
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-user"></i></span>
                                     </div>
                                     <?= $form->field($perfil, 'nome', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nome",  'autofocus' => true])->label(false) ?>
                                 </div>
@@ -104,7 +98,7 @@ $this->params['breadcrumbs'][] = 'Update';
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-user"></i></span>
                                     </div>
                                     <?= $form->field($perfil, 'apelido', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Apelido"])->label(false) ?>
                                 </div>
@@ -114,7 +108,7 @@ $this->params['breadcrumbs'][] = 'Update';
                             <div class="col-12">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-map-marker-alt"></i></span>
                                     </div>
                                     <?= $form->field($perfil, 'morada', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Morada"])->label(false) ?>
                                 </div>
@@ -124,7 +118,7 @@ $this->params['breadcrumbs'][] = 'Update';
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-envelope"></i></span>
                                     </div>
                                     <?= $form->field($perfil, 'codigopostal', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Codigo-Postal"])->label(false) ?>
                                 </div>
@@ -132,7 +126,7 @@ $this->params['breadcrumbs'][] = 'Update';
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-calendar-alt"></i></span>
                                     </div>
                                     <?= $form->field($perfil, 'datanascimento',['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'type' => 'date','autocomplete' => 'off'])->label(false) ?>
 
@@ -143,7 +137,7 @@ $this->params['breadcrumbs'][] = 'Update';
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-globe-asia"></i></span>
                                     </div>
                                     <?= $form->field($perfil, 'nacionalidade', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Nacionalidade"])->label(false) ?>
 
@@ -152,7 +146,7 @@ $this->params['breadcrumbs'][] = 'Update';
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-phone-alt"></i></span>
                                     </div>
                                     <?= $form->field($perfil, 'telemovel', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Telemovel"])->label(false) ?>
 
@@ -163,7 +157,7 @@ $this->params['breadcrumbs'][] = 'Update';
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-venus-mars"></i></span>
                                     </div>
                                     <?= $form->field($perfil, 'genero')->dropDownList(['1' => 'Masculino', '0' => 'Feminino'],
                                         ['prompt'=>'Selecione...'],['maxlenght'=> true],
@@ -180,22 +174,22 @@ $this->params['breadcrumbs'][] = 'Update';
                             <div class="col-6">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-user"></i></span>
                                     </div>
                                     <?= $form->field($user, 'username', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Username"])->label(false) ?>
                                 </div>
                             </div>
-                            <div class="col-12 mb-3">
+                            <div class="col-5 mb-3">
                                 <div class="input-group mb-3">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        <span class="input-group-text rounded-left"><i class="fas fa-envelope"></i></span>
                                     </div>
                                     <?= $form->field($user, 'email', ['options' => ['tag' => 'input', 'style' => 'display: none; ']])->textInput(['class'=>'form-control input_user rounded-right' , 'placeholder' => "Email", 'type' => 'email'])->label(false) ?>
                                 </div>
                             </div>
                         </div>
-                        <div class="align-right">
-                            <?= Html::submitButton('Atualizar', ['class' => 'btn login_btn', 'name' => 'login-button']) ?>
+                        <div class="d-flex justify-content-center mt-3">
+                            <?= Html::submitButton('Atualizar', ['class' => 'btn btn-custom-1 col-md-4', 'name' => 'login-button']) ?>
                         </div>
                         <?php ActiveForm::end(); ?>
                     </div>

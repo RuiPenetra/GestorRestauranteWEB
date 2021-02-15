@@ -51,7 +51,6 @@ use yii\widgets\ActiveForm; ?>
     <div class="card-body" style="display: block;">
         <?php echo $this->render('//pedido/_search', ['model' => $searchModel, 'mesas' => $mesas]); ?>
         <div class="tab-content" id="custom-tabs-one-tabContent">
-            <div class="row">
                 <table class="table table-striped projects">
                     <thead>
                     <tr>
@@ -95,40 +94,56 @@ use yii\widgets\ActiveForm; ?>
                                 </small>
                             </td>
                             <td class="text-center">
-                                <ul class="list-inline">
+                                <div class="profile-username text-center">
+                                <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$pedido->perfil->id_user) !=null):
+                                    if ($pedido->perfil->genero==0):?>
+                                        <?= \yii\helpers\Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img-color-cozinheiro img-responsive table-avatar']); ?>
+                                    <?php else:?>
+                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-responsive table-avatar']); ?>
+                                    <?php endif; endif;?>
 
-                                    <li class="list-inline-item">
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <?php if($pedido->perfil->genero==0):?>
-                                                    <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
-                                                    <?= $pedido->perfil->nome ?>
-                                                <?php endif?>
-                                                <?php if($pedido->perfil->genero==1):?>
-                                                    <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
-                                                    <?= $pedido->perfil->nome ?>
-                                                <?php endif?>
-                                            </li>
+                                <?php if(Yii::$app->authManager->getAssignment('cliente',$pedido->perfil->id_user) != null):
+                                    if ($pedido->perfil->genero==0):?>
+                                        <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-responsive table-avatar']); ?>
+                                    <?php else:?>
+                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-responsive table-avatar']); ?>
+                                    <?php endif; endif;?>
 
-                                        </ul>
-                                    </li>
-
-                                </ul>
+                                <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$pedido->perfil->id_user) != null):
+                                    if ($pedido->perfil->genero==0):?>
+                                        <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-responsive table-avatar']); ?>
+                                    <?php else:?>
+                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-responsive table-avatar']); ?>
+                                    <?php endif; endif;?>
+                                <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$pedido->perfil->id_user) != null):
+                                    if ($pedido->perfil->genero==0):?>
+                                        <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive table-avatar']); ?>
+                                    <?php else:?>
+                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive table-avatar']); ?>
+                                    <?php endif; endif;?>
+                                <?php if(Yii::$app->authManager->getAssignment('gerente',$pedido->perfil->id_user) != null):
+                                    if ($pedido->perfil->genero==0):?>
+                                        <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive table-avatar']); ?>
+                                    <?php else:?>
+                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-gerente img-responsive table-avatar']); ?>
+                                    <?php endif; endif;?>
+                                </div>
+                                <?= $pedido->perfil->nome ?> <?= $pedido->perfil->apelido ?>
                             </td>
                             <td class="project_progress">
-                                <?php if ($pedido->estado == 0): ?>
+                                <?php if ($pedido->estado == 1): ?>
                                     <div class="progress progress-sm active">
                                         <div class="progress-bar bg-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
                                         </div>
                                     </div>
                                 <?php endif;
-                                if ($pedido->estado == 1):?>
+                                if ($pedido->estado == 2):?>
                                     <div class="progress progress-sm active">
                                         <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
                                         </div>
                                     </div>
                                 <?php endif;
-                                if ($pedido->estado == 2):?>
+                                if ($pedido->estado == 3):?>
                                     <div class="progress progress-sm active">
                                         <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
                                         </div>
@@ -136,18 +151,18 @@ use yii\widgets\ActiveForm; ?>
                                 <?php endif; ?>
                             </td>
                             <td class="project-state">
-                                <?php if ($pedido->estado == 0): ?>
+                                <?php if ($pedido->estado == 1): ?>
                                     <span class="badge badge-info"> Em Processo</span>
                                 <?php endif;
-                                if ($pedido->estado == 1):?>
+                                if ($pedido->estado == 2):?>
                                     <span class="badge badge-warning text-white"> Em Progresso</span>
                                 <?php endif;
-                                if ($pedido->estado == 2):?>
+                                if ($pedido->estado == 3):?>
                                     <span class="badge badge-success text-white"> Concluido</span>
                                 <?php endif; ?>
                             </td>
                             <td class="project-actions text-right">
-                                <?php if($pedido->estado!=2):?>
+                                <?php if($pedido->estado!=3):?>
                                     <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
                                     <?= Html::a('<i class="fas fa-cart-plus"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-success btn-sm']) ?>
                                     <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $pedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarPedido'.$pedido->id,]) ?>

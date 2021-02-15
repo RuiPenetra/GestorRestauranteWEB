@@ -112,8 +112,6 @@ class PedidoProdutoTest extends \Codeception\Test\Unit
         $pedidoProduto->estado=1;
         $this->assertTrue($pedidoProduto->validate(['estado']));
 
-        //TODO: VALIDAR ----> quant_Pedida [ INTEGER ]
-        //TODO: VALIDAR ----> quant_Pedida [ NULL ]
 
         //quant_Pedida [ TEXTO ]
         $pedidoProduto->quant_Pedida='testeeeee';
@@ -128,8 +126,6 @@ class PedidoProdutoTest extends \Codeception\Test\Unit
         $this->assertTrue($pedidoProduto->validate(['quant_Pedida']));
 
 
-        //TODO: VALIDAR ----> quant_Preparacao [ INTEGER ]
-        //TODO: VALIDAR ----> quant_Preparacao [ NULL ]
         $pedidoProduto->quant_Preparacao='feffffff';
         $this->assertFalse($pedidoProduto->validate(['quant_Preparacao']));
 
@@ -139,8 +135,7 @@ class PedidoProdutoTest extends \Codeception\Test\Unit
         $pedidoProduto->quant_Preparacao=2;
         $this->assertTrue($pedidoProduto->validate(['quant_Preparacao']));
 
-        //TODO: VALIDAR ----> quant_Entregue [ INTEGER ]
-        //TODO: VALIDAR ----> quant_Entregue [ NULL ]
+
         $pedidoProduto->quant_Entregue='teste123';
         $this->assertFalse($pedidoProduto->validate(['quant_Entregue']));
 
@@ -150,8 +145,7 @@ class PedidoProdutoTest extends \Codeception\Test\Unit
         $pedidoProduto->quant_Entregue=2;
         $this->assertTrue($pedidoProduto->validate(['quant_Entregue']));
 
-        //TODO: VALIDAR ----> PRECO [ NUMBER ]
-        //TODO: VALIDAR ----> PRECO [ NULL ]
+
         $pedidoProduto->preco='teste1234343';
         $this->assertFalse($pedidoProduto->validate(['preco']));
 

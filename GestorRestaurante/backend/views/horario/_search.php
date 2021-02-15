@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
     <?php $form = ActiveForm::begin([
-        'method' => 'get',
+        'method' => 'get','enableClientValidation'=> false
     ]); ?>
 
     <div class="row col-md-12 ml-2 mr-2">

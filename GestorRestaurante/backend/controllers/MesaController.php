@@ -111,7 +111,6 @@ class MesaController extends Controller
 
             $searchModel = new MesaSearch();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-            $mesa->estado=2;
             $dataProvider->pagination = ['pageSize' => 5];
 
             if ($mesa->load(Yii::$app->request->post()) && $mesa->save()) {

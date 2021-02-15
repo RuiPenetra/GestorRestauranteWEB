@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;*/
 $id = Yii::$app->user->identity->id;
 
 ?>
-<?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5 mb-2'])?>
     <div class="invoice p-3 mb-3 mr-5 ml-5">
         <!-- title row -->
         <div class="row">

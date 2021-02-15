@@ -117,7 +117,7 @@ class FaturaController extends Controller
 
             $pedido = Pedido::findOne($fatura->id_pedido);
 
-            $pedido->estado = 2;
+            $pedido->estado = 3;
             $pedido->save();
 
             Yii::$app->getSession()->setFlash('success', [
@@ -185,7 +185,7 @@ class FaturaController extends Controller
 
             $pedido=Pedido::findOne($fatura->id_pedido);
 
-            $pedido->estado=1;
+            $pedido->estado=2;
 
             $pedido->save();
 

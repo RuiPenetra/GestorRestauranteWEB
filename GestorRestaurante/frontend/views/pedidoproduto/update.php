@@ -10,31 +10,31 @@ $this->title = 'Atualizar item';
 ?>
 <?php $form = ActiveForm::begin(['class'=>'','validateOnBlur'=>false])?>
 
-<div class="row col-md-12">
+<div class="row col-md-12 d-flex justify-content-center">
     <div class="col-md-3 d-flex justify-content-center">
         <?php if ($itemPedido->produto->categoria->nome == 'Entrada'): ?>
-            <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-responsive', 'width'=>'100px']); ?>
+            <?= Html::img('@web/img/entradas.png', ['alt' => 'Product Image', 'class' => 'img-responsive', 'width'=>'100px','height'=>'100px']); ?>
         <?php endif; ?>
         <?php if ($itemPedido->produto->categoria->nome == 'Sopa'): ?>
-            <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
+            <?= Html::img('@web/img/soup.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px','height'=>'100px']); ?>
         <?php endif; ?>
         <?php if ($itemPedido->produto->categoria->nome == 'Carne'): ?>
-            <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-responsive' ,'width'=>'100px']); ?>
+            <?= Html::img('@web/img/plates_meat.png', ['alt' => 'Product Image', 'class' => 'img-responsive' ,'width'=>'100px','height'=>'100px']); ?>
         <?php endif; ?>
         <?php if ($itemPedido->produto->categoria->nome == 'Peixe'): ?>
-            <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
+            <?= Html::img('@web/img/plates_fish.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px','height'=>'100px']); ?>
         <?php endif; ?>
         <?php if ($itemPedido->produto->categoria->nome == 'Sobremesa'): ?>
-            <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
+            <?= Html::img('@web/img/plates_dessert.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px','height'=>'100px']); ?>
         <?php endif; ?>
         <?php if ($itemPedido->produto->categoria->nome == 'Bebida'): ?>
-            <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
+            <?= Html::img('@web/img/drink.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px','height'=>'100px']); ?>
         <?php endif; ?>
         <?php if ($itemPedido->produto->categoria->editavel== 1): ?>
-            <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px']); ?>
+            <?= Html::img('@web/img/outros.png', ['alt' => 'Product Image', 'class' => 'img-responsive','width'=>'100px','height'=>'100px']); ?>
         <?php endif; ?>
     </div>
-    <div class="row col-md-9">
+    <div class="row col-md-6 d-flex justify-content-start">
         <div class="row col-md-6 d-flex justify-content-center">
             <div class="row col-md-12 d-flex justify-content-center">
                 <label>Quantidade:</label>
@@ -59,6 +59,7 @@ $this->title = 'Atualizar item';
 <div class="row col-md-12 d-flex justify-content-center">
     <?= $form->field($pedido, 'nota')->textarea(['class'=>' form-control','value'=>$itemPedido->pedido->nota,'rows'=>5,'cols'=>60])->label(true) ?>
 </div>
-
-<?= Html::submitButton('Atualizar', ['class' => 'btn btn-success']) ?>
+<div class="row col-md-12 d-flex justify-content-center">
+    <?= Html::submitButton('Atualizar', ['class' => 'btn btn-success']) ?>
+</div>
 <?php ActiveForm::end(); ?>

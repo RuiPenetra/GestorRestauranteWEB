@@ -17,9 +17,9 @@ $id = Yii::$app->user->identity->id;
 <?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5 mb-2'])?>
 <div class="col-md-12 ml-5">
     <div class="row">
-        <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null || Yii::$app->authManager->getAssignment('cozinheiro',$id) != null):?>
             <div class="col-md-4">
-                <div class="card card-widget widget-user-2 p-0">
+                <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null || Yii::$app->authManager->getAssignment('cozinheiro',$id) != null):?>
+                    <div class="card card-widget widget-user-2 p-0">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
                     <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
                     <div class="widget-user-header bg-info">
@@ -50,6 +50,9 @@ $id = Yii::$app->user->identity->id;
                                     <?php endif;?>
                                     <?php if ($pedido->perfil->cargo=='cliente'):?>
                                         <b>Cliente</b>
+                                    <?php endif;?>
+                                    <?php if ($pedido->perfil->cargo=='gerente'):?>
+                                        <b>Gerente</b>
                                     <?php endif;?>
                                 </span>
 
@@ -93,8 +96,8 @@ $id = Yii::$app->user->identity->id;
                         </ul>
                     </div>
                 </div>
+                <?php endif?>
             </div>
-        <?php endif?>
         <div class="col-md-8">
             <div class="row d-flex justify-content-center mt-5">
                 <div class="row col-md-12">
@@ -129,9 +132,10 @@ $id = Yii::$app->user->identity->id;
                                                         </div>
                                                     </div>
                                                   </div>',['fatura/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
-                                        <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null && $pedido->tipo==1):?>
-                                            <?php if($pedido->estado==1):?>
-                                                <?= Html::a('<div class="col-md-2">
+                                        <?php endif?>
+                                    <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null && $pedido->tipo==1):?>
+                                        <?php if($pedido->estado==1):?>
+                                            <?= Html::a('<div class="col-md-2">
                                                         <!-- small card -->
                                                         
                                                         <div class="small-box bg-gradient-info p-3" style="width: 200px">
@@ -143,23 +147,23 @@ $id = Yii::$app->user->identity->id;
                                                             </div>
                                                         </div>
                                                       </div>',['pedidoproduto/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
-                                            <?php endif;?>
                                         <?php endif;?>
-                                    <?php endif?>
+                                    <?php endif;?>
+
                                 <?php elseif(Yii::$app->user->can('criarPedidoProduto')):?>
-                                <?php if ($pedido->estado==1):?>
-                                    <?= Html::a('<div class="col-md-2">
-                                                <!-- small card -->
-                                                
-                                                <div class="small-box bg-gradient-info p-3" style="width: 200px">
-                                                    <div class="inner">
-                                                        <h4><b>Novo</b></h4>
+                                    <?php if ($pedido->estado==1):?>
+                                        <?= Html::a('<div class="col-md-2">
+                                                    <!-- small card -->
+                                                    
+                                                    <div class="small-box bg-gradient-info p-3" style="width: 200px">
+                                                        <div class="inner">
+                                                            <h4><b>Novo</b></h4>
+                                                        </div>
+                                                        <div class="icon">
+                                                            <i class="fas fa-cart-plus"></i>
+                                                        </div>
                                                     </div>
-                                                    <div class="icon">
-                                                        <i class="fas fa-cart-plus"></i>
-                                                    </div>
-                                                </div>
-                                              </div>',['pedidoproduto/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
+                                                  </div>',['pedidoproduto/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
                                 <?php endif?>
                             <?php endif?>
                             <?php elseif(Yii::$app->user->can('consultarFaturas')):?>

@@ -10,6 +10,8 @@ use yii\grid\GridView;
 
 $this->title = 'Reservas';
 $this->params['breadcrumbs'][] = $this->title;
+$id_user = Yii::$app->user->identity->id;
+
 ?>
 
 <div class="row col-md-12 d-flex justify-content-center">
@@ -27,10 +29,17 @@ $this->params['breadcrumbs'][] = $this->title;
               </div>',['reserva/create']) ?>
     <?php endif?>
 </div>
-<div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
+
+
+<?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
+<div class="card card-blue card-outline mr-5 ml-5">
+<?php endif?>
+<?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null):?>
+<div class="card card-purple card-outline mr-5 ml-5">
+<?php endif?>
     <div class="card-header">
         <h3 class="card-title">
-            <i class="fas fa-bullhorn"></i>
+            <i class="fas fa-pen-alt"></i>
             Lista reservas
         </h3>
         <div class="card-tools">
@@ -80,12 +89,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <li class="list-inline-item">
                                                 <?php if($reserva->funcionario->genero==0):?>
                                                     <?= Html::img('@web/img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
-                                                    <?= $reserva->funcionario->nome ?>
                                                 <?php endif?>
                                                 <?php if($reserva->funcionario->genero==1):?>
                                                     <?= Html::img('@web/img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img table-avatar img-fluid']); ?>
-                                                    <?= $reserva->funcionario->nome ?>
                                                 <?php endif?>
+                                                <?= $reserva->funcionario->nome?> <?= $reserva->funcionario->apelido ?>
                                             </li>
                                         </ul>
                                     </li>

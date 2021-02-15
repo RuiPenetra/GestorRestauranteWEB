@@ -111,7 +111,7 @@ class FaturaController extends Controller
 
         $fatura = new Fatura();
         $fatura->id_pedido = $id;
-        $fatura->valor = PedidoProduto::find()->where(['id_pedido' => $id])->sum('preco');
+        $fatura->valor = number_format(PedidoProduto::find()->where(['id_pedido' => $id])->sum('preco'), 2);;
 
         if ($fatura->load(Yii::$app->request->post()) && $fatura->save()) {
 

@@ -9,11 +9,17 @@ use yii\helpers\Html;
 /* @var $model common\models\Reserva */
 
 $this->title = 'Atualizar Reserva: ' . $reserva->id;
+$id_user = Yii::$app->user->identity->id;
 
 ?>
 
 <?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5 mb-2'])?>
-<div class="card card-outline card-yellow mr-5 ml-5 mt-3"> <!--collapsed-card-->
+<?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
+<div class="card card-blue card-outline mr-5 ml-5">
+    <?php endif?>
+    <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null):?>
+    <div class="card card-purple card-outline mr-5 ml-5">
+        <?php endif?>
     <div class="card-header">
         <h3 class="card-title text-gray-dark">
             <i class="fas fa-users"></i>
@@ -30,8 +36,13 @@ $this->title = 'Atualizar Reserva: ' . $reserva->id;
         <div class="row col-md-12">
             <div class="col-md-6">
                 <div class=" col-md-12">
-                    <div class="card card-outline card-yellow col-md-12 mr-2">
-                        <div class="card-header">
+                    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
+                    <div class="card card-blue card-outline">
+                        <?php endif?>
+                        <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null):?>
+                        <div class="card card-purple card-outline">
+                            <?php endif?>
+                            <div class="card-header">
                             <h3 class="card-title"><i class="fas fa-plus"></i> Selecionar Mesa</h3>
                         </div>
                         <!-- /.card-header -->
@@ -84,8 +95,13 @@ $this->title = 'Atualizar Reserva: ' . $reserva->id;
                 </div>
             </div>
             <div class="col-md-6 text-center">
-            <div class="card card-outline card-yellow col-md-12 ml-2">
-                <div class="card-header">
+                <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
+                <div class="card card-blue card-outline">
+                    <?php endif?>
+                    <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null):?>
+                    <div class="card card-purple card-outline">
+                        <?php endif?>
+                        <div class="card-header">
                     <h3 class="card-title"><i class="fas fa-marker"></i> Digite...</h3>
                 </div>
                 <!-- /.card-header -->

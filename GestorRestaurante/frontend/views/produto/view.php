@@ -11,9 +11,25 @@ use yii\widgets\DetailView;
 
 $this->title ="Produto: ".$produto->nome;
 \yii\web\YiiAsset::register($this);
+$id_user = Yii::$app->user->identity->id;
+
 ?>
 <?=Html::a( ' <i class="fas fa-undo-alt"></i> Voltar', Yii::$app->request->referrer,['class'=>'btn btn-dark ml-5 mb-2'])?>
-<div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
+<?php if(Yii::$app->authManager->getAssignment('cliente',$id_user) != null):?>
+<div class="card card-danger card-outline mr-5 ml-5">
+    <?php endif?>
+
+    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
+    <div class="card card-blue card-outline mr-5 ml-5">
+        <?php endif?>
+
+        <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id_user) != null):?>
+        <div class="card card-green card-outline mr-5 ml-5">
+            <?php endif?>
+
+            <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null):?>
+            <div class="card card-purple card-outline mr-5 ml-5">
+                <?php endif?>
     <div class="card-header">
         <h3 class="card-title">
             <i class="fas fa-utensils"></i>

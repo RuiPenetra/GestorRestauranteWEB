@@ -25,7 +25,7 @@ class FaltaController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index'],
+                        'actions' => ['view'],
                         'allow' => true,
                         'roles' => ['atendedorPedidos','cozinheiro','empregadoMesa'],
                     ],
@@ -41,7 +41,7 @@ class FaltaController extends Controller
         ];
     }
 
-    public function actionIndex($id)
+    public function actionView($id)
     {
         $searchFalta = new FaltaSearch();
         $searchFalta->id_funcionario=$id;

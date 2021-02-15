@@ -51,11 +51,13 @@ function quantDeincrement(id,preco) {
 }
 
 function QuantEntregueIncrement(id) {
-    
 
-    if ( document.getElementById('inputQuantEntregue'+id).value<document.getElementById('inputQuantPedida'+id).value && document.getElementById('inputQuantPreparacao'+id).value>0){
-        document.getElementById('inputQuantEntregue'+id).value ++;
+
+    if ( document.getElementById('inputQuantPreparacao'+id).value>0){
+
         document.getElementById('inputQuantPreparacao'+id).value --;
+
+        document.getElementById('inputQuantEntregue'+id).value ++;
     }
 
 

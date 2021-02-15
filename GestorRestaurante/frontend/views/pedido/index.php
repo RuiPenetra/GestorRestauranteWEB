@@ -149,7 +149,7 @@ $id_user = Yii::$app->user->identity->id;
                             <td class="project-actions text-right">
                                 <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
                                     <?php if($pedido->tipo==1):?>
-                                        <?php if($pedido->estado==0):?>
+                                        <?php if($pedido->estado==1):?>
                                             <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
                                             <?= Html::a('<i class="fas fa-cart-plus"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-success btn-sm']) ?>
                                             <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $pedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarPedido'.$pedido->id,]) ?>
@@ -179,7 +179,7 @@ $id_user = Yii::$app->user->identity->id;
                                                     </div>
                                                 </div>
                                             </div>
-                                        <?php elseif($pedido->estado==1):?>
+                                        <?php elseif($pedido->estado==2):?>
                                             <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
                                             <?= Html::a('<i class="fas fa-cart-plus"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-success btn-sm']) ?>
                                         <?php else:?>
@@ -225,7 +225,7 @@ $id_user = Yii::$app->user->identity->id;
                                                         </div>
                                                     </div>
                                                 </div>
-                                            <?php elseif($pedido->estado==2):?>
+                                            <?php else:?>
                                                 <?= Html::a('<i class="fas fa-eye"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-info btn-sm']) ?>
                                             <?php endif;?>
                                         <?php endif;?>

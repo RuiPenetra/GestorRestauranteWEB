@@ -60,13 +60,13 @@ $id = Yii::$app->user->identity->id;
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     Estado:
-                                    <?php if ($pedido->estado == 0): ?>
+                                    <?php if ($pedido->estado == 1): ?>
                                         <span class="float-right badge badge-info"> Em Processo</span>
                                     <?php endif;
-                                    if ($pedido->estado == 1):?>
+                                    if ($pedido->estado == 2):?>
                                         <span class="float-right badge badge-warning text-white"> Em Preparação</span>
                                     <?php endif;
-                                    if ($pedido->estado == 2):?>
+                                    if ($pedido->estado == 3):?>
                                         <span class="float-right badge badge-success text-white"> Concluido</span>
                                     <?php endif;?>
                                 </a>
@@ -270,7 +270,7 @@ $id = Yii::$app->user->identity->id;
                         <?php endif; ?>
                     </td>
                     <td>
-                        <?php if($itemPedido->pedido->estado!=2):?>
+                        <?php if($itemPedido->pedido->estado!=3):?>
                             <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id) != null):?>
                                 <?= Html::a('  <i class="fas fa-sync fa-spin"></i>', ['pedidoproduto/updatepreparacao', 'id' => $itemPedido->id], ['class' => 'btn btn-info btn-sm']) ?>
                             <?php endif?>

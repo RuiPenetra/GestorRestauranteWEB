@@ -136,7 +136,7 @@ $this->params['breadcrumbs'][] = $this->title;*/
                             </div>
                         </div>
                     </div>
-                    <?= Html::a('<i class="fas fa-edit"></i> Update', ['update', 'id' => $fatura->id], ['class' => 'btn btn-info float-right mr-3']) ?>
+                    <?= Html::a('<i class="fas fa-edit"></i> Atualizar', ['update', 'id' => $fatura->id], ['class' => 'btn btn-info float-right mr-3']) ?>
             </div>
         </div>
     </div>

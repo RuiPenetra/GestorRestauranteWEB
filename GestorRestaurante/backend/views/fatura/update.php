@@ -36,7 +36,7 @@ $this->title = 'Atualizar Fatura:'.$fatura->id;
                         <?= $form->field($fatura, 'nif')->textInput() ?>
                     </div>
                     <div class="input-group mb-3">
-                        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                        <?= Html::submitButton('Atualizar', ['class' => 'btn btn-costume-1 col-md-4']) ?>
                     </div>
                     <?php ActiveForm::end(); ?>
                 </div>

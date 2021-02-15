@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= $form->field($fatura, 'nif')->textInput() ?>
                     </div>
                     <div class="input-group mb-3">
-                        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+                        <?= Html::submitButton('Atualizar', ['class' => 'btn btn-success']) ?>
                     </div>
                     <?php ActiveForm::end(); ?>
                 </div>

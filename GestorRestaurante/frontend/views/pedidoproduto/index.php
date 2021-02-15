@@ -102,9 +102,9 @@ $id = Yii::$app->user->identity->id;
                         <div class="row col-md-12">
                             <?php if($pedido->estado!=3):?>
                                 <?php if (Yii::$app->user->can('criarPedidoProduto') && Yii::$app->user->can('criarFaturas')):?>
-                                    <?php if($pedido->tipo==1):?>
                                         <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
-                                            <?= Html::a('<div class="col-md-2">
+                                            <?php if($pedido->tipo!=0):?>
+                                                <?= Html::a('<div class="col-md-2">
                                                     <!-- small card -->
                                                     
                                                     <div class="small-box bg-gradient-info p-3" style="width: 200px">
@@ -116,6 +116,8 @@ $id = Yii::$app->user->identity->id;
                                                         </div>
                                                     </div>
                                                   </div>',['pedidoproduto/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
+
+                                            <?php endIf;?>
                                             <?= Html::a('<div class="col-md-1">
                                                     <!-- small card -->
                                                     <div class="small-box bg-gradient-success p-3" style="width: 250px">
@@ -127,8 +129,7 @@ $id = Yii::$app->user->identity->id;
                                                         </div>
                                                     </div>
                                                   </div>',['fatura/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
-                                        <?php endif;?>
-                                        <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
+                                        <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null && $pedido->tipo==1):?>
                                             <?php if($pedido->estado==1):?>
                                                 <?= Html::a('<div class="col-md-2">
                                                         <!-- small card -->

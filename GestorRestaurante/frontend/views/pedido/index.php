@@ -186,11 +186,7 @@ $id_user = Yii::$app->user->identity->id;
                                             <?= Html::a('<i class="fas fa-eye"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-info btn-sm']) ?>
                                         <?php endif;?>
                                     <?php else:?>
-                                        <?php if($pedido->estado==1 || $pedido->estado==2 ):?>
-                                            <?= Html::a('<i class="fas fa-pen"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
-                                        <?php else:?>
                                             <?= Html::a('<i class="fas fa-eye"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-info btn-sm']) ?>
-                                        <?php endif?>
                                     <?php endif;?>
                                 <?php else:?>
                                     <?php if(Yii::$app->authManager->getAssignment('cliente',$id_user) != null):?>

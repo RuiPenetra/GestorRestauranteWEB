@@ -118,23 +118,6 @@ class PedidoController extends Controller
         if (\Yii::$app->user->can('criarTakeaway') || \Yii::$app->user->can('criarPedidos')){
 
             $id_user = Yii::$app->user->identity->getId();
-            $perfil = Perfil::findOne($id_user);
-
-            $checkpedido = Pedido::find()->where(['id_perfil' => $id_user])->andWhere(['estado' => [0, 1]])->all();
-            if ($perfil->cargo == 'cliente' && $checkpedido != null) {
-
-                Yii::$app->getSession()->setFlash('danger', [
-                    'type' => 'danger',
-                    'duration' => 5000,
-                    'icon' => 'fas fa-tags',
-                    'message' => 'Não é possivel criar novo pedido com 1 pedido enquanto existir pedidos a decorrer',
-                    'title' => 'ALERTA',
-                    'positonX' => 'right',
-                    'positonY' => 'top'
-                ]);
-                return $this->redirect(['index']);
-
-            } else {
 
                 $searchMesa = new MesaSearch();
                 $searchMesa->estado = 2;
@@ -182,7 +165,7 @@ class PedidoController extends Controller
                     'searchUser' => $searchUser,
                     'dataProviderUser' => $dataProviderUser
                 ]);
-            }
+
         }
         else{
                 return $this->render('/site/error',[

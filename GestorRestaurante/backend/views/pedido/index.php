@@ -155,7 +155,7 @@ use yii\widgets\ActiveForm; ?>
                                     <span class="badge badge-info"> Em Processo</span>
                                 <?php endif;
                                 if ($pedido->estado == 2):?>
-                                    <span class="badge badge-warning text-white"> Em Progresso</span>
+                                    <span class="badge badge-warning text-white"> Em Preparação</span>
                                 <?php endif;
                                 if ($pedido->estado == 3):?>
                                     <span class="badge badge-success text-white"> Concluido</span>

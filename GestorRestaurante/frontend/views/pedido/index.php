@@ -140,7 +140,7 @@ $id_user = Yii::$app->user->identity->id;
                                     <span class="badge badge-info"> Em Processo</span>
                                 <?php endif;
                                 if ($pedido->estado == 2):?>
-                                    <span class="badge badge-warning text-white"> Em Progresso</span>
+                                    <span class="badge badge-warning text-white"> Em Preparação</span>
                                 <?php endif;
                                 if ($pedido->estado == 3):?>
                                     <span class="badge badge-success text-white"> Concluido</span>
@@ -195,8 +195,7 @@ $id_user = Yii::$app->user->identity->id;
                                 <?php else:?>
                                     <?php if(Yii::$app->authManager->getAssignment('cliente',$id_user) != null):?>
                                         <?php if($pedido->tipo==1):?>
-                                            <?= Html::a('<i class="fas fa-eye"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-info btn-sm']) ?>
-                                            <?php if($pedido->estado==2):?>
+                                            <?php if($pedido->estado==1):?>
                                                 <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
                                                 <?= Html::a('<i class="fas fa-cart-plus"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-success btn-sm']) ?>
                                                 <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $pedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarPedido'.$pedido->id,]) ?>
@@ -227,9 +226,7 @@ $id_user = Yii::$app->user->identity->id;
                                                     </div>
                                                 </div>
                                             <?php elseif($pedido->estado==2):?>
-                                                <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
-
-
+                                                <?= Html::a('<i class="fas fa-eye"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-info btn-sm']) ?>
                                             <?php endif;?>
                                         <?php endif;?>
                                     <?php else:?>

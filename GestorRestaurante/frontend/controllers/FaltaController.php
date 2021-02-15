@@ -48,6 +48,7 @@ class FaltaController extends Controller
         $dataProviderFalta = $searchFalta->search(Yii::$app->request->queryParams);
 
         $dataProviderFalta->pagination = ['pageSize' => 6];
+
         return $this->render('view', [
             'searchFalta' => $searchFalta,
             'dataProviderFalta' => $dataProviderFalta,

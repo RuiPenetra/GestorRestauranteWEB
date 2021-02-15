@@ -129,7 +129,7 @@ $id = Yii::$app->user->identity->id;
                                                   </div>',['fatura/create', 'id' => $pedido->id], [ 'class'=>'']) ?>
                                         <?php endif;?>
                                         <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
-                                            <?php if($pedido->estado==0):?>
+                                            <?php if($pedido->estado==1):?>
                                                 <?= Html::a('<div class="col-md-2">
                                                         <!-- small card -->
                                                         
@@ -146,7 +146,7 @@ $id = Yii::$app->user->identity->id;
                                         <?php endif;?>
                                     <?php endif?>
                                 <?php elseif(Yii::$app->user->can('criarPedidoProduto')):?>
-                                <?php if ($pedido->estado==0):?>
+                                <?php if ($pedido->estado==1):?>
                                     <?= Html::a('<div class="col-md-2">
                                                 <!-- small card -->
                                                 
@@ -286,7 +286,7 @@ $id = Yii::$app->user->identity->id;
                             <?php endif?>
 
                         <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
-                            <?php if ($itemPedido->pedido->estado==0):?>
+                            <?php if ($itemPedido->pedido->estado==1):?>
                                     <?= Html::a('<i class="fas fa-plus"></i>', ['pedidoproduto/update', 'id' => $itemPedido->id], ['class' => 'btn btn-success btn-sm']) ?>
 
                                     <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $itemPedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarItemPedido'.$itemPedido->id,]) ?>

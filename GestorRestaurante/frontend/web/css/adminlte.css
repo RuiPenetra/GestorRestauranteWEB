@@ -24535,6 +24535,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
   top: 10px;
   transform: rotate(45deg);
   width: 90px;
+
 }
 
 .ribbon-wrapper .ribbon::before, .ribbon-wrapper .ribbon::after {
@@ -24544,6 +24545,7 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
   bottom: -3px;
   content: "";
   position: absolute;
+
 }
 
 .ribbon-wrapper .ribbon::before {

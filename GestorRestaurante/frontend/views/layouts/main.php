@@ -141,7 +141,7 @@ $perfil=Perfil::findOne(['id_user'=>$id_user])?>
                 <?php if (Yii::$app->user->can('consultarFaltas') && Yii::$app->user->can('consultarHorarios')):?>
                     <!-- FALTAS -->
                     <li class="nav-item">
-                        <a href="<?=URL::toRoute(['falta/view','id'=>$id_user])?>" class="nav-link">
+                        <a href="<?=URL::toRoute(['falta/index','id'=>$id_user])?>" class="nav-link">
                             <i class="fas fa-user-alt-slash"></i>
                             <p>Faltas</p>
                         </a>

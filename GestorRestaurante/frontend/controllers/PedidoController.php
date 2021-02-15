@@ -142,7 +142,7 @@ class PedidoController extends Controller
                 $dataProviderMesa->pagination = ['pageSize' => 5];
 
                 $pedido = new Pedido();
-                $pedido->estado = 0;
+                $pedido->estado = 1;
                 $pedido->tipo = $tipo;
 
                 $pedido->id_perfil = $id_user;
@@ -233,7 +233,7 @@ class PedidoController extends Controller
     {
         if (\Yii::$app->user->can('apagarTakeaway') || \Yii::$app->user->can('apagarPedidos')) {
             $pedido = Pedido::findOne($id);
-            if ($pedido->estado == 0) {
+            if ($pedido->estado == 1) {
 
 
                 PedidoProduto::deleteAll(['id_pedido' => $id]);

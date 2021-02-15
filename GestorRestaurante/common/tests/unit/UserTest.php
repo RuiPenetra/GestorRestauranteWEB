@@ -153,7 +153,7 @@ class UserTest extends \Codeception\Test\Unit
 
         $perfil->setGenero(0);
         $this->assertTrue($perfil->validate(['genero']));
-        
+
 
         $perfil->setCargo(34343434);
         $this->assertFalse($perfil->validate(['cargo']));

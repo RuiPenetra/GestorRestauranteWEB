@@ -12,9 +12,9 @@ use yii\helpers\Url;
 
 $this->title = 'Pedidos';
 $this->params['breadcrumbs'][] = $this->title;
-$id = Yii::$app->user->identity->id;
+$id_user = Yii::$app->user->identity->id;
 ?>
-<?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null || Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
+<?php if(Yii::$app->authManager->getAssignment('cliente',$id_user) != null || Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
     <div class="row col-md-12 d-flex justify-content-center">
 
         <?= Html::a('<div class="col-md-4">
@@ -33,17 +33,21 @@ $id = Yii::$app->user->identity->id;
 <?php endif;?>
 
 
-<?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
-    <div class="card card-outline card-danger mr-5 ml-5"><!--collapsed-card-->
-<?php endif?>
+<?php if(Yii::$app->authManager->getAssignment('cliente',$id_user) != null):?>
+<div class="card card-danger card-outline mr-5 ml-5">
+    <?php endif?>
 
-<?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
-    <div class="card card-outline card-blue mr-5 ml-5"><!--collapsed-card-->
-<?php endif?>
+    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
+    <div class="card card-blue card-outline mr-5 ml-5">
+        <?php endif?>
 
-<?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id) != null):?>
-    <div class="card card-outline card-indigo mr-5 ml-5"><!--collapsed-card-->
-<?php endif?>
+        <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id_user) != null):?>
+        <div class="card card-green card-outline mr-5 ml-5">
+            <?php endif?>
+
+            <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null):?>
+            <div class="card card-purple card-outline mr-5 ml-5">
+                <?php endif?>
         <div class="card-header">
             <h3 class="card-title">
                 <i class="fas fa-shopping-bag"></i>
@@ -55,36 +59,39 @@ $id = Yii::$app->user->identity->id;
             </div>
         </div>
         <div class="card-body">
-            <?php if (Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
-            <?php echo $this->render('//pedido/_search', ['model' => $searchModel, 'mesas' => $mesas]); ?>
-            <?php endif?>
-
-            <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$id) != null):?>
+            <?php if (Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null || Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
                 <?php echo $this->render('//pedido/_search', ['model' => $searchModel, 'mesas' => $mesas]); ?>
             <?php endif?>
-            <?php if (Yii::$app->authManager->getAssignment('cliente',$id) == null):?>
                 <table class="table table-striped projects">
                     <thead>
                     <tr>
-                        <th style="width: 20%">
+                        <th class="text-center" style="width: 20%">
                             Pedido
                         </th>
-                        <th style="width: 30%">
+                        <th class="text-center" style="width: 10%">
                             Tipo
                         </th>
-                        <th style="width: 20%">
+                        <th class="text-center" style="width: 10%">
+                            <?php if (Yii::$app->authManager->getAssignment('cliente',$id_user) == null):?>
+                                Nº Mesa
+                            <?php endif;?>
+                        </th>
+                        <th class="text-center" style="width: 20%">
                             Nome Pedido
                         </th>
-                        <th style="width: 9%" class="text-center">
+                        <th class="text-center" style="width: 20%" >
+                            Progresso
+                        </th>
+                        <th class="text-center" style="width: 10%" >
                             Estado
                         </th>
-                        <th style="width: 200%">
+                        <th class="text-center" style="width: 20%">
                         </th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php foreach ($dataProvider->models as $pedido): ?>
-                        <tr>
+                        <tr >
                             <td>
                                 <a>
                                     Ref: <?= $pedido->id ?>
@@ -94,7 +101,7 @@ $id = Yii::$app->user->identity->id;
                                     Criado:<?= $pedido->data ?>
                                 </small>
                             </td>
-                            <td>
+                            <td class="text-center">
                                 <?php if($pedido->tipo==1):?>
                                     <span class='badge badge-orange text-white'>Take away</span>
                                 <?php endif;?>
@@ -102,22 +109,45 @@ $id = Yii::$app->user->identity->id;
                                     <span class='badge badge-danger text-white'>Restaurante</span>
                                 <?php endif;?>
                             </td>
-                            <td class="project_progress">
+                            <td class="text-center">
+                                <?= $pedido->id_mesa ?>
+                            </td>
+                            <td class="text-center">
                                 <?= $pedido->nome_pedido ?>
                             </td>
+                            <td class="project_progress">
+                                <?php if ($pedido->estado == 1): ?>
+                                    <div class="progress progress-sm active">
+                                        <div class="progress-bar bg-info progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                                        </div>
+                                    </div>
+                                <?php endif;
+                                if ($pedido->estado == 2):?>
+                                    <div class="progress progress-sm active">
+                                        <div class="progress-bar bg-warning progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                                        </div>
+                                    </div>
+                                <?php endif;
+                                if ($pedido->estado == 3):?>
+                                    <div class="progress progress-sm active">
+                                        <div class="progress-bar bg-success progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                            </td>
                             <td class="project-state">
-                                <?php if ($pedido->estado == 0):?>
-                                   <span class='badge badge-info text-white'>Em Processo</span>
-                                <?php endif;?>
-                                <?php if ($pedido->estado == 1):?>
-                                    <span class='badge badge-warning text-white'>Em Progresso</span>
-                                <?php endif;?>
-                                <?php if ($pedido->estado == 2):?>
-                                    <span class='badge badge-success text-white'>Concluido</span>
-                                <?php endif;?>
+                                <?php if ($pedido->estado == 1): ?>
+                                    <span class="badge badge-info"> Em Processo</span>
+                                <?php endif;
+                                if ($pedido->estado == 2):?>
+                                    <span class="badge badge-warning text-white"> Em Progresso</span>
+                                <?php endif;
+                                if ($pedido->estado == 3):?>
+                                    <span class="badge badge-success text-white"> Concluido</span>
+                                <?php endif; ?>
                             </td>
                             <td class="project-actions text-right">
-                                <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
+                                <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
                                     <?php if($pedido->tipo==1):?>
                                         <?php if($pedido->estado==0):?>
                                             <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
@@ -156,17 +186,17 @@ $id = Yii::$app->user->identity->id;
                                             <?= Html::a('<i class="fas fa-eye"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-info btn-sm']) ?>
                                         <?php endif;?>
                                     <?php else:?>
-                                        <?php if($pedido->estado==0 || $pedido->estado==1 ):?>
+                                        <?php if($pedido->estado==1 || $pedido->estado==2 ):?>
                                             <?= Html::a('<i class="fas fa-pen"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
                                         <?php else:?>
                                             <?= Html::a('<i class="fas fa-eye"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-info btn-sm']) ?>
                                         <?php endif?>
                                     <?php endif;?>
                                 <?php else:?>
-                                    <?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
+                                    <?php if(Yii::$app->authManager->getAssignment('cliente',$id_user) != null):?>
                                         <?php if($pedido->tipo==1):?>
                                             <?= Html::a('<i class="fas fa-eye"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-info btn-sm']) ?>
-                                            <?php if($pedido->estado==0):?>
+                                            <?php if($pedido->estado==2):?>
                                                 <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
                                                 <?= Html::a('<i class="fas fa-cart-plus"></i>', ['pedidoproduto/index', 'id' => $pedido->id], ['class' => 'btn btn-success btn-sm']) ?>
                                                 <?= Html::a('<i class="fas fa-trash"></i>', ['pedidoproduto/delete', 'id' => $pedido->id], ['class' => 'btn btn-danger btn-sm','data-toggle'=>'modal',' data-target'=>'#apagarPedido'.$pedido->id,]) ?>
@@ -196,7 +226,7 @@ $id = Yii::$app->user->identity->id;
                                                         </div>
                                                     </div>
                                                 </div>
-                                            <?php elseif($pedido->estado==1):?>
+                                            <?php elseif($pedido->estado==2):?>
                                                 <?= Html::a('<i class="fas fa-pen"></i>', ['update', 'id' => $pedido->id], ['class' => 'btn btn-warning btn-sm']) ?>
 
 
@@ -211,35 +241,6 @@ $id = Yii::$app->user->identity->id;
                     <?php endforeach;?>
                     </tbody>
                 </table>
-            <?php else:?>
-                <div class="row">
-                    <?php foreach ($dataProvider->models as $pedido): ?>
-                        <div class="col-sm-4 col-md-4" style="display: block">
-                            <div class="position-relative p-3 bg-custom-0" style="height: 180px">
-                                <div class="ribbon-wrapper ribbon-xl">
-                                    <?php if ($pedido->estado == 0):?>
-                                        <div class="ribbon bg-info text-lg">
-                                            Em processo
-                                        </div>
-                                    <?php endif;?>
-                                    <?php if ($pedido->estado == 1):?>
-                                        <div class="ribbon bg-warning text-lg">
-                                            Em preparação
-                                        </div>
-                                    <?php endif;?>
-                                    <?php if ($pedido->estado == 2):?>
-                                        <div class="ribbon bg-success text-lg">
-                                            Concluido
-                                        </div>
-                                    <?php endif;?>
-                                </div>
-                                <b><?=$pedido->nome_pedido ?></b> <br /> <b>Ref:</b> <?= $pedido->id ?> <br />
-                                <small> <b>Criado:</b> <?= $pedido->data ?></small>
-                            </div>
-                        </div>
-                    <?php endforeach;?>
-                </div>
-            <?php endif;?>
             <div class="row col-md-12 d-flex justify-content-center">
                 <?= LinkPager::widget([
                     'pagination' => $dataProvider->getPagination(),

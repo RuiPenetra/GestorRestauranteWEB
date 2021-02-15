@@ -74,7 +74,7 @@ class PerfilController extends Controller
                 return $this->redirect(['update', 'id' => $user->id]);
             }
 
-            return $this->render('perfil', [
+            return $this->render('update', [
                 'perfil' => $perfil,
                 'user' => $user
             ]);

@@ -25,7 +25,7 @@ class FaltaController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['view'],
+                        'actions' => ['index'],
                         'allow' => true,
                         'roles' => ['atendedorPedidos','cozinheiro','empregadoMesa'],
                     ],
@@ -41,13 +41,13 @@ class FaltaController extends Controller
         ];
     }
 
-    public function actionView($id)
+    public function actionIndex($id)
     {
         $searchFalta = new FaltaSearch();
         $searchFalta->id_funcionario=$id;
         $dataProviderFalta = $searchFalta->search(Yii::$app->request->queryParams);
 
-        return $this->render('view', [
+        return $this->render('index', [
             'searchFalta' => $searchFalta,
             'dataProviderFalta' => $dataProviderFalta,
         ]);

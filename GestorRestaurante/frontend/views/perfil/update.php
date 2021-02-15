@@ -14,46 +14,46 @@ use yii\helpers\Html;
     <div class="row d-flex justify-content-center">
         <div class="col-md-3">
             <!-- Profile Image -->
-            <?php if(Yii::$app->authManager->getAssignment('cliente',$id_user) != null):?>
+            <?php if(Yii::$app->authManager->getAssignment('cliente',$perfil->id_user) != null):?>
             <div class="card card-danger card-outline">
                 <?php endif?>
 
-                <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
+                <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$perfil->id_user) != null):?>
                 <div class="card card-blue card-outline">
                     <?php endif?>
 
-                    <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id_user) != null):?>
+                    <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$perfil->id_user) != null):?>
                     <div class="card card-green card-outline">
                         <?php endif?>
 
-                        <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null):?>
+                        <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$perfil->id_user) != null):?>
                         <div class="card card-purple card-outline">
                             <?php endif?>
 
 
                             <div class="card-body box-profile">
                                 <div class="text-center">
-                                    <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$id_user) !=null):
+                                    <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$perfil->id_user) !=null):
                                         if ($perfil->genero==0):?>
                                             <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-fluid img-circle']); ?>
                                         <?php else:?>
                                             <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-fluid img-circle']); ?>
                                         <?php endif; endif;?>
 
-                                    <?php if(Yii::$app->authManager->getAssignment('cliente',$id_user) != null):
+                                    <?php if(Yii::$app->authManager->getAssignment('cliente',$perfil->id_user) != null):
                                         if ($perfil->genero==0):?>
                                             <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-fluid img-circle']); ?>
                                         <?php else:?>
                                             <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-fluid img-circle']); ?>
                                         <?php endif; endif;?>
 
-                                    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):
+                                    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$perfil->id_user) != null):
                                         if ($perfil->genero==0):?>
                                             <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-fluid img-circle']); ?>
                                         <?php else:?>
                                             <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-fluid img-circle']); ?>
                                         <?php endif; endif;?>
-                                    <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null):
+                                    <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$perfil->id_user) != null):
                                         if ($perfil->genero==0):?>
                                             <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive img-circle']); ?>
                                         <?php else:?>
@@ -62,23 +62,23 @@ use yii\helpers\Html;
                                 </div>
 
                                 <h3 class="profile-username text-center"><?=$perfil->nome?> <?=$perfil->apelido?></h3>
-                                <p class="d-flex justify-content-center">
-                                <?php if(Yii::$app->authManager->getAssignment('cliente',$id_user) != null):?>
-                                    <span class="badge badge-danger text-white">Cliente</span>
-                                <?php endif?>
+                                <div class="text-center">
+                                    <?php if(Yii::$app->authManager->getAssignment('cliente',$perfil->id_user) != null):?>
+                                        <span class="badge badge-danger text-white">Cliente</span>
+                                    <?php endif?>
 
-                                <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
-                                    <span class="badge badge-primary text-white">Atendedor Pedidos</span>
-                                <?php endif?>
+                                    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$perfil->id_user) != null):?>
+                                        <span class="badge badge-primary text-white">Atendedor Pedidos</span>
+                                    <?php endif?>
 
-                                <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id_user) != null):?>
-                                    <span class="badge badge-success text-white">Cozinheiro</span>
-                                <?php endif?>
+                                    <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$perfil->id_user) != null):?>
+                                        <span class="badge badge-success text-white">Cozinheiro</span>
+                                    <?php endif?>
 
-                                <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null):?>
-                                    <span class="badge badge-indigo text-white">Empregado Mesa</span>
-                                <?php endif?>
-                                </p>
+                                    <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$perfil->id_user) != null):?>
+                                        <span class="badge badge-indigo text-white">Empregado Mesa</span>
+                                    <?php endif?>
+                                </div>
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -96,7 +96,7 @@ use yii\helpers\Html;
                                 <strong><i class="fas fa-calendar-alt mr-1"></i>Data Nascimento </strong>
                                 <p class="text-muted"><?=$perfil->datanascimento?></p>
                                 <hr>
-                                <strong><i class="fas fa-map-marker-alt mr-1"></i> Genero</strong>
+                                <strong><i class="fas fa-venus-mars"></i> Genero</strong>
                                 <p class="text-muted">
                                     <?php
                                     if($perfil->genero == 0):?>
@@ -122,15 +122,35 @@ use yii\helpers\Html;
                                         <!-- Solid divider -->
                                         <hr class="solid">
                                     </div>
-                                    <div class="row">
-                                        <div class="container">
-                                            <div class="picture-container">
-                                                <div class="picture">
-                                                    <img src="img/perfil.png" class="picture-src" id="wizardPicturePreview" title="">
-                                                    <input type="file" id="wizard-picture" class="">
-                                                </div>
-                                                <h6 class="">Escolher imagem</h6>
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-6 d-flex justify-content-center">
+                                            <div class="box-body box-profile user-painel mt-2 mb-3">
+                                                <?php if (Yii::$app->authManager->getAssignment('cozinheiro',$perfil->id_user) !=null):
+                                                    if ($perfil->genero==0):?>
+                                                        <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-fluid img-circle']); ?>
+                                                    <?php else:?>
+                                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cozinheiro img-fluid img-circle']); ?>
+                                                    <?php endif; endif;?>
 
+                                                <?php if(Yii::$app->authManager->getAssignment('cliente',$perfil->id_user) != null):
+                                                    if ($perfil->genero==0):?>
+                                                        <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-fluid img-circle']); ?>
+                                                    <?php else:?>
+                                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-cliente img-fluid img-circle']); ?>
+                                                    <?php endif; endif;?>
+
+                                                <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$perfil->id_user) != null):
+                                                    if ($perfil->genero==0):?>
+                                                        <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-fluid img-circle']); ?>
+                                                    <?php else:?>
+                                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-atendedor-pedidos img-fluid img-circle']); ?>
+                                                    <?php endif; endif;?>
+                                                <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$perfil->id_user) != null):
+                                                    if ($perfil->genero==0):?>
+                                                        <?= Html::img('img/female.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive img-circle']); ?>
+                                                    <?php else:?>
+                                                        <?= Html::img('img/male.png', ['alt' => 'imgPerfil', 'class' => 'profile-user-img profile-user-img-color-empregado-mesa img-responsive img-circle']); ?>
+                                                    <?php endif; endif;?>
                                             </div>
                                         </div>
                                     </div>

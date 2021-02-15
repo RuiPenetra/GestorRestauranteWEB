@@ -4293,3 +4293,7 @@ a.badge-dark:focus, a.badge-dark.focus {
     background-color: #4b545c;
     color: #fff;
 }
+
+.back-cost{
+    background-image:url('../img/banner_food.jpg')
+}

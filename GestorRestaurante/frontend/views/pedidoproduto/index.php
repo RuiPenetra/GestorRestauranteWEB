@@ -188,11 +188,25 @@ $id = Yii::$app->user->identity->id;
     </div>
 </div>
 
-<div class="card card-outline card-warning mr-5 ml-5"> <!--collapsed-card-->
+<?php if(Yii::$app->authManager->getAssignment('cliente',$id) != null):?>
+<div class="card card-danger card-outline mr-5 ml-5">
+<?php endif?>
+
+<?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
+<div class="card card-blue card-outline mr-5 ml-5">
+<?php endif?>
+
+<?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id) != null):?>
+<div class="card card-green card-outline mr-5 ml-5">
+<?php endif?>
+
+<?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id) != null):?>
+<div class="card card-purple card-outline mr-5 ml-5">
+<?php endif?>
     <div class="card-header">
         <h3 class="card-title">
             <i class="fas fa-bullhorn"></i>
-            Criar produto
+            Lista Produtos Pedidos
         </h3>
         <div class="card-tools">
             <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>

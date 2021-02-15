@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap4\LinkPager;
 use yii\helpers\Html;
 use yii\widgets\ListView;
 
@@ -9,14 +10,25 @@ use yii\widgets\ListView;
 
 $this->title = 'Faltas';
 $this->params['breadcrumbs'][] = $this->title;
+$id_user = Yii::$app->user->identity->id;
 ?>
-<?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>
-<div class="card card-outline card-blue mr-5 ml-5"><!--collapsed-card-->
-<?php endif?>
 
-<?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id) != null):?>
-    <div class="card card-outline card-indigo mr-5 ml-5"><!--collapsed-card-->
-<?php endif?>
+    <?php if(Yii::$app->authManager->getAssignment('cliente',$id_user) != null):?>
+    <div class="card card-danger card-outline mr-5 ml-5">
+    <?php endif?>
+
+    <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id_user) != null):?>
+    <div class="card card-blue card-outline mr-5 ml-5">
+    <?php endif?>
+
+    <?php if(Yii::$app->authManager->getAssignment('cozinheiro',$id_user) != null):?>
+    <div class="card card-green card-outline mr-5 ml-5">
+    <?php endif?>
+
+    <?php if(Yii::$app->authManager->getAssignment('empregadoMesa',$id_user) != null):?>
+    <div class="card card-purple card-outline mr-5 ml-5">
+    <?php endif?>
+
     <div class="card-header">
         <h3 class="card-title">
             <i class="fas fa-calendar-alt"></i>
@@ -52,8 +64,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endforeach;?>
                 </tbody>
             </table>
+            <div class="row col-md-12 d-flex justify-content-center">
+                <?= LinkPager::widget([
+                    'pagination' => $dataProviderFalta->getPagination(),
+                    'options' => [
+                        'class' => 'page-item',
+                    ],
+                ]);?>
+            </div>
         </div>
     </div>
     <!-- /.card-body -->
 </div>
-

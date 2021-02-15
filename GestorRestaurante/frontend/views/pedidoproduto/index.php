@@ -100,7 +100,7 @@ $id = Yii::$app->user->identity->id;
                 <div class="row col-md-12">
                     <div class="col-md-7">
                         <div class="row col-md-12">
-                            <?php if($pedido->estado!=2):?>
+                            <?php if($pedido->estado!=3):?>
                                 <?php if (Yii::$app->user->can('criarPedidoProduto') && Yii::$app->user->can('criarFaturas')):?>
                                     <?php if($pedido->tipo==1):?>
                                         <?php if(Yii::$app->authManager->getAssignment('atendedorPedidos',$id) != null):?>

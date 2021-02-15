@@ -57,8 +57,8 @@ $id = Yii::$app->user->identity->id;
             <div class="row mt-3 ml-3">
                 <div class="col-12">
                     <div class="row">
-
                         <?php foreach ($dataProvider->models as $produto): ?>
+
                             <div class="col-3 col-md-3 col-lg-2 col-xl-2 col-sm-3 mr-3">
                                 <div class="card">
                                     <div class="row d-flex justify-content-center">
@@ -124,7 +124,9 @@ $id = Yii::$app->user->identity->id;
                                     <a href="<?= Url::toRoute(['produto/view','id'=>$produto->id]) ?>" class="btn btn-dark btn-block">Saber mais...</a>
                                 </div>
                             </div>
+
                         <?php endforeach;?>
+
                     </div>
                     <div class="d-flex justify-content-center">
                         <?= LinkPager::widget([

@@ -10,7 +10,7 @@ use yii\widgets\ListView;
 /* @var $searchModel app\models\PedidoprodutoSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-
+$this->title='Pedido: '.$pedido->id;
 $this->params['breadcrumbs'][] = $this->title;
 $id = Yii::$app->user->identity->id;
 ?>

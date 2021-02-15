@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Url;
-
+$this->title="Login"
 ?>
 <div class="login-box">
     <!-- /.login-logo -->

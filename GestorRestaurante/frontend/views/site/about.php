@@ -3,11 +3,12 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
+$this->title="Contactos";
 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="site-about">
-    <h1><?= Html::encode($this->title) ?></h1>
     <h1 align="center"><b>Contactos</b></h1>
     <div class="site-index-img">
         <img src="img/logo.png" width="200px" height="200px"  class="rounded mx-auto d-block" alt="...">

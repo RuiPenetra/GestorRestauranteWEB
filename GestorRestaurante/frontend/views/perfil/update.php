@@ -5,7 +5,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Perfil */
-
+$this->title = 'Perfil';
 ?>
 
 <?php $id_user = Yii::$app->user->identity->id;?>

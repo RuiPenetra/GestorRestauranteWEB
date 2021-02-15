@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 /* @var $this yii\web\View */
 
-$this->title = 'Gestor Restaurante';
+$this->title = 'Ementa';
 
 ?>
 

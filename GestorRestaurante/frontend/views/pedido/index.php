@@ -79,13 +79,13 @@ $id_user = Yii::$app->user->identity->id;
                         <th class="text-center" style="width: 20%">
                             Nome Pedido
                         </th>
-                        <th class="text-center" style="width: 20%" >
+                        <th class="text-center" style="width: 10%" >
                             Progresso
                         </th>
                         <th class="text-center" style="width: 10%" >
                             Estado
                         </th>
-                        <th class="text-center" style="width: 20%">
+                        <th class="text-center" style="width: 30%">
                         </th>
                     </tr>
                     </thead>

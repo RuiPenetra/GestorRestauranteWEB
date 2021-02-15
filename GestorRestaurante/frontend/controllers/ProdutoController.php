@@ -59,8 +59,16 @@ class ProdutoController extends Controller
      */
     public function actionIndex()
     {
+        $id= Yii::$app->user->identity->id;
         $categorias = ArrayHelper::map(CategoriaProduto::find()->all(),'id','nome');
         $searchModel = new ProdutoSearch();
+
+        if (Yii::$app->user->can('criarProdutos')==null)
+        {
+
+            $searchModel->estado=0;
+        }
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination = ['pageSize' => 10];
         return $this->render('index', [

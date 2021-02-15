@@ -40,10 +40,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
+                'only' => ['start','signup', 'login','menu','about','index'],
                 'rules' => [
                     [
-                        'actions' => ['start','signup', 'login','menu','menuentradas','menucarne','menupeixe',
-                        'menubebida','menusopa','menusobremesa','about'],
+                        'actions' => ['start','signup', 'login','menu','about'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -368,5 +368,6 @@ class SiteController extends Controller
         return $this->render('homepagelogin',['perfil' => $perfil]);
 
     }
+
 
 }

@@ -79,7 +79,7 @@ class PedidoController extends Controller
         $mesas = ArrayHelper::map(Mesa::find()->all(),'id','id');
 
 
-            $dataProvider->pagination = ['pageSize' => 5];
+            $dataProvider->pagination = ['pageSize' => 6];
 
             return $this->render('index', [
                 'dataProvider' => $dataProvider,
@@ -285,5 +285,6 @@ class PedidoController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
 
 }

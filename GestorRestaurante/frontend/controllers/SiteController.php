@@ -122,12 +122,11 @@ class SiteController extends Controller
 
             }else{
 
-                Yii::$app->session->setFlash('danger', 'Utilizador não tem premissão para aceder');
                 return $this->goBack();
 
 
             }
-            return $this->redirect(['index']);
+
         }
             else {
             $model->password = '';

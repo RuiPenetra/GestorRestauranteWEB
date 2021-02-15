@@ -10,7 +10,6 @@ $this->title = 'Preparação';
 $id = Yii::$app->user->identity->id;
 ?>
 <?php $form = ActiveForm::begin(['class'=>'','validateOnBlur'=>false])?>
-
 <div class="row col-md-12">
     <div class="col-md-4 text-center">
         <?php if ($itemPedido->produto->categoria->nome == 'Entrada'): ?>
